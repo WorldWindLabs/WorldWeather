@@ -22,10 +22,10 @@ ul.tab li a {
 }
 
 /* Change background color of links on hover */
-ul.tab li a:hover {background-color: #aaa;}
+ul.tab li a:hover {background-color: rgba(143, 143, 143, 0.68);}
 
 /* Create an active/current tablink class */
-ul.tab li a[target] {background-color: #8e8e8e;}
+ul.tab li a[target] {background-color: rgba(97, 97, 97, 0.67);}
 
 
 /* Style the tab content */
