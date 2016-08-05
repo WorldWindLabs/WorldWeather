@@ -85,6 +85,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
 {
   "use strict";
 
+
 	ww.configuration.baseUrl += "../";
 
   WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
@@ -124,6 +125,8 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
   {
       layerManager.onProjectionClick(e);
   });
+
+    $("#projectionDropdown").find("button").css({"backgroundColor":"black"});
 
   var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
       geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;

@@ -46,6 +46,7 @@ define(function ()
 		       var projectionName = event.target.innerText || event.target.innerHTML;
 		       $("#projectionDropdown").find("button").html(projectionName + ' <span class="caret"></span>');
 
+
 		       if (projectionName === "3D") {
 			       if (!this.roundGlobe) {
 				       this.roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
