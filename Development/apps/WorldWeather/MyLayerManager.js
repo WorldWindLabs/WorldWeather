@@ -245,7 +245,7 @@ define(function ()
 							                        layer.displayName + "</h5><br/><h5>" + layer.currentTimeString + "</h5><br/><br/><br/>" +
 							                        "<img src=\"" + layer.legend + "\" style=\" " +
 							                        "transform: rotate(90deg) translateX(30%) translateY(150%); width: 200%\" />" +
-							                        "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>");
+							                        "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>");
 						       }
 					       }
 
