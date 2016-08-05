@@ -32,21 +32,28 @@ function openTab(evt, tabName)
 		}
 	}
 
-	// Get all elements with class="tablinks" and remove the class "active"
+	// Get all elements with class="tablinks" and remove the attribute "active"
 	tablinks = document.getElementsByClassName("tablinks");
 	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	    if (tablinks[i].hasAttribute("target","active")){
+
+        tablinks[i].removeAttribute("target","active");}
+
 	}
 
-	// Show the current tab, and add an "active" class to the link that opened the tab
+	// Show the current tab, and add an "active" attribute to the link that opened the tab, or removes it if it was already open
 
 	if (document.getElementById(tabName).style.display == "none") {
 		document.getElementById(tabName).style.display = "block";
-		evt.currentTarget.className.replace("", " active");
+        evt.currentTarget.setAttribute("target", "active");
+
 	}
 	else {
 		document.getElementById(tabName).style.display = "none";
-		evt.currentTarget.className.replace(" active", "");
+        document.getElementById(tabName).className.replace("active", "");
+        evt.currentTarget.removeAttribute("target", "active");
+
+
 	}
 
 	tabcontent = document.getElementsByClassName("tabcontent");
