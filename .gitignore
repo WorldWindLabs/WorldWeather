@@ -3,6 +3,9 @@ WebWorldWind.zip
 
 # Created by https://www.gitignore.io/api/windows,linux,webstorm,node,grunt,bower
 
+*.iml
+*.xml
+
 ### Windows ###
 # Windows image file caches
 Thumbs.db
