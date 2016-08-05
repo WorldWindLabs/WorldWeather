@@ -32,10 +32,10 @@ body
 </style>
 
 <ul class="tab" style="z-index: 999; position: fixed; left: 0; width: 100%; background: rgba(0,0,0,0.5);">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
-
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
 </ul>
 
 <div class="container">
@@ -45,17 +45,49 @@ body
         </canvas>
     </div>
 
-    <div id="selectedlayers" class="col-sm-2 tabcontent">
+    <div id="options_div" class="col-sm-2 tabcontent">
         <style scoped>
-            #selectedlayers
+            #options_div
             {
-                width: 15%;
-                height: 100%;
+                width: 20%;
+                height: 92%;
                 left: 0;
                 top: 8%;
                 position: fixed;
                 background: rgba(0, 0, 0, 0.5);
                 overflow: hidden !important;
+            }
+
+        </style>
+
+        <br/>
+        <h5><span style="color: white; ">Change Projection</span></h5>
+        <div class="dropdown" id="projectionDropdown">
+        </div>
+        <h5><span style="color: white; ">Destination</span></h5>
+        <div class="input-group" id="searchBox">
+            <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
+            <span class="input-group-btn">
+                    <button id="searchButton" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+        </div>
+
+    </div>
+
+    <div id="selectedlayers" class="col-sm-2 tabcontent">
+        <style scoped>
+            #selectedlayers
+            {
+                width: 20%;
+                height: 92%;
+                left: 0;
+                top: 8%;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.5);
+                overflow-y: scroll !important;
+                overflow-x: hidden;
             }
         </style><br/>
         <div style="color: white; text-align: center !important; font-size: 125% !important;">
@@ -70,18 +102,20 @@ body
         <style scoped>
             #legend_division
             {
-                height: 100%;
-                width: 15%;
+                height: 92%;
+                width: 20%;
                 left: 0;
                 top: 8%;
                 position: fixed !important;
-                overflow: hidden !important;
+                overflow-y: scroll !important;
+                overflow-x: hidden !important;
                 text-align: center;
                 background: rgba(255, 255, 255, 1);
                 display: none;
                 z-index: 900;
             }
-            </style>
+        </style>
+        <span id= "noLegends" style="color: black;"><br/><br/><h4>No Legends to show</h4><br/><br/><h5>Please add a layer from the Available Layers tab in order to see the legends</h5></span>
         <div id="legend_placeholder"></div>
     </div>
 
@@ -90,39 +124,29 @@ body
             #layersdiv
             {
                 position: fixed;
-                width: 15%;
-                height: 100%;
+                width: 20%;
+                height: 92%;
                 top: 8%;
                 left: 0;
                 background: rgba(0,0,0,0.5);
                 overflow-x: visible !important;
             }
         </style>
-            <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
-            <div id="layers_options" ><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
-            <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
-            <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
-            <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Add ECMWF layers</span></h5>
-            <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Add NEO layers</span></h5>
-            <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-            <h5><span style="color: white; ">Change Projection</span></h5>
-            <div class="dropdown" id="projectionDropdown">
-            </div>
-            <h5><span style="color: white; ">Destination</span></h5>
-            <div class="input-group" id="searchBox">
-                <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
-                <span class="input-group-btn">
-                    <button id="searchButton" class="btn btn-primary" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div>
-        </div>
+        <br/>
+        <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
+        <div id="layers_options" ><img src="Loading_icon.gif" style="width: 25%"/></div>
+        <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
+        <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+        <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
+        <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+        <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
+        <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+        <h5><span style="color: white; ">Add ECMWF layers</span></h5>
+        <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+        <h5><span style="color: white; ">Add NEO layers</span></h5>
+        <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+
+    </div>
     </div>
 
     <script src="worldwindlib.js" type="text/javascript"></script>

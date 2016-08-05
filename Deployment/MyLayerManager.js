@@ -2,7 +2,9 @@
  * Copyright (C) 2014 United States Government as represented by the Administrator of the
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
-
+/**
+ * @exports LayerManager
+ */
 
 "use strict";
 
@@ -42,6 +44,7 @@ LayerManager.prototype.onProjectionClick = function (event)
 {
    var projectionName = event.target.innerText || event.target.innerHTML;
    $("#projectionDropdown").find("button").html(projectionName + ' <span class="caret"></span>');
+
 
    if (projectionName === "3D") {
        if (!this.roundGlobe) {
@@ -175,6 +178,7 @@ LayerManager.prototype.onGEOMETLayerClick = function (event)
 		       layer.enabled = true;
 
 		       if (layer.legend && layer.legend != "") {
+			       $("#noLegends").html('');
 			       var placeholder = $("#legend_placeholder");
 			       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 			                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
@@ -205,6 +209,7 @@ LayerManager.prototype.onNOAALayerClick = function (event)
 		       layer.enabled = true;
 
 		       if (layer.legend && layer.legend != "") {
+			       $("#noLegends").html('');
 			       var placeholder = $("#legend_placeholder");
 			       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 			                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
@@ -237,12 +242,13 @@ LayerManager.prototype.onECMWFLayerClick = function (event)
 		       if (layer.displayName != "Foreground" && layer.displayName != "Boundaries") {
 			       console.log(layer.displayName);
 			       if (layer.legend && layer.legend != "") {
+				       $("#noLegends").html('');
 				       var placeholder = $("#legend_placeholder");
 				       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h5>" +
 				                        layer.displayName + "</h5><br/><h5>" + layer.currentTimeString + "</h5><br/><br/><br/>" +
 				                        "<img src=\"" + layer.legend + "\" style=\" " +
 				                        "transform: rotate(90deg) translateX(30%) translateY(150%); width: 200%\" />" +
-				                        "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>");
+				                        "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>");
 			       }
 		       }
 
@@ -270,6 +276,7 @@ LayerManager.prototype.onNEOLayerClick = function (event)
 		       layer.enabled = true;
 
 		       if (layer.legend && layer.legend != "") {
+			       $("#noLegends").html('');
 			       var placeholder = $("#legend_placeholder");
 			       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 			                        layer.displayName + "</h4><br/>" +
@@ -294,6 +301,14 @@ LayerManager.prototype.onLayerClick3 = function (e)
    var uniqueSelector = $("#" + layer.uniqueID);
    if (uniqueSelector.length) {
        uniqueSelector.remove();
+   }
+
+   var legend_selector = $("#legend_placeholder");
+
+   if (legend_selector.html() == "")
+   {
+       $("#noLegends").html('<br/><br/><h4>No Legends to show</h4><br/><br/><h5>Please add a layer from the Available Layers tab in order to see the legends</h5>');
+
    }
 
    layer.enabled       = false;
