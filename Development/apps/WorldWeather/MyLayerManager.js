@@ -178,6 +178,7 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
+                               $("#noLegends").html('');
 						       var placeholder = $("#legend_placeholder");
 						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 						                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
@@ -208,6 +209,7 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
+                               $("#noLegends").html('');
 						       var placeholder = $("#legend_placeholder");
 						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 						                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
@@ -240,6 +242,7 @@ define(function ()
 					       if (layer.displayName != "Foreground" && layer.displayName != "Boundaries") {
 						       console.log(layer.displayName);
 						       if (layer.legend && layer.legend != "") {
+                                   $("#noLegends").html('');
 							       var placeholder = $("#legend_placeholder");
 							       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h5>" +
 							                        layer.displayName + "</h5><br/><h5>" + layer.currentTimeString + "</h5><br/><br/><br/>" +
@@ -273,6 +276,7 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
+                               $("#noLegends").html('');
 						       var placeholder = $("#legend_placeholder");
 						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
 						                        layer.displayName + "</h4><br/>" +
@@ -298,6 +302,14 @@ define(function ()
 		       if (uniqueSelector.length) {
 			       uniqueSelector.remove();
 		       }
+
+               var legend_selector = $("#legend_placeholder");
+
+               if (legend_selector.html() == "")
+               {
+                   $("#noLegends").html('<br/><br/><h4>No Legends to show</h4><br/><br/><h5>Please add a layer from the Available Layers tab in order to see the legends</h5>');
+
+               }
 
 		       layer.enabled       = false;
 		       layer.layerSelected = false;
