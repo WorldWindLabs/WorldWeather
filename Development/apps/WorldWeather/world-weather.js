@@ -14,6 +14,22 @@ function pad(number)
 	return number.toString();
 }
 
+String.prototype.replaceAll = function(search, replacement) {
+	var target = this;
+	return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+function titleCase(str) {
+	var splitStr = str.toLowerCase().split(' ');
+	for (var i = 0; i < splitStr.length; i++) {
+		// You do not need to check if i is larger than splitStr length, as your for does that for you
+		// Assign it back to the array
+		splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+	}
+	// Directly return the joined string
+	return splitStr.join(' ');
+}
+
 //Managing the tabs
 function openTab(evt, tabName)
 {
@@ -119,6 +135,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
   var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
   var ecmwf_url  = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
   var neo_url    = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
+  //var neo_url = 'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi?service=WMS&request=GetCapabilities';
 
   try {
       $.get(dem_url,
@@ -281,6 +298,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
 	                  else {
 		                  if (section.title && section.title != "") {
 			                  if (section.title.indexOf("GDPS") !== -1) {
+				                  section.title = section.title.replace("GDPS.","");
 				                  var geomet_layer
 					                      = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
 				                  geomet_layer.enabled = false;
@@ -335,6 +353,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
 	                  }
 	                  else {
 		                  if (section.title && section.title != "") {
+			                  section.title = titleCase(section.title.replaceAll("_"," "));
 			                  var noaa_layer
 				                      = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
 			                  noaa_layer.enabled = false;
