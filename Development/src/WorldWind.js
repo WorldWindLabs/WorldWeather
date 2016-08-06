@@ -801,7 +801,7 @@ define([ // PLEASE KEEP ALL THIS IN ALPHABETICAL ORDER BY MODULE NAME (not direc
          * @type {{gpuCacheSize: number}}
          */
         WorldWind.configuration = {
-            gpuCacheSize: 250e6,
+            gpuCacheSize: 500e6, // used to be 250e6
             baseUrl: (WWUtil.worldwindlibLocation()) || (WWUtil.currentUrlSansFilePart() + '/../')
         };
 

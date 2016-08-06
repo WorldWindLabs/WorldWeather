@@ -32,8 +32,9 @@
     }
 </style>
 
-<ul class="tab" style="z-index: 999; position: fixed; left: 0; width: 100%; background: rgba(0,0,0,0.5);">
+<ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 8%; width: 100%; background: rgba(0,0,0,0.5);">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers &#9660</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')">Layer Categories &#9660</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options &#9660</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends &#9660</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers &#9660</a></li>
@@ -148,6 +149,50 @@
         <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
 
     </div>
+
+
+
+    <div id="categories_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #categories_div
+            {
+                position: fixed;
+                width: 20%;
+                height: 92%;
+                top: 8%;
+                left: 0;
+                background: rgba(0,0,0,0.5);
+                overflow-x: visible !important;
+                overflow-y: scroll;
+            }
+        </style>
+        <br/>
+        <h5><span style="color: white; ">Air Quality</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Ash Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Drought</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Dust Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Fires</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Floods</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Severe Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Shipping</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Smoke Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Vegetation</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Others</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+
+    </div>
+
+
 </div>
 
 </body>
