@@ -30,13 +30,13 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-//Managing the tabs
+// Managing the tabs
 function openTab(evt, tabName)
 {
     // Declare all variables
     var i, tabcontent, tablinks;
 
-    //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
+    // If the page has just been loaded, Get all elements with class="tabcontent" and hide them
     if (document.isInit) {
         // do nothing
     }
@@ -84,7 +84,8 @@ $(document).ready(function ()
 {
     "use strict";
 
-    //ww.configuration.baseUrl += "../";
+    // This line is only used in the Development folder
+    // ww.configuration.baseUrl += "../";
 
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
 

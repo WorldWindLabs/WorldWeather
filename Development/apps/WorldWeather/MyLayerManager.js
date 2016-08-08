@@ -22,6 +22,8 @@ define(function ()
 
 		       this.wwd = worldWindow;
 
+               document.numberOfLegends = 0;
+
 		       this.roundGlobe = this.wwd.globe;
 
 		       this.createLayerList();
@@ -179,11 +181,24 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
-                               $("#noLegends").html('');
+                               $("#noLegends").css('display','none');
+
+                               document.numberOfLegends += 1;
+
 						       var placeholder = $("#legend_placeholder");
-						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
-						                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
-						                        "<img src=\"" + layer.legend + "\"  /><br/><br/></div>");
+
+                               var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
+                               legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
+                               legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
+
+                               if (layer.currentTimeString) {
+                                   legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
+                               }
+
+                               legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend  +  "\" /><br/><br/>";
+                               legendAdditions += "</span></span></span></span>";
+
+                               placeholder.html(placeholder.html() + legendAdditions);
 					       }
 
 					       this.wwd.layers.move(i, this.wwd.layers.length - 1);
@@ -210,11 +225,22 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
-                               $("#noLegends").html('');
+                               $("#noLegends").css('display','none');
+
+                               document.numberOfLegends += 1;
+
 						       var placeholder = $("#legend_placeholder");
-						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
-						                        layer.displayName + "</h4><br/><h5>"+ layer.currentTimeString +"</h5><br/>" +
-						                        "<img src=\"" + layer.legend + "\"   /><br/><br/></div>");
+
+                               var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
+                               legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
+                               legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
+                               if (layer.currentTimeString) {
+                                   legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
+                               }
+                               legendAdditions += "<img style=\"max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
+                               legendAdditions += "</span></span></span></span>";
+
+                               placeholder.html(placeholder.html() + legendAdditions);
 					       }
 
 					       this.wwd.layers.move(i, this.wwd.layers.length - 1);
@@ -243,13 +269,22 @@ define(function ()
 					       if (layer.displayName != "Foreground" && layer.displayName != "Boundaries") {
 						       console.log(layer.displayName);
 						       if (layer.legend && layer.legend != "") {
-                                   $("#noLegends").html('');
+                                   $("#noLegends").css('display','none');
+
+                                   document.numberOfLegends += 1;
+
 							       var placeholder = $("#legend_placeholder");
-							       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h5>" +
-							                        layer.displayName + "</h5><br/><h5>" + layer.currentTimeString + "</h5><br/><br/><br/>" +
-							                        "<img src=\"" + layer.legend + "\" style=\" " +
-							                        "transform: rotate(90deg) translateX(30%) translateY(150%); width: 200%\" />" +
-							                        "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>");
+
+                                   var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
+                                   legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
+                                   legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
+                                   if (layer.currentTimeString) {
+                                       legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
+                                   }
+                                   legendAdditions += "<img style=\" max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
+                                   legendAdditions += "</span></span></span></span>";
+
+                                   placeholder.html(placeholder.html() + legendAdditions);
 						       }
 					       }
 
@@ -277,11 +312,21 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.legend && layer.legend != "") {
-                               $("#noLegends").html('');
+                               $("#noLegends").css('display','none');
 						       var placeholder = $("#legend_placeholder");
-						       placeholder.html(placeholder.html() + "<div id=\"" + layer.uniqueID + "\" ><h4>" +
-						                        layer.displayName + "</h4><br/>" +
-						                        "<img src=\"" + layer.legend + "\" style=\" width: 100%; height: auto \"  /><br/><br/></div>");
+
+                               document.numberOfLegends += 1;
+
+                               var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
+                               legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
+                               legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
+                               if (layer.currentTimeString) {
+                                   legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
+                               }
+                               legendAdditions += "<img style=\"max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
+                               legendAdditions += "</span></span></span></span>";
+
+                               placeholder.html(placeholder.html() + legendAdditions);
 					       }
 
 					       this.wwd.layers.move(i, this.wwd.layers.length - 1);
@@ -306,9 +351,13 @@ define(function ()
 
                var legend_selector = $("#legend_placeholder");
 
-               if (legend_selector.html() == "")
+			   //console.log(legend_selector.html());
+
+               document.numberOfLegends -= 1;
+
+               if (document.numberOfLegends == 0)
                {
-                   $("#noLegends").html('<br/><br/><h4>No Legends to show</h4><br/><br/><h5>Please add a layer from the Available Layers tab in order to see the legends</h5>');
+                   $("#noLegends").css('display','block');
 
                }
 
