@@ -165,6 +165,14 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
   var neo_url    = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
   //var neo_url = 'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi?service=WMS&request=GetCapabilities';
 
+
+    // implementing the perfect scrollbar
+    $('#options_div').perfectScrollbar();
+    $('#selectedlayers').perfectScrollbar();
+    $('#legend_division').perfectScrollbar();
+    $('#categories_div').perfectScrollbar();
+
+
   try {
       $.get(dem_url,
             function (dem_response)
