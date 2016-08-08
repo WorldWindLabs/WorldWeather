@@ -80,6 +80,31 @@ function openTab(evt, tabName)
 	}
 }
 
+
+
+
+function openPage(evt, pageName)
+{
+    var i, pagecontent;
+
+    // TODO: change this to jquery
+
+    pagecontent      = document.getElementsByClassName("pagecontent");
+    for (i = 0; i < pagecontent.length; i++) {
+        if (pagecontent[i].id != pageName.toString()){
+            pagecontent[i].style.display = "none";}
+        else{
+            pagecontent[i].style.display = "block";
+        }
+    }
+
+
+
+
+
+
+}
+
 requirejs(['../../src/WorldWind', './MyLayerManager'],
           function (ww, LayerManager)
 {

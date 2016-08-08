@@ -152,25 +152,30 @@
 
         <br/>
 
-        <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
-        <div id="layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
-        <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
-        <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
-        <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
-        <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
-        <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
-        <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
-        <h5><span style="color: white; ">Add ECMWF layers</span></h5>
-        <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
-        <h5><span style="color: white; ">Add NEO layers</span></h5>
-        <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+        <div id="firstPage" class="pagecontent">
+            <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
+            <div id="layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
+            <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
+            <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
+            <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+        </div>
+
+        <div id="secondPage" class="pagecontent" style="display: none">
+            <h5><span style="color: white; ">Add ECMWF layers</span></h5>
+            <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add NEO layers</span></h5>
+            <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+        </div>
 
         <br/><br/>
         <span style="bottom: 0; position: fixed;">
         <nav class="pagination">
-            <ul>
-                <li><a class="button">1</a></li>
-                <li><a class="button">2</a></li>
+            <ul >
+                <li><a class="button" onclick="openPage(event, 'firstPage')">1</a></li>
+                <li><a class="button" onclick="openPage(event, 'secondPage')">2</a></li>
             </ul>
         </nav>
         </span>
