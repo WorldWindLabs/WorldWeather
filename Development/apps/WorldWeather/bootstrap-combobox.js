@@ -389,6 +389,7 @@
         case 13: // enter
           if (!this.shown) {return;}
           this.select();
+          this.toggle();
           break;
 
         case 27: // escape

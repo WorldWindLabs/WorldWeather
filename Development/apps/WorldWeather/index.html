@@ -52,6 +52,20 @@
         </canvas>
     </div>
 
+    <div class="modal" style="display: none" id="legends_modal">
+        <div class="modal-background"></div>
+        <div class="modal-card" style="z-index: 2000; top: 100px; ">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="legends_modal_title"></p>
+                <button class="delete" id="legends_modal_delete_button"><a></a></button>
+            </header>
+            <section class="modal-card-body" id="legends_modal_text">
+            </section>
+            <footer class="modal-card-foot">
+            </footer>
+        </div>
+    </div>
+
     <div id="options_div" class="col-sm-2 tabcontent">
         <style scoped>
             #options_div {
@@ -193,6 +207,8 @@
                     <a class="card-footer-item">Edit</a>
                     <a class="card-footer-item">Delete</a>
                 </footer>
+
+
             </div>
 
         </div>
@@ -262,47 +278,47 @@
         </style>
         <br/>
         <h5><span style="color: white; ">Air Quality</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="air_quality_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Ash Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="ash_plumes_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Drought</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="drought_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Dust Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="dust_storms_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Fires</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="fires_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Floods</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="floods_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Severe Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="severe_storms_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Shipping</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="shipping_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Smoke Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="smoke_plumes_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Vegetation</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="vegetation_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Others</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="other_categories_combobox explorer_combobox">
             <option></option>
         </select><br/>
 
