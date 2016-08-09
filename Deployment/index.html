@@ -8,11 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <script src='perfect-scrollbar.jquery.min.js'></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bootstrap-combobox.css">
     <script src="bootstrap-combobox.js"></script>
     <script src="world-weather.js" type="text/javascript"></script>
     <link rel="stylesheet" href="styles/MyStyles.css"/>
+    <link rel="stylesheet" href="styles/bulma.css"/>
+    <link rel="stylesheet" href="styles/perfect-scrollbar.min.css"/>
 </head>
 <body>
 <style media="screen" type="text/css" scoped>
@@ -31,8 +34,9 @@ body
 }
 </style>
 
-<ul class="tab" style="z-index: 999; position: fixed; left: 0; width: 100%; background: rgba(0,0,0,0.5);">
+<ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 8%; width: 100%; background: rgba(0,0,0,0.5);">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
@@ -40,16 +44,17 @@ body
 
 <div class="container">
     <div class="col-sm-8" id="globe" style="width: 100%; height: 100%; position: fixed; left: 0; top: 0">
-        <canvas id="canvasOne" width="1920" height="1080" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
+        <canvas id="canvasOne" width="1920" height="1080"
+                style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
             Your browser does not support HTML5 Canvas.
         </canvas>
     </div>
 
     <div id="options_div" class="col-sm-2 tabcontent">
         <style scoped>
-            #options_div
-            {
+            #options_div {
                 width: 20%;
+                min-width: 270px;
                 height: 92%;
                 left: 0;
                 top: 8%;
@@ -63,7 +68,7 @@ body
         <br/>
         <h5><span style="color: white; ">Change Projection</span></h5>
         <div class="dropdown" id="projectionDropdown">
-        </div>
+        </div><br/>
         <h5><span style="color: white; ">Destination</span></h5>
         <div class="input-group" id="searchBox">
             <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
@@ -73,23 +78,22 @@ body
                     </button>
                 </span>
         </div>
-
     </div>
 
     <div id="selectedlayers" class="col-sm-2 tabcontent">
         <style scoped>
-            #selectedlayers
-            {
+            #selectedlayers {
                 width: 20%;
+                min-width: 270px;
                 height: 92%;
                 left: 0;
                 top: 8%;
                 position: fixed;
                 background: rgba(0, 0, 0, 0.5);
-                overflow-y: scroll !important;
-                overflow-x: hidden;
+                overflow: hidden;
             }
-        </style><br/>
+        </style>
+        <br/>
         <div style="color: white; text-align: center !important; font-size: 125% !important;">
             <span id="count">Selected layers</span></div>
         <br/>
@@ -100,54 +104,147 @@ body
 
     <div id="legend_division" class="col-sm-2 tabcontent">
         <style scoped>
-            #legend_division
-            {
+            #legend_division {
                 height: 92%;
+                min-width: 270px;
                 width: 20%;
                 left: 0;
                 top: 8%;
                 position: fixed !important;
-                overflow-y: scroll !important;
-                overflow-x: hidden !important;
+                overflow: hidden;
                 text-align: center;
-                background: rgba(255, 255, 255, 1);
+                background: rgba(0, 0, 0, 0.5);
                 display: none;
                 z-index: 900;
             }
         </style>
-        <span id= "noLegends" style="color: black;"><br/><br/><h4>No Legends to show</h4><br/><br/><h5>Please add a layer from the Available Layers tab in order to see the legends</h5></span>
-        <div id="legend_placeholder"></div>
+        <div id="legend_placeholder">
+
+            <br/><br/>
+
+            <span id="noLegends" style="color: black;">
+                <span class="box"><span class="media"><span class="media-content">
+                    <span class="content" style="align-items: center">
+                            <span style="font-size: 125%;">No Legends To Show</span>
+                            <br/><br/>
+                            <span style="font-size: 100%;">Please add a layer from the Available Layers tab in order to see the legends.</span>
+                    </span>
+                </span></span></span>
+            </span>
+
+        </div>
     </div>
 
     <div id="layersdiv" class="col-sm-2 tabcontent">
         <style scoped>
-            #layersdiv
-            {
+            #layersdiv {
                 position: fixed;
                 width: 20%;
+                min-width: 270px;
                 height: 92%;
                 top: 8%;
                 left: 0;
-                background: rgba(0,0,0,0.5);
+                background: rgba(0, 0, 0, 0.5);
                 overflow-x: visible !important;
             }
         </style>
+
         <br/>
-        <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
-        <div id="layers_options" ><img src="Loading_icon.gif" style="width: 25%"/></div>
-        <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
-        <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-        <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
-        <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-        <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
-        <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-        <h5><span style="color: white; ">Add ECMWF layers</span></h5>
-        <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
-        <h5><span style="color: white; ">Add NEO layers</span></h5>
-        <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div>
+
+        <div id="firstPage" class="pagecontent">
+            <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
+            <div id="layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
+            <div id="esa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
+            <div id="noaa_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
+            <div id="geomet_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+        </div>
+
+        <div id="secondPage" class="pagecontent" style="display: none">
+            <h5><span style="color: white; ">Add ECMWF layers</span></h5>
+            <div id="ecmwf_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+            <h5><span style="color: white; ">Add NEO layers</span></h5>
+            <div id="neo_layers_options"><img src="Loading_icon.gif" style="width: 25%"/></div><br/>
+        </div>
+
+        <br/><br/>
+        <span style="bottom: 0; position: fixed;">
+        <nav class="pagination">
+            <ul >
+                <li><a class="button" onclick="openPage(event, 'firstPage')">1</a></li>
+                <li><a class="button" onclick="openPage(event, 'secondPage')">2</a></li>
+            </ul>
+        </nav>
+        </span>
 
     </div>
+
+
+    <div id="categories_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #categories_div {
+                position: fixed;
+                width: 20%;
+                min-width: 270px;
+                height: 92%;
+                top: 8%;
+                left: 0;
+                background: rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+            }
+        </style>
+        <br/>
+        <h5><span style="color: white; ">Air Quality</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Ash Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Drought</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Dust Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Fires</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Floods</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Severe Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Shipping</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Smoke Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Vegetation</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+        <h5><span style="color: white; ">Others</span></h5>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select><br/>
+
     </div>
+
+
+</div>
 
     <script src="worldwindlib.js" type="text/javascript"></script>
     <script src="MyLayerManager.js" type="text/javascript"></script>

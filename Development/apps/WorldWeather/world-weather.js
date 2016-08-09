@@ -8,80 +8,78 @@
 
 function pad(number)
 {
-	if (number < 10) {
-		return '0' + number.toString();
-	}
-	return number.toString();
+    if (number < 10) {
+        return '0' + number.toString();
+    }
+    return number.toString();
 }
 
 String.prototype.replaceAll = function(search, replacement) {
-	var target = this;
-	return target.replace(new RegExp(search, 'g'), replacement);
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
 };
 
 function titleCase(str) {
-	var splitStr = str.toLowerCase().split(' ');
-	for (var i = 0; i < splitStr.length; i++) {
-		// You do not need to check if i is larger than splitStr length, as your for does that for you
-		// Assign it back to the array
-		splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-	}
-	// Directly return the joined string
-	return splitStr.join(' ');
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        // You do not need to check if i is larger than splitStr length, as your for does that for you
+        // Assign it back to the array
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    // Directly return the joined string
+    return splitStr.join(' ');
 }
 
 //Managing the tabs
 function openTab(evt, tabName)
 {
-	// Declare all variables
-	var i, tabcontent, tablinks;
+    // Declare all variables
+    var i, tabcontent, tablinks;
 
-	//If the page has just been loaded, Get all elements with class="tabcontent" and hide them
-	if (document.isInit) {
-		// do nothing
-	}
-	else {
-		document.isInit = 1;
-		tabcontent      = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-	}
+    //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
+    if (document.isInit) {
+        // do nothing
+    }
+    else {
+        document.isInit = 1;
+        tabcontent      = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+    }
 
-	// Get all elements with class="tablinks" and remove the attribute "active"
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-	    if (tablinks[i].hasAttribute("target","active")){
+    // Get all elements with class="tablinks" and remove the attribute "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        if (tablinks[i].hasAttribute("target","active")){
 
-        tablinks[i].removeAttribute("target","active");}
+            tablinks[i].removeAttribute("target","active");}
 
-	}
+    }
 
-	// Show the current tab, and add an "active" attribute to the link that opened the tab, or removes it if it was already open
+    // Show the current tab, and add an "active" attribute to the link
+    // that opened the tab, or removes it if it was already open
 
-	if (document.getElementById(tabName).style.display == "none") {
-		document.getElementById(tabName).style.display = "block";
+    if (document.getElementById(tabName).style.display == "none") {
+        document.getElementById(tabName).style.display = "block";
         evt.currentTarget.setAttribute("target", "active");
 
-	}
-	else {
-		document.getElementById(tabName).style.display = "none";
+    }
+    else {
+        document.getElementById(tabName).style.display = "none";
         document.getElementById(tabName).className.replace("active", "");
         evt.currentTarget.removeAttribute("target", "active");
 
 
-	}
+    }
 
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
 
-		if (tabcontent[i].id != tabName.toString())
-			tabcontent[i].style.display = "none";
-	}
+        if (tabcontent[i].id != tabName.toString())
+            tabcontent[i].style.display = "none";
+    }
 }
-
-
-
 
 function openPage(evt, pageName)
 {
@@ -97,23 +95,18 @@ function openPage(evt, pageName)
             pagecontent[i].style.display = "block";
         }
     }
-
-
-
-
-
-
 }
+
+
 
 requirejs(['../../src/WorldWind', './MyLayerManager'],
           function (ww, LayerManager)
 {
   "use strict";
 
+  ww.configuration.baseUrl += "../";
 
-	ww.configuration.baseUrl += "../";
-
-  WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
+  WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
   var wwd = new WorldWind.WorldWindow("canvasOne");
 
@@ -146,12 +139,15 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
   var layerManager = new LayerManager(wwd);
 
   layerManager.createProjectionList();
-  $("#projectionDropdown").find(" li").on("click", function (e)
+
+  var projectionLinker = $("#projectionDropdown");
+
+  projectionLinker.find(" li").on("click", function (e)
   {
       layerManager.onProjectionClick(e);
   });
 
-    $("#projectionDropdown").find("button").css({"backgroundColor":"black"});
+  projectionLinker.find("button").css({"backgroundColor":"black"});
 
   var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
       geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;
@@ -163,10 +159,9 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
   var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
   var ecmwf_url  = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
   var neo_url    = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-  //var neo_url = 'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi?service=WMS&request=GetCapabilities';
 
 
-    // implementing the perfect scrollbar
+    // Implementing the perfect scrollbar
     $('#options_div').perfectScrollbar();
     $('#selectedlayers').perfectScrollbar();
     $('#legend_division').perfectScrollbar();

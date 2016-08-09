@@ -30,13 +30,13 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-// Managing the tabs
+//Managing the tabs
 function openTab(evt, tabName)
 {
     // Declare all variables
     var i, tabcontent, tablinks;
 
-    // If the page has just been loaded, Get all elements with class="tabcontent" and hide them
+    //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
     if (document.isInit) {
         // do nothing
     }
@@ -57,7 +57,8 @@ function openTab(evt, tabName)
 
     }
 
-    // Show the current tab, and add an "active" attribute to the link that opened the tab, or removes it if it was already open
+    // Show the current tab, and add an "active" attribute to the link
+    // that opened the tab, or removes it if it was already open
 
     if (document.getElementById(tabName).style.display == "none") {
         document.getElementById(tabName).style.display = "block";
@@ -80,6 +81,23 @@ function openTab(evt, tabName)
     }
 }
 
+function openPage(evt, pageName)
+{
+    var i, pagecontent;
+
+    // TODO: change this to jquery
+
+    pagecontent      = document.getElementsByClassName("pagecontent");
+    for (i = 0; i < pagecontent.length; i++) {
+        if (pagecontent[i].id != pageName.toString()){
+            pagecontent[i].style.display = "none";}
+        else{
+            pagecontent[i].style.display = "block";
+        }
+    }
+}
+
+
 $(document).ready(function ()
 {
     "use strict";
@@ -87,9 +105,9 @@ $(document).ready(function ()
     // This line is only used in the Development folder
     // ww.configuration.baseUrl += "../";
 
-    WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
-
     var wwd = new WorldWind.WorldWindow("canvasOne");
+
+    WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     wwd.navigator.lookAtLocation.altitude = 0;
     wwd.navigator.range                   = 2.5e7;
@@ -118,13 +136,17 @@ $(document).ready(function ()
     wwd.addLayer(atmosphereLayer);
 
     var layerManager = new LayerManager(wwd);
-    var projectionLink = $("#projectionDropdown");
+
     layerManager.createProjectionList();
-    projectionLink.find(" li").on("click", function (e)
+
+    var projectionLinker = $("#projectionDropdown");
+
+    projectionLinker.find(" li").on("click", function (e)
     {
         layerManager.onProjectionClick(e);
     });
-    projectionLink.find("button").css({"backgroundColor":"black"});
+
+    projectionLinker.find("button").css({"backgroundColor":"black"});
 
     var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
         geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;
@@ -137,39 +159,47 @@ $(document).ready(function ()
     var ecmwf_url  = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var neo_url    = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
 
+
+    // Implementing the perfect scrollbar
+    $('#options_div').perfectScrollbar();
+    $('#selectedlayers').perfectScrollbar();
+    $('#legend_division').perfectScrollbar();
+    $('#categories_div').perfectScrollbar();
+
+
     try {
         $.get(dem_url,
-              function (dem_response)
-              {
-                  digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
-              }
+            function (dem_response)
+            {
+                digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
+            }
         ).done(function ()
-               {
-                   var digital_elevation_layer =
-                           new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
+        {
+            var digital_elevation_layer =
+                new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
 
-                   var viewControlsLayer       = new WorldWind.ViewControlsLayer(wwd);
-                   viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
-                   viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
+            var viewControlsLayer       = new WorldWind.ViewControlsLayer(wwd);
+            viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
+            viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
 
-                   var layers = [];
+            var layers = [];
 
-                   layers.push(
-                       {layer: new WorldWind.CompassLayer(), enabled: false},
-                       {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-                       {layer: viewControlsLayer, enabled: true},
-                       {layer: digital_elevation_layer, enabled: true}
-                   );
+            layers.push(
+                {layer: new WorldWind.CompassLayer(), enabled: false},
+                {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
+                {layer: viewControlsLayer, enabled: true},
+                {layer: digital_elevation_layer, enabled: true}
+            );
 
-                   for (var l = 0; l < layers.length; l++) {
-                       layers[l].layer.enabled = layers[l].enabled;
-                       wwd.addLayer(layers[l].layer);
-                   }
+            for (var l = 0; l < layers.length; l++) {
+                layers[l].layer.enabled = layers[l].enabled;
+                wwd.addLayer(layers[l].layer);
+            }
 
-                   wwd.layers.move(wwd.layers.length - 1, 0);
+            wwd.layers.move(wwd.layers.length - 1, 0);
 
-                   layerManager.synchronizeLayerList();
-               });
+            layerManager.synchronizeLayerList();
+        });
     }
     catch (error) {
         console.log(error);
@@ -180,47 +210,47 @@ $(document).ready(function ()
         {
             gibs_wmts_capabilities = new WorldWind.WmtsCapabilities(gibs_response);
         }).done(function ()
-                {
-                    var gibs_data = [];
+        {
+            var gibs_data = [];
 
-                    function GIBS_recursive(section)
-                    {
-                        if (section.layer && section.layer.length > 0) {
-                            for (var i = 0; i < section.layer.length; i++) {
-                                GIBS_recursive(section.layer[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                var gibs_layer
-                                                   = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
-                                gibs_layer.enabled = false;
-                                wwd.addLayer(gibs_layer);
-                                gibs_data.push(gibs_layer.displayName);
-                            }
-                        }
+            function GIBS_recursive(section)
+            {
+                if (section.layer && section.layer.length > 0) {
+                    for (var i = 0; i < section.layer.length; i++) {
+                        GIBS_recursive(section.layer[i]);
                     }
-
-                    GIBS_recursive(gibs_wmts_capabilities.contents);
-
-                    // GIBS html layers
-                    var html_layers = "<label><select class=\"gibs_combobox explorer_combobox\"><option></option>";
-                    for (var j = 0; j < gibs_data.length; j++) {
-                        html_layers += "<option><a >" + gibs_data[j] + "</a></option>";
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        var gibs_layer
+                            = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
+                        gibs_layer.enabled = false;
+                        wwd.addLayer(gibs_layer);
+                        gibs_data.push(gibs_layer.displayName);
                     }
-                    html_layers += "</select></label>";
+                }
+            }
 
-                    var gibs_layers_options = $("#layers_options");
+            GIBS_recursive(gibs_wmts_capabilities.contents);
 
-                    gibs_layers_options.html(html_layers);
+            // GIBS html layers
+            var html_layers = "<label><select class=\"gibs_combobox explorer_combobox\"><option></option>";
+            for (var j = 0; j < gibs_data.length; j++) {
+                html_layers += "<option><a >" + gibs_data[j] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    $('.gibs_combobox').combobox();
+            var gibs_layers_options = $("#layers_options");
 
-                    gibs_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onNASALayerClick(e);
-                    });
-                });
+            gibs_layers_options.html(html_layers);
+
+            $('.gibs_combobox').combobox();
+
+            gibs_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onNASALayerClick(e);
+            });
+        });
     }
     catch (error) {
         console.log(error);
@@ -232,48 +262,48 @@ $(document).ready(function ()
         {
             esa_wmts_capabilities = new WorldWind.WmtsCapabilities(esa_response);
         }).done(function ()
-                {
-                    var esa_data = [];
+        {
+            var esa_data = [];
 
-                    function ESA_recursive(section)
-                    {
-                        if (section.layer && section.layer.length > 0) {
-                            for (var i = 0; i < section.layer.length; i++) {
-                                ESA_recursive(section.layer[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                var esa_layer
-                                                  = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
-                                esa_layer.enabled = false;
-                                wwd.addLayer(esa_layer);
-                                esa_data.push(esa_layer.displayName);
-                            }
-                        }
+            function ESA_recursive(section)
+            {
+                if (section.layer && section.layer.length > 0) {
+                    for (var i = 0; i < section.layer.length; i++) {
+                        ESA_recursive(section.layer[i]);
                     }
-
-                    ESA_recursive(esa_wmts_capabilities.contents);
-
-                    // Sentinel html layers
-                    var html_layers = "<label><select class=\"esa_combobox explorer_combobox\"><option></option>";
-                    for (var k = 0; k < esa_data.length; k++) {
-                        html_layers += "<option><a >" + esa_data[k] + "</a></option>";
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        var esa_layer
+                            = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
+                        esa_layer.enabled = false;
+                        wwd.addLayer(esa_layer);
+                        esa_data.push(esa_layer.displayName);
                     }
-                    html_layers += "</select></label>";
+                }
+            }
 
-                    var esa_layers_options = $("#esa_layers_options");
+            ESA_recursive(esa_wmts_capabilities.contents);
 
-                    esa_layers_options.html(html_layers);
+            // Sentinel html layers
+            var html_layers = "<label><select class=\"esa_combobox explorer_combobox\"><option></option>";
+            for (var k = 0; k < esa_data.length; k++) {
+                html_layers += "<option><a >" + esa_data[k] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    $('.esa_combobox').combobox();
+            var esa_layers_options = $("#esa_layers_options");
 
-                    esa_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onESALayerClick(e);
-                    });
+            esa_layers_options.html(html_layers);
 
-                });
+            $('.esa_combobox').combobox();
+
+            esa_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onESALayerClick(e);
+            });
+
+        });
     }
     catch (error) {
         console.log(error);
@@ -285,51 +315,51 @@ $(document).ready(function ()
         {
             geomet_wms_capabilities = new WorldWind.WmsCapabilities(geomet_response);
         }).done(function ()
-                {
-                    var geomet_data = [];
+        {
+            var geomet_data = [];
 
-                    function GEOMET_recursive(section)
-                    {
-                        if (section.layers && section.layers.length > 0) {
-                            for (var i = 0; i < section.layers.length; i++) {
-                                GEOMET_recursive(section.layers[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                if (section.title.indexOf("GDPS") !== -1) {
-                                    section.title = section.title.replace("GDPS.","");
-                                    var geomet_layer
-                                                  = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
-                                    geomet_layer.enabled = false;
-                                    wwd.addLayer(geomet_layer);
-                                    geomet_data.push(geomet_layer.displayName);
-                                }
-                            }
+            function GEOMET_recursive(section)
+            {
+                if (section.layers && section.layers.length > 0) {
+                    for (var i = 0; i < section.layers.length; i++) {
+                        GEOMET_recursive(section.layers[i]);
+                    }
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        if (section.title.indexOf("GDPS") !== -1) {
+                            section.title = section.title.replace("GDPS.","");
+                            var geomet_layer
+                                = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
+                            geomet_layer.enabled = false;
+                            wwd.addLayer(geomet_layer);
+                            geomet_data.push(geomet_layer.displayName);
                         }
                     }
+                }
+            }
 
-                    GEOMET_recursive(geomet_wms_capabilities.capability);
+            GEOMET_recursive(geomet_wms_capabilities.capability);
 
-                    // GEOMET html layers
-                    var html_layers = "<label><select class=\"geomet_combobox explorer_combobox\"><option></option>";
-                    for (var n = 0; n < geomet_data.length; n++) {
-                        html_layers += "<option><a >" + geomet_data[n] + "</a></option>";
-                    }
-                    html_layers += "</select></label>";
+            // GEOMET html layers
+            var html_layers = "<label><select class=\"geomet_combobox explorer_combobox\"><option></option>";
+            for (var n = 0; n < geomet_data.length; n++) {
+                html_layers += "<option><a >" + geomet_data[n] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    var geomet_layers_options = $("#geomet_layers_options");
+            var geomet_layers_options = $("#geomet_layers_options");
 
-                    geomet_layers_options.html(html_layers);
+            geomet_layers_options.html(html_layers);
 
-                    $('.geomet_combobox').combobox();
+            $('.geomet_combobox').combobox();
 
-                    geomet_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onGEOMETLayerClick(e);
-                    });
+            geomet_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onGEOMETLayerClick(e);
+            });
 
-                });
+        });
     }
     catch (error) {
         console.log(error);
@@ -341,49 +371,49 @@ $(document).ready(function ()
         {
             noaa_wms_capabilities = new WorldWind.WmsCapabilities(noaa_response);
         }).done(function ()
-                {
-                    var noaa_data = [];
+        {
+            var noaa_data = [];
 
-                    function NOAA_recursive(section)
-                    {
-                        if (section.layers && section.layers.length > 0) {
-                            for (var i = 0; i < section.layers.length; i++) {
-                                NOAA_recursive(section.layers[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                section.title = titleCase(section.title.replaceAll("_"," "));
-                                var noaa_layer
-                                              = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
-                                noaa_layer.enabled = false;
-                                wwd.addLayer(noaa_layer);
-                                noaa_data.push(noaa_layer.displayName);
-                            }
-                        }
+            function NOAA_recursive(section)
+            {
+                if (section.layers && section.layers.length > 0) {
+                    for (var i = 0; i < section.layers.length; i++) {
+                        NOAA_recursive(section.layers[i]);
                     }
-
-                    NOAA_recursive(noaa_wms_capabilities.capability);
-
-                    // NOAA html layers
-                    var html_layers = "<label><select class=\"noaa_combobox explorer_combobox\"><option></option>";
-                    for (var n = 0; n < noaa_data.length; n++) {
-                        html_layers += "<option><a >" + noaa_data[n] + "</a></option>";
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        section.title = titleCase(section.title.replaceAll("_"," "));
+                        var noaa_layer
+                            = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
+                        noaa_layer.enabled = false;
+                        wwd.addLayer(noaa_layer);
+                        noaa_data.push(noaa_layer.displayName);
                     }
-                    html_layers += "</select></label>";
+                }
+            }
 
-                    var noaa_layers_options = $("#noaa_layers_options");
+            NOAA_recursive(noaa_wms_capabilities.capability);
 
-                    noaa_layers_options.html(html_layers);
+            // NOAA html layers
+            var html_layers = "<label><select class=\"noaa_combobox explorer_combobox\"><option></option>";
+            for (var n = 0; n < noaa_data.length; n++) {
+                html_layers += "<option><a >" + noaa_data[n] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    $('.noaa_combobox').combobox();
+            var noaa_layers_options = $("#noaa_layers_options");
 
-                    noaa_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onNOAALayerClick(e);
-                    });
+            noaa_layers_options.html(html_layers);
 
-                });
+            $('.noaa_combobox').combobox();
+
+            noaa_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onNOAALayerClick(e);
+            });
+
+        });
     }
     catch (error) {
         console.log(error);
@@ -395,48 +425,48 @@ $(document).ready(function ()
         {
             ecmwf_wms_capabilities = new WorldWind.WmsCapabilities(esa_response);
         }).done(function ()
-                {
-                    var ecmwf_data = [];
+        {
+            var ecmwf_data = [];
 
-                    function ECMWF_recursive(section)
-                    {
-                        if (section.layers && section.layers.length > 0) {
-                            for (var i = 0; i < section.layers.length; i++) {
-                                ECMWF_recursive(section.layers[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                var ecmwf_layer
-                                                    = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
-                                ecmwf_layer.enabled = false;
-                                wwd.addLayer(ecmwf_layer);
-                                ecmwf_data.push(ecmwf_layer.displayName);
-                            }
-                        }
+            function ECMWF_recursive(section)
+            {
+                if (section.layers && section.layers.length > 0) {
+                    for (var i = 0; i < section.layers.length; i++) {
+                        ECMWF_recursive(section.layers[i]);
                     }
-
-                    ECMWF_recursive(ecmwf_wms_capabilities.capability);
-
-                    // ECMWF html layers
-                    var html_layers = "<label><select class=\"ecmwf_combobox explorer_combobox\"><option></option>";
-                    for (var r = 0; r < ecmwf_data.length; r++) {
-                        html_layers += "<option><a >" + ecmwf_data[r] + "</a></option>";
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        var ecmwf_layer
+                            = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
+                        ecmwf_layer.enabled = false;
+                        wwd.addLayer(ecmwf_layer);
+                        ecmwf_data.push(ecmwf_layer.displayName);
                     }
-                    html_layers += "</select></label>";
+                }
+            }
 
-                    var ecmwf_layers_options = $("#ecmwf_layers_options");
+            ECMWF_recursive(ecmwf_wms_capabilities.capability);
 
-                    ecmwf_layers_options.html(html_layers);
+            // ECMWF html layers
+            var html_layers = "<label><select class=\"ecmwf_combobox explorer_combobox\"><option></option>";
+            for (var r = 0; r < ecmwf_data.length; r++) {
+                html_layers += "<option><a >" + ecmwf_data[r] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    $('.ecmwf_combobox').combobox();
+            var ecmwf_layers_options = $("#ecmwf_layers_options");
 
-                    ecmwf_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onECMWFLayerClick(e);
-                    });
+            ecmwf_layers_options.html(html_layers);
 
-                });
+            $('.ecmwf_combobox').combobox();
+
+            ecmwf_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onECMWFLayerClick(e);
+            });
+
+        });
     }
     catch (error) {
         console.log(error);
@@ -448,51 +478,52 @@ $(document).ready(function ()
         {
             neo_wms_capabilities = new WorldWind.WmsCapabilities(neo_response);
         }).done(function ()
-                {
-                    var neo_data = [];
+        {
+            var neo_data = [];
 
-                    function NEO_recursive(section)
-                    {
-                        if (section.layers && section.layers.length > 0) {
-                            for (var i = 0; i < section.layers.length; i++) {
-                                NEO_recursive(section.layers[i]);
-                            }
-                        }
-                        else {
-                            if (section.title && section.title != "") {
-                                var neo_layer
-                                                  = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
-                                neo_layer.enabled = false;
-                                wwd.addLayer(neo_layer);
-                                neo_data.push(neo_layer.displayName);
-                            }
-                        }
+            function NEO_recursive(section)
+            {
+                if (section.layers && section.layers.length > 0) {
+                    for (var i = 0; i < section.layers.length; i++) {
+                        NEO_recursive(section.layers[i]);
                     }
-
-                    // NEO layers
-                    NEO_recursive(neo_wms_capabilities.capability);
-
-                    // NEO html layers
-                    var html_layers = "<label><select class=\"neo_combobox explorer_combobox\"><option></option>";
-                    for (var p = 0; p < neo_data.length; p++) {
-                        html_layers += "<option><a >" + neo_data[p] + "</a></option>";
+                }
+                else {
+                    if (section.title && section.title != "") {
+                        var neo_layer
+                            = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
+                        neo_layer.enabled = false;
+                        wwd.addLayer(neo_layer);
+                        neo_data.push(neo_layer.displayName);
                     }
-                    html_layers += "</select></label>";
+                }
+            }
 
-                    var neo_layers_options = $("#neo_layers_options");
+            // NEO layers
+            NEO_recursive(neo_wms_capabilities.capability);
 
-                    neo_layers_options.html(html_layers);
+            // NEO html layers
+            var html_layers = "<label><select class=\"neo_combobox explorer_combobox\"><option></option>";
+            for (var p = 0; p < neo_data.length; p++) {
+                html_layers += "<option><a >" + neo_data[p] + "</a></option>";
+            }
+            html_layers += "</select></label>";
 
-                    $('.neo_combobox').combobox();
+            var neo_layers_options = $("#neo_layers_options");
 
-                    neo_layers_options.find("select").on("change", function (e)
-                    {
-                        layerManager.onNEOLayerClick(e);
-                    });
-                });
+            neo_layers_options.html(html_layers);
+
+            $('.neo_combobox').combobox();
+
+            neo_layers_options.find("select").on("change", function (e)
+            {
+                layerManager.onNEOLayerClick(e);
+            });
+        });
     }
     catch (error) {
         console.log(error);
         $("#neo_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
     }
+
 });
