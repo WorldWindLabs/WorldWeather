@@ -99,8 +99,6 @@ function openPage(evt, pageName)
     }
 }
 
-
-
 requirejs(['../../src/WorldWind', './MyLayerManager'],
           function (ww, LayerManager)
 {
