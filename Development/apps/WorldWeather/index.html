@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/MyStyles.css"/>
     <link rel="stylesheet" href="styles/bulma.css"/>
     <link rel="stylesheet" href="styles/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 <style media="screen" type="text/css" scoped>
@@ -124,15 +125,26 @@
 
             <br/><br/>
 
-            <span id="noLegends" style="color: black;">
-                <span class="box"><span class="media"><span class="media-content">
-                    <span class="content" style="align-items: center">
-                            <span style="font-size: 125%;">No Legends To Show</span>
-                            <br/><br/>
-                            <span style="font-size: 100%;">Please add a layer from the Available Layers tab in order to see the legends.</span>
-                    </span>
-                </span></span></span>
-            </span>
+            <div class="card is-fullwidth" id="noLegends">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        No Legends
+                    </p>
+                    <a class="card-header-icon">
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Please add a layer from the Available Layers tab in order to see the legends.
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item">Save</a>
+                    <a class="card-footer-item">Edit</a>
+                    <a class="card-footer-item">Delete</a>
+                </footer>
+            </div>
 
         </div>
     </div>
