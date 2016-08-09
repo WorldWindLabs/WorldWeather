@@ -133,7 +133,8 @@ define(function () {
 
                     var placeholder = $("#legend_placeholder");
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                    legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                    legendAdditions += layer.displayName + '</p>';
+                    legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                     legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                     if (layer.legend) {
@@ -148,39 +149,12 @@ define(function () {
                     }
 
                     legendAdditions += '</div></div><footer class="card-footer">';
-                    legendAdditions += '<a class="card-footer-item">View</a><a class="card-footer-item">Info</a><a class="card-footer-item">Delete</a>';
+                    legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                    legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                    legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                     legendAdditions += '</footer></span></div><br/><br/>';
 
                     placeholder.html(placeholder.html() + legendAdditions);
-
-                    $('#'+layer.uniqueID).find(" a").on('click',function(e) {
-                        var selectedItem = e.toElement.text;
-
-                        if (selectedItem == "Info")
-                        {
-                            var legends_modal_selector = $("#legends_modal");
-                            legends_modal_selector.css('display','block');
-                        } else if (selectedItem == "View")
-                        {
-
-                        } else if (selectedItem == "Delete")
-                        {
-
-                        } else {
-                            var card_content = $("#card_content_"+layer.uniqueID);
-
-                            console.log(layer.uniqueID);
-
-                            if (card_content.css('display') != "none")
-                            {
-                                card_content.css('display','none');
-                            }
-                            else {
-                                card_content.css('display','unset');
-                            }
-                        }
-
-                    });
 
                     this.wwd.layers.move(i, this.wwd.layers.length - 1);
                     this.wwd.redraw();

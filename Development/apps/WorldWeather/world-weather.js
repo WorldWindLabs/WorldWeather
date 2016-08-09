@@ -114,6 +114,68 @@ function updateLayerCategories(newContent) {
     }
 }
 
+function findLayerByID(layerID)
+{
+    for (var i = 0; i < document.wwd.layers.length; i++)
+    {
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID)
+        {
+            return document.wwd.layers[i];
+        }
+    }
+    return null;
+}
+
+function showHideLegends(evt, selectedItem, layerID)
+{
+
+    if (selectedItem == "info")
+    {
+        var legends_modal_selector = $("#legends_modal");
+        var legends_modal_title = $("#legends_modal_title");
+        var legends_modal_text = $("#legends_modal_text");
+
+        var selectedLayer = findLayerByID(layerID);
+
+        legends_modal_title.html(selectedLayer.displayName);
+        legends_modal_text.html(selectedLayer.displayName);
+
+        legends_modal_selector.css('display','block');
+    }
+    else if (selectedItem == "view")
+    {
+
+    }
+    else if (selectedItem == "delete")
+    {
+
+    }
+    else if (selectedItem == "toggle_hide")
+    {
+        var card_content = $("#card_content_"+layerID);
+
+        if (card_content.css('display') != "none")
+        {
+            card_content.css('display','none');
+        }
+        else {
+            card_content.css('display','unset');
+        }
+    }
+    else if (selectedItem == "no_legends_toggle_hide")
+    {
+        var no_legend_content = $("#no_legends_content");
+
+        if (no_legend_content.css('display') != "none")
+        {
+            no_legend_content.css('display','none');
+        }
+        else {
+            no_legend_content.css('display','unset');
+        }
+    }
+}
+
 requirejs(['../../src/WorldWind', './MyLayerManager'],
     function (ww, LayerManager) {
         "use strict";
@@ -123,6 +185,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
         var wwd = new WorldWind.WorldWindow("canvasOne");
+        document.wwd = wwd;
 
         // Initialize the WWW window to a certain altitude
 
