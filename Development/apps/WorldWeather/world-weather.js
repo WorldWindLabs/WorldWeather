@@ -73,10 +73,12 @@ function openTab(evt, tabName)
 
     }
 
+    // remove all other tabs except for the one that was clicked, but do not let this apply to he help tab
+
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
 
-        if (tabcontent[i].id != tabName.toString())
+        if (tabcontent[i].id != tabName.toString() && tabcontent[i].id != "help_div" && tabName.toString() != "help_div")
             tabcontent[i].style.display = "none";
     }
 }
@@ -166,7 +168,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
     $('#selectedlayers').perfectScrollbar();
     $('#legend_division').perfectScrollbar();
     $('#categories_div').perfectScrollbar();
-
+    $('#help_div').perfectScrollbar();
 
   try {
       $.get(dem_url,

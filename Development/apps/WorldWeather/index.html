@@ -41,6 +41,8 @@
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 8%;">Help</a></li>
+
 </ul>
 
 <div class="container">
@@ -79,6 +81,52 @@
                     </button>
                 </span>
         </div>
+    </div>
+
+    <div id="help_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #help_div {
+                width: 20%;
+                min-width: 270px;
+                height: 92%;
+                right: 0;
+                top: 8%;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.5);
+                overflow: hidden !important;
+                color: white;
+                text-align: justify;
+            }
+
+        </style>
+
+        <br/>
+        <img src="NASA_logo.svg.png"/>
+        <br/>
+        <br/>
+        <h3>Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad range of weather and other global spatial data viewed together in 3D.</h3>
+        <br/>
+        <h5>Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe.</h5>
+        <br/>
+        <h5>The same layers can be selected from either the "Available Layers" tab, in which data is organised according to its source, or from the "Layer Categories" tab, in which data is organised according to the type of information it displays.</h5>
+        <br/>
+        <h5>Select the "Globe Options" tab in order to change the projection from the default 3D, or to select any country or city to navigate the globe to.</h5>
+        <br/>
+
+        <!--TODO: allow the user to click on a legend to see that layer alone, then document that here-->
+        <h5>Select the "Legends" tab in order to view a legend for each of your selected layers, with information including the date and time of the particular layer. </h5>
+        <br/>
+
+        <!--TODO: make the opacity and the layer re-organisation functional, then document that here-->
+        <h5>Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on each layer in order to hide or display it.</h5>
+        <br/>
+
+        <!--TODO: allow the user to hide the controls and then document that here-->
+        <h5>You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or touchpad, or by using the controls on the bottom.</h5>
+        <br/>
+        <h5>Hover over the globe in order to see the exact coordinates of that point displayed at the bottom of the screen. </h5>
+
+
     </div>
 
     <div id="selectedlayers" class="col-sm-2 tabcontent">
