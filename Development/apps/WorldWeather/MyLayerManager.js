@@ -476,8 +476,6 @@ define(function () {
                 var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
                 var controlItem = $("#controlbuttons");
                 controlItem.append(layerItem);
-                // controlItem.find("button").css({"backgroundColor": "black"});
-                // controlItem.find("button").css({"border":"1px solid #3531f0"})
 
                 layerItem.find("span").on("click", function (e) {
                     self.onLayerDelete($(this));
@@ -502,7 +500,7 @@ define(function () {
                     toDisplay = toDisplay.substr(0, 25) + "...";
                 }
 
-                var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere"];
+                var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere","Bing Aerial with Labels"];
 
                 if (baseLayers.indexOf(toDisplay) > -1)
                 {

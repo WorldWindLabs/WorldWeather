@@ -220,7 +220,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
         // End of Legends Modal code
 
 
-        var basic_layers = [{layer: new WorldWind.BMNGLandsatLayer(), enabled: true}];
+        var basic_layers = [{layer: new WorldWind.BMNGLandsatLayer(), enabled: true}, {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true}];
 
         for (var l = 0; l < basic_layers.length; l++) {
             basic_layers[l].layer.enabled = basic_layers[l].enabled;
