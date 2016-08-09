@@ -169,6 +169,8 @@ define(function () {
                         } else {
                             var card_content = $("#card_content_"+layer.uniqueID);
 
+                            console.log(layer.uniqueID);
+
                             if (card_content.css('display') != "none")
                             {
                                 card_content.css('display','none');
@@ -494,8 +496,16 @@ define(function () {
                 if (toDisplay.length > 25) {
                     toDisplay = toDisplay.substr(0, 25) + "...";
                 }
-                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
 
+                var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere"];
+
+                if (baseLayers.indexOf(toDisplay) > -1)
+                {
+                    var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
+                }
+                else {
+                    var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
+                }
                 layerListItem.append(layerItem);
 
                 layerItem.find("span").on("click", function (e) {
