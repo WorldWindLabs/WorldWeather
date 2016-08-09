@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/MyStyles.css"/>
     <link rel="stylesheet" href="styles/bulma.css"/>
     <link rel="stylesheet" href="styles/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 <style media="screen" type="text/css" scoped>
@@ -34,7 +35,7 @@ body
 }
 </style>
 
-<ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 8%; width: 100%; background: rgba(0,0,0,0.5);">
+<ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 8%; max-height: 50px; width: 100%; background: rgba(0,0,0,0.5);">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'categories_div')">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
@@ -44,8 +45,7 @@ body
 
 <div class="container">
     <div class="col-sm-8" id="globe" style="width: 100%; height: 100%; position: fixed; left: 0; top: 0">
-        <canvas id="canvasOne" width="1920" height="1080"
-                style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
+        <canvas id="canvasOne" width="1920" height="1080" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
             Your browser does not support HTML5 Canvas.
         </canvas>
     </div>
@@ -55,9 +55,10 @@ body
             #options_div {
                 width: 20%;
                 min-width: 270px;
-                height: 92%;
+                max-width: 300px;
+                height: 100%;
                 left: 0;
-                top: 8%;
+                top: 50px;
                 position: fixed;
                 background: rgba(0, 0, 0, 0.5);
                 overflow: hidden !important;
@@ -85,9 +86,10 @@ body
             #selectedlayers {
                 width: 20%;
                 min-width: 270px;
-                height: 92%;
+                max-width: 300px;
+                height: 100%;
                 left: 0;
-                top: 8%;
+                top: 50px;
                 position: fixed;
                 background: rgba(0, 0, 0, 0.5);
                 overflow: hidden;
@@ -105,11 +107,12 @@ body
     <div id="legend_division" class="col-sm-2 tabcontent">
         <style scoped>
             #legend_division {
-                height: 92%;
+                height: 100%;
                 min-width: 270px;
+                max-width: 300px;
                 width: 20%;
                 left: 0;
-                top: 8%;
+                top: 50px;
                 position: fixed !important;
                 overflow: hidden;
                 text-align: center;
@@ -122,15 +125,26 @@ body
 
             <br/><br/>
 
-            <span id="noLegends" style="color: black;">
-                <span class="box"><span class="media"><span class="media-content">
-                    <span class="content" style="align-items: center">
-                            <span style="font-size: 125%;">No Legends To Show</span>
-                            <br/><br/>
-                            <span style="font-size: 100%;">Please add a layer from the Available Layers tab in order to see the legends.</span>
-                    </span>
-                </span></span></span>
-            </span>
+            <div class="card is-fullwidth" id="noLegends">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        No Legends
+                    </p>
+                    <a class="card-header-icon">
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Please add a layer from the Available Layers tab in order to see the legends.
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item">Save</a>
+                    <a class="card-footer-item">Edit</a>
+                    <a class="card-footer-item">Delete</a>
+                </footer>
+            </div>
 
         </div>
     </div>
@@ -141,8 +155,9 @@ body
                 position: fixed;
                 width: 20%;
                 min-width: 270px;
-                height: 92%;
-                top: 8%;
+                max-width: 300px;
+                height: 100%;
+                top: 50px;
                 left: 0;
                 background: rgba(0, 0, 0, 0.5);
                 overflow-x: visible !important;
@@ -188,8 +203,9 @@ body
                 position: fixed;
                 width: 20%;
                 min-width: 270px;
-                height: 92%;
-                top: 8%;
+                max-width: 300px;
+                height: 100%;
+                top: 50px;
                 left: 0;
                 background: rgba(0, 0, 0, 0.5);
                 overflow: hidden;

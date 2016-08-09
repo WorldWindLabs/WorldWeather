@@ -2,48 +2,31 @@
  * Copyright (C) 2014 United States Government as represented by the Administrator of the
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
-/**
- * @exports LayerManager
- */
 
 "use strict";
 
-/**
- * Constructs a layer manager for a specified {@link WorldWindow}.
- * @alias LayerManager
- * @constructor
- * @classdesc Provides a layer manager to interactively control layer visibility for a World Window.
- * @param {WorldWindow} worldWindow The World Window to associated this layer manager with.
- */
-var LayerManager = function (worldWindow)
-{
+var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
     this.wwd = worldWindow;
-
     document.numberOfLegends = 0;
-
     this.roundGlobe = this.wwd.globe;
 
     this.createLayerList();
-
     this.synchronizeLayerList();
 
-    $("#searchBox").find("button").on("click", function (e)
-    {
+    $("#searchBox").find("button").on("click", function (e) {
         thisExplorer.onSearchButton(e);
     });
 
-    this.geocoder     = new WorldWind.NominatimGeocoder();
+    this.geocoder = new WorldWind.NominatimGeocoder();
     this.goToAnimator = new WorldWind.GoToAnimator(this.wwd);
-    $("#searchText").on("keypress", function (e)
-    {
+    $("#searchText").on("keypress", function (e) {
         thisExplorer.onSearchTextKeyPress($(this), e);
     });
 };
 
-LayerManager.prototype.onProjectionClick = function (event)
-{
+LayerManager.prototype.onProjectionClick = function (event) {
     var projectionName = event.target.innerText || event.target.innerHTML;
     $("#projectionDropdown").find("button").html(projectionName + ' <span class="caret"></span>');
 
@@ -95,13 +78,12 @@ LayerManager.prototype.onProjectionClick = function (event)
     this.wwd.redraw();
 };
 
-LayerManager.prototype.onLayerClick = function (layerButton)
-{
+LayerManager.prototype.onLayerClick = function (layerButton) {
     var identifier = layerButton.attr("identifier");
 
-    var layer           = this.wwd.layers[identifier];
+    var layer = this.wwd.layers[identifier];
     layer.layerSelected = true;
-    layer.enabled       = !layer.enabled;
+    layer.enabled = !layer.enabled;
     if (layer.enabled) {
         layerButton.addClass("active");
     }
@@ -111,18 +93,15 @@ LayerManager.prototype.onLayerClick = function (layerButton)
     this.wwd.redraw();
 };
 
-LayerManager.prototype.createLayerList = function ()
-{
+LayerManager.prototype.createLayerList = function () {
 
 };
 
-Array.prototype.move = function (from, to)
-{
+Array.prototype.move = function (from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
 };
 
-LayerManager.prototype.onNASALayerClick = function (event)
-{
+LayerManager.prototype.onNASALayerClick = function (event) {
     var layerName = $("#layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -134,6 +113,33 @@ LayerManager.prototype.onNASALayerClick = function (event)
 
             if (layer.displayName === layerName) {
                 layer.enabled = true;
+
+                $("#noLegends").css('display', 'none');
+
+                document.numberOfLegends += 1;
+
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
+                }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
+
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
                 this.synchronizeLayerList();
@@ -141,10 +147,10 @@ LayerManager.prototype.onNASALayerClick = function (event)
             }
         }
     }
+    $("layers_options").toggle();
 };
 
-LayerManager.prototype.onESALayerClick = function (event)
-{
+LayerManager.prototype.onESALayerClick = function (event) {
     var layerName = $("#esa_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -156,6 +162,33 @@ LayerManager.prototype.onESALayerClick = function (event)
 
             if (layer.displayName === layerName) {
                 layer.enabled = true;
+
+                $("#noLegends").css('display', 'none');
+
+                document.numberOfLegends += 1;
+
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
+                }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
+
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
                 this.synchronizeLayerList();
@@ -165,8 +198,7 @@ LayerManager.prototype.onESALayerClick = function (event)
     }
 };
 
-LayerManager.prototype.onGEOMETLayerClick = function (event)
-{
+LayerManager.prototype.onGEOMETLayerClick = function (event) {
     var layerName = $("#geomet_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -179,26 +211,31 @@ LayerManager.prototype.onGEOMETLayerClick = function (event)
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                if (layer.legend && layer.legend != "") {
-                    $("#noLegends").css('display','none');
+                $("#noLegends").css('display', 'none');
 
-                    document.numberOfLegends += 1;
+                document.numberOfLegends += 1;
 
-                    var placeholder = $("#legend_placeholder");
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
 
-                    var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
-                    legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
-                    legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
-
-                    if (layer.currentTimeString) {
-                        legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
-                    }
-
-                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend  +  "\" /><br/><br/>";
-                    legendAdditions += "</span></span></span></span>";
-
-                    placeholder.html(placeholder.html() + legendAdditions);
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
@@ -209,8 +246,7 @@ LayerManager.prototype.onGEOMETLayerClick = function (event)
     }
 };
 
-LayerManager.prototype.onNOAALayerClick = function (event)
-{
+LayerManager.prototype.onNOAALayerClick = function (event) {
     var layerName = $("#noaa_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -223,24 +259,31 @@ LayerManager.prototype.onNOAALayerClick = function (event)
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                if (layer.legend && layer.legend != "") {
-                    $("#noLegends").css('display','none');
+                $("#noLegends").css('display', 'none');
 
-                    document.numberOfLegends += 1;
+                document.numberOfLegends += 1;
 
-                    var placeholder = $("#legend_placeholder");
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
 
-                    var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
-                    legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
-                    legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
-                    if (layer.currentTimeString) {
-                        legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
-                    }
-                    legendAdditions += "<img style=\"max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
-                    legendAdditions += "</span></span></span></span>";
-
-                    placeholder.html(placeholder.html() + legendAdditions);
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
@@ -251,8 +294,7 @@ LayerManager.prototype.onNOAALayerClick = function (event)
     }
 };
 
-LayerManager.prototype.onECMWFLayerClick = function (event)
-{
+LayerManager.prototype.onECMWFLayerClick = function (event) {
     var layerName = $("#ecmwf_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -265,27 +307,31 @@ LayerManager.prototype.onECMWFLayerClick = function (event)
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                if (layer.displayName != "Foreground" && layer.displayName != "Boundaries") {
-                    console.log(layer.displayName);
-                    if (layer.legend && layer.legend != "") {
-                        $("#noLegends").css('display','none');
+                $("#noLegends").css('display', 'none');
 
-                        document.numberOfLegends += 1;
+                document.numberOfLegends += 1;
 
-                        var placeholder = $("#legend_placeholder");
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
 
-                        var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
-                        legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
-                        legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
-                        if (layer.currentTimeString) {
-                            legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
-                        }
-                        legendAdditions += "<img style=\" max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
-                        legendAdditions += "</span></span></span></span>";
-
-                        placeholder.html(placeholder.html() + legendAdditions);
-                    }
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
@@ -296,8 +342,7 @@ LayerManager.prototype.onECMWFLayerClick = function (event)
     }
 };
 
-LayerManager.prototype.onNEOLayerClick = function (event)
-{
+LayerManager.prototype.onNEOLayerClick = function (event) {
     var layerName = $("#neo_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {
         // Update the layer state for the selected layer.
@@ -310,23 +355,31 @@ LayerManager.prototype.onNEOLayerClick = function (event)
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                if (layer.legend && layer.legend != "") {
-                    $("#noLegends").css('display','none');
-                    var placeholder = $("#legend_placeholder");
+                $("#noLegends").css('display', 'none');
 
-                    document.numberOfLegends += 1;
+                document.numberOfLegends += 1;
 
-                    var legendAdditions = "<span id=\"" + layer.uniqueID + "\" class=\"box\"><span class=\"media\"><span class=\"media-content\">";
-                    legendAdditions += "<span class=\"content\" style=\"align-items: center\">";
-                    legendAdditions += "<span style=\"font-size: 125%;\">" + layer.displayName + "</span><br/><br/>";
-                    if (layer.currentTimeString) {
-                        legendAdditions += "<span style=\"font-size: 100%;\">" + layer.currentTimeString + "</span><br/><br/>";
-                    }
-                    legendAdditions += "<img style=\"max-width: 100%; max-height: 200px  \" src=\"" + layer.legend  +  "\" /><br/><br/>";
-                    legendAdditions += "</span></span></span></span>";
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
 
-                    placeholder.html(placeholder.html() + legendAdditions);
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
+                legendAdditions += '</footer></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
@@ -337,8 +390,7 @@ LayerManager.prototype.onNEOLayerClick = function (event)
     }
 };
 
-LayerManager.prototype.onLayerClick3 = function (e)
-{
+LayerManager.prototype.onLayerDelete = function (e) {
     var identifier = e.attr("identifier");
 
     var layer = this.wwd.layers[identifier];
@@ -350,25 +402,21 @@ LayerManager.prototype.onLayerClick3 = function (e)
 
     var legend_selector = $("#legend_placeholder");
 
-    //console.log(legend_selector.html());
-
     document.numberOfLegends -= 1;
 
-    if (document.numberOfLegends == 0)
-    {
-        $("#noLegends").css('display','block');
+    if (document.numberOfLegends == 0) {
+        $("#noLegends").css('display', 'block');
 
     }
 
-    layer.enabled       = false;
+    layer.enabled = false;
     layer.layerSelected = false;
 
     this.synchronizeLayerList();
     this.wwd.redraw();
 };
 
-function titleCase(str)
-{
+function titleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
         // You do not need to check if i is larger than splitStr length, as your for does that for you
@@ -379,8 +427,7 @@ function titleCase(str)
     return splitStr.join(' ');
 }
 
-LayerManager.prototype.synchronizeLayerList = function ()
-{
+LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
 
     layerListItem.find("button").remove();
@@ -411,13 +458,11 @@ LayerManager.prototype.synchronizeLayerList = function ()
 
             layerListItem.append(layerItem);
 
-            layerItem.find("span").on("click", function (e)
-            {
-                self.onLayerClick3($(this));
+            layerItem.find("span").on("click", function (e) {
+                self.onLayerDelete($(this));
             });
 
-            layerItem.on("click", function (e)
-            {
+            layerItem.on("click", function (e) {
                 self.onLayerClick($(this));
             });
 
@@ -430,9 +475,8 @@ LayerManager.prototype.synchronizeLayerList = function ()
     $("#count").text("Selected layers (" + layerListItem.find("button").length + ")");
 };
 
-LayerManager.prototype.createProjectionList = function ()
-{
-    var projectionNames    = [
+LayerManager.prototype.createProjectionList = function () {
+    var projectionNames = [
         "3D",
         "Equirectangular",
         "Mercator",
@@ -460,36 +504,32 @@ LayerManager.prototype.createProjectionList = function ()
     projectionDropdown.append(ulItem);
 };
 
-LayerManager.prototype.onSearchButton = function (event)
-{
+LayerManager.prototype.onSearchButton = function (event) {
     this.performSearch($("#searchText")[0].value)
 };
 
-LayerManager.prototype.onSearchTextKeyPress = function (searchInput, event)
-{
+LayerManager.prototype.onSearchTextKeyPress = function (searchInput, event) {
     if (event.keyCode === 13) {
         searchInput.blur();
         this.performSearch($("#searchText")[0].value)
     }
 };
 
-LayerManager.prototype.performSearch = function (queryString)
-{
+LayerManager.prototype.performSearch = function (queryString) {
     if (queryString) {
         var thisLayerManager = this,
             latitude, longitude;
 
         if (queryString.match(WorldWind.WWUtil.latLonRegex)) {
             var tokens = queryString.split(",");
-            latitude   = parseFloat(tokens[0]);
-            longitude  = parseFloat(tokens[1]);
+            latitude = parseFloat(tokens[0]);
+            longitude = parseFloat(tokens[1]);
             thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude));
         }
         else {
-            this.geocoder.lookup(queryString, function (geocoder, result)
-            {
+            this.geocoder.lookup(queryString, function (geocoder, result) {
                 if (result.length > 0) {
-                    latitude  = parseFloat(result[0].lat);
+                    latitude = parseFloat(result[0].lat);
                     longitude = parseFloat(result[0].lon);
 
                     WorldWind.Logger.log(
