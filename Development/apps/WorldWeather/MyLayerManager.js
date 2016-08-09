@@ -142,6 +142,7 @@ define(function ()
 				       }
 			       }
 		       }
+		       $("layers_options").toggle();
 	       };
 
 	       LayerManager.prototype.onESALayerClick = function (event)
@@ -267,7 +268,6 @@ define(function ()
 					       layer.enabled = true;
 
 					       if (layer.displayName != "Foreground" && layer.displayName != "Boundaries") {
-						       console.log(layer.displayName);
 						       if (layer.legend && layer.legend != "") {
                                    $("#noLegends").css('display','none');
 
@@ -338,7 +338,7 @@ define(function ()
 		       }
 	       };
 
-	       LayerManager.prototype.onLayerClick3 = function (e)
+	       LayerManager.prototype.onLayerDelete = function (e)
 	       {
 		       var identifier = e.attr("identifier");
 
@@ -350,8 +350,6 @@ define(function ()
 		       }
 
                var legend_selector = $("#legend_placeholder");
-
-			   //console.log(legend_selector.html());
 
                document.numberOfLegends -= 1;
 
@@ -414,7 +412,7 @@ define(function ()
 
 				       layerItem.find("span").on("click", function (e)
 				       {
-					       self.onLayerClick3($(this));
+					       self.onLayerDelete($(this));
 				       });
 
 				       layerItem.on("click", function (e)

@@ -426,6 +426,7 @@
       e.preventDefault();
       this.select();
       this.$element.focus();
+      this.toggle();
     }
 
   , mouseenter: function (e) {
