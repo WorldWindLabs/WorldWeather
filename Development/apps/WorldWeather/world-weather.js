@@ -98,6 +98,7 @@ function openPage(evt, pageName) {
     }
 }
 
+// TODO: finish this stuff too!
 function updateLayerCategories(newContent) {
     var selector = $('.air_quality_combobox');
 
@@ -137,7 +138,7 @@ function showHideLegends(evt, selectedItem, layerID)
 
         var selectedLayer = findLayerByID(layerID);
 
-        legends_modal_title.html(selectedLayer.displayName);
+        legends_modal_title.html(selectedLayer.shortDisplayName);
         legends_modal_text.html(selectedLayer.displayName);
 
         legends_modal_selector.css('display','block');
@@ -242,7 +243,7 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
         });
 
         projectionLinker.find("button").css({"backgroundColor": "#337ab7"});
-        projectionLinker.find("button").css({"border": "none"})
+        projectionLinker.find("button").css({"border": "none"});
 
         var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
             geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;
@@ -305,8 +306,8 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
             }).done(function () {
                 var gibs_data = [];
 
-                var sorting_gibs_data = {"AirQuality": [], "AshPlumes": [], "Drought": [], "DustStorms": []};
-                var additionalContent = {};
+                //var sorting_gibs_data = {"AirQuality": [], "AshPlumes": [], "Drought": [], "DustStorms": []};
+                //var additionalContent = {};
 
                 function GIBS_recursive(section) {
                     if (section.layer && section.layer.length > 0) {
@@ -331,13 +332,17 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
                 var html_layers = "<label><select class=\"gibs_combobox explorer_combobox\"><option></option>";
                 for (var j = 0; j < gibs_data.length; j++) {
                     html_layers += "<option><a>" + gibs_data[j] + "</a></option>";
+
+                    // TODO: finish this stuff
+                    /*
                     for (var k = 0; k < sorting_gibs_data.length; k++)
                     {
                         if (sorting_gibs_data[k].indexOf(gibs_data[j]) > -1)
                         {
-                            // TODO: finish this stuff
+
                         }
                     }
+                    */
                 }
                 html_layers += "</select></label>";
 

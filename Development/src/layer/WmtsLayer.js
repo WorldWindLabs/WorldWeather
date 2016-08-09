@@ -175,6 +175,18 @@ define([
              */
             this.displayName = config.title;
 
+            this.shortDisplayName = this.displayName;
+            if (this.shortDisplayName.indexOf('(') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('(')[0];
+            }
+            if (this.shortDisplayName.indexOf('-') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('-')[1];
+            }
+
+            //console.log(this.shortDisplayName);
+
 
             this.currentTiles = [];
             this.currentTilesInvalid = true;

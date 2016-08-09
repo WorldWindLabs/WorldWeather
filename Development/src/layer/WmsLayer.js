@@ -66,6 +66,17 @@ define([
             this.displayName = config.title;
             this.pickEnabled = false;
 
+            this.shortDisplayName = this.displayName;
+            if (this.shortDisplayName.indexOf('(') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('(')[0];
+            }
+            if (this.shortDisplayName.indexOf('-') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('-')[1];
+            }
+
+
             this.urlBuilder = new WmsUrlBuilder(config.service, config.layerNames, config.styleNames, config.version,
                 timeString);
             if (config.coordinateSystem) {
