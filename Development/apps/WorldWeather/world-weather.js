@@ -136,8 +136,8 @@ function showHideLegends(evt, selectedItem, layerID)
 
         var selectedLayer = findLayerByID(layerID);
 
-        legends_modal_title.html(selectedLayer.shortDisplayName);
-        legends_modal_text.html(selectedLayer.displayName);
+        legends_modal_title.html(selectedLayer.displayName);
+        legends_modal_text.html('<img src="'+ selectedLayer.legend +'" style="width: auto; height: auto; max-width: 100%; max-height: 400px"/> <br/>');
 
         legends_modal_selector.css('display','block');
     }

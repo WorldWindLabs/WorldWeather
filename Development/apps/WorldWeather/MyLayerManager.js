@@ -135,7 +135,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -187,7 +187,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -238,7 +238,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -289,7 +289,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -340,7 +340,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -391,7 +391,7 @@ define(function () {
                     var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                     legendAdditions += layer.shortDisplayName + '</p>';
                     legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                    legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                     if (layer.legend) {
                         legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -512,7 +512,7 @@ define(function () {
                     toDisplay = toDisplay.substr(0, 25) + "...";
                 }
 
-                var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere"];
+                var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere", "Bing Aerial with Labels"];
 
                 if (baseLayers.indexOf(toDisplay) > -1) {
                     var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
