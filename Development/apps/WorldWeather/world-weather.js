@@ -35,10 +35,8 @@ function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
 
     //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
-    if (document.isInit) {
-        // do nothing
-    }
-    else {
+    if (!document.isInit) {
+
         document.isInit = 1;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {

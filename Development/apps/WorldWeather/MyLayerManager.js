@@ -461,6 +461,11 @@ define(function () {
     LayerManager.prototype.synchronizeLayerList = function () {
         var layerListItem = $("#layerList");
 
+        if (!document.isInitialized) {
+
+            document.isInitialized = 0;
+        }
+
         layerListItem.find("button").remove();
 
         var self = this;
@@ -468,29 +473,36 @@ define(function () {
         // Synchronize the displayed layer list with the World Window's layer list.
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
+
             if (layer.hide) {
                 continue;
             }
 
             if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
-                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
-                var controlItem = $("#controlbuttons");
-                controlItem.append(layerItem);
 
-                layerItem.find("span").on("click", function (e) {
-                    self.onLayerDelete($(this));
-                });
+                if (document.isInitialized < 2) {
 
-                layerItem.on("click", function (e) {
-                    self.onLayerClick($(this));
-                });
+                    var controllayerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
+                    var controlItem = $("#controlbuttons");
+                    controlItem.append(controllayerItem);
 
-                if (layer.enabled) {
-                    layerItem.addClass("active");
+                    controllayerItem.find("span").on("click", function (e) {
+                        self.onLayerDelete($(this));
+                    });
+
+                    controllayerItem.on("click", function (e) {
+                        self.onLayerClick($(this));
+                    });
+
+                    if (layer.enabled) {
+                        controllayerItem.addClass("active");
+                    }
+
+                    document.isInitialized += 1;
                 }
             }
-
-            if (layer.enabled || layer.layerSelected) {
+            
+            else if (layer.enabled || layer.layerSelected) {
                 var toDisplay = layer.displayName;
                 if (toDisplay == "dem_hillshades") {
                     toDisplay = "Digital Elevation Model";
@@ -500,10 +512,9 @@ define(function () {
                     toDisplay = toDisplay.substr(0, 25) + "...";
                 }
 
-                var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere","Bing Aerial with Labels"];
+                var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere"];
 
-                if (baseLayers.indexOf(toDisplay) > -1)
-                {
+                if (baseLayers.indexOf(toDisplay) > -1) {
                     var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
                 }
                 else {
