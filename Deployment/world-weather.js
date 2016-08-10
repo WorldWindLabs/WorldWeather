@@ -35,10 +35,8 @@ function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
 
     //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
-    if (document.isInit) {
-        // do nothing
-    }
-    else {
+    if (!document.isInit) {
+
         document.isInit = 1;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -138,8 +136,8 @@ function showHideLegends(evt, selectedItem, layerID)
 
         var selectedLayer = findLayerByID(layerID);
 
-        legends_modal_title.html(selectedLayer.shortDisplayName);
-        legends_modal_text.html(selectedLayer.displayName);
+        legends_modal_title.html(selectedLayer.displayName);
+        legends_modal_text.html('<img src="'+ selectedLayer.legend +'" style="width: auto; height: auto; max-width: 100%; max-height: 400px"/> <br/>');
 
         legends_modal_selector.css('display','block');
     }
@@ -177,13 +175,11 @@ function showHideLegends(evt, selectedItem, layerID)
     }
 }
 
-
 $(document).ready(function ()
 {
     "use strict";
 
-    // This line is only used in the Development folder
-    // ww.configuration.baseUrl += "../";
+    //ww.configuration.baseUrl += "../";
 
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
@@ -221,8 +217,8 @@ $(document).ready(function ()
 
     // End of Legends Modal code
 
-    var basic_layers = [{layer: new WorldWind.BMNGLandsatLayer(), enabled: true},
-        {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true}];
+
+    var basic_layers = [{layer: new WorldWind.BMNGLandsatLayer(), enabled: true}, {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true}];
 
     for (var l = 0; l < basic_layers.length; l++) {
         basic_layers[l].layer.enabled = basic_layers[l].enabled;
@@ -257,6 +253,7 @@ $(document).ready(function ()
     var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
+
 
     // Implementing the perfect scrollbar
     $('#options_div').perfectScrollbar();

@@ -5,6 +5,13 @@
 
 "use strict";
 
+/**
+ * Constructs a layer manager for a specified {@link WorldWindow}.
+ * @alias LayerManager
+ * @constructor
+ * @classdesc Provides a layer manager to interactively control layer visibility for a World Window.
+ * @param {WorldWindow} worldWindow The World Window to associated this layer manager with.
+ */
 var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
@@ -125,7 +132,7 @@ LayerManager.prototype.onNASALayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -177,7 +184,7 @@ LayerManager.prototype.onESALayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -228,7 +235,7 @@ LayerManager.prototype.onGEOMETLayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -279,7 +286,7 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -330,7 +337,7 @@ LayerManager.prototype.onECMWFLayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -381,7 +388,7 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -451,6 +458,11 @@ function titleCase(str) {
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
 
+    if (!document.isInitialized) {
+
+        document.isInitialized = 0;
+    }
+
     layerListItem.find("button").remove();
 
     var self = this;
@@ -458,29 +470,36 @@ LayerManager.prototype.synchronizeLayerList = function () {
     // Synchronize the displayed layer list with the World Window's layer list.
     for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
         var layer = this.wwd.layers[i];
+
         if (layer.hide) {
             continue;
         }
 
         if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
-            var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
-            var controlItem = $("#controlbuttons");
-            controlItem.append(layerItem);
 
-            layerItem.find("span").on("click", function (e) {
-                self.onLayerDelete($(this));
-            });
+            if (document.isInitialized < 2) {
 
-            layerItem.on("click", function (e) {
-                self.onLayerClick($(this));
-            });
+                var controllayerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
+                var controlItem = $("#controlbuttons");
+                controlItem.append(controllayerItem);
 
-            if (layer.enabled) {
-                layerItem.addClass("active");
+                controllayerItem.find("span").on("click", function (e) {
+                    self.onLayerDelete($(this));
+                });
+
+                controllayerItem.on("click", function (e) {
+                    self.onLayerClick($(this));
+                });
+
+                if (layer.enabled) {
+                    controllayerItem.addClass("active");
+                }
+
+                document.isInitialized += 1;
             }
         }
 
-        if (layer.enabled || layer.layerSelected) {
+        else if (layer.enabled || layer.layerSelected) {
             var toDisplay = layer.displayName;
             if (toDisplay == "dem_hillshades") {
                 toDisplay = "Digital Elevation Model";
@@ -490,10 +509,9 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 toDisplay = toDisplay.substr(0, 25) + "...";
             }
 
-            var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere","Bing Aerial with Labels"];
+            var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere", "Bing Aerial with Labels"];
 
-            if (baseLayers.indexOf(toDisplay) > -1)
-            {
+            if (baseLayers.indexOf(toDisplay) > -1) {
                 var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
             }
             else {
