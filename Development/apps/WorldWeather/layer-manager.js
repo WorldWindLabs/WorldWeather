@@ -498,17 +498,19 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 toDisplay = "Digital Elevation Model";
             }
 
-            if (toDisplay.length > 25) {
-                toDisplay = toDisplay.substr(0, 25) + "...";
-            }
-
             var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere", "Bing Aerial with Labels"];
+
+            if (baseLayers.indexOf(toDisplay) == -1) {
+                if (toDisplay.length > 25) {
+                    toDisplay = toDisplay.substr(0, 25) + "...";
+                }
+            }
 
             if (baseLayers.indexOf(toDisplay) > -1) {
                 var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
             }
             else {
-                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
+                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span class="glyphicon glyphicon-menu-down pull-left"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</button>');
             }
             layerListItem.append(layerItem);
 
