@@ -357,7 +357,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
     try {
@@ -406,7 +406,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#esa_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#esa_layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
     try {
@@ -458,7 +458,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#geomet_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#geomet_layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
     try {
@@ -508,7 +508,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#noaa_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#noaa_layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
     try {
@@ -557,7 +557,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#ecmwf_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#ecmwf_layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
     try {
@@ -606,7 +606,7 @@ $(document).ready(function ()
     }
     catch (error) {
         console.log(error);
-        $("#neo_layers_options").html("<img src=\"notification_error.png\" style=\"width: 25%\"/>");
+        $("#neo_layers_options").html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 
 });

@@ -25,7 +25,7 @@
 
     var Combobox = function ( element, options ) {
         this.options = $.extend({}, $.fn.combobox.defaults, options);
-        this.template = this.options.template || this.template
+        this.template = this.options.template || this.template;
         this.$source = $(element);
         this.$container = this.setup();
         this.$element = this.$container.find('input[type=text]');
@@ -84,7 +84,7 @@
                     selected = option.text();
                     selectedValue = option.val();
                 }
-            })
+            });
             this.map = map;
             if (selected) {
                 this.$element.val(selected);
@@ -96,20 +96,20 @@
         }
 
         , transferAttributes: function() {
-            this.options.placeholder = this.$source.attr('data-placeholder') || this.options.placeholder
+            this.options.placeholder = this.$source.attr('data-placeholder') || this.options.placeholder;
             if(this.options.appendId !== "undefined") {
                 this.$element.attr('id', this.$source.attr('id') + this.options.appendId);
             }
-            this.$element.attr('placeholder', this.options.placeholder)
-            this.$target.prop('name', this.$source.prop('name'))
-            this.$target.val(this.$source.val())
-            this.$source.removeAttr('name')  // Remove from source otherwise form will pass parameter twice.
-            this.$element.attr('required', this.$source.attr('required'))
-            this.$element.attr('rel', this.$source.attr('rel'))
-            this.$element.attr('title', this.$source.attr('title'))
-            this.$element.attr('class', this.$source.attr('class'))
-            this.$element.attr('tabindex', this.$source.attr('tabindex'))
-            this.$source.removeAttr('tabindex')
+            this.$element.attr('placeholder', this.options.placeholder);
+            this.$target.prop('name', this.$source.prop('name'));
+            this.$target.val(this.$source.val());
+            this.$source.removeAttr('name');
+            this.$element.attr('required', this.$source.attr('required'));
+            this.$element.attr('rel', this.$source.attr('rel'));
+            this.$element.attr('title', this.$source.attr('title'));
+            this.$element.attr('class', this.$source.attr('class'));
+            this.$element.attr('tabindex', this.$source.attr('tabindex'));
+            this.$source.removeAttr('tabindex');
             if (this.$source.attr('disabled')!==undefined)
                 this.disable();
         }
@@ -217,7 +217,7 @@
                 i = $(that.options.item).attr('data-value', item);
                 i.find('a').html(that.highlighter(item));
                 return i[0];
-            })
+            });
 
             items.first().addClass('active');
             this.$menu.html(items);
@@ -389,6 +389,7 @@
                 case 13: // enter
                     if (!this.shown) {return;}
                     this.select();
+                    this.toggle();
                     break;
 
                 case 27: // escape

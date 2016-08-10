@@ -5,13 +5,6 @@
 
 "use strict";
 
-/**
- * Constructs a layer manager for a specified {@link WorldWindow}.
- * @alias LayerManager
- * @constructor
- * @classdesc Provides a layer manager to interactively control layer visibility for a World Window.
- * @param {WorldWindow} worldWindow The World Window to associated this layer manager with.
- */
 var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
