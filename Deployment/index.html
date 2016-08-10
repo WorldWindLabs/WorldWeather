@@ -41,6 +41,8 @@ body
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 8%;">Help</a></li>
+
 </ul>
 
 <div class="container">
@@ -48,6 +50,20 @@ body
         <canvas id="canvasOne" width="1920" height="1080" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
             Your browser does not support HTML5 Canvas.
         </canvas>
+    </div>
+
+    <div class="modal" style="display: none" id="legends_modal">
+        <div class="modal-background"></div>
+        <div class="modal-card" style="z-index: 2000; top: 100px; ">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="legends_modal_title"></p>
+                <button class="delete" id="legends_modal_delete_button"><a></a></button>
+            </header>
+            <section class="modal-card-body" id="legends_modal_text">
+            </section>
+            <footer class="modal-card-foot">
+            </footer>
+        </div>
     </div>
 
     <div id="options_div" class="col-sm-2 tabcontent">
@@ -79,6 +95,57 @@ body
                     </button>
                 </span>
         </div>
+        <br/>
+        <h5><span style="color: white; ">Additional Controls</span></h5>
+        <div id="controlbuttons">
+        </div>
+    </div>
+
+    <div id="help_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #help_div {
+                width: 20%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                position: fixed;
+                top: 50px;
+                right: 0;
+                background: rgba(0, 0, 0, 0.5);
+                overflow: hidden !important;
+                color: white;
+                text-align: justify;
+            }
+
+        </style>
+
+        <br/>
+        <img src="NASA_logo.svg.png"/>
+        <br/>
+        <br/>
+        <h3>Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad range of weather and other global spatial data viewed together in 3D.</h3>
+        <br/>
+        <h5>Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe.</h5>
+        <br/>
+        <h5>The same layers can be selected from either the "Available Layers" tab, in which data is organised according to its source, or from the "Layer Categories" tab, in which data is organised according to the type of information it displays.</h5>
+        <br/>
+        <h5>Select the "Globe Options" tab in order to change the projection from the default 3D, or to select any country or city to navigate the globe to. You can also disable and enable the additional controls that are on the bottom of the screen from this tab.</h5>
+        <br/>
+
+        <!--TODO: allow the user to click on a legend to see that layer alone, then document that here-->
+        <h5>Select the "Legends" tab in order to view a legend for each of your selected layers, with information including the date and time of the particular layer. </h5>
+        <br/>
+
+        <!--TODO: make the opacity and the layer re-organisation functional, then document that here-->
+        <h5>Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on each layer in order to hide or display it.</h5>
+        <br/>
+
+        <!--TODO: allow the user to hide the controls and then document that here-->
+        <h5>You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or touchpad, or by using the controls on the bottom.</h5>
+        <br/>
+        <h5>Hover over the globe in order to see the exact coordinates of that point displayed at the bottom of the screen. </h5>
+
+
     </div>
 
     <div id="selectedlayers" class="col-sm-2 tabcontent">
@@ -122,28 +189,21 @@ body
             }
         </style>
         <div id="legend_placeholder">
-
             <br/><br/>
-
             <div class="card is-fullwidth" id="noLegends">
                 <header class="card-header">
                     <p class="card-header-title">
                         No Legends
                     </p>
-                    <a class="card-header-icon">
+                    <a class="card-header-icon" onclick="showHideLegends(event, 'no_legends_toggle_hide', '')">
                         <i class="fa fa-angle-down"></i>
                     </a>
                 </header>
-                <div class="card-content">
+                <div class="card-content" id="no_legends_content">
                     <div class="content">
                         Please add a layer from the Available Layers tab in order to see the legends.
                     </div>
                 </div>
-                <footer class="card-footer">
-                    <a class="card-footer-item">Save</a>
-                    <a class="card-footer-item">Edit</a>
-                    <a class="card-footer-item">Delete</a>
-                </footer>
             </div>
 
         </div>
@@ -213,47 +273,47 @@ body
         </style>
         <br/>
         <h5><span style="color: white; ">Air Quality</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="air_quality_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Ash Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="ash_plumes_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Drought</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="drought_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Dust Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="dust_storms_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Fires</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="fires_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Floods</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="floods_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Severe Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="severe_storms_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Shipping</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="shipping_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Smoke Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="smoke_plumes_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Vegetation</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="vegetation_combobox explorer_combobox">
             <option></option>
         </select><br/>
         <h5><span style="color: white; ">Others</span></h5>
-        <select class="gibs_combobox explorer_combobox">
+        <select class="other_categories_combobox explorer_combobox">
             <option></option>
         </select><br/>
 
@@ -261,6 +321,7 @@ body
 
 
 </div>
+
 
     <script src="worldwindlib.js" type="text/javascript"></script>
     <script src="MyLayerManager.js" type="text/javascript"></script>

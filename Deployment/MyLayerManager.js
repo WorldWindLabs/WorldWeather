@@ -9,10 +9,13 @@ var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
     this.wwd = worldWindow;
+
     document.numberOfLegends = 0;
+
     this.roundGlobe = this.wwd.globe;
 
     this.createLayerList();
+
     this.synchronizeLayerList();
 
     $("#searchBox").find("button").on("click", function (e) {
@@ -120,8 +123,9 @@ LayerManager.prototype.onNASALayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -135,8 +139,10 @@ LayerManager.prototype.onNASALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -169,8 +175,9 @@ LayerManager.prototype.onESALayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -184,8 +191,10 @@ LayerManager.prototype.onESALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -217,8 +226,9 @@ LayerManager.prototype.onGEOMETLayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -232,8 +242,10 @@ LayerManager.prototype.onGEOMETLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -265,8 +277,9 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -280,8 +293,10 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -313,8 +328,9 @@ LayerManager.prototype.onECMWFLayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -328,8 +344,10 @@ LayerManager.prototype.onECMWFLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -361,8 +379,9 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
 
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
-                legendAdditions += layer.displayName + '</p><a class="card-header-icon"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<div class="card-content"><div class="content">' + layer.displayName + '<br/><br/>';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content">' + layer.displayName + '<br/><br/>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
@@ -376,8 +395,10 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item">Save</a><a class="card-footer-item">Edit</a><a class="card-footer-item">Delete</a>';
-                legendAdditions += '</footer></div><br/><br/>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
@@ -442,7 +463,21 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
 
         if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
-            continue;
+            var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
+            var controlItem = $("#controlbuttons");
+            controlItem.append(layerItem);
+
+            layerItem.find("span").on("click", function (e) {
+                self.onLayerDelete($(this));
+            });
+
+            layerItem.on("click", function (e) {
+                self.onLayerClick($(this));
+            });
+
+            if (layer.enabled) {
+                layerItem.addClass("active");
+            }
         }
 
         if (layer.enabled || layer.layerSelected) {
@@ -454,8 +489,16 @@ LayerManager.prototype.synchronizeLayerList = function () {
             if (toDisplay.length > 25) {
                 toDisplay = toDisplay.substr(0, 25) + "...";
             }
-            var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
 
+            var baseLayers = ["Digital Elevation Model","Blue Marble & Landsat","Atmosphere","Bing Aerial with Labels"];
+
+            if (baseLayers.indexOf(toDisplay) > -1)
+            {
+                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
+            }
+            else {
+                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
+            }
             layerListItem.append(layerItem);
 
             layerItem.find("span").on("click", function (e) {
