@@ -178,7 +178,8 @@ requirejs(['../../src/WorldWind', './MyLayerManager'],
             layerManager.onProjectionClick(e);
         });
 
-        projectionLinker.find("button").css({"backgroundColor": "black"});
+        projectionLinker.find("button").css({"backgroundColor": "#337ab7"});
+        projectionLinker.find("button").css({"border": "none"})
 
         var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
             geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;
