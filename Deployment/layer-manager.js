@@ -5,13 +5,6 @@
 
 "use strict";
 
-/**
- * Constructs a layer manager for a specified {@link WorldWindow}.
- * @alias LayerManager
- * @constructor
- * @classdesc Provides a layer manager to interactively control layer visibility for a World Window.
- * @param {WorldWindow} worldWindow The World Window to associated this layer manager with.
- */
 var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
@@ -419,6 +412,7 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
 };
 
 LayerManager.prototype.onLayerDelete = function (e) {
+
     var identifier = e.attr("identifier");
 
     var layer = this.wwd.layers[identifier];
@@ -443,6 +437,25 @@ LayerManager.prototype.onLayerDelete = function (e) {
     this.synchronizeLayerList();
     this.wwd.redraw();
 };
+
+LayerManager.prototype.onLayerMoveDown = function (e){
+    var identifier = parseInt(e.attr("identifier"));
+
+    for (var i = identifier+1; i < this.wwd.layers.length; i++)
+    {
+        if (this.wwd.layers[i].enabled  || this.wwd.layers[i].layerSelected)
+        {
+            this.wwd.layers.move(identifier,i);
+            break;
+        }
+    }
+
+
+    this.wwd.redraw();
+    this.synchronizeLayerList();
+
+};
+
 
 function titleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
@@ -505,22 +518,30 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 toDisplay = "Digital Elevation Model";
             }
 
-            if (toDisplay.length > 25) {
-                toDisplay = toDisplay.substr(0, 25) + "...";
-            }
-
             var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere", "Bing Aerial with Labels"];
+
+            if (baseLayers.indexOf(toDisplay) == -1) {
+                if (toDisplay.length > 25) {
+                    toDisplay = toDisplay.substr(0, 25) + "...";
+                }
+            }
 
             if (baseLayers.indexOf(toDisplay) > -1) {
                 var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
             }
             else {
-                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span>' + toDisplay + '</button>');
+                var layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_'+ i +'" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_'+i+'" class="glyphicon glyphicon-circle-arrow-down pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</button>');
             }
             layerListItem.append(layerItem);
 
-            layerItem.find("span").on("click", function (e) {
+            $('#delete_icon_'+i).on("click", function (e) {
+                console.log("delete");
                 self.onLayerDelete($(this));
+            });
+
+            $('#down_icon_'+i).on("click", function (e) {
+                console.log("down");
+                self.onLayerMoveDown($(this));
             });
 
             layerItem.on("click", function (e) {
