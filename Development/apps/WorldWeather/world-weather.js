@@ -52,7 +52,9 @@ $(document).ready(function ()
     // end of AtmosphereLayer
 
     var layerManager = new LayerManager(wwd);
+    document.layerManager = layerManager;
     layerManager.createProjectionList();
+
 
     var projectionLinker = $("#projectionDropdown");
     projectionLinker.find(" li").on("click", function (e) { layerManager.onProjectionClick(e); });

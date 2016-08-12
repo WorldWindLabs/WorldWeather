@@ -135,7 +135,7 @@ function findLayerByID(layerID)
     return null;
 }
 
-function showHideLegends(evt, selectedItem, layerID)
+function showHideLegends(evt, t, selectedItem, layerID)
 {
 
     if (selectedItem == "info")
@@ -153,7 +153,47 @@ function showHideLegends(evt, selectedItem, layerID)
     }
     else if (selectedItem == "view")
     {
+        //document.backup_layers= document.wwd.layers;
 
+
+        if (t.childNodes[0].innerHTML == "View") {
+            document.x=[];
+
+            t.childNodes[0].innerHTML = "Unview";
+
+            for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
+
+                var layer = document.wwd.layers[i];
+                if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
+                    //layer.hide = true;
+                    document.x.push(layer.uniqueID);
+                    layer.enabled = false;
+                    document.layerManager.synchronizeLayerList();
+
+                }
+
+            }
+
+        } else {
+            t.childNodes[0].innerHTML = "View";
+
+            for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
+
+                var layer = document.wwd.layers[i];
+                for (var j = 0, length = document.x.length; j < length; j++) {
+
+
+                    if (layer.uniqueID && layer.uniqueID == document.x[j]) {
+                         layer.enabled = true;
+                        document.layerManager.synchronizeLayerList();
+                        //console.log("here");
+                    }
+                }
+
+
+            }
+
+        }
     }
     else if (selectedItem == "delete")
     {
