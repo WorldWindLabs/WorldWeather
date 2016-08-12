@@ -101,7 +101,8 @@ $(document).ready(function () {
                 {layer: new WorldWind.CompassLayer(), enabled: false},
                 {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
                 {layer: viewControlsLayer, enabled: true},
-                {layer: digital_elevation_layer, enabled: true}
+                {layer: digital_elevation_layer, enabled: true},
+                {layer: new WorldWind.BMNGOneImageLayer(), enabled: true}
             );
 
             for (var l = 0; l < layers.length; l++) {
