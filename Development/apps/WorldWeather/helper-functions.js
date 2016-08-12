@@ -3,6 +3,38 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function parsingKMLLayer(section) {
+    var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
+    for (var i = 0; i < section[0].children.length; i++) {
+        switch (section[0].children[i].nodeName.toLowerCase()) {
+            case "name":
+                kml_layer.name = section[0].children[i].textContent;
+                break;
+            case "timespan":
+                kml_layer.time_span = {
+                    begin: section[0].children[i].children[0].textContent,
+                    end: section[0].children[i].children[1].textContent
+                };
+                break;
+            case "latlonbox":
+                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+                for (var j = 0; j < section[0].children[i].children.length; j++) {
+                    kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
+                }
+                break;
+            case "icon":
+                kml_layer.icon = {
+                    href: section[0].children[i].children[0].textContent,
+                    view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
+                };
+                break;
+            default:
+                break;
+        }
+    }
+    return kml_layer;
+}
+
 function pad(number) {
     if (number < 10) {
         return '0' + number.toString();
