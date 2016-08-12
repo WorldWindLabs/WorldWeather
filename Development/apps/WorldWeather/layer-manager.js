@@ -139,10 +139,9 @@ LayerManager.prototype.onNASALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                //legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
                 legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
@@ -192,9 +191,9 @@ LayerManager.prototype.onESALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this,\'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
@@ -243,9 +242,9 @@ LayerManager.prototype.onGEOMETLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this,\'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
@@ -294,10 +293,9 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                //legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
                 legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
@@ -346,9 +344,9 @@ LayerManager.prototype.onECMWFLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
@@ -397,9 +395,9 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'view\', \''+ layer.uniqueID +'\')">View</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
-                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
