@@ -3,13 +3,6 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-function pad(number) {
-    if (number < 10) {
-        return '0' + number.toString();
-    }
-    return number.toString();
-}
-
 String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
@@ -26,7 +19,7 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-//Managing the tabs
+// Managing the tabs
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -77,6 +70,38 @@ function openTab(evt, tabName) {
     }
 }
 
+function parsingKMLLayer(section) {
+    var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
+    for (var i = 0; i < section[0].children.length; i++) {
+        switch (section[0].children[i].nodeName.toLowerCase()) {
+            case "name":
+                kml_layer.name = section[0].children[i].textContent;
+                break;
+            case "timespan":
+                kml_layer.time_span = {
+                    begin: section[0].children[i].children[0].textContent,
+                    end: section[0].children[i].children[1].textContent
+                };
+                break;
+            case "latlonbox":
+                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+                for (var j = 0; j < section[0].children[i].children.length; j++) {
+                    kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
+                }
+                break;
+            case "icon":
+                kml_layer.icon = {
+                    href: section[0].children[i].children[0].textContent,
+                    view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
+                };
+                break;
+            default:
+                break;
+        }
+    }
+    return kml_layer;
+}
+
 function openPage(evt, pageName) {
     var i, pagecontent;
 
@@ -93,20 +118,17 @@ function openPage(evt, pageName) {
     }
 }
 
-function layerCategoriesOnClick(layerPressed)
-{
+function layerCategoriesOnClick(layerPressed) {
     // TODO: do something here please
 }
 
 function updateLayerCategories(newContent) {
     for (var key in newContent) {
         if (newContent.hasOwnProperty(key)) {
-            var selector = $('.'+ key +'Combobox');
-            if (selector.length > 0)
-            {
+            var selector = $('.' + key + 'Combobox');
+            if (selector.length > 0) {
                 var additionalHTML = "";
-                for (var i = 0; i < newContent[key].length; i++)
-                {
+                for (var i = 0; i < newContent[key].length; i++) {
                     additionalHTML += '<option><a>' + newContent[key][i] + '</a></option>';
                 }
                 selector.html(selector.html() + additionalHTML);
@@ -123,23 +145,18 @@ function updateLayerCategories(newContent) {
     }
 }
 
-function findLayerByID(layerID)
-{
-    for (var i = 0; i < document.wwd.layers.length; i++)
-    {
-        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID)
-        {
+function findLayerByID(layerID) {
+    for (var i = 0; i < document.wwd.layers.length; i++) {
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
             return document.wwd.layers[i];
         }
     }
     return null;
 }
 
-function showHideLegends(evt, selectedItem, layerID)
-{
+function showHideLegends(evt, selectedItem, layerID) {
 
-    if (selectedItem == "info")
-    {
+    if (selectedItem == "info") {
         var legends_modal_selector = $("#legends_modal");
         var legends_modal_title = $("#legends_modal_title");
         var legends_modal_text = $("#legends_modal_text");
@@ -147,40 +164,34 @@ function showHideLegends(evt, selectedItem, layerID)
         var selectedLayer = findLayerByID(layerID);
 
         legends_modal_title.html(selectedLayer.displayName);
-        legends_modal_text.html('<img src="'+ selectedLayer.legend +'" style="width: auto; height: auto; max-width: 100%; max-height: 400px"/> <br/>');
+        legends_modal_text.html('<img src="' + selectedLayer.legend + '" style="width: auto; height: auto; max-width: 100%; max-height: 400px"/> <br/>');
 
-        legends_modal_selector.css('display','block');
+        legends_modal_selector.css('display', 'block');
     }
-    else if (selectedItem == "view")
-    {
-
-    }
-    else if (selectedItem == "delete")
-    {
+    else if (selectedItem == "view") {
 
     }
-    else if (selectedItem == "toggle_hide")
-    {
-        var card_content = $("#card_content_"+layerID);
+    else if (selectedItem == "delete") {
 
-        if (card_content.css('display') != "none")
-        {
-            card_content.css('display','none');
+    }
+    else if (selectedItem == "toggle_hide") {
+        var card_content = $("#card_content_" + layerID);
+
+        if (card_content.css('display') != "none") {
+            card_content.css('display', 'none');
         }
         else {
-            card_content.css('display','unset');
+            card_content.css('display', 'unset');
         }
     }
-    else if (selectedItem == "no_legends_toggle_hide")
-    {
+    else if (selectedItem == "no_legends_toggle_hide") {
         var no_legend_content = $("#no_legends_content");
 
-        if (no_legend_content.css('display') != "none")
-        {
-            no_legend_content.css('display','none');
+        if (no_legend_content.css('display') != "none") {
+            no_legend_content.css('display', 'none');
         }
         else {
-            no_legend_content.css('display','unset');
+            no_legend_content.css('display', 'unset');
         }
     }
 }

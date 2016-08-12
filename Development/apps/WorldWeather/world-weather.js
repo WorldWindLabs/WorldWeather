@@ -3,8 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-$(document).ready(function ()
-{
+$(document).ready(function () {
     "use strict";
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
@@ -30,14 +29,14 @@ $(document).ready(function ()
 
     // Legends Modal Setup Functions
     var legends_modal_button = $('#legends_modal_delete_button');
-    legends_modal_button.on("click", function(e) {
+    legends_modal_button.on("click", function (e) {
         var legends_modal_selector = $("#legends_modal");
-        legends_modal_selector.css('display','none');
+        legends_modal_selector.css('display', 'none');
     });
     // End of Legends Modal code
 
-    var basic_layers = [ {layer: new WorldWind.BMNGLandsatLayer(), enabled: true},
-                         {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true} ];
+    var basic_layers = [{layer: new WorldWind.BMNGLandsatLayer(), enabled: true},
+        {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true}];
 
     for (var l = 0; l < basic_layers.length; l++) {
         basic_layers[l].layer.enabled = basic_layers[l].enabled;
@@ -55,7 +54,9 @@ $(document).ready(function ()
     layerManager.createProjectionList();
 
     var projectionLinker = $("#projectionDropdown");
-    projectionLinker.find(" li").on("click", function (e) { layerManager.onProjectionClick(e); });
+    projectionLinker.find(" li").on("click", function (e) {
+        layerManager.onProjectionClick(e);
+    });
     projectionLinker.find("button").css({"backgroundColor": "#337ab7"});
     projectionLinker.find("button").css({"border": "none"});
 
@@ -70,6 +71,8 @@ $(document).ready(function ()
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
 
+    var maine_url = 'university-of-maine.kml';
+
     // Implementing the perfect scrollbar
     $('#options_div').perfectScrollbar();
     $('#selectedlayers').perfectScrollbar();
@@ -79,9 +82,11 @@ $(document).ready(function ()
     // end of perfect scrollbar implementation
 
     // getting digital elevation model from wms server
-    try {   $.get(dem_url,
-            function (dem_response) { digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response); }).done(function () 
-            {
+    try {
+        $.get(dem_url,
+            function (dem_response) {
+                digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
+            }).done(function () {
             var digital_elevation_layer =
                 new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
 
@@ -110,10 +115,26 @@ $(document).ready(function ()
     }
     // end of digital elevation model from wms server code
 
+    // kml file from cci -- university of maine
+    try {
+        $.get(maine_url, {}, function (xml) {
+            var cci_kml_layers = [];
+            $('GroundOverlay', xml).each(function (i) {
+                cci_kml_layers.push(parsingKMLLayer($(this)));
+            });
+
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+    // end of cci -- university of maine code
+
     // getting GIBS data from NASA WMTS server code
     try {
-        $.get(gibs_url, function (gibs_response) { gibs_wmts_capabilities = new WorldWind.WmtsCapabilities(gibs_response); }).done(function () 
-        {
+        $.get(gibs_url, function (gibs_response) {
+            gibs_wmts_capabilities = new WorldWind.WmtsCapabilities(gibs_response);
+        }).done(function () {
             var gibs_data = [];
             var additionalContent = {};
 
@@ -130,6 +151,7 @@ $(document).ready(function ()
                     }
                 }
             }
+
             GIBS_recursive(gibs_wmts_capabilities.contents);
 
             // GIBS html layers
@@ -171,7 +193,7 @@ $(document).ready(function ()
             var additionalContent = {};
 
             function ESA_recursive(section) {
-                if (section.layer && section.layer.length > 0) 
+                if (section.layer && section.layer.length > 0)
                     for (var i = 0; i < section.layer.length; i++) ESA_recursive(section.layer[i]);
                 else {
                     if (section.title && section.title != "") {
@@ -191,8 +213,7 @@ $(document).ready(function ()
                 html_layers += "<option><a>" + esa_data[k] + "</a></option>";
                 for (var key in esa_categorical_data) {
                     if (esa_categorical_data.hasOwnProperty(key)) {
-                        if (esa_categorical_data[key].indexOf(esa_data[k]) > -1)
-                        {
+                        if (esa_categorical_data[key].indexOf(esa_data[k]) > -1) {
                             if (key in additionalContent) additionalContent[key].push(esa_data[k]);
                             else additionalContent[key] = [esa_data[k]];
                         }
@@ -241,6 +262,7 @@ $(document).ready(function ()
                     }
                 }
             }
+
             GEOMET_recursive(geomet_wms_capabilities.capability);
 
             // GEOMET html layers
@@ -251,7 +273,9 @@ $(document).ready(function ()
             var geomet_layers_options = $("#geomet_layers_options");
             geomet_layers_options.html(html_layers);
             $('.geomet_combobox').combobox();
-            geomet_layers_options.find("select").on("change", function (e) { layerManager.onGEOMETLayerClick(e); });
+            geomet_layers_options.find("select").on("change", function (e) {
+                layerManager.onGEOMETLayerClick(e);
+            });
         });
     }
     catch (error) {
@@ -262,16 +286,16 @@ $(document).ready(function ()
 
     // getting NOAA GFS data from University of Hawaii WMS Server
     try {
-        $.get(noaa_url, function (noaa_response) { noaa_wms_capabilities = new WorldWind.WmsCapabilities(noaa_response); }).done(function () 
-        {
+        $.get(noaa_url, function (noaa_response) {
+            noaa_wms_capabilities = new WorldWind.WmsCapabilities(noaa_response);
+        }).done(function () {
             var noaa_data = [];
 
             function NOAA_recursive(section) {
                 if (section.layers && section.layers.length > 0) {
                     for (var i = 0; i < section.layers.length; i++) NOAA_recursive(section.layers[i]);
                 } else {
-                    if (section.title && section.title != "") 
-                    {
+                    if (section.title && section.title != "") {
                         section.title = titleCase(section.title.replaceAll("_", " "));
                         var noaa_layer
                             = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section), tomorrow_date_stamp);
@@ -281,6 +305,7 @@ $(document).ready(function ()
                     }
                 }
             }
+
             NOAA_recursive(noaa_wms_capabilities.capability);
 
             // NOAA html layers
@@ -306,11 +331,12 @@ $(document).ready(function ()
 
     // retreiving data from ECMWF WMS server
     try {
-        $.get(ecmwf_url, function (esa_response) { ecmwf_wms_capabilities = new WorldWind.WmsCapabilities(esa_response); }).done(function () 
-        {
+        $.get(ecmwf_url, function (esa_response) {
+            ecmwf_wms_capabilities = new WorldWind.WmsCapabilities(esa_response);
+        }).done(function () {
             var ecmwf_data = [];
 
-            function ECMWF_recursive (section) {
+            function ECMWF_recursive(section) {
                 if (section.layers && section.layers.length > 0) {
                     for (var i = 0; i < section.layers.length; i++) ECMWF_recursive(section.layers[i]);
                 } else {
@@ -322,6 +348,7 @@ $(document).ready(function ()
                     }
                 }
             }
+
             ECMWF_recursive(ecmwf_wms_capabilities.capability);
 
             // ECMWF html layers
@@ -332,7 +359,9 @@ $(document).ready(function ()
             var ecmwf_layers_options = $("#ecmwf_layers_options");
             ecmwf_layers_options.html(html_layers);
             $('.ecmwf_combobox').combobox();
-            ecmwf_layers_options.find("select").on("change", function (e) { layerManager.onECMWFLayerClick(e); });
+            ecmwf_layers_options.find("select").on("change", function (e) {
+                layerManager.onECMWFLayerClick(e);
+            });
         });
     }
     catch (error) {
@@ -372,7 +401,9 @@ $(document).ready(function ()
             var neo_layers_options = $("#neo_layers_options");
             neo_layers_options.html(html_layers);
             $('.neo_combobox').combobox();
-            neo_layers_options.find("select").on("change", function (e) { layerManager.onNEOLayerClick(e); });
+            neo_layers_options.find("select").on("change", function (e) {
+                layerManager.onNEOLayerClick(e);
+            });
         });
     }
     catch (error) {
