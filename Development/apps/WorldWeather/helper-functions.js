@@ -151,9 +151,8 @@ function showHideLegends(evt, t, selectedItem, layerID)
 
         legends_modal_selector.css('display','block');
     }
-    else if (selectedItem == "view")
-    {
-        //document.backup_layers= document.wwd.layers;
+    else if (selectedItem == "view") {
+
 
 
         if (t.childNodes[0].innerHTML == "View") {
@@ -184,7 +183,7 @@ function showHideLegends(evt, t, selectedItem, layerID)
 
 
                     if (layer.uniqueID && layer.uniqueID == document.x[j]) {
-                         layer.enabled = true;
+                        layer.enabled = true;
                         document.layerManager.synchronizeLayerList();
                         //console.log("here");
                     }
