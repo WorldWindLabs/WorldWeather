@@ -102,7 +102,7 @@ $(document).ready(function () {
                 {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
                 {layer: viewControlsLayer, enabled: true},
                 {layer: digital_elevation_layer, enabled: true},
-                {layer: new WorldWind.BMNGOneImageLayer(), enabled: true}
+                {layer: new WorldWind.BMNGOneImageLayer(), enabled: false}
             );
 
             for (var l = 0; l < layers.length; l++) {

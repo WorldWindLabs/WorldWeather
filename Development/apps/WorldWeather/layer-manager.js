@@ -124,7 +124,7 @@ LayerManager.prototype.onNASALayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
@@ -176,7 +176,7 @@ LayerManager.prototype.onESALayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
@@ -227,7 +227,7 @@ LayerManager.prototype.onGEOMETLayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
@@ -278,7 +278,7 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
@@ -329,7 +329,7 @@ LayerManager.prototype.onECMWFLayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
@@ -380,7 +380,7 @@ LayerManager.prototype.onNEOLayerClick = function (event) {
                 var placeholder = $("#legend_placeholder");
                 var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
 
                 if (layer.legend) {
