@@ -309,6 +309,60 @@ LayerManager.prototype.onNOAALayerClick = function (event) {
     }
 };
 
+
+LayerManager.prototype.onCCILayerClick = function (event) {
+    var layerName = $("#cci_layers_options").find("input")[0].defaultValue;
+    if (layerName != "") {
+        // Update the layer state for the selected layer.
+        for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
+            var layer = this.wwd.layers[i];
+            if (layer.hide) {
+                continue;
+            }
+
+            if (layer.displayName === layerName) {
+                layer.enabled = true;
+
+                $("#noLegends").css('display', 'none');
+
+                document.numberOfLegends += 1;
+
+                var placeholder = $("#legend_placeholder");
+                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                legendAdditions += layer.shortDisplayName + '</p>';
+                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
+
+                if (layer.legend) {
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
+                }
+                else {
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                }
+
+                if (layer.currentTimeString) {
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                }
+
+                legendAdditions += '</div></div><footer class="card-footer">';
+                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
+                legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
+                legendAdditions += '</footer></span></div><br/><br/>';
+
+                placeholder.html(placeholder.html() + legendAdditions);
+
+                this.wwd.layers.move(i, this.wwd.layers.length - 1);
+                this.wwd.redraw();
+                this.synchronizeLayerList();
+                break;
+            }
+        }
+    }
+};
+
+
+
 LayerManager.prototype.onECMWFLayerClick = function (event) {
     var layerName = $("#ecmwf_layers_options").find("input")[0].defaultValue;
     if (layerName != "") {

@@ -126,6 +126,25 @@ $(document).ready(function () {
                 cci_kml_layers.push(parsingKMLLayer($(this)));
             });
 
+            for (var i = 0; i < cci_kml_layers.length; i++) {
+                var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
+                    cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
+                kmlLayer.enabled = false;
+                wwd.addLayer(kmlLayer);
+            }
+
+            // CCI html layers
+            var html_layers = "<label><select class=\"cci_combobox explorer_combobox\"><option></option>";
+            for (var n = 0; n < cci_kml_layers.length; n++) html_layers += "<option><a >" + cci_kml_layers[n].name + "</a></option>";
+            html_layers += "</select></label>";
+
+            var cci_layers_options = $("#cci_layers_options");
+            cci_layers_options.html(html_layers);
+            $('.cci_combobox').combobox();
+            cci_layers_options.find("select").on("change", function (e) {
+                layerManager.onCCILayerClick(e);
+            });
+
         });
     }
     catch (error) {

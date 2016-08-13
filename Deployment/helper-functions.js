@@ -3,6 +3,38 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function parsingKMLLayer(section) {
+    var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
+    for (var i = 0; i < section[0].children.length; i++) {
+        switch (section[0].children[i].nodeName.toLowerCase()) {
+            case "name":
+                kml_layer.name = section[0].children[i].textContent;
+                break;
+            case "timespan":
+                kml_layer.time_span = {
+                    begin: section[0].children[i].children[0].textContent,
+                    end: section[0].children[i].children[1].textContent
+                };
+                break;
+            case "latlonbox":
+                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+                for (var j = 0; j < section[0].children[i].children.length; j++) {
+                    kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
+                }
+                break;
+            case "icon":
+                kml_layer.icon = {
+                    href: section[0].children[i].children[0].textContent,
+                    view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
+                };
+                break;
+            default:
+                break;
+        }
+    }
+    return kml_layer;
+}
+
 function pad(number) {
     if (number < 10) {
         return '0' + number.toString();
@@ -135,7 +167,7 @@ function findLayerByID(layerID)
     return null;
 }
 
-function showHideLegends(evt, selectedItem, layerID)
+function showHideLegends(evt, t, selectedItem, layerID)
 {
 
     if (selectedItem == "info")
@@ -151,9 +183,48 @@ function showHideLegends(evt, selectedItem, layerID)
 
         legends_modal_selector.css('display','block');
     }
-    else if (selectedItem == "view")
-    {
+    else if (selectedItem == "view") {
 
+
+
+        if (t.childNodes[0].innerHTML == "View") {
+            document.x=[];
+
+            t.childNodes[0].innerHTML = "Unview";
+
+            for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
+
+                var layer = document.wwd.layers[i];
+                if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
+                    //layer.hide = true;
+                    document.x.push(layer.uniqueID);
+                    layer.enabled = false;
+                    document.layerManager.synchronizeLayerList();
+
+                }
+
+            }
+
+        } else {
+            t.childNodes[0].innerHTML = "View";
+
+            for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
+
+                var layer = document.wwd.layers[i];
+                for (var j = 0, length = document.x.length; j < length; j++) {
+
+
+                    if (layer.uniqueID && layer.uniqueID == document.x[j]) {
+                        layer.enabled = true;
+                        document.layerManager.synchronizeLayerList();
+                        //console.log("here");
+                    }
+                }
+
+
+            }
+
+        }
     }
     else if (selectedItem == "delete")
     {
