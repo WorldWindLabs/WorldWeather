@@ -41,11 +41,9 @@ $(document).ready(function () {
     });
     // End of Legends Modal code
 
-
     var layerManager = new LayerManager(wwd);
     document.layerManager = layerManager;
     layerManager.createProjectionList();
-
 
     var projectionLinker = $("#projectionDropdown");
     projectionLinker.find(" li").on("click", function (e) {
@@ -63,7 +61,6 @@ $(document).ready(function () {
     var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-
     var maine_url = 'university-of-maine.kml';
 
     // Implementing the perfect scrollbar
@@ -73,7 +70,6 @@ $(document).ready(function () {
     $('#categories_div').perfectScrollbar();
     $('#help_div').perfectScrollbar();
     // end of perfect scrollbar implementation
-
 
     // getting digital elevation model from wms server
     try {
@@ -119,38 +115,7 @@ $(document).ready(function () {
     // end of digital elevation model from wms server code
 
     // kml file from cci -- university of maine
-    try {
-        $.get(maine_url, {}, function (xml) {
-            var cci_kml_layers = [];
-            $('GroundOverlay', xml).each(function (i) {
-                cci_kml_layers.push(parsingKMLLayer($(this)));
-            });
-
-            for (var i = 0; i < cci_kml_layers.length; i++) {
-                var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
-                    cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
-                kmlLayer.enabled = false;
-                wwd.addLayer(kmlLayer);
-            }
-
-            // CCI html layers
-            var html_layers = "<label><select class=\"cci_combobox explorer_combobox\"><option></option>";
-            for (var n = 0; n < cci_kml_layers.length; n++) html_layers += "<option><a >" + cci_kml_layers[n].name + "</a></option>";
-            html_layers += "</select></label>";
-
-            var cci_layers_options = $("#cci_layers_options");
-            cci_layers_options.html(html_layers);
-            $('.cci_combobox').combobox();
-            cci_layers_options.find("select").on("change", function (e) {
-                layerManager.onDataLayerClick(e, "cci_layers_options");
-            });
-
-        });
-    }
-    catch (error) {
-        console.log(error);
-    }
-    // end of cci -- university of maine code
+    getKmlDataForCombobox(maine_url, "cci_combobox", "cci_layers_options");
 
     // getting GIBS data from NASA WMTS server code
     getWmtsDataForCombobox(gibs_url, "gibs_combobox", "layers_options", date_stamp);

@@ -329,3 +329,38 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
         $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 }
+
+
+function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options)
+{
+    try {
+        $.get(data_url, {}, function (xml) {
+            var cci_kml_layers = [];
+            $('GroundOverlay', xml).each(function (i) {
+                cci_kml_layers.push(parsingKMLLayer($(this)));
+            });
+
+            for (var i = 0; i < cci_kml_layers.length; i++) {
+                var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
+                    cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
+                kmlLayer.enabled = false;
+                document.wwd.addLayer(kmlLayer);
+            }
+            
+            var html_layers = "<label><select class=\""+jquery_combobox+" explorer_combobox\"><option></option>";
+            for (var n = 0; n < cci_kml_layers.length; n++) html_layers += "<option><a >" + cci_kml_layers[n].name + "</a></option>";
+            html_layers += "</select></label>";
+
+            var cci_layers_options = $("#"+jquery_layer_options);
+            cci_layers_options.html(html_layers);
+            $('.'+jquery_combobox).combobox();
+            cci_layers_options.find("select").on("change", function (e) {
+                document.layerManager.onDataLayerClick(e, "cci_layers_options");
+            });
+
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}

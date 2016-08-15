@@ -121,7 +121,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 document.numberOfLegends += 1;
 
                 var placeholder = $("#legend_placeholder");
-                var legendAdditions = '<div class="card is-fullwidth" id="' + layer.uniqueID + '"><header class="card-header"><p class="card-header-title">';
+                var legendAdditions = '<div id="' + layer.uniqueID + '"><div class="card is-fullwidth" ><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \''+ layer.uniqueID +'\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_'+ layer.uniqueID +'"><div class="card-content" "><div class="content"><br/><br/>';
@@ -141,7 +141,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this,\'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
-                legendAdditions += '</footer></span></div><br/><br/>';
+                legendAdditions += '</footer></span></div><br/><br/></div>';
 
                 placeholder.html(placeholder.html() + legendAdditions);
 
