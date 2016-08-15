@@ -10,9 +10,18 @@ $(document).ready(function () {
     var wwd = new WorldWind.WorldWindow("canvasOne");
     document.wwd = wwd;
 
-    // Initialize the WWW window to a certain altitude
+    // Initialize the WWW window to a certain altitude, and to the current location of the user
     wwd.navigator.lookAtLocation.altitude = 0;
     wwd.navigator.range = 2.5e7;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (location) {
+            wwd.navigator.lookAtLocation.latitude = location.coords.latitude;
+            wwd.navigator.lookAtLocation.longitude = location.coords.longitude;
+            console.log(wwd.navigator.lookAtLocation.latitude);
+            console.log(wwd.navigator.lookAtLocation.longitude);
+
+        });
+    }
     wwd.redraw();
     // End of initialization
 
@@ -82,6 +91,7 @@ $(document).ready(function () {
     $('#categories_div').perfectScrollbar();
     $('#help_div').perfectScrollbar();
     // end of perfect scrollbar implementation
+
 
     // getting digital elevation model from wms server
     try {
