@@ -17,9 +17,6 @@ $(document).ready(function () {
         navigator.geolocation.getCurrentPosition(function (location) {
             wwd.navigator.lookAtLocation.latitude = location.coords.latitude;
             wwd.navigator.lookAtLocation.longitude = location.coords.longitude;
-            console.log(wwd.navigator.lookAtLocation.latitude);
-            console.log(wwd.navigator.lookAtLocation.longitude);
-
         });
     }
     wwd.redraw();
