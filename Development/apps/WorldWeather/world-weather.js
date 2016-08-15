@@ -54,8 +54,7 @@ $(document).ready(function () {
     projectionLinker.find("button").css({"backgroundColor": "#337ab7"});
     projectionLinker.find("button").css({"border": "none"});
 
-    var digital_elevation_model_capabilities, gibs_wmts_capabilities, esa_wmts_capabilities,
-        geomet_wms_capabilities, ecmwf_wms_capabilities, neo_wms_capabilities, noaa_wms_capabilities;
+    var digital_elevation_model_capabilities;
 
     var dem_url = 'http://gis.ngdc.noaa.gov/arcgis/services/dem_hillshades/ImageServer/WMSServer?request=GetCapabilities&service=WMS';
     var gibs_url = 'http://map1.vis.earthdata.nasa.gov/wmts-webmerc/wmts.cgi?SERVICE=WorldWeather&request=GetCapabilities';
@@ -143,7 +142,7 @@ $(document).ready(function () {
             cci_layers_options.html(html_layers);
             $('.cci_combobox').combobox();
             cci_layers_options.find("select").on("change", function (e) {
-                layerManager.onCCILayerClick(e);
+                layerManager.onDataLayerClick(e, "cci_layers_options");
             });
 
         });

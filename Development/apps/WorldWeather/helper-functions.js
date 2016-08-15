@@ -162,7 +162,6 @@ function findLayerByID(layerID) {
 }
 
 function showHideLegends(evt, t, selectedItem, layerID) {
-
     if (selectedItem == "info") {
         var legends_modal_selector = $("#legends_modal");
         var legends_modal_title = $("#legends_modal_title");
@@ -176,35 +175,23 @@ function showHideLegends(evt, t, selectedItem, layerID) {
         legends_modal_selector.css('display', 'block');
     }
     else if (selectedItem == "view") {
-
-
         if (t.childNodes[0].innerHTML == "View") {
             document.x = [];
-
             t.childNodes[0].innerHTML = "Unview";
-
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
-
                 var layer = document.wwd.layers[i];
                 if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
                     //layer.hide = true;
                     document.x.push(layer.uniqueID);
                     layer.enabled = false;
                     document.layerManager.synchronizeLayerList();
-
                 }
-
             }
-
         } else {
             t.childNodes[0].innerHTML = "View";
-
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
-
                 var layer = document.wwd.layers[i];
                 for (var j = 0, length = document.x.length; j < length; j++) {
-
-
                     if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                         layer.enabled = true;
                         document.layerManager.synchronizeLayerList();
@@ -217,6 +204,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
         }
     }
     else if (selectedItem == "delete") {
+
+        // TODO: add functionality to delete here
 
     }
     else if (selectedItem == "toggle_hide") {
@@ -319,6 +308,7 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                     }
                 }
             }
+
             data_recursive(data_wmts_capabilities.contents);
 
             var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
