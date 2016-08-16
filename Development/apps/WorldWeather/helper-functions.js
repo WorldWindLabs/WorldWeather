@@ -528,7 +528,10 @@ function alterWmsLayerTime(evt, layerID, direction) {
         layer.time = layer.timeSequence.endTime;
         layer.timeSequence.currentTime = layer.time;
     }
+    else {
+        layer.time = direction;
+        layer.timeSequence.currentTime = layer.time;
+    }
 
-    $("#legend_time_" + layerID).html(layer.time);
     document.wwd.redraw();
 }
