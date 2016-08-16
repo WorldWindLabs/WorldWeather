@@ -108,7 +108,7 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
     else {
         layerButton.removeClass("active");
     }
-
+    this.synchronizeLayerList();
     this.wwd.redraw();
 };
 
@@ -172,17 +172,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
 LayerManager.prototype.onLayerDelete = function (e) {
 
-    //make sure none of the "view"s on the legends are selected
-    var footercontent = document.getElementsByClassName("card-footer-item");
-    for (var i = 0; i < footercontent.length; i++) {
-
-        footercontent[i].childNodes[0].innerHTML = "View";
-    }
-
-    document.x=[];
-
-    //end of section
-
     var identifier = e.attr("identifier");
 
     var layer = this.wwd.layers[identifier];
@@ -203,6 +192,19 @@ LayerManager.prototype.onLayerDelete = function (e) {
     layer.layerSelected = false;
 
     this.synchronizeLayerList();
+
+
+    //make sure none of the "view"s on the legends are selected
+    var footercontent = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footercontent.length; i++) {
+
+        footercontent[i].childNodes[0].innerHTML = "View";
+    }
+
+    document.x=[];
+
+    //end of section
+
     this.wwd.redraw();
 };
 

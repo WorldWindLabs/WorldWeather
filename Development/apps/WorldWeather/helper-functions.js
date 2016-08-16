@@ -196,6 +196,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                         if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                             layer.enabled = true;
+                            layer.layerSelected = true;
                             document.layerManager.synchronizeLayerList();
 
                         }
@@ -204,16 +205,16 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                 }
             }
-            else
-                document.x=[];
-
+            else {
+                document.x = [];
+            }
 
             t.childNodes[0].innerHTML = "Unview";
 
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                 var layer = document.wwd.layers[i];
-                if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
+                if (layer.uniqueID && layer.uniqueID != layerID && (layer.layerSelected || layer.enabled)) {
                     //layer.hide = true;
                     document.x.push(layer.uniqueID);
                     layer.layerSelected = true;
@@ -245,6 +246,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                     if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                         layer.enabled = true;
+                        layer.layerSelected = true;
                         document.layerManager.synchronizeLayerList();
 
                     }
