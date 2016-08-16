@@ -4,7 +4,6 @@
  */
 
 $(document).ready(function () {
-    "use strict";
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     var wwd = new WorldWind.WorldWindow("canvasOne");

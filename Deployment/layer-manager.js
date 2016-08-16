@@ -3,8 +3,6 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-"use strict";
-
 var LayerManager = function (worldWindow) {
     var thisExplorer = this;
 
@@ -140,19 +138,11 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
-
-                    legendAdditions += '<small id="legend_time_' + layer.uniqueID + '">' + layer.time + '</small><br/><br/>';
-
-                    legendAdditions += '<a onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ' , \'start\')">Start</a>';
-                    legendAdditions += '---';
-                    legendAdditions += '<a onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ' , \'previous\')">Previous</a>';
-                    legendAdditions += '---';
-                    legendAdditions += '<a onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ' , \'next\')">Next</a>';
-                    legendAdditions += '---';
-                    legendAdditions += '<a onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ' , \'end\')">End</a>';
+                    legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
+                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div><br/><br/>';
                 }
                 else {
-                    legendAdditions += '<small id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small><br/>';
+                    legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small><br/>';
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
@@ -161,7 +151,33 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this,\'delete\', \'' + layer.uniqueID + '\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/></div>';
 
-                placeholder.html(placeholder.html() + legendAdditions);
+                placeholder.append(legendAdditions);
+
+                var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
+                var amount_selector = $("#amount" + layer.uniqueID);
+
+                if (datetime_selector.length > 0) {
+
+                    var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0),layer.timeSequence.period);
+                    datetime_selector.slider({
+                        value: layer.timeSequence.endTime.getTime(),
+                        min: layer.timeSequence.startTime.getTime(),
+                        max: layer.timeSequence.endTime.getTime(),
+                        step: time_delta.getTime()
+                    });
+                    var options = {
+                        weekday: "short", year: "numeric", month: "short",
+                        day: "numeric", hour: "2-digit", minute: "2-digit"
+                    };
+                    datetime_selector.on("slide", function( event, ui ) {
+                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us",options));
+                    });
+                    datetime_selector.on("slidestop", function (event, ui) {
+                        var new_datetime = new Date(ui.value);
+                        alterWmsLayerTime(event, layer.uniqueID, new_datetime);
+                    });
+                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us",options));
+                }
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.redraw();
