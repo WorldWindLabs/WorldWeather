@@ -186,8 +186,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
         if (t.childNodes[0].innerHTML == "View") {
 
-            if (document.x)
-            {
+            if (document.x) {
                 for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                     var layer = document.wwd.layers[i];
@@ -205,7 +204,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
                 }
             }
             else
-                document.x=[];
+                document.x = [];
 
 
             t.childNodes[0].innerHTML = "Unview";
@@ -225,16 +224,6 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
         } else {
             t.childNodes[0].innerHTML = "View";
-            // myLayers=$('.list-group-item').find("button");
-            // console.log(myLayers.length);
-            //var layer = this.wwd.layers[identifier];
-
-            //var uniqueSelector = $("#" + layer.uniqueID);
-
-            // for(var i = 0, len = myLayers.length; i < len; i++){
-            //     console.log(myLayers[i].identifier);
-            // }
-
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                 var layer = document.wwd.layers[i];
@@ -381,8 +370,7 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
 }
 
 
-function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options)
-{
+function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) {
     try {
         $.get(data_url, {}, function (xml) {
             var cci_kml_layers = [];
@@ -396,14 +384,14 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options)
                 kmlLayer.enabled = false;
                 document.wwd.addLayer(kmlLayer);
             }
-            
-            var html_layers = "<label><select class=\""+jquery_combobox+" explorer_combobox\"><option></option>";
+
+            var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
             for (var n = 0; n < cci_kml_layers.length; n++) html_layers += "<option><a >" + cci_kml_layers[n].name + "</a></option>";
             html_layers += "</select></label>";
 
-            var cci_layers_options = $("#"+jquery_layer_options);
+            var cci_layers_options = $("#" + jquery_layer_options);
             cci_layers_options.html(html_layers);
-            $('.'+jquery_combobox).combobox();
+            $('.' + jquery_combobox).combobox();
             cci_layers_options.find("select").on("change", function (e) {
                 document.layerManager.onDataLayerClick(e, "cci_layers_options");
             });
@@ -413,4 +401,119 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options)
     catch (error) {
         console.log(error);
     }
+}
+
+function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_options, replace_in_title, stop_from_title) {
+    try {
+        var data_wms_capabilities = null;
+        $.get(data_url, function (data_response) {
+            data_wms_capabilities = new WorldWind.WmsCapabilities(data_response);
+        }).done(function () {
+            var wms_data = [];
+
+            function data_recursive(section) {
+                if (section) {
+                    if (section.layers && section.layers.length > 0) {
+                        for (var i = 0; i < section.layers.length; i++) data_recursive(section.layers[i]);
+                    } else {
+                        if (section.title && section.title != "") {
+                            if (stop_from_title) {
+                                if (section.title.indexOf(stop_from_title) === -1) {
+                                    return null;
+                                }
+                            }
+
+                            if (replace_in_title) {
+                                section.title = section.title.replaceAll(replace_in_title, " ");
+                                section.title = $.trim(section.title);
+                            }
+
+                            var config = WorldWind.WmsLayer.formLayerConfiguration(section);
+                            var layer = null, timeSequence = null;
+
+                            if (config.timeSequences) {
+                                if (config.timeSequences[config.timeSequences.length - 1] instanceof WorldWind.PeriodicTimeSequence) {
+                                    timeSequence = config.timeSequences[config.timeSequences.length - 1];
+
+                                    config.levelZeroDelta = new WorldWind.Location(180, 180);
+
+                                    layer = new WorldWind.WmsTimeDimensionedLayer(config);
+                                    layer.time = timeSequence.startTime;
+                                    layer.timeSequence = timeSequence;
+                                }
+                                else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
+                                    if (config.timeSequences.length > 2) {
+                                        var end_datetime = config.timeSequences[config.timeSequences.length - 1];
+                                        var start_datetime = config.timeSequences[1];
+                                        var period = Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60));
+                                        var period_string = "PT" + period + "M";
+                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + period_string;
+
+                                        timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+
+                                        config.levelZeroDelta = new WorldWind.Location(180, 180);
+                                        layer = new WorldWind.WmsTimeDimensionedLayer(config);
+                                        layer.time = config.timeSequences[0];
+                                        layer.timeSequence = timeSequence;
+                                    }
+                                    else {
+                                        layer = new WorldWind.WmsLayer(config);
+                                        layer.currentTimeString = config.timeSequences[config.timeSequences.length - 1].toISOString();
+                                    }
+                                }
+                                else {
+                                    layer = new WorldWind.WmsLayer(config);
+                                }
+                            }
+                            else {
+                                layer = new WorldWind.WmsLayer(config);
+                            }
+
+                            layer.enabled = false;
+                            document.wwd.addLayer(layer);
+                            wms_data.push(layer.displayName);
+                        }
+                    }
+                }
+            }
+
+            data_recursive(data_wms_capabilities.capability);
+
+            var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
+            for (var r = 0; r < wms_data.length; r++) html_layers += "<option><a>" + wms_data[r] + "</a></option>";
+            html_layers += "</select></label>";
+
+            var data_layers_options = $("#" + jquery_layer_options);
+            data_layers_options.html(html_layers);
+            $('.' + jquery_combobox).combobox();
+
+            data_layers_options.find("select").on("change", function (e) {
+                document.layerManager.onDataLayerClick(e, jquery_layer_options);
+            });
+        });
+    }
+    catch (error) {
+        console.log(error);
+        $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
+    }
+}
+
+function alterWmsLayerTime(evt, layerID, direction) {
+    var layer = findLayerByID(layerID);
+
+    if (direction == "next")
+        layer.time = layer.timeSequence.next();
+    else if (direction == "previous")
+        layer.time = layer.timeSequence.previous();
+    else if (direction == "start") {
+        layer.time = layer.timeSequence.startTime;
+        layer.timeSequence.currentTime = layer.time;
+    }
+    else if (direction == "end") {
+        layer.time = layer.timeSequence.endTime;
+        layer.timeSequence.currentTime = layer.time;
+    }
+
+    $("#legend_time_" + layerID).html(layer.time);
+    document.wwd.redraw();
 }

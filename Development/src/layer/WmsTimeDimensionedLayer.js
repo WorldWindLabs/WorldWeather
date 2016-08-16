@@ -50,6 +50,8 @@ define([
             this.displayName = config.title;
             this.pickEnabled = false;
 
+            this.legend = config.legend;
+
             this.shortDisplayName = this.displayName;
             if (this.shortDisplayName.indexOf('(') > -1)
             {

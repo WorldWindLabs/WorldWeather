@@ -149,15 +149,23 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
                 }
 
-                if (layer.currentTimeString) {
-                    legendAdditions += '<small>' + layer.currentTimeString + '</small><br/>';
-                }
-
-                if (layer.time)
+                if (layer.time && layer.timeSequence)
                 {
+                    layer.time = layer.timeSequence.endTime;
+                    layer.timeSequence.currentTime = layer.time;
+
+                    legendAdditions += '<small id="legend_time_'+layer.uniqueID+'">' + layer.time + '</small><br/><br/>';
+
+                    legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'start\')">Start</a>';
+                    legendAdditions += '---';
                     legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'previous\')">Previous</a>';
                     legendAdditions += '---';
                     legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'next\')">Next</a>';
+                    legendAdditions += '---';
+                    legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'end\')">End</a>';
+                }
+                else {
+                    legendAdditions += '<small id="legend_time_'+layer.uniqueID+'">' + layer.currentTimeString + '</small><br/>';
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';

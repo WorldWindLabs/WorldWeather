@@ -25,12 +25,6 @@ $(document).ready(function () {
     // Getting timestamps for today, yesterday, and tomorrow
     var current_time = new Date().toISOString();
     var date_stamp = current_time.split('T')[0];
-
-    var tomorrow_time = new Date(Date.now() + 86400000).toISOString();
-    var tomorrow_date_stamp = tomorrow_time.split('T')[0];
-
-    var yesterday_time = new Date(Date.now() - 86400000).toISOString();
-    var yesterday_date_stamp = yesterday_time.split('T')[0];
     // End of timestamps code
 
     // Legends Modal Setup Functions
@@ -124,13 +118,13 @@ $(document).ready(function () {
     getWmtsDataForCombobox(esa_url, "esa_combobox", "esa_layers_options", date_stamp);
 
     // getting data from Geomet WMS Server
-    getWmsDataForCombobox(geomet_url, "geomet_combobox", "geomet_layers_options", "GDPS.", "GDPS");
+    getWmsTimeSeriesForCombobox(geomet_url, "geomet_combobox", "geomet_layers_options", "GDPS.", "GDPS");
 
     // getting NOAA GFS data from University of Hawaii WMS Server
-    getWmsDataForCombobox(noaa_url, "noaa_combobox", "noaa_layers_options", "_");
+    getWmsTimeSeriesForCombobox(noaa_url, "noaa_combobox", "noaa_layers_options", "_");
 
     // retreiving data from ECMWF WMS server
-    getWmsDataForCombobox(ecmwf_url, "ecmwf_combobox", "ecmwf_layers_options");
+    getWmsTimeSeriesForCombobox(ecmwf_url, "ecmwf_combobox", "ecmwf_layers_options");
 
     // getting NASA Earth Oberservatory data (NEO) WMS Server
     getWmsTimeSeriesForCombobox(neo_url, "neo_combobox", "neo_layers_options");
