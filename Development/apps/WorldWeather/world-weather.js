@@ -73,6 +73,7 @@ $(document).ready(function () {
             }).done(function () {
             var digital_elevation_layer =
                 new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
+            digital_elevation_layer.displayName = "Digital Elevation Model";
 
             var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
             viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);

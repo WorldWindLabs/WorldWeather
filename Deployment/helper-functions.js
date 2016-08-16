@@ -58,7 +58,7 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-//Managing the tabs
+// Managing the tabs
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -85,7 +85,6 @@ function openTab(evt, tabName) {
 
     // Show the current tab, and add an "active" attribute to the link
     // that opened the tab, or removes it if it was already open
-
     if (document.getElementById(tabName).style.display == "none") {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.setAttribute("target", "active");
@@ -95,8 +94,6 @@ function openTab(evt, tabName) {
         document.getElementById(tabName).style.display = "none";
         document.getElementById(tabName).className.replace("active", "");
         evt.currentTarget.removeAttribute("target", "active");
-
-
     }
 
     // remove all other tabs except for the one that was clicked, but do not let this apply to he help tab
@@ -166,80 +163,55 @@ function showHideLegends(evt, t, selectedItem, layerID) {
         var legends_modal_selector = $("#legends_modal");
         var legends_modal_title = $("#legends_modal_title");
         var legends_modal_text = $("#legends_modal_text");
-
         var selectedLayer = findLayerByID(layerID);
 
         legends_modal_title.html(selectedLayer.displayName);
         legends_modal_text.html('<img src="' + selectedLayer.legend + '" style="width: auto; height: auto; max-width: 100%; max-height: 400px"/> <br/>');
-
         legends_modal_selector.css('display', 'block');
     }
     else if (selectedItem == "view") {
-
-        footercontent = document.getElementsByClassName("card-footer-item");
-        for (i = 0; i < footercontent.length; i++) {
-
-            if (footercontent[i].id != t.id)
-                footercontent[i].childNodes[0].innerHTML = "View";
-        }
-
+        var footer_content = document.getElementsByClassName("card-footer-item");
+        for (var a = 0; a < footer_content.length; a++)
+            if (footer_content[a].id != t.id) footer_content[a].childNodes[0].innerHTML = "View";
 
         if (t.childNodes[0].innerHTML == "View") {
-
-            if (document.x) {
-                for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
-
-                    var layer = document.wwd.layers[i];
-                    for (var j = 0, length = document.x.length; j < length; j++) {
-
-
-                        if (layer.uniqueID && layer.uniqueID == document.x[j]) {
-                            layer.enabled = true;
+            if (document.x && document.x != []) {
+                for (var b = 0, b_length = document.wwd.layers.length; b < b_length; b++) {
+                    var internal_layer = document.wwd.layers[b];
+                    for (var c = 0, c_length = document.x.length; c < c_length; c++) {
+                        if (internal_layer.uniqueID && internal_layer.uniqueID == document.x[c]) {
+                            internal_layer.enabled = true;
+                            internal_layer.layerSelected = true;
                             document.layerManager.synchronizeLayerList();
-
                         }
                     }
-
-
                 }
             }
-            else
-                document.x = [];
-
+            else document.x = [];
 
             t.childNodes[0].innerHTML = "Unview";
+            for (var d = 0, d_length = document.wwd.layers.length; d < d_length; d++) {
 
-            for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
-
-                var layer = document.wwd.layers[i];
-                if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
-                    //layer.hide = true;
-                    document.x.push(layer.uniqueID);
-                    layer.enabled = false;
+                var internal_new_layer = document.wwd.layers[d];
+                if (internal_new_layer.uniqueID && internal_new_layer.uniqueID != layerID && (internal_new_layer.layerSelected || internal_new_layer.enabled)) {
+                    document.x.push(internal_new_layer.uniqueID);
+                    internal_new_layer.layerSelected = true;
+                    internal_new_layer.enabled = false;
                     document.layerManager.synchronizeLayerList();
-
                 }
-
             }
-
         } else {
             t.childNodes[0].innerHTML = "View";
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
-
                 var layer = document.wwd.layers[i];
                 for (var j = 0, length = document.x.length; j < length; j++) {
-
-
                     if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                         layer.enabled = true;
+                        layer.layerSelected = true;
                         document.layerManager.synchronizeLayerList();
-
                     }
                 }
-
-
             }
-
         }
     }
     else if (selectedItem == "delete") {
