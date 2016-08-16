@@ -12,7 +12,7 @@ define(['../../error/ArgumentError',
     function (ArgumentError,
               GeoJSONConstants,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON geometry for a GeometryCollection. Applications typically do not call this constructor.

@@ -26,7 +26,7 @@ define([
               PickedObject,
               Renderable,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a collada scene

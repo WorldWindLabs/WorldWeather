@@ -18,7 +18,7 @@ define([
               Matrix,
               Sector,
               UnsupportedOperationError) {
-        "use strict";
+        
 
         /**
          * Constructs a surface tile for a specified sector.

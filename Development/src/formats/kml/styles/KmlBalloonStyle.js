@@ -11,7 +11,7 @@ define([
     KmlSubStyle,
     NodeTransformers
 ) {
-    "use strict";
+    
     /**
      * Constructs an KmlBalloonStyle. Applications usually don't call this constructor. It is called by {@link KmlFile}
      * as objects from KmlFile are read. This object is already concrete implementation.

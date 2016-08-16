@@ -19,7 +19,7 @@ define([
               Logger,
               Sector,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a gnomonic geographic projection.

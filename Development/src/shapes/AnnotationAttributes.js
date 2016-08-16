@@ -12,7 +12,7 @@ define([
               Font,
               Insets,
               TextAttributes) {
-        "use strict";
+        
 
         /**
          * Constructs an annotation attributes bundle.

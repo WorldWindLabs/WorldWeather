@@ -9,7 +9,7 @@ define([
 ], function (KmlFeature,
              KmlIcon,
              NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlOverlay. Applications usually don't call this constructor. It is called by {@link KmlFile} as

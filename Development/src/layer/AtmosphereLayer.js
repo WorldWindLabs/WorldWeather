@@ -25,7 +25,7 @@ define([
               Sector,
               SkyProgram,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a layer showing the Earth's atmosphere.

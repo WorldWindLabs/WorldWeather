@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Layer,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a layer that contains shapes and other renderables.

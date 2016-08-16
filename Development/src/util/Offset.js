@@ -9,7 +9,7 @@
 define(['../geom/Vec2'
     ],
     function (Vec2) {
-        "use strict";
+        
 
         /**
          * Constructs an offset instance given specified units and offsets.

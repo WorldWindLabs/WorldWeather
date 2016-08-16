@@ -11,7 +11,7 @@ define([
     Logger,
     Promise
 ) {
-    "use strict";
+    
     /**
      * Creates representation of Remote object, which returns Promise of this object.
      * @param options {Object}

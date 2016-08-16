@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a texture for a specified image.

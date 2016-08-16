@@ -13,7 +13,7 @@ define([
     TreeKeyValueCache,
     WWUtil
 ) {
-    "use strict";
+    
 
     /**
      * More complex factory, which retrieves the values from cache and in case the value isn't present there it

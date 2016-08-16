@@ -17,7 +17,7 @@ define([
               GeoTiffUtil,
               Logger,
               TiffConstants) {
-        "use strict";
+        
 
         /**
          * Constructs an image file directory entry. Applications typically do not call this constructor. It is called

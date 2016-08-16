@@ -16,7 +16,7 @@ define([
               Logger,
               Sector,
               UnsupportedOperationError) {
-        "use strict";
+        
 
         /**
          * Constructs a base geographic projection.

@@ -52,7 +52,7 @@ define([
               Tile,
               WWMath,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a Tessellator.

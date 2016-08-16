@@ -7,7 +7,7 @@ define([
     './KmlFeature'
 ], function (KmlElements,
              KmlFeature) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlTour. Applications usually don't call this constructor. It is called by {@link KmlFile} as

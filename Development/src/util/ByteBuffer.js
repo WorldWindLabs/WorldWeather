@@ -11,7 +11,7 @@ define(['../error/ArgumentError',
         ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a wrapper around an array buffer that enables byte-level access to its data.

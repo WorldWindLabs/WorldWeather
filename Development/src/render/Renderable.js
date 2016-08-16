@@ -12,7 +12,7 @@ define([
     ],
     function (Logger,
               UnsupportedOperationError) {
-        "use strict";
+        
 
         /**
          * Constructs a base renderable.

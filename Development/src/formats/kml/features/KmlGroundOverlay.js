@@ -21,7 +21,7 @@ define([
     Sector,
     SurfaceImage
 ) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlGroundOverlay. Applications usually don't call this constructor. It is called by {@link

@@ -52,7 +52,7 @@ define([
               TerrainTileList,
               TextureTile,
               Tile) {
-        "use strict";
+        
 
         var SurfaceShapeTileBuilder = function() {
             // Parameterize top level subdivision in one place.

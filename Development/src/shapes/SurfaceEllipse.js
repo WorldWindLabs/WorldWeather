@@ -22,7 +22,7 @@ define([
               ShapeAttributes,
               SurfaceShape,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a surface ellipse with a specified center and radii and an optional attributes bundle.

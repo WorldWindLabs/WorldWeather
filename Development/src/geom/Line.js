@@ -13,7 +13,7 @@ define([
     function (ArgumentError,
               Logger,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a line from a specified origin and direction.

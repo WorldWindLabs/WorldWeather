@@ -7,7 +7,7 @@
  */
 
 define(['./ColladaUtils', '../../geom/Matrix', '../../geom/Vec3'], function (ColladaUtils, Matrix, Vec3) {
-    "use strict";
+    
 
     /**
      * Constructs a ColladaNode

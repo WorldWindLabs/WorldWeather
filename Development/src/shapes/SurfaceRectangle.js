@@ -22,7 +22,7 @@ define([
               ShapeAttributes,
               SurfaceShape,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a surface rectangle with a specified center and size and an optional attributes bundle.

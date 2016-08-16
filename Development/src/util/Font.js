@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Color,
               Logger) {
-        "use strict";
+        
 
         /**
          * Construct a font descriptor. See the individual attribute descriptions below for possible parameter values.

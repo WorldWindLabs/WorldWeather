@@ -16,7 +16,7 @@ define([
               ArgumentError,
               GeographicProjection,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a polar equidistant geographic projection.

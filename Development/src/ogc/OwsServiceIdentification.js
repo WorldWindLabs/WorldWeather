@@ -11,7 +11,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs an OWS Service Identification instance from an XML DOM.

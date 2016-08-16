@@ -13,7 +13,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a framebuffer texture with the specified dimensions and an optional depth buffer. Use the

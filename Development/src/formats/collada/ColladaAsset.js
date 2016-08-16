@@ -7,7 +7,7 @@
  */
 
 define([], function () {
-    "use strict";
+    
 
     /**
      * Constructs a ColladaAsset

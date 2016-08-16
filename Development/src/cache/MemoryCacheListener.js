@@ -16,7 +16,7 @@ define([
     ],
     function (Logger,
               UnsupportedOperationError) {
-        "use strict";
+        
 
         /**
          * @alias MemoryCacheListener

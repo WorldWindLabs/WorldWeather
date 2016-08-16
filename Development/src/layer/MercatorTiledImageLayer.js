@@ -18,7 +18,7 @@ define([
               TiledImageLayer,
               Vec2,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a layer supporting Mercator imagery.

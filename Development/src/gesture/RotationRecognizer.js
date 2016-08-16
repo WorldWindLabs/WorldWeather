@@ -12,7 +12,7 @@ define([
     ],
     function (Angle,
               GestureRecognizer) {
-        "use strict";
+        
 
         /**
          * Constructs a rotation gesture recognizer.

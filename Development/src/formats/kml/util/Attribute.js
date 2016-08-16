@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 define([], function () {
-    "use strict";
+    
 
     /**
      * This class represents abstraction for Attribute. It is possible to test its existence, retrieve value and set

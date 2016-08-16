@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a URL builder for level/row/column tiles.

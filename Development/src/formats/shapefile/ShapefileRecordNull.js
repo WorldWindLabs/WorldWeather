@@ -11,7 +11,7 @@ define(['../../formats/shapefile/Shapefile',
     ],
     function (Shapefile,
               ShapefileRecord) {
-        "use strict";
+        
 
         /**
          * Constructs a null shapefile record. Applications typically do not call this constructor. It is called by

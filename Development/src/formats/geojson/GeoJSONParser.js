@@ -56,7 +56,7 @@ define(['../../error/ArgumentError',
               ShapeAttributes,
               SurfacePolygon,
               SurfacePolyline) {
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON object for a specified GeoJSON data source. Call [load]{@link GeoJSONParser#load} to

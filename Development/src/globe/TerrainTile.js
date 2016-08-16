@@ -16,7 +16,7 @@ define([
               Logger,
               Matrix,
               Tile) {
-        "use strict";
+        
 
         /**
          * Constructs a terrain tile.

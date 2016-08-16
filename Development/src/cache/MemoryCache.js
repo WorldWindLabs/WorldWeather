@@ -12,7 +12,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a memory cache of a specified size.

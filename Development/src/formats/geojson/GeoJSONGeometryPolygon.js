@@ -12,7 +12,7 @@ define(['../../error/ArgumentError',
     function (ArgumentError,
               GeoJSONGeometry,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON geometry for a Polygon. Applications typically do not call this constructor.

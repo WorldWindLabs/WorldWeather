@@ -13,7 +13,7 @@ define([
     KmlElements,
     NodeTransformers
 ) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlLineStyle object.  Applications shouldn't use this constructor. It is used by

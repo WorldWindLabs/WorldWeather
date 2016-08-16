@@ -56,7 +56,7 @@ define([
               ShapefileRecordPolyline,
               SurfacePolygon,
               SurfacePolyline) {
-        "use strict";
+        
 
         /**
          * Constructs a shapefile object for a specified shapefile URL. Call [load]{@link Shapefile#load} to retrieve the

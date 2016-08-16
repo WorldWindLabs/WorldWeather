@@ -20,7 +20,7 @@ define([
               Logger,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a Sector from specified minimum and maximum latitudes and longitudes in degrees.

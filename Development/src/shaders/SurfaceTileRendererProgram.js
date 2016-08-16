@@ -16,7 +16,7 @@ define([
               Color,
               GpuProgram,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a new surface-tile-renderer program.

@@ -12,7 +12,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a highlight controller and associates it with a specified world window.

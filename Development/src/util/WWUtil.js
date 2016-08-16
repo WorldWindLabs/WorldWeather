@@ -16,7 +16,7 @@ define([
               Logger,
               Rectangle,
               Vec3) {
-        "use strict";
+        
         /**
          * Provides math constants and functions.
          * @exports WWUtil

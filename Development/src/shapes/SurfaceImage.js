@@ -16,7 +16,7 @@ define([
               Logger,
               PickedObject,
               SurfaceTile) {
-        "use strict";
+        
 
         /**
          * Constructs a surface image shape for a specified sector and image path.

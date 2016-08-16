@@ -7,7 +7,7 @@ define([
     '../KmlElements'
 ], function (KmlLineString,
              KmlElements) {
-    "use strict";
+    
     /**
      * Constructs an KmlLinearRing element. Applications don't usually call this constructor. It is called by objects in
      * the hierarchy of KmlObject.

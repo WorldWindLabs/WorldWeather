@@ -30,7 +30,7 @@ define([
               Vec3,
               WWMath,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a unit bounding box.

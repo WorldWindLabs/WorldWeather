@@ -33,7 +33,7 @@ define([
               Tessellator,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs an ellipsoidal Globe with default radii for Earth (WGS84).

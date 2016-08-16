@@ -5,7 +5,7 @@
 define([
     './NodeTransformers'
 ], function (NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Simple factory, which understands the mapping between the XML and the internal Elements.

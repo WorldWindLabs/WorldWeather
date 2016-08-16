@@ -15,7 +15,7 @@ define([
               Logger,
               OwsLanguageString,
               WmsCapabilities) {
-        "use strict";
+        
 
         /**
          * Constructs an WorldWeather Layer instance from an XML DOM.

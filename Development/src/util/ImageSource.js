@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Color,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs an image source.

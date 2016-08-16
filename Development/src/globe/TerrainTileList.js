@@ -13,7 +13,7 @@ define(['../error/ArgumentError',
     function (ArgumentError,
               Logger,
               Sector) {
-        "use strict";
+        
 
         /**
          * Constructs a terrain tile list, a container for terrain tiles that also has a tessellator and a sector

@@ -13,7 +13,7 @@ define(['../../util/ByteBuffer',
     function (ByteBuffer,
               Shapefile,
               ShapefileRecord) {
-        "use strict";
+        
 
         /**
          * Constructs a shapefile record for a multi-point. Applications typically do not call this constructor.

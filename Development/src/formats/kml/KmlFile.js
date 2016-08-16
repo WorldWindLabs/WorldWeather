@@ -35,7 +35,7 @@ define([
              Remote,
              StyleResolver,
              XmlDocument) {
-    "use strict";
+    
 
     /**
      * Constructs an object for Kml file. Applications usually don't call this constructor.

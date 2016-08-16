@@ -4,7 +4,7 @@
  */
 define(['./es6-promise'],
     function (LegacyPromise) {
-        "use strict";
+        
         if (window.Promise) {
             return window.Promise;
         } else {

@@ -20,7 +20,7 @@ define([
               Matrix,
               Rectangle,
               TextureTile) {
-        "use strict";
+        
 
         /**
          * Constructs a framebuffer tile.

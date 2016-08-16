@@ -16,7 +16,7 @@ define([
               Level,
               Location,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a level set.

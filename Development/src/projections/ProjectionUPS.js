@@ -22,7 +22,7 @@ define([
               Sector,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a Uniform Polar Stereographic geographic projection.

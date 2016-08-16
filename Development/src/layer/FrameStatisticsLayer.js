@@ -24,7 +24,7 @@ define([
               Offset,
               ScreenText,
               TextAttributes) {
-        "use strict";
+        
 
         /**
          * Constructs a layer that displays the current performance statistics.

@@ -29,7 +29,7 @@ define([
               Sector,
               Tile,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs an elevation model.

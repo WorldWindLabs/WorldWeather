@@ -43,7 +43,7 @@ define([
               SurfaceShapeTileBuilder,
               Terrain,
               Vec2) {
-        "use strict";
+        
 
         /**
          * Constructs a World Wind window for an HTML canvas.

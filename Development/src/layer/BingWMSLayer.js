@@ -16,7 +16,7 @@ define([
               Sector,
               TiledImageLayer,
               WmsUrlBuilder) {
-        "use strict";
+        
 
         // Intentionally not documented. For diagnostic use only.
         var BingWMSLayer = function () {

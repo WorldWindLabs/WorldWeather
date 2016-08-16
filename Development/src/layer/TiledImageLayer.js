@@ -27,7 +27,7 @@ define([
               Texture,
               Tile,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a tiled image layer.

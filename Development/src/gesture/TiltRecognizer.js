@@ -8,7 +8,7 @@
  */
 define(['../gesture/PanRecognizer'],
     function (PanRecognizer) {
-        "use strict";
+        
 
         /**
          * Constructs a tilt gesture recognizer.

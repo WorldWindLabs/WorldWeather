@@ -9,7 +9,7 @@ define([
     KmlSubStyle,
     NodeTransformers
 ) {
-    "use strict";
+    
     /**
      * Constructs an KmlColorStyle. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * objects from KmlFiles are read. This object is abstract. Only its descendants are instantiating it.

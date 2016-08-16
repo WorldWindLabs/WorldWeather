@@ -12,7 +12,7 @@ define([
              NodeTransformers,
              Position
 ) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlLookAt. Applications usually don't call this constructor. It is called by {@link KmlFile} as

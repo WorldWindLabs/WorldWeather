@@ -13,7 +13,7 @@ define([
         '../util/WWUtil'
     ],
     function (RenderableLayer, Sector, SurfaceImage, WWUtil) {
-        "use strict";
+        
 
         var BoundingBoxLayer = function (name_of_layer, image_url, bounding_box) {
             RenderableLayer.call(this, name_of_layer);

@@ -30,7 +30,7 @@ define([
               ScreenText,
               TextAttributes,
               Vec2) {
-        "use strict";
+        
 
         /**
          * Constructs a layer that displays the current map coordinates.

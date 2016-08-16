@@ -8,7 +8,7 @@
  */
 define([],
     function () {
-        "use strict";
+        
 
         /**
          * Create a WWMessage instance.

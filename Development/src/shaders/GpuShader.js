@@ -12,7 +12,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a GPU shader of a specified type with specified GLSL source code.

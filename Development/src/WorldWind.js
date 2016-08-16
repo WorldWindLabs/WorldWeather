@@ -424,7 +424,7 @@ define([ // PLEASE KEEP ALL THIS IN ALPHABETICAL ORDER BY MODULE NAME (not direc
               WWUtil,
               XmlDocument,
               ZeroElevationModel) {
-        "use strict";
+        
         /**
          * This is the top-level World Wind module. It is global.
          * @exports WorldWind

@@ -11,7 +11,7 @@ define([
         '../util/Logger'
     ],
     function (ArgumentError, Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a time sequence from an array of Dates.

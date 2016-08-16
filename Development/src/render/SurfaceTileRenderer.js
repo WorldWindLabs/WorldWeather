@@ -18,7 +18,7 @@ define([
               Matrix,
               SurfaceShapeTile,
               SurfaceTileRendererProgram) {
-        "use strict";
+        
 
         /**
          * Constructs a new surface tile renderer.

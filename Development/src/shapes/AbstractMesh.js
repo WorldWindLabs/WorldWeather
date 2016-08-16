@@ -39,7 +39,7 @@ define([
               Vec2,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs an abstract mesh. Applications do not call this constructor. It is called only by subclasses of

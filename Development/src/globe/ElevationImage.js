@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs an elevation image.

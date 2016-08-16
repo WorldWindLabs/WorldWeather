@@ -22,7 +22,7 @@ define([
               Matrix,
               Texture,
               Vec2) {
-        "use strict";
+        
 
         /**
          * Constructs a TextSupport instance.

@@ -9,7 +9,7 @@ define([
 ], function (KmlElements,
              KmlAbstractView,
              NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlCamera. Applications usually don't call this constructor. It is called by {@link KmlFile} as

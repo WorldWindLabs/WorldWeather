@@ -14,7 +14,7 @@ define([
     function (Globe,
               ProjectionEquirectangular,
               ZeroElevationModel) {
-        "use strict";
+        
 
         /**
          * Constructs a 2D globe with a default {@link ZeroElevationModel} and

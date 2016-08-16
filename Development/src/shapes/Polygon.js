@@ -40,7 +40,7 @@ define([
               Vec2,
               Vec3,
               libtessDummy) {
-        "use strict";
+        
 
         /**
          * Constructs a Polygon.

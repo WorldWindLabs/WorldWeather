@@ -34,7 +34,7 @@ define([
               Vec2,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs an annotation.

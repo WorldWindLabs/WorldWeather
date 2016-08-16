@@ -7,7 +7,7 @@
  */
 define([],
     function() {
-        "use strict";
+        
 
         /**
          * Provides GeoJSON string constants.

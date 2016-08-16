@@ -21,7 +21,7 @@ define([
               TiledImageLayer,
               LevelRowColumnUrlBuilder,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a tiled image layer that uses a REST interface to retrieve its imagery.

@@ -18,7 +18,7 @@ define([
               Offset,
               ShapeAttributes,
               TextAttributes) {
-        "use strict";
+        
 
         /**
          * Constructs a placemark attributes bundle.

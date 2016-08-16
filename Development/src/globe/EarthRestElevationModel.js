@@ -16,7 +16,7 @@ define([
               Sector,
               ElevationModel,
               LevelRowColumnUrlBuilder) {
-        "use strict";
+        
 
         // THIS CLASS IS NOT YET MEANT TO BE EXPOSED.
         ///**

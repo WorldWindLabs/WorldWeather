@@ -29,7 +29,7 @@ define([
               WmtsLayerTile,
               WWMath,
               WWUtil) {
-        "use strict";
+        
 
         // TODO: Test Mercator layers.
         // TODO: Support tile matrix limits.

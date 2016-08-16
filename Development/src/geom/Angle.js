@@ -6,7 +6,7 @@
  * @version $Id: Angle.js 2914 2015-03-19 19:10:19Z tgaskins $
  */
 define([], function () {
-    "use strict";
+    
     /**
      * Provides constants and functions for working with angles.
      * @exports Angle

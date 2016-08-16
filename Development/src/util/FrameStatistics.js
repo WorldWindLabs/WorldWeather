@@ -8,7 +8,7 @@
  */
 define([],
     function () {
-        "use strict";
+        
 
         /**
          * Constructs a performance statistics instance. This is performed internally by the {@link WorldWindow}.

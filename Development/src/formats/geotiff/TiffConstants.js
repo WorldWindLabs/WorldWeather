@@ -7,7 +7,7 @@
  */
 define([],
     function () {
-        "use strict";
+        
 
         /**
          * Provides all of the TIFF tag and subtag constants.

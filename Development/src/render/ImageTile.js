@@ -16,7 +16,7 @@ define([
               Logger,
               TextureTile,
               Tile) {
-        "use strict";
+        
 
         /**
          * Constructs an image tile.

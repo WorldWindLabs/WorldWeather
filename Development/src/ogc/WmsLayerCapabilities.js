@@ -12,7 +12,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs an WMS Layer instance from an XML DOM.

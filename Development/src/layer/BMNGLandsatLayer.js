@@ -16,7 +16,7 @@ define([
               Sector,
               TiledImageLayer,
               WmsUrlBuilder) {
-        "use strict";
+        
 
         /**
          * Constructs a combined Blue Marble and Landsat image layer.

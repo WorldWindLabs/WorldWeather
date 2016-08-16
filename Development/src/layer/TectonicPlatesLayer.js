@@ -20,7 +20,7 @@ define([
              RenderableLayer,
              ShapeAttributes,
              SurfacePolygon) {
-    "use strict";
+    
 
     /**
      * Constructs a layer showing the Earth's tectonic plates.

@@ -11,7 +11,7 @@ define([
     KmlElements,
     NodeTransformers
 ) {
-    "use strict";
+    
     /**
      * Constructs an KmlLabelStyle. Applications don't usually call this constructor. It is called by {@link KmlFile} as
      * objects from KmlFile are read. This object is already concrete implementation.

@@ -18,7 +18,7 @@ define([
               Location,
               Logger,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a position from a specified latitude and longitude in degrees and altitude in meters.

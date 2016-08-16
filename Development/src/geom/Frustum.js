@@ -16,7 +16,7 @@ define([
               Matrix,
               Plane,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a frustum.

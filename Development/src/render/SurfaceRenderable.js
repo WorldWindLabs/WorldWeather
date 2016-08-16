@@ -11,7 +11,7 @@ define(['../util/Logger',
     ],
     function (Logger,
               UnsupportedOperationError) {
-        "use strict";
+        
 
         /**
          * Applications must not call this constructor. It is an interface class and is not meant to be instantiated

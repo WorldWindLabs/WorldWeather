@@ -11,7 +11,7 @@ define([
              KmlFeature,
              KmlLink,
              NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlNetworkLink. Applications usually don't call this constructor. It is called by {@link KmlFile}

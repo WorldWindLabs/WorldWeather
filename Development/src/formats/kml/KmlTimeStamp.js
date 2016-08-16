@@ -12,7 +12,7 @@ define([
 ], function (KmlElements,
              KmlTimePrimitive,
              NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlTimeStamp. Applications usually don't call this constructor. It is called by {@link KmlFile} as

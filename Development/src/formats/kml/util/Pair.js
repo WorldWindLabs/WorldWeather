@@ -17,7 +17,7 @@ define([
     Promise,
     StyleResolver
 ) {
-    "use strict";
+    
 
     /**
      * Constructs a Pair. Application usually don't call this constructor. It is called by {@link KmlFile} as

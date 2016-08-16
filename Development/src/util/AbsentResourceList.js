@@ -8,7 +8,7 @@
  */
 define([],
     function () {
-        "use strict";
+        
 
         /**
          * Constructs an absent resource list.

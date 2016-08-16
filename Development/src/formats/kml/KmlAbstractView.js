@@ -12,7 +12,7 @@ define([
     KmlTimePrimitive
 ){
     // TODO Fix to use current implementations.
-    "use strict";
+    
     /**
      * Constructs an KmlAbstractView. Applications usually don't call this constructor. It is called by {@link KmlFile}
      * as objects from Kml file are read. This object is already concrete implementation.

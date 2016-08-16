@@ -16,7 +16,7 @@ define([
               Logger,
               ShapeAttributes,
               SurfaceShape) {
-        "use strict";
+        
 
         /**
          * Constructs a surface polygon.

@@ -36,7 +36,7 @@ define([
               SurfacePolyline,
               Vec2,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a path.

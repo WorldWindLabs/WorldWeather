@@ -17,7 +17,7 @@ define([
               Logger,
               PeriodicTimeSequence,
               RestTiledImageLayer) {
-        "use strict";
+        
 
         /**
          * Constructs a Blue Marble layer.

@@ -16,7 +16,7 @@ define([
               Layer,
               Logger,
               WmsLayer) {
-        "use strict";
+        
 
         /**
          * Constructs a WMS time-dimensioned image layer.

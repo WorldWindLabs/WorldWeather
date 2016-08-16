@@ -21,7 +21,7 @@ define([
               Position,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a WGS84 ellipsoid

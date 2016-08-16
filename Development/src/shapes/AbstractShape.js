@@ -24,7 +24,7 @@ define([
               ShapeAttributes,
               UnsupportedOperationError,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs an abstract shape instance. Meant to be called only by subclasses.

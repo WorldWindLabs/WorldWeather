@@ -21,7 +21,7 @@ define([
              KmlTimePrimitive,
              NodeTransformers,
              Promise) {
-    "use strict";
+    
     /**
      * Constructs an KmlFeature. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * objects from Kml file are read

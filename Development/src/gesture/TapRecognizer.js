@@ -8,7 +8,7 @@
  */
 define(['../gesture/GestureRecognizer'],
     function (GestureRecognizer) {
-        "use strict";
+        
 
         /**
          * Constructs a tap gesture recognizer.

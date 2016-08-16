@@ -18,7 +18,7 @@ define([
               GeographicProjection,
               Logger,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs an Equirectangular geographic projection, also known as Equidistant Cylindrical, Plate Carree and

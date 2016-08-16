@@ -13,7 +13,7 @@ define([
     function (ArgumentError,
               Logger,
               OwsConstraint) {
-        "use strict";
+        
 
         /**
          * Constructs an OWS Operations Metadata instance from an XML DOM.

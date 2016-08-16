@@ -31,7 +31,7 @@ define([
               Proj4,
               TiffConstants,
               TiffIFDEntry) {
-        "use strict";
+        
 
         /**
          * Constructs a geotiff reader object for a specified geotiff URL.

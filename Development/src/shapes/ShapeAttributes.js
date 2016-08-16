@@ -12,7 +12,7 @@ define([
     ],
     function (Color,
               ImageSource) {
-        "use strict";
+        
 
         /**
          * Constructs a shape attributes bundle, optionally specifying a prototype set of attributes. Not all shapes

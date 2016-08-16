@@ -16,7 +16,7 @@ define([
               Location,
               Sector,
               MercatorTiledImageLayer) {
-        "use strict";
+        
 
         /**
          * Constructs a base Bing layer. This constructor is meant to be called only by subclasses.

@@ -18,7 +18,7 @@ define([
               Location,
               Sector,
               MercatorTiledImageLayer) {
-        "use strict";
+        
 
         /**
          * Constructs an Open Street Map layer.

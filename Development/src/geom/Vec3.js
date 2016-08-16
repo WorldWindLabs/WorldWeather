@@ -12,7 +12,7 @@ define([
     ],
     function (Logger,
               ArgumentError) {
-        "use strict";
+        
 
         /**
          * Constructs a three-component vector.

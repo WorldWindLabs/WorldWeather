@@ -26,7 +26,7 @@ define([
               Vec2,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a navigator state. This constructor is meant to be called by navigators when their current state

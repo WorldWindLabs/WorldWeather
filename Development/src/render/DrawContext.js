@@ -60,7 +60,7 @@ define([
               Vec2,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a DrawContext. Applications do not call this constructor. A draw context is created by a

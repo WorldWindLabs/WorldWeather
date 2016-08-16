@@ -20,7 +20,7 @@ define([
               Sector,
               Vec3,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a tile for a specified sector, level, row and column.

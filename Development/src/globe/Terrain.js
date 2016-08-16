@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a Terrain object.

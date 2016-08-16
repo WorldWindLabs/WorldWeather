@@ -8,7 +8,7 @@
 define(['./GeoJSONConstants'
     ],
     function (GeoJSONConstants) {
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON Geometry object. Applications typically do not call this constructor. It is called by

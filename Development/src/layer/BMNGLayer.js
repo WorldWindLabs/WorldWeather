@@ -16,7 +16,7 @@ define([
               Sector,
               TiledImageLayer,
               WmsUrlBuilder) {
-        "use strict";
+        
 
         /**
          * Constructs a Blue Marble image layer.

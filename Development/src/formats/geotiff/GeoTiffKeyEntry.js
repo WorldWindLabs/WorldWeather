@@ -15,7 +15,7 @@ define([
               ArgumentError,
               GeoTiffConstants,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a geotiff KeyEntry. Applications typically do not call this constructor. It is called

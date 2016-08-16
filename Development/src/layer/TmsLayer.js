@@ -20,7 +20,7 @@ define([
               WWMath,
               WWUtil
     ) {
-        "use strict";
+        
 
 
         /**

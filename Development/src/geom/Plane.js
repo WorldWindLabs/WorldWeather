@@ -16,7 +16,7 @@ define([
               Line,
               Logger,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a plane.

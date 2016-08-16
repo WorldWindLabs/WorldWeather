@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               Tile) {
-        "use strict";
+        
 
         /**
          * Constructs an elevation tile.

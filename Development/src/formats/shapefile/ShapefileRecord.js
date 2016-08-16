@@ -20,7 +20,7 @@ define([
               Location,
               Logger,
               Shapefile) {
-        "use strict";
+        
 
         /**
          * Constructs a shapefile record. Applications typically do not call this constructor. It is called by

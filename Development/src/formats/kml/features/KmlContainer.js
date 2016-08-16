@@ -5,7 +5,7 @@
 define([
     './KmlFeature'
 ], function (KmlFeature) {
-    "use strict";
+    
     /**
      * Constructs an KmlContainer. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * objects from Kml file are read. This object is already concrete implementation.

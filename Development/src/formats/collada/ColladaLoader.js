@@ -26,7 +26,7 @@ define([
               ColladaScene,
               ColladaUtils,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a ColladaLoader

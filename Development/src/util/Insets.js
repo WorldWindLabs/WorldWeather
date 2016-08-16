@@ -7,7 +7,7 @@ define(['../error/ArgumentError',
     ],
     function (ArgumentError,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs an Insets object that is a representation of the borders of a container.

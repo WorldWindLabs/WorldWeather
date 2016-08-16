@@ -21,7 +21,7 @@ define([
              KmlStyle,
              NodeTransformers,
              Sector) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlRegion. Applications usually don't call this constructor. It is called by {@link KmlFile} as

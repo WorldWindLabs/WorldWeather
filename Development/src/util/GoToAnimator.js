@@ -16,7 +16,7 @@ define([
               Logger,
               Position,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a GoTo animator.

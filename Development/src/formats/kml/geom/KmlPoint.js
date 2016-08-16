@@ -22,7 +22,7 @@ define([
     Polygon,
     Position
 ){
-    "use strict";
+    
     /**
      * Constructs an KmlPoint. Application usually don't call this constructor. It is called by {@link KmlFile} as
      * Objects from KmlFile are read.

@@ -16,7 +16,7 @@ define([
               Sector,
               ElevationModel,
               WmsUrlBuilder) {
-        "use strict";
+        
 
         /**
          * Constructs an Earth elevation model.

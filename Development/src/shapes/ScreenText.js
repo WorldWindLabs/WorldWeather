@@ -16,7 +16,7 @@ define([
               Logger,
               Offset,
               Text) {
-        "use strict";
+        
 
         /**
          * Constructs a screen text shape at a specified screen location.

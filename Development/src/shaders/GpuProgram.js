@@ -16,7 +16,7 @@ define([
               Color,
               GpuShader,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a GPU program with specified source code for vertex and fragment shaders.

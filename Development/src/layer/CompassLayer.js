@@ -12,7 +12,7 @@ define([
     ],
     function (Compass,
               RenderableLayer) {
-        "use strict";
+        
 
         /**
          * Constructs a compass layer.

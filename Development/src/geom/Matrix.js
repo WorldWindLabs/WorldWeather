@@ -27,7 +27,7 @@ define([
               Texture,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a matrix.

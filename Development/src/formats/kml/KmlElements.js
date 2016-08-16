@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 define([], function () {
-    "use strict";
+    
 
     //noinspection UnnecessaryLocalVariableJS
     /**

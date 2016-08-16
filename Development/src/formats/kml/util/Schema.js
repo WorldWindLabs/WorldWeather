@@ -7,7 +7,7 @@ define([
     '../KmlObject'
 ], function (KmlElements,
              KmlObject) {
-    "use strict";
+    
     /**
      * Constructs an Schema. Application usually don't call this constructor. It is called by {@link KmlFile} as
      * Objects from KmlFile are read. It is concrete implementation.

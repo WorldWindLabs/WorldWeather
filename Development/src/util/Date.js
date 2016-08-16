@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 define([], function () {
-    "use strict";
+    
     /**
      * Descendant of Date.
      * @param dateInFormat {String} Any format of date accepted by the Date constructor.

@@ -7,7 +7,7 @@ define([
     './KmlGeometry'
 ], function (KmlElements,
              KmlGeometry) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlMultiTrack. Applications usually don't call this constructor. It is called by {@link KmlFile} as

@@ -11,7 +11,7 @@ define([
              KmlSubStyle,
              Pair,
              Promise) {
-    "use strict";
+    
     /**
      * Constructs an KmlStyleMap. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * objects from Kml file are read. This object is already concrete implementation.

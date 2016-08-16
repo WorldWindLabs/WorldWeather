@@ -8,7 +8,7 @@
 define([
     ],
     function () {
-        "use strict";
+        
 
         /**
          * Provides GeoTIFF metadata.

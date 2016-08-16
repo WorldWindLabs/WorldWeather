@@ -16,7 +16,7 @@ define([
               Logger,
               ShapeAttributes,
               SurfaceEllipse) {
-        "use strict";
+        
 
         /**
          * Constructs a surface circle with a specified center and radius and an optional attributes bundle.

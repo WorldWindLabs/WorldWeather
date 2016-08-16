@@ -9,7 +9,7 @@ define([
         '../shaders/AtmosphereProgram'
     ],
     function (AtmosphereProgram) {
-        "use strict";
+        
 
         /**
          * Constructs a new program.

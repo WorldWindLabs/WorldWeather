@@ -23,7 +23,7 @@ define([
               UnsupportedOperationError,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a base navigator.

@@ -9,7 +9,7 @@ define([
     function (ArgumentError,
               Logger,
               TmsLayerCapabilities) {
-        "use strict";
+        
 
         /**
          * Constructs an OGC TMS capabilities document from an XML DOM.

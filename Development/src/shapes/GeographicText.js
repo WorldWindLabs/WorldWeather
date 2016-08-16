@@ -16,7 +16,7 @@ define([
               Logger,
               Text,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a geographic text shape at a specified position.

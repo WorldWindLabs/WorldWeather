@@ -14,7 +14,7 @@ define([
     KmlTimePrimitive,
     NodeTransformers
 ){
-    "use strict";
+    
     /**
      * Constructs an KmlTimeSpan. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * objects from KmlFile are read.

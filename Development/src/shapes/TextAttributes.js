@@ -14,7 +14,7 @@ define([
     function (Color,
               Font,
               Offset) {
-        "use strict";
+        
 
         /**
          * Constructs a text attributes bundle.

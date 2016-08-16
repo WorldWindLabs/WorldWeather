@@ -10,7 +10,7 @@ define([
         '../util/Logger'
     ],
     function (Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a color from red, green, blue and alpha values.

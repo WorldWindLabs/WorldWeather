@@ -32,7 +32,7 @@ define([
              TextAttributes,
              Offset,
              WWUtil) {
-    "use strict";
+    
     /**
      * Constructs an KmlPlacemark. Applications usually don't call this constructor. It is called by {@link KmlFile} as
      * Objects from Kml file are read

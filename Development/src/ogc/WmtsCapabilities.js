@@ -23,7 +23,7 @@ define([
               OwsServiceProvider,
               WmsCapabilities,
               WmtsLayerCapabilities) {
-        "use strict";
+        
 
         /**
          * Constructs an OGC WorldWeather capabilities document from an XML DOM.

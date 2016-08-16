@@ -12,7 +12,7 @@ define(['../../error/ArgumentError',
     function (ArgumentError,
               GeoJSONConstants,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON FeatureCollection object. Applications typically do not call this constructor.

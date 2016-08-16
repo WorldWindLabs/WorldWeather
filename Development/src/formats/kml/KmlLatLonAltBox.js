@@ -9,7 +9,7 @@ define([
 ], function (KmlElements,
              KmlObject, 
              NodeTransformers) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlLatLonAltBox. Applications usually don't call this constructor. It is called by {@link KmlFile}

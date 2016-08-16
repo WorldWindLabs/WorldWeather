@@ -13,7 +13,7 @@ define([
     KmlElements,
     NodeTransformers
 ) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlPolyStyle. Application usually don't call this constructor. It is called by {@link KmlFile} as

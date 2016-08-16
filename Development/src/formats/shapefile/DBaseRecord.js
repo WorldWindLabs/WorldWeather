@@ -17,7 +17,7 @@ define(['../../error/ArgumentError',
               DBaseField,
               DBaseFile,
               Logger) {
-        "use strict";
+        
 
         /**
          * Create a DBase record. Applications typically do not call this constructor. It is called by

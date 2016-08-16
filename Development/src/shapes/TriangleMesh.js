@@ -37,7 +37,7 @@ define([
               SurfacePolygon,
               Vec2,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a triangle mesh.

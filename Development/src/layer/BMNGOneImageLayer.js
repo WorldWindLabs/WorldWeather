@@ -13,7 +13,7 @@ define([
         '../util/WWUtil'
     ],
     function (RenderableLayer, Sector, SurfaceImage, WWUtil) {
-        "use strict";
+        
         var BMNGOneImageLayer = function (layer_name, image_url, bounding_box, time_string) {
             RenderableLayer.call(this, layer_name);
             var surfaceImage = null;

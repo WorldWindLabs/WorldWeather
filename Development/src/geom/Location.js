@@ -20,7 +20,7 @@ define([
               Plane,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a location from a specified latitude and longitude in degrees.

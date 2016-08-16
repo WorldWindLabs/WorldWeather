@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 define([], function () {
-    "use strict";
+    
 
     // Contains all files that were already retrieved as a promises.
     /**

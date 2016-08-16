@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               WmsLayerCapabilities) {
-        "use strict";
+        
 
         /**
          * Constructs an WMS Capabilities instance from an XML DOM.

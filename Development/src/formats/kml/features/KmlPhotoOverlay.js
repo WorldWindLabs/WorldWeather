@@ -15,7 +15,7 @@ define([
              KmlPoint,
              NodeTransformers,
              ViewVolume) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlPhotoOverlay. Applications usually don't call this constructor. It is called by {@link KmlFile}

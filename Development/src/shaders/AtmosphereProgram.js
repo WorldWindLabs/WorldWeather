@@ -13,7 +13,7 @@ define([
     function (ArgumentError,
               GpuProgram,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a new program.

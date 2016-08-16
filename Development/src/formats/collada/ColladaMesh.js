@@ -7,7 +7,7 @@
  */
 
 define(['./ColladaUtils'], function (ColladaUtils) {
-    "use strict";
+    
 
     /**
      * Constructs a ColladaMesh

@@ -7,7 +7,7 @@ define([
     '../../../util/Logger'
 ], function (KmlFile,
              Logger) {
-    "use strict";
+    
 
     /**
      * Provide functions for handling styles.

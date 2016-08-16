@@ -5,7 +5,7 @@
 define([
     './../KmlObject'
 ], function (KmlObject) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlSubStyle. Application usually don't call this constructor. It is called by {@link KmlFile} as

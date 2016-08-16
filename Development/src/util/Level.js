@@ -16,7 +16,7 @@ define([
               ArgumentError,
               Location,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a Level within a [LevelSet]{@link LevelSet}. Applications typically do not interact with this

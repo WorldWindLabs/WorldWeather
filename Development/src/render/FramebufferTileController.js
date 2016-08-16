@@ -24,7 +24,7 @@ define([
               MemoryCache,
               Sector,
               Tile) {
-        "use strict";
+        
 
         /**
          * Constructs a framebuffer tile controller.

@@ -19,6 +19,18 @@ module.exports = function (grunt) {
             }
         },
 
+        remove_usestrict: {
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        dest: 'src-modified/',
+                        src: ['src/**/*.js']
+                    }
+                ]
+            }
+        },
+
         requirejs: {
             compile: {
                 options: {
@@ -37,7 +49,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    
+    grunt.loadNpmTasks('grunt-remove-usestrict');
 
     grunt.registerTask('default', ['requirejs']);
 };

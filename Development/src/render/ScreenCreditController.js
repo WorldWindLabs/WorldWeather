@@ -30,7 +30,7 @@ define([
               Renderable,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a screen credit controller.

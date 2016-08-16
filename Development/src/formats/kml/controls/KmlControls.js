@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 define(['../../../util/Logger'], function (Logger) {
-    "use strict";
+    
     /**
      * Every control used by the KML should inherit from this class. It contains common functionality and basically
      * serves as a reference to what needs to be implemented in the descendants.

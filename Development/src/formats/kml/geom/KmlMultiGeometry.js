@@ -9,7 +9,7 @@ define([
 ], function (KmlElements,
              KmlGeometry,
              Position) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlMultiGeometry object. KmlMultiGeometry is object, which contains other geometry objects. This

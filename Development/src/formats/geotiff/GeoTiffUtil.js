@@ -13,7 +13,7 @@ define([
     function (ArgumentError,
               Logger,
               TiffConstants) {
-        "use strict";
+        
 
         var GeoTiffUtil = {
 

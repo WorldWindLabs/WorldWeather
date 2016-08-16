@@ -14,7 +14,7 @@ define(['../../error/ArgumentError',
               GeoJSONConstants,
               Logger,
               Proj4){
-        "use strict";
+        
 
         /**
          * Constructs a GeoJSON CRS object. Applications typically do not call this constructor. It is called by

@@ -6,7 +6,7 @@
  * @version $Id: Logger.js 3418 2015-08-22 00:17:05Z tgaskins $
  */
 define(function () {
-    "use strict";
+    
     /**
      * Logs selected message types to the console.
      * @exports Logger

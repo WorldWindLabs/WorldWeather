@@ -9,7 +9,7 @@ define([
 ], function (KmlElements,
              KmlObject,
              NodeTransformers) {
-    "use strict";
+    
     /**
      * Constructs an ImagePyramid. Application usually don't call this constructor. It is called by {@link KmlFile} as
      * Objects from KmlFile are read. It is concrete implementation.

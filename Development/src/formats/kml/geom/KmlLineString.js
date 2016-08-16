@@ -19,7 +19,7 @@ define([
              Position,
              ShapeAttributes,
              WWUtil) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlLineString object.  Applications shouldn't use this constructor. It is used by

@@ -14,7 +14,7 @@ define([
     function (Logger,
               ArgumentError,
               Vec3) {
-        "use strict";
+        
 
         /**
          * Constructs a two-component vector.

@@ -22,7 +22,7 @@ define([
               Sector,
               TiledImageLayer,
               WmsUrlBuilder) {
-        "use strict";
+        
 
         /**
          * Constructs a WMS image layer.

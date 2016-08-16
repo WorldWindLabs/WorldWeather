@@ -10,7 +10,7 @@ define([
         '../util/Logger'
     ],
     function (Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a Nominatim geocoder.

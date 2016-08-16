@@ -17,7 +17,7 @@ define(['../../error/ArgumentError',
               DBaseField,
               DBaseRecord,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs an object for dBase file at a specified URL. Applications typically do not call this constructor.

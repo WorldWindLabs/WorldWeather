@@ -14,7 +14,7 @@ define(['../../error/ArgumentError',
     function (ArgumentError,
               Logger,
               NotYetImplementedError) {
-        "use strict";
+        
 
         /**
          * Constructs an object for a projection descriptor file at a specified URL.

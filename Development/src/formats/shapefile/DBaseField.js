@@ -15,7 +15,7 @@ define(['../../error/ArgumentError',
               ByteBuffer,
               DBaseFile,
               Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a dBase record field. Applications typically do not call this constructor. It is called by

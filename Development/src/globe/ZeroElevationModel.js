@@ -17,7 +17,7 @@ define([
               Location,
               Logger,
               Sector) {
-        "use strict";
+        
 
         /**
          * Constructs a Zero elevation model whose elevations are zero at every location.

@@ -8,7 +8,7 @@
  */
 define(['../gesture/GestureRecognizer'],
     function (GestureRecognizer) {
-        "use strict";
+        
 
         /**
          * Constructs a mouse click gesture recognizer.

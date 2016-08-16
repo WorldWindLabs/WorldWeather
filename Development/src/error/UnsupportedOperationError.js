@@ -8,7 +8,7 @@
  */
 define(['../error/AbstractError'],
     function (AbstractError) {
-        "use strict";
+        
 
         /**
          * Constructs an unsupported-operation error with a specified message.

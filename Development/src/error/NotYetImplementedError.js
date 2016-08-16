@@ -8,7 +8,7 @@
  */
 define(['../error/AbstractError'],
     function (AbstractError) {
-        "use strict";
+        
 
         /**
          * Constructs a not-yet-implemented error with a specified message.

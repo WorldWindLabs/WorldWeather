@@ -14,7 +14,7 @@ define([
     function (ArgumentError,
               Logger,
               Touch) {
-        "use strict";
+        
 
         /**
          * Constructs a base gesture recognizer. This is an abstract base class and not intended to be instantiated

@@ -16,7 +16,7 @@ define([
               Logger,
               Offset,
               ScreenImage) {
-        "use strict";
+        
 
         /**
          * Constructs a compass.

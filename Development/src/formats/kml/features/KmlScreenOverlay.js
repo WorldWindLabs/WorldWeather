@@ -17,7 +17,7 @@ define([
              Offset,
              ScreenImage,
              WWUtil) {
-    "use strict";
+    
 
     /**
      * Constructs an KmlScreenOverlay. Applications usually don't call this constructor. It is called by {@link

@@ -16,7 +16,7 @@ define([
               Logger,
               Vec3,
               WWUtil) {
-        "use strict";
+        
 
         // This is an internal class and is intentionally not documented.
         var WmtsLayerTile = function (sector, tileMatrix, row, column, imagePath) {

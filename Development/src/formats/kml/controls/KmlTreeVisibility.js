@@ -8,7 +8,7 @@ define([
 ], function (WWUtil,
              KmlControls
     ) {
-    "use strict";
+    
 
     /**
      * This class represents the structure of Documents, Folders and Features in the document. It renders them into

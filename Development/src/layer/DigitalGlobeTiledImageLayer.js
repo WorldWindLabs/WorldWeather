@@ -22,7 +22,7 @@ define([
               Logger,
               Sector,
               MercatorTiledImageLayer) {
-        "use strict";
+        
 
         /**
          * Constructs Digital Globe tiled image layer for a specified dataset distributed by Digital Globe.

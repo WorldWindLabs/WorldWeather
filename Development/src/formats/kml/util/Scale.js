@@ -11,7 +11,7 @@ define([
     KmlObject,
     NodeTransformers
 ) {
-    "use strict";
+    
 
     /**
      * Constructs a Scale. Application usually don't call this constructor. It is called by {@link KmlFile} as

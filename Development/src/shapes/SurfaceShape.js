@@ -32,7 +32,7 @@ define([
               ShapeAttributes,
               UnsupportedOperationError,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a surface shape with an optionally specified bundle of default attributes.

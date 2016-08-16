@@ -16,7 +16,7 @@ define([
               Sector,
               BingTiledImageLayer,
               BingImageryUrlBuilder) {
-        "use strict";
+        
 
         /**
          * Constructs a Bing Aerial layer.

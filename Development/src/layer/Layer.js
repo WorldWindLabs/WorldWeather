@@ -10,7 +10,7 @@ define([
         '../util/Logger'
     ],
     function (Logger) {
-        "use strict";
+        
 
         /**
          * Constructs a layer. This constructor is meant to be called by subclasses and not directly by an application.

@@ -20,7 +20,7 @@ define([
               Logger,
               MemoryCache,
               Texture) {
-        "use strict";
+        
 
         /**
          * Constructs a GPU resource cache for a specified size and low-water value.

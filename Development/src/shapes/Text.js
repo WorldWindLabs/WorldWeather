@@ -34,7 +34,7 @@ define([
               Vec2,
               Vec3,
               WWMath) {
-        "use strict";
+        
 
         /**
          * Constructs a text shape. This constructor is intended to be called only by subclasses.

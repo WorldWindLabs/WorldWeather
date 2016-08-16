@@ -4,7 +4,7 @@
  */
 
 define(['../../util/Logger'], function (Logger) {
-    "use strict";
+    
 
     /**
      * Provides utilities for the ColladaLoader.

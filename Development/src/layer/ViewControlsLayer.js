@@ -26,7 +26,7 @@ define([
               ScreenImage,
               Vec2,
               WWUtil) {
-        "use strict";
+        
 
         /**
          * Constructs a view controls layer.

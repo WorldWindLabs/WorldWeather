@@ -22,7 +22,7 @@ define([
               Sector,
               Texture,
               TextureTile) {
-        "use strict";
+        
 
         /**
          * Constructs a surface shape tile.
