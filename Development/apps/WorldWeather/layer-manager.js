@@ -134,7 +134,14 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
 
                 if (layer.currentTimeString) {
-                    legendAdditions += '<small>' + layer.currentTimeString + '</small>';
+                    legendAdditions += '<small>' + layer.currentTimeString + '</small><br/>';
+                }
+
+                if (layer.time)
+                {
+                    legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'previous\')">Previous</a>';
+                    legendAdditions += '---';
+                    legendAdditions += '<a onclick="alterWmsLayerTime(event, '+ layer.uniqueID +' , \'next\')">Next</a>';
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
@@ -346,7 +353,7 @@ LayerManager.prototype.performSearch = function (queryString) {
             var tokens = queryString.split(",");
             latitude = parseFloat(tokens[0]);
             longitude = parseFloat(tokens[1]);
-            thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude));
+            thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude),null);
         }
         else {
             this.geocoder.lookup(queryString, function (geocoder, result) {
@@ -357,7 +364,7 @@ LayerManager.prototype.performSearch = function (queryString) {
                     WorldWind.Logger.log(
                         WorldWind.Logger.LEVEL_INFO, queryString + ": " + latitude + ", " + longitude);
 
-                    thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude));
+                    thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude),null);
                 }
             });
         }

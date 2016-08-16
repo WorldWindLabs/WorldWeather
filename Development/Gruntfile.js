@@ -37,7 +37,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-jsdoc');
+    
 
-    grunt.registerTask('default', ['jsdoc', 'requirejs']);
+    grunt.registerTask('default', ['requirejs']);
 };

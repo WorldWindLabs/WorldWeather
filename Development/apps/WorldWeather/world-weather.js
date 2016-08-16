@@ -133,5 +133,5 @@ $(document).ready(function () {
     getWmsDataForCombobox(ecmwf_url, "ecmwf_combobox", "ecmwf_layers_options");
 
     // getting NASA Earth Oberservatory data (NEO) WMS Server
-    getWmsDataForCombobox(neo_url, "neo_combobox", "neo_layers_options");
+    getWmsTimeSeriesForCombobox(neo_url, "neo_combobox", "neo_layers_options");
 });

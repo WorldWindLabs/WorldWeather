@@ -50,6 +50,20 @@ define([
             this.displayName = config.title;
             this.pickEnabled = false;
 
+            this.shortDisplayName = this.displayName;
+            if (this.shortDisplayName.indexOf('(') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('(')[0];
+            }
+            if (this.shortDisplayName.indexOf('-') > -1)
+            {
+                this.shortDisplayName = this.shortDisplayName.split('-')[1];
+            }
+
+            this.uniqueID = Math.round(Math.random()*1e9).toString();
+
+            this.currentTimeString = this.time;
+
             // Intentionally not documented. Contains the lazily loaded list of sub-layers.
             this.layers = {};
         };
