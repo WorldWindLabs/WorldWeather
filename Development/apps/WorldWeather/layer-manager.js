@@ -30,6 +30,8 @@ var LayerManager = function (worldWindow) {
 };
 
 LayerManager.prototype.onProjectionClick = function (event) {
+
+
     var projectionName = event.target.innerText || event.target.innerHTML;
     $("#projectionDropdown").find("button").html(projectionName + ' <span class="caret"></span>');
 
@@ -82,6 +84,19 @@ LayerManager.prototype.onProjectionClick = function (event) {
 };
 
 LayerManager.prototype.onLayerClick = function (layerButton) {
+
+    //make sure none of the "view"s on the legends are selected
+    var footercontent = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footercontent.length; i++) {
+
+        footercontent[i].childNodes[0].innerHTML = "View";
+    }
+
+    document.x=[];
+
+    //end of section
+
+
     var identifier = layerButton.attr("identifier");
 
     var layer = this.wwd.layers[identifier];
@@ -93,6 +108,7 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
     else {
         layerButton.removeClass("active");
     }
+    this.synchronizeLayerList();
     this.wwd.redraw();
 };
 
@@ -183,10 +199,35 @@ LayerManager.prototype.onLayerDelete = function (e) {
     layer.layerSelected = false;
 
     this.synchronizeLayerList();
+
+
+    //make sure none of the "view"s on the legends are selected
+    var footercontent = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footercontent.length; i++) {
+
+        footercontent[i].childNodes[0].innerHTML = "View";
+    }
+
+    document.x=[];
+
+    //end of section
+
     this.wwd.redraw();
 };
 
 LayerManager.prototype.onLayerMoveDown = function (e){
+
+    //make sure none of the "view"s on the legends are selected
+    var footercontent = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footercontent.length; i++) {
+
+        footercontent[i].childNodes[0].innerHTML = "View";
+    }
+
+    document.x=[];
+
+    //end of section
+
     var identifier = parseInt(e.attr("identifier"));
 
     for (var i = identifier+1; i < this.wwd.layers.length; i++)
@@ -217,6 +258,8 @@ function titleCase(str) {
 }
 
 LayerManager.prototype.synchronizeLayerList = function () {
+
+
     var layerListItem = $("#layerList");
 
     if (!document.isInitialized) {
