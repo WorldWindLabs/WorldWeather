@@ -138,7 +138,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
-                legendAdditions += '<div class="card-footer-item" onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
+                legendAdditions += '<div class="card-footer-item" id= \''+ layer.uniqueID +'\' onclick="showHideLegends(event, this,  \'view\', \''+ layer.uniqueID +'\')"><a href="#" >View</a></div>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \''+ layer.uniqueID +'\')">Info</a>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this,\'delete\', \''+ layer.uniqueID +'\')">Delete</a>';
                 legendAdditions += '</footer></span></div><br/><br/></div>';
