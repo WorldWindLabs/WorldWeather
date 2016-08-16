@@ -176,8 +176,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
     }
     else if (selectedItem == "view") {
 
-        footercontent = document.getElementsByClassName("card-footer-item");
-        for (i = 0; i < footercontent.length; i++) {
+        var footercontent = document.getElementsByClassName("card-footer-item");
+        for (var i = 0; i < footercontent.length; i++) {
 
             if (footercontent[i].id != t.id)
                 footercontent[i].childNodes[0].innerHTML = "View";
@@ -186,7 +186,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
         if (t.childNodes[0].innerHTML == "View") {
 
-            if (document.x)
+            if (document.x && document.x != [])
             {
                 for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
@@ -216,7 +216,9 @@ function showHideLegends(evt, t, selectedItem, layerID) {
                 if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
                     //layer.hide = true;
                     document.x.push(layer.uniqueID);
+                    layer.layerSelected = true;
                     layer.enabled = false;
+
                     document.layerManager.synchronizeLayerList();
 
                 }
