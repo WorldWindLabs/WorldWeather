@@ -176,8 +176,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
     }
     else if (selectedItem == "view") {
 
-        footercontent = document.getElementsByClassName("card-footer-item");
-        for (i = 0; i < footercontent.length; i++) {
+        var footercontent = document.getElementsByClassName("card-footer-item");
+        for (var i = 0; i < footercontent.length; i++) {
 
             if (footercontent[i].id != t.id)
                 footercontent[i].childNodes[0].innerHTML = "View";
@@ -186,7 +186,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
         if (t.childNodes[0].innerHTML == "View") {
 
-            if (document.x) {
+            if (document.x && document.x != [])
+            {
                 for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                     var layer = document.wwd.layers[i];
@@ -195,6 +196,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                         if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                             layer.enabled = true;
+                            layer.layerSelected = true;
                             document.layerManager.synchronizeLayerList();
 
                         }
@@ -203,19 +205,21 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                 }
             }
-            else
+            else {
                 document.x = [];
-
+            }
 
             t.childNodes[0].innerHTML = "Unview";
 
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                 var layer = document.wwd.layers[i];
-                if (layer.uniqueID && layer.uniqueID != layerID && layer.enabled) {
+                if (layer.uniqueID && layer.uniqueID != layerID && (layer.layerSelected || layer.enabled)) {
                     //layer.hide = true;
                     document.x.push(layer.uniqueID);
+                    layer.layerSelected = true;
                     layer.enabled = false;
+
                     document.layerManager.synchronizeLayerList();
 
                 }
@@ -224,6 +228,16 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
         } else {
             t.childNodes[0].innerHTML = "View";
+            // myLayers=$('.list-group-item').find("button");
+            // console.log(myLayers.length);
+            //var layer = this.wwd.layers[identifier];
+
+            //var uniqueSelector = $("#" + layer.uniqueID);
+
+            // for(var i = 0, len = myLayers.length; i < len; i++){
+            //     console.log(myLayers[i].identifier);
+            // }
+
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
 
                 var layer = document.wwd.layers[i];
@@ -232,6 +246,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
 
                     if (layer.uniqueID && layer.uniqueID == document.x[j]) {
                         layer.enabled = true;
+                        layer.layerSelected = true;
                         document.layerManager.synchronizeLayerList();
 
                     }
