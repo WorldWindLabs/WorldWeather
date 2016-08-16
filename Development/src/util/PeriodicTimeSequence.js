@@ -124,7 +124,7 @@ define([
             if (!this.currentTime) {
                 this.currentTime = this.startTime;
             } else if ((this.currentTime.getTime() >= this.endTime.getTime()) && !this.infiniteInterval) {
-                this.currentTime = null;
+                this.currentTime = this.endTime;
             } else {
                 this.currentTime = PeriodicTimeSequence.incrementTime(this.currentTime, this.period);
             }
@@ -142,7 +142,7 @@ define([
             if (!this.currentTime) {
                 this.currentTime = this.endTime;
             } else if (this.currentTime.getTime() === this.startTime.getTime()) {
-                this.currentTime = null;
+                this.currentTime = this.startTime;
             } else {
                 this.currentTime = this.getTimeForScale(0.9999 * this.scaleForCurrentTime);
             }

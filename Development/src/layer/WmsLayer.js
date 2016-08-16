@@ -121,9 +121,7 @@ define([
                 legend: null,
                 currentTimeString: null
             };
-
-            //console.log(wmsLayerCapabilities);
-
+            
             if (wmsLayerCapabilities.extents && wmsLayerCapabilities.extents.length > 0)
             {
                 for (var i = 0; i < wmsLayerCapabilities.extents.length; i++)
