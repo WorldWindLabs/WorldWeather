@@ -36,13 +36,19 @@ body
     width: 100%;
     height: 30px;
 }
+
+hr
+{
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
 </style>
 
 <ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends & Time Controls</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 8%;">Help</a></li>
 
@@ -132,12 +138,8 @@ body
         <br/>
         <h5>Select the "Globe Options" tab in order to change the projection from the default 3D, or to select any country or city to navigate the globe to. You can also disable and enable the additional controls that are on the bottom of the screen from this tab.</h5>
         <br/>
-
-        <!--TODO: allow the user to click on a legend to see that layer alone, then document that here-->
-        <h5>Select the "Legends" tab in order to view a legend for each of your selected layers, with information including the date and time of the particular layer. </h5>
+        <h5>Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers, with information including the date and time of the particular layer. Using the "Date and Time" slider, the layer can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each of the layers. The "View" button can be clicked on each legend in order to view that layer alone on the globe.</h5>
         <br/>
-
-        <!--TODO: make the opacity functional, then document that here-->
         <h5>Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on each layer in order to hide or display it, and even delete it. You can also click on the downward arrow in order to re-arrange the layers. Remember that the downmost layer in the list is the uppermost layer on the globe.</h5>
         <br/>
         <h5>You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or touchpad, or by using the controls on the bottom.</h5>
@@ -190,13 +192,13 @@ body
         <div id="legend_placeholder">
             <br/><br/>
             <div class="card is-fullwidth" id="noLegends">
-                <header class="card-header">
+                <header class="card-header" onclick="showHideLegends(event, '', 'no_legends_toggle_hide', '')">
                     <p class="card-header-title">
                         No Legends
                     </p>
-                    <a class="card-header-icon" onclick="showHideLegends(event, 'no_legends_toggle_hide', '')">
+                    <div class="card-header-icon">
                         <i class="fa fa-angle-down"></i>
-                    </a>
+                    </div>
                 </header>
                 <div class="card-content" id="no_legends_content">
                     <div class="content">
@@ -204,7 +206,6 @@ body
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

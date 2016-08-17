@@ -175,11 +175,11 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             if (footer_content[a].id != t.id) footer_content[a].childNodes[0].innerHTML = "View";
 
         if (t.childNodes[0].innerHTML == "View") {
-            if (document.x && document.x != []) {
+            if (document.global_view_layers && document.global_view_layers != []) {
                 for (var b = 0, b_length = document.wwd.layers.length; b < b_length; b++) {
                     var internal_layer = document.wwd.layers[b];
-                    for (var c = 0, c_length = document.x.length; c < c_length; c++) {
-                        if (internal_layer.uniqueID && internal_layer.uniqueID == document.x[c]) {
+                    for (var c = 0, c_length = document.global_view_layers.length; c < c_length; c++) {
+                        if (internal_layer.uniqueID && internal_layer.uniqueID == document.global_view_layers[c]) {
                             internal_layer.enabled = true;
                             internal_layer.layerSelected = true;
                             document.layerManager.synchronizeLayerList();
@@ -187,14 +187,14 @@ function showHideLegends(evt, t, selectedItem, layerID) {
                     }
                 }
             }
-            else document.x = [];
+            else document.global_view_layers = [];
 
             t.childNodes[0].innerHTML = "Unview";
             for (var d = 0, d_length = document.wwd.layers.length; d < d_length; d++) {
 
                 var internal_new_layer = document.wwd.layers[d];
                 if (internal_new_layer.uniqueID && internal_new_layer.uniqueID != layerID && (internal_new_layer.layerSelected || internal_new_layer.enabled)) {
-                    document.x.push(internal_new_layer.uniqueID);
+                    document.global_view_layers.push(internal_new_layer.uniqueID);
                     internal_new_layer.layerSelected = true;
                     internal_new_layer.enabled = false;
                     document.layerManager.synchronizeLayerList();
@@ -204,8 +204,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             t.childNodes[0].innerHTML = "View";
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
                 var layer = document.wwd.layers[i];
-                for (var j = 0, length = document.x.length; j < length; j++) {
-                    if (layer.uniqueID && layer.uniqueID == document.x[j]) {
+                for (var j = 0, length = document.global_view_layers.length; j < length; j++) {
+                    if (layer.uniqueID && layer.uniqueID == document.global_view_layers[j]) {
                         layer.enabled = true;
                         layer.layerSelected = true;
                         document.layerManager.synchronizeLayerList();
@@ -214,11 +214,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             }
         }
     }
-    else if (selectedItem == "delete") {
-
-        // TODO: add functionality to delete here
-
-    }
+    else if (selectedItem == "delete") document.layerManager.onLayerDelete(null, layerID);
     else if (selectedItem == "toggle_hide") {
         var card_content = $("#card_content_" + layerID);
 
@@ -241,62 +237,6 @@ function showHideLegends(evt, t, selectedItem, layerID) {
     }
 }
 
-function getWmsDataForCombobox(data_url, jquery_combobox, jquery_layer_options, replace_in_title, stop_from_title) {
-    try {
-        var data_wms_capabilities = null;
-        $.get(data_url, function (data_response) {
-            data_wms_capabilities = new WorldWind.WmsCapabilities(data_response);
-        }).done(function () {
-            var wms_data = [];
-
-            function data_recursive(section) {
-                if (section) {
-                    if (section.layers && section.layers.length > 0) {
-                        for (var i = 0; i < section.layers.length; i++) data_recursive(section.layers[i]);
-                    } else {
-                        if (section.title && section.title != "") {
-                            if (stop_from_title) {
-                                if (section.title.indexOf(stop_from_title) === -1) {
-                                    return null;
-                                }
-                            }
-
-                            if (replace_in_title) {
-                                section.title = section.title.replaceAll(replace_in_title, " ");
-                                section.title = $.trim(section.title);
-                            }
-
-                            var data_layer = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
-                            data_layer.enabled = false;
-                            document.wwd.addLayer(data_layer);
-                            wms_data.push(data_layer.displayName);
-                        }
-                    }
-                }
-            }
-
-            data_recursive(data_wms_capabilities.capability);
-
-            var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-            for (var r = 0; r < wms_data.length; r++) html_layers += "<option><a>" + wms_data[r] + "</a></option>";
-            html_layers += "</select></label>";
-
-            var data_layers_options = $("#" + jquery_layer_options);
-            data_layers_options.html(html_layers);
-            $('.' + jquery_combobox).combobox();
-
-            data_layers_options.find("select").on("change", function (e) {
-                document.layerManager.onDataLayerClick(e, jquery_layer_options);
-            });
-        });
-    }
-    catch (error) {
-        console.log(error);
-        $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
-    }
-}
-
-
 function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options, date_stamp, replace_in_title, stop_from_title) {
     try {
         var data_wmts_capabilities = null;
@@ -307,15 +247,22 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
             var wmts_data = [];
 
             function data_recursive(section) {
-                if (section.layer && section.layer.length > 0) {
-                    for (var i = 0; i < section.layer.length; i++) data_recursive(section.layer[i]);
-                }
-                else {
-                    if (section.title && section.title != "") {
-                        var wmts_layer = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
-                        wmts_layer.enabled = false;
-                        document.wwd.addLayer(wmts_layer);
-                        wmts_data.push(wmts_layer.displayName);
+                if (section) {
+                    if (section.layer && section.layer.length > 0) {
+                        for (var i = 0; i < section.layer.length; i++) data_recursive(section.layer[i]);
+                    }
+                    else {
+                        if (stop_from_title) if (section.title.indexOf(stop_from_title) === -1) return null;
+
+                        if (replace_in_title) section.title = $.trim(section.title.replaceAll(replace_in_title, " "));
+
+                        if (section.title && section.title != "") {
+                            var wmts_layer
+                                = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
+                            wmts_layer.enabled = false;
+                            document.wwd.addLayer(wmts_layer);
+                            wmts_data.push(wmts_layer.displayName);
+                        }
                     }
                 }
             }

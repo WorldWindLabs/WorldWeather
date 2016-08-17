@@ -88,17 +88,17 @@ $(document).ready(function () {
                 {layer: new WorldWind.BMNGLandsatLayer(), enabled: true}
             );
 
+            for (var l = 0; l < layers.length; l++) {
+                layers[l].layer.enabled = layers[l].enabled;
+                wwd.addLayer(layers[l].layer);
+            }
+
             // The code below creates the AtmosphereLayer
             var lightLocation = new WorldWind.Position(25, 190, 0);
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
             atmosphereLayer.lightLocation = lightLocation;
             wwd.addLayer(atmosphereLayer);
             // end of AtmosphereLayer
-
-            for (var l = 0; l < layers.length; l++) {
-                layers[l].layer.enabled = layers[l].enabled;
-                wwd.addLayer(layers[l].layer);
-            }
 
             layerManager.synchronizeLayerList();
         });

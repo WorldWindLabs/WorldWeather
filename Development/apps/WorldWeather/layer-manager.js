@@ -30,7 +30,7 @@ var LayerManager = function (worldWindow) {
 LayerManager.prototype.onProjectionClick = function (event) {
     var projectionName = event.target.innerText || event.target.innerHTML;
     $("#projectionDropdown").find("button").html(projectionName + ' <span class="caret"></span>');
-    
+
     if (projectionName === "3D") {
         if (!this.roundGlobe) {
             this.roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
@@ -81,9 +81,9 @@ LayerManager.prototype.onProjectionClick = function (event) {
 LayerManager.prototype.onLayerClick = function (layerButton) {
 
     //make sure none of the "view"s on the legends are selected
-    var footercontent = document.getElementsByClassName("card-footer-item");
-    for (var i = 0; i < footercontent.length; i++) footercontent[i].childNodes[0].innerHTML = "View";
-    document.x = [];
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footer_content.length; i++) footer_content[i].childNodes[0].innerHTML = "View";
+    document.global_view_layers = [];
     //end of section
 
     var identifier = layerButton.attr("identifier");
@@ -123,9 +123,10 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 document.numberOfLegends += 1;
 
                 var placeholder = $("#legend_placeholder");
-                var legendAdditions = '<div id="' + layer.uniqueID + '"><div class="card is-fullwidth" ><header class="card-header"><p class="card-header-title">';
+                var legendAdditions = '<div id="' + layer.uniqueID + '"><div class="card is-fullwidth" >';
+                legendAdditions += '<header class="card-header" onclick="showHideLegends(event, this, \'toggle_hide\', \'' + layer.uniqueID + '\')"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
-                legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \'' + layer.uniqueID + '\')"><i class="fa fa-angle-down"></i></a></header>';
+                legendAdditions += '<div class="card-header-icon" ><i class="fa fa-angle-down"></i></div></header>';
                 legendAdditions += '<span id="card_content_' + layer.uniqueID + '"><div class="card-content" "><div class="content">';
 
                 if (layer.legend) {
@@ -167,7 +168,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 if (datetime_selector.length > 0) {
 
-                    var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0),layer.timeSequence.period);
+                    var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
                         value: layer.timeSequence.endTime.getTime(),
                         min: layer.timeSequence.startTime.getTime(),
@@ -178,29 +179,28 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                         weekday: "short", year: "numeric", month: "short",
                         day: "numeric", hour: "2-digit", minute: "2-digit"
                     };
-                    datetime_selector.on("slide", function( event, ui ) {
-                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us",options));
+                    datetime_selector.on("slide", function (event, ui) {
+                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us", options));
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
                         var new_datetime = new Date(ui.value);
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us",options));
+                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us", options));
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
                 var opacity_amount_selector = $("#opacity_amount_" + layer.uniqueID);
 
                 if (opacity_selector.length > 0) {
-
                     opacity_selector.slider({
                         value: 1,
                         min: 0,
                         max: 1,
                         step: 0.1
                     });
-                    opacity_selector.on("slide", function( event, ui ) {
-                        opacity_amount_selector.html(ui.value*100 + "%");
+                    opacity_selector.on("slide", function (event, ui) {
+                        opacity_amount_selector.html(ui.value * 100 + "%");
                     });
                     opacity_selector.on("slidestop", function (event, ui) {
                         layer.opacity = ui.value;
@@ -235,9 +235,9 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     this.synchronizeLayerList();
 
     // make sure none of the "view"s on the legends are selected
-    var footercontent = document.getElementsByClassName("card-footer-item");
-    for (var i = 0; i < footercontent.length; i++) footercontent[i].childNodes[0].innerHTML = "View";
-    document.x = [];
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var i = 0; i < footer_content.length; i++) footer_content[i].childNodes[0].innerHTML = "View";
+    document.global_view_layers = [];
     //end of section
 
     this.wwd.redraw();
@@ -246,11 +246,11 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
 LayerManager.prototype.onLayerMoveDown = function (e) {
 
     //make sure none of the "view"s on the legends are selected
-    var footercontent = document.getElementsByClassName("card-footer-item");
-    for (var a = 0; a < footercontent.length; a++) {
-        footercontent[a].childNodes[0].innerHTML = "View";
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var a = 0; a < footer_content.length; a++) {
+        footer_content[a].childNodes[0].innerHTML = "View";
     }
-    document.x = [];
+    document.global_view_layers = [];
     //end of section
 
     var identifier = parseInt(e.attr("identifier"));

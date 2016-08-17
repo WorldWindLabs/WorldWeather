@@ -192,13 +192,13 @@ hr
         <div id="legend_placeholder">
             <br/><br/>
             <div class="card is-fullwidth" id="noLegends">
-                <header class="card-header">
+                <header class="card-header" onclick="showHideLegends(event, '', 'no_legends_toggle_hide', '')">
                     <p class="card-header-title">
                         No Legends
                     </p>
-                    <a class="card-header-icon" onclick="showHideLegends(event, 'no_legends_toggle_hide', '')">
+                    <div class="card-header-icon">
                         <i class="fa fa-angle-down"></i>
-                    </a>
+                    </div>
                 </header>
                 <div class="card-content" id="no_legends_content">
                     <div class="content">
@@ -206,7 +206,6 @@ hr
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

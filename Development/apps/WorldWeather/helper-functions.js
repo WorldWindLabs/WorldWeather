@@ -175,11 +175,11 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             if (footer_content[a].id != t.id) footer_content[a].childNodes[0].innerHTML = "View";
 
         if (t.childNodes[0].innerHTML == "View") {
-            if (document.x && document.x != []) {
+            if (document.global_view_layers && document.global_view_layers != []) {
                 for (var b = 0, b_length = document.wwd.layers.length; b < b_length; b++) {
                     var internal_layer = document.wwd.layers[b];
-                    for (var c = 0, c_length = document.x.length; c < c_length; c++) {
-                        if (internal_layer.uniqueID && internal_layer.uniqueID == document.x[c]) {
+                    for (var c = 0, c_length = document.global_view_layers.length; c < c_length; c++) {
+                        if (internal_layer.uniqueID && internal_layer.uniqueID == document.global_view_layers[c]) {
                             internal_layer.enabled = true;
                             internal_layer.layerSelected = true;
                             document.layerManager.synchronizeLayerList();
@@ -187,14 +187,14 @@ function showHideLegends(evt, t, selectedItem, layerID) {
                     }
                 }
             }
-            else document.x = [];
+            else document.global_view_layers = [];
 
             t.childNodes[0].innerHTML = "Unview";
             for (var d = 0, d_length = document.wwd.layers.length; d < d_length; d++) {
 
                 var internal_new_layer = document.wwd.layers[d];
                 if (internal_new_layer.uniqueID && internal_new_layer.uniqueID != layerID && (internal_new_layer.layerSelected || internal_new_layer.enabled)) {
-                    document.x.push(internal_new_layer.uniqueID);
+                    document.global_view_layers.push(internal_new_layer.uniqueID);
                     internal_new_layer.layerSelected = true;
                     internal_new_layer.enabled = false;
                     document.layerManager.synchronizeLayerList();
@@ -204,8 +204,8 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             t.childNodes[0].innerHTML = "View";
             for (var i = 0, len = document.wwd.layers.length; i < len; i++) {
                 var layer = document.wwd.layers[i];
-                for (var j = 0, length = document.x.length; j < length; j++) {
-                    if (layer.uniqueID && layer.uniqueID == document.x[j]) {
+                for (var j = 0, length = document.global_view_layers.length; j < length; j++) {
+                    if (layer.uniqueID && layer.uniqueID == document.global_view_layers[j]) {
                         layer.enabled = true;
                         layer.layerSelected = true;
                         document.layerManager.synchronizeLayerList();
