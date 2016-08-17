@@ -149,6 +149,11 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
                 }
 
+                legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Opacity</p>';
+                legendAdditions += '<div id="opacity_slider_' + layer.uniqueID + '"></div><br/>';
+                legendAdditions += '<p type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</p>';
+
+
                 legendAdditions += '</div></div><footer class="card-footer">';
                 legendAdditions += '<div class="card-footer-item" id= \'' + layer.uniqueID + '\' onclick="showHideLegends(event, this,  \'view\', \'' + layer.uniqueID + '\')"><a href="#" >View</a></div>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \'' + layer.uniqueID + '\')">Info</a>';
@@ -181,6 +186,27 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
                     amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us",options));
+                }
+
+                var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
+                var opacity_amount_selector = $("#opacity_amount_" + layer.uniqueID);
+
+                if (opacity_selector.length > 0) {
+
+                    opacity_selector.slider({
+                        value: 1,
+                        min: 0,
+                        max: 1,
+                        step: 0.1
+                    });
+                    opacity_selector.on("slide", function( event, ui ) {
+                        opacity_amount_selector.html(ui.value*100 + "%");
+                    });
+                    opacity_selector.on("slidestop", function (event, ui) {
+                        layer.opacity = ui.value;
+                        document.wwd.redraw();
+                    });
+
                 }
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
