@@ -270,6 +270,28 @@ LayerManager.prototype.onLayerMoveDown = function (e) {
     this.synchronizeLayerList();
 };
 
+LayerManager.prototype.onLayerMoveUp = function (e) {
+
+    //make sure none of the "view"s on the legends are selected
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var a = 0; a < footer_content.length; a++) {
+        footer_content[a].childNodes[0].innerHTML = "View";
+    }
+    document.global_view_layers = [];
+    //end of section
+
+    var identifier = parseInt(e.attr("identifier"));
+    for (var i = identifier -1 ; i > 0; i--) {
+        if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
+            this.wwd.layers.move(identifier, i);
+            break;
+        }
+    }
+
+    this.wwd.redraw();
+    this.synchronizeLayerList();
+};
+
 
 function titleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
@@ -351,6 +373,10 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             $('#down_icon_' + i).on("click", function (e) {
                 self.onLayerMoveDown($(this));
+            });
+
+            $('#up_icon_' + i).on("click", function (e) {
+                self.onLayerMoveUp($(this));
             });
 
             layerItem.on("click", function (e) {
