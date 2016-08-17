@@ -110,9 +110,10 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
-        var layerNum = parseInt($("#" + jquery_layer_options + "_title").html());
-        layerNum +=1;
-        $("#" + jquery_layer_options + "_title").html(layerNum);
+        var title_selector = $("#" + jquery_layer_options + "_title");
+        var layerNum = parseInt(title_selector.html());
+        layerNum += 1;
+        title_selector.html(layerNum);
 
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
@@ -148,10 +149,8 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     layer.timeSequence.currentTime = layer.time;
                     legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
-
                 }
                 else {
-                    //TODO: fix format of current time string
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
                 }
 
@@ -215,6 +214,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
+                this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
                 this.wwd.redraw();
                 this.synchronizeLayerList();
                 break;
@@ -289,7 +289,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
         document.isInitialized = 0;
     }
 
-    layerListItem.find("button").remove();
+    layerListItem.find("div").remove();
 
     var self = this;
 
@@ -305,7 +305,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             if (document.isInitialized < 2) {
 
-                var controllayerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</button>');
+                var controllayerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</div>');
                 var controlItem = $("#controlbuttons");
                 controlItem.append(controllayerItem);
 
@@ -338,10 +338,10 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             var layerItem = null;
             if (baseLayers.indexOf(toDisplay) > -1) {
-                layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
+                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
             }
             else {
-                layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-circle-arrow-down pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</button>');
+                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-circle-arrow-down pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
             }
             layerListItem.append(layerItem);
 

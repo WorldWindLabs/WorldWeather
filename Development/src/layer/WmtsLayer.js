@@ -112,6 +112,8 @@ define([
             this.legend = config.legend;
 	        this.uniqueID = Math.round(Math.random()*1e9).toString();
 
+            this.sourceLayersOptions = null;
+
 	        this.currentTimeString = config.currentTimeString;
 	        if (timeString)
 	        {

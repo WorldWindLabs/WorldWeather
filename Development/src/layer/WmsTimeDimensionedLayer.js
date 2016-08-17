@@ -51,6 +51,7 @@ define([
             this.pickEnabled = false;
 
             this.legend = config.legend;
+            this.sourceLayersOptions = null;
 
             this.shortDisplayName = this.displayName;
             if (this.shortDisplayName.indexOf('(') > -1)

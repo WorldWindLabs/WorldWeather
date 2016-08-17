@@ -76,6 +76,7 @@ define([
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
 
+            this.sourceLayersOptions = null;
 
             this.urlBuilder = new WmsUrlBuilder(config.service, config.layerNames, config.styleNames, config.version,
                 timeString);
