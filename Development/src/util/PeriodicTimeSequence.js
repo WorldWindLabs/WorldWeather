@@ -268,6 +268,7 @@ define([
 
             // upcase the string just in case people don't follow the letter of the law
             period = period.toUpperCase();
+            period = period.replace('.00','').replace('.0','');
 
             // input validation
             if (!period)

@@ -357,18 +357,17 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             if (config.timeSequences) {
                                 if (config.timeSequences[config.timeSequences.length - 1] instanceof WorldWind.PeriodicTimeSequence) {
                                     timeSequence = config.timeSequences[config.timeSequences.length - 1];
-
                                     config.levelZeroDelta = new WorldWind.Location(180, 180);
 
                                     layer = new WorldWind.WmsTimeDimensionedLayer(config);
-                                    layer.time = timeSequence.startTime;
+                                    layer.time = timeSequence.endTime;
                                     layer.timeSequence = timeSequence;
                                 }
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
                                         var start_datetime = config.timeSequences[1];
-                                        var period = Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60));
+                                        var period = parseInt(Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60)));
                                         var period_string = "PT" + period + "M";
                                         var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + period_string;
 
@@ -376,8 +375,8 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
 
                                         config.levelZeroDelta = new WorldWind.Location(180, 180);
                                         layer = new WorldWind.WmsTimeDimensionedLayer(config);
-                                        layer.time = config.timeSequences[0];
                                         layer.timeSequence = timeSequence;
+                                        layer.time = timeSequence.endTime;
                                     }
                                     else {
                                         layer = new WorldWind.WmsLayer(config);

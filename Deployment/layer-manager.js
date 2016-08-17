@@ -145,9 +145,11 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
 
                 }
-                else {
+                else if (layer.currentTimeString) {
                     //TODO: fix format of current time string
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
+                } else {
+                    legendAdditions += '<small style="font-size: small">This layer has no time-value associated with it.</small>';
                 }
 
                 legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Opacity</p>';
@@ -167,7 +169,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 var amount_selector = $("#amount" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
-
                     var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
                         value: layer.timeSequence.endTime.getTime(),
@@ -177,16 +178,16 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     });
                     var options = {
                         weekday: "short", year: "numeric", month: "short",
-                        day: "numeric", hour: "2-digit", minute: "2-digit"
+                        day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: 'short'
                     };
                     datetime_selector.on("slide", function (event, ui) {
-                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us", options));
+                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-GB", options));
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
                         var new_datetime = new Date(ui.value);
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us", options));
+                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-GB", options));
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
@@ -278,12 +279,9 @@ function titleCase(str) {
 }
 
 LayerManager.prototype.synchronizeLayerList = function () {
-
-
     var layerListItem = $("#layerList");
 
     if (!document.isInitialized) {
-
         document.isInitialized = 0;
     }
 
