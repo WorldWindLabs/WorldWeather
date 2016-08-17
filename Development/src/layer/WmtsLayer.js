@@ -115,7 +115,7 @@ define([
 	        this.currentTimeString = config.currentTimeString;
 	        if (timeString)
 	        {
-		        this.currentTimeString = this.timeString;
+		        this.currentTimeString = new Date(this.timeString);
 	        }
 
             // Determine the layer's sector if possible. Mandatory for EPSG:4326 tile matrix sets. (Others compute
@@ -347,13 +347,10 @@ define([
          * @throws {ArgumentError} If the specified WorldWeather layer capabilities is null or undefined.
          */
         WmtsLayer.formLayerConfiguration = function (wmtsLayerCapabilities, style, matrixSet, imageFormat) {
-
             var config = {};
 
             config.legend = null;
 	        config.currentTimeString = null;
-
-	        //console.log(wmtsLayerCapabilities);
 
 	        if (wmtsLayerCapabilities.dimension && wmtsLayerCapabilities.dimension.length > 0)
 	        {
@@ -363,7 +360,7 @@ define([
 			        {
 				        if (wmtsLayerCapabilities.dimension[a].default && wmtsLayerCapabilities.dimension[a].default != "")
 				        {
-					        config.currentTimeString = wmtsLayerCapabilities.dimension[a].default;
+					        config.currentTimeString = new Date(wmtsLayerCapabilities.dimension[a].default);
 				        }
 				        break;
 			        }
@@ -377,7 +374,6 @@ define([
              * @readonly
              */
             config.identifier = wmtsLayerCapabilities.identifier;
-
 
             // Validate that the specified image format exists, or determine one if not specified.
             if (imageFormat) {
