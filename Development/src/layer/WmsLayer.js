@@ -95,7 +95,7 @@ define([
             this.uniqueID = Math.round(Math.random()*1e9).toString();
 
             if (timeString) {
-                this.currentTimeString = timeString;
+                this.currentTimeString = new Date(timeString);
             } else {
                 this.currentTimeString = config.currentTimeString;
             }
@@ -131,7 +131,7 @@ define([
                     {
                         if (wmsLayerCapabilities.extents[i].default && wmsLayerCapabilities.extents[i].default != "")
                         {
-                            config.currentTimeString = wmsLayerCapabilities.extents[i].default;
+                            config.currentTimeString = new Date(wmsLayerCapabilities.extents[i].default);
                         }
                         break;
                     }
