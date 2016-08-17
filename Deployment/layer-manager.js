@@ -107,8 +107,13 @@ Array.prototype.move = function (from, to) {
 };
 
 LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options) {
+
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
+        var layerNum = parseInt($("#" + jquery_layer_options + "_title").html());
+        layerNum +=1;
+        $("#" + jquery_layer_options + "_title").html(layerNum);
+
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
             if (layer.hide) {
@@ -137,24 +142,22 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += "No legend was provided for this layer by the data source.";
                 }
 
-                legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Date and Time</p>';
+                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Date and Time</div>';
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
-                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div>';
+                    legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
 
                 }
-                else if (layer.currentTimeString) {
+                else {
                     //TODO: fix format of current time string
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
-                } else {
-                    legendAdditions += '<small style="font-size: small">This layer has no time-value associated with it.</small>';
                 }
 
-                legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Opacity</p>';
-                legendAdditions += '<div id="opacity_slider_' + layer.uniqueID + '"></div>';
-                legendAdditions += '<p type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</p>';
+                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Opacity</div>';
+                legendAdditions += '<div class="ui-slider" id="opacity_slider_' + layer.uniqueID + '"></div>';
+                legendAdditions += '<div type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</div>';
 
 
                 legendAdditions += '</div></div><footer class="card-footer">';
@@ -169,6 +172,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 var amount_selector = $("#amount" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
+
                     var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
                         value: layer.timeSequence.endTime.getTime(),
@@ -178,16 +182,16 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     });
                     var options = {
                         weekday: "short", year: "numeric", month: "short",
-                        day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: 'short'
+                        day: "numeric", hour: "2-digit", minute: "2-digit"
                     };
                     datetime_selector.on("slide", function (event, ui) {
-                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-GB", options));
+                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us", options));
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
                         var new_datetime = new Date(ui.value);
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-GB", options));
+                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us", options));
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
