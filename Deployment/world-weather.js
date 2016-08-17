@@ -74,15 +74,16 @@ $(document).ready(function () {
                 new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
             digital_elevation_layer.displayName = "Digital Elevation Model";
 
-            var viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
-            viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
-            viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.25, WorldWind.OFFSET_FRACTION, 0);
+            document.viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
+            document.viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
+            document.viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
+
+            document.viewCoordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
 
             var layers = [];
             layers.push(
-                {layer: new WorldWind.CompassLayer(), enabled: false},
-                {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-                {layer: viewControlsLayer, enabled: true},
+                {layer: document.viewCoordinatesLayer, enabled: true},
+                {layer: document.viewControlsLayer, enabled: true},
                 {layer: digital_elevation_layer, enabled: true},
                 {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true},
                 {layer: new WorldWind.BMNGLandsatLayer(), enabled: true}

@@ -65,12 +65,12 @@ function openTab(evt, tabName) {
 
     //If the page has just been loaded, Get all elements with class="tabcontent" and hide them
     if (!document.isInit) {
-
         document.isInit = 1;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+        document.viewControlsLayer.enabled = true;
     }
 
     // Get all elements with class="tablinks" and remove the attribute "active"
@@ -84,19 +84,23 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab, and add an "active" attribute to the link
-    // that opened the tab, or removes it if it was already open
+    // that opened the tab, or remove it if it was already open
     if (document.getElementById(tabName).style.display == "none") {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.setAttribute("target", "active");
+        if (tabName.toString() != "help_div")
+            document.viewControlsLayer.enabled = false;
 
     }
     else {
         document.getElementById(tabName).style.display = "none";
         document.getElementById(tabName).className.replace("active", "");
         evt.currentTarget.removeAttribute("target", "active");
+        if (tabName.toString() != "help_div")
+            document.viewControlsLayer.enabled = true;
     }
 
-    // remove all other tabs except for the one that was clicked, but do not let this apply to he help tab
+    // remove all other tabs except for the one that was clicked, but do not let this apply to the help tab
 
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
