@@ -117,6 +117,7 @@ define([
         WmsLayer.formLayerConfiguration = function (wmsLayerCapabilities) {
             var config = {
                 title: wmsLayerCapabilities.title,
+                layerAbstract: wmsLayerCapabilities.parent.abstract || wmsLayerCapabilities.abstract,
                 version: wmsLayerCapabilities.capability.capsDoc.version,
                 legend: null,
                 currentTimeString: null
