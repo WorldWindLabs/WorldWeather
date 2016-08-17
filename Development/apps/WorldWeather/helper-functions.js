@@ -214,11 +214,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             }
         }
     }
-    else if (selectedItem == "delete") {
-
-        // TODO: add functionality to delete here
-
-    }
+    else if (selectedItem == "delete") document.layerManager.onLayerDelete(null, layerID);
     else if (selectedItem == "toggle_hide") {
         var card_content = $("#card_content_" + layerID);
 
@@ -249,9 +245,6 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
             data_wmts_capabilities = new WorldWind.WmtsCapabilities(wmts_response);
         }).done(function () {
             var wmts_data = [];
-
-            console.log(jquery_combobox);
-            console.log(data_wmts_capabilities);
 
             function data_recursive(section) {
                 if (section) {
@@ -336,9 +329,6 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
             data_wms_capabilities = new WorldWind.WmsCapabilities(data_response);
         }).done(function () {
             var wms_data = [];
-
-            console.log(jquery_combobox);
-            console.log(data_wms_capabilities);
 
             function data_recursive(section) {
                 if (section) {

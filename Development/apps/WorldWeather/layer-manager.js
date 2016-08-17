@@ -218,15 +218,16 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
     }
 };
 
-LayerManager.prototype.onLayerDelete = function (e) {
-    var identifier = e.attr("identifier");
-    var layer = this.wwd.layers[identifier];
+LayerManager.prototype.onLayerDelete = function (e, layerID) {
+    var layer = null;
+
+    if (e) layer = this.wwd.layers[e.attr("identifier")];
+    else layer = findLayerByID(layerID);
 
     var uniqueSelector = $("#" + layer.uniqueID);
     if (uniqueSelector.length) uniqueSelector.remove();
 
     document.numberOfLegends -= 1;
-
     if (document.numberOfLegends == 0) $("#noLegends").css('display', 'block');
 
     layer.enabled = false;
