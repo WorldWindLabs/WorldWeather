@@ -107,13 +107,12 @@ Array.prototype.move = function (from, to) {
 };
 
 LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options) {
-    var options = {
-        weekday: "short", year: "numeric", month: "short",
-        day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: 'short'
-    };
-
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
+        var layerNum = parseInt($("#" + jquery_layer_options + "_title").html());
+        layerNum +=1;
+        $("#" + jquery_layer_options + "_title").html(layerNum);
+
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
             if (layer.hide) {
@@ -151,7 +150,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 }
                 else if (layer.currentTimeString) {
-
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 } else {
                     legendAdditions += '<small style="font-size: small">This layer has no time-value associated with it.</small>';
@@ -174,6 +172,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 var amount_selector = $("#amount" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
+
                     var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
                         value: layer.timeSequence.endTime.getTime(),
@@ -182,14 +181,17 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                         step: time_delta.getTime()
                     });
 
+
                     datetime_selector.on("slide", function (event, ui) {
                         amount_selector.html(new Date(ui.value).toUTCString());
+
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
                         var new_datetime = new Date(ui.value);
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
                     amount_selector.html(new Date(datetime_selector.slider("value")).toUTCString());
+
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);

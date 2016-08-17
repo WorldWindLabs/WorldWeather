@@ -47,9 +47,9 @@ hr
 <ul class="tab" style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none">Layer Categories</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'options_div')">Globe Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Legends & Time Controls</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Layer Controls</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')">View Options</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 8%;">Help</a></li>
 
 </ul>
@@ -103,7 +103,7 @@ hr
                 </span>
         </div>
         <br/>
-        <h5><span style="color: white; ">Additional Controls</span></h5>
+        <h5><span style="color: white; ">On/Off Screen Controls</span></h5>
         <div id="controlbuttons">
         </div>
     </div>
@@ -226,26 +226,24 @@ hr
 
         <br/>
 
-        <div id="firstPage" class="pagecontent">
-            <h5><span style="color: white; ">Add NASA GIBS layers</span></h5>
-            <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add ESA Sentinel layers</span></h5>
-            <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add NOAA GFS layers</span></h5>
-            <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add MSC GeoMet layers</span></h5>
-            <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-        </div>
+        <<div id="firstPage" class="pagecontent">
+        <h5><span style="color: white; ">Add NASA GIBS layers (<span id="layers_options_title">0</span>)</span></h5>
+        <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+        <h5><span style="color: white; ">Add ESA Sentinel layers (<span id="esa_layers_options_title">0</span>)</span></h5>
+        <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+        <h5><span style="color: white; ">Add NOAA GFS layers (<span id="noaa_layers_options_title">0</span>)</span></h5>
+        <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+        <h5><span style="color: white; ">Add MSC GeoMet layers (<span id="geomet_layers_options_title">0</span>)</span></h5>
+        <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+    </div>
 
         <div id="secondPage" class="pagecontent" style="display: none">
-            <h5><span style="color: white; ">Add ECMWF layers</span></h5>
+            <h5><span style="color: white; ">Add ECMWF layers (<span id="ecmwf_layers_options_title">0</span>)</span></h5>
             <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add NEO layers</span></h5>
+            <h5><span style="color: white; ">Add NEO layers (<span id="neo_layers_options_title">0</span>)</span></h5>
             <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add Climate Change Institute layers</span></h5>
+            <h5><span style="color: white; ">Add Climate Change Institute layers (<span id="cci_layers_options_title">0</span>)</span></h5>
             <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
-            <h5><span style="color: white; ">Add US Navy layers</span></h5>
-            <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
         </div>
 
         <br/><br/>
