@@ -127,9 +127,9 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \'' + layer.uniqueID + '\')"><i class="fa fa-angle-down"></i></a></header>';
                 legendAdditions += '<span id="card_content_' + layer.uniqueID + '"><div class="card-content" "><div class="content">';
-                legendAdditions += '<p style="font-weight: bold; font-size: small; text-align: center">Legend</p>';
 
                 if (layer.legend) {
+                    legendAdditions += '<p style="font-weight: bold; font-size: small; text-align: center">Legend</p>';
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
                 else {
@@ -145,6 +145,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 }
                 else {
+                    //TODO: fix format of current time string
                     legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
                 }
 
