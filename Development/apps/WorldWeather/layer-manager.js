@@ -130,27 +130,27 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 if (layer.legend) {
                     legendAdditions += '<p style="font-weight: bold; font-size: small; text-align: center">Legend</p>';
-                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
+                    legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" />";
                 }
                 else {
-                    legendAdditions += "No legend was provided for this layer by the data source.<br/>";
+                    legendAdditions += "No legend was provided for this layer by the data source.";
                 }
 
+                legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Date and Time</p>';
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
-                    legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Date and Time</p>';
-                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div><br/>';
+                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
 
                 }
                 else {
                     //TODO: fix format of current time string
-                    legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
+                    legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
                 }
 
                 legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Opacity</p>';
-                legendAdditions += '<div id="opacity_slider_' + layer.uniqueID + '"></div><br/>';
+                legendAdditions += '<div id="opacity_slider_' + layer.uniqueID + '"></div>';
                 legendAdditions += '<p type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</p>';
 
 
