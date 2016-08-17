@@ -126,23 +126,26 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 var legendAdditions = '<div id="' + layer.uniqueID + '"><div class="card is-fullwidth" ><header class="card-header"><p class="card-header-title">';
                 legendAdditions += layer.shortDisplayName + '</p>';
                 legendAdditions += '<a class="card-header-icon" onclick="showHideLegends(event, this, \'toggle_hide\', \'' + layer.uniqueID + '\')"><i class="fa fa-angle-down"></i></a></header>';
-                legendAdditions += '<span id="card_content_' + layer.uniqueID + '"><div class="card-content" "><div class="content"><br/><br/>';
+                legendAdditions += '<span id="card_content_' + layer.uniqueID + '"><div class="card-content" "><div class="content">';
+                legendAdditions += '<p style="font-weight: bold; font-size: small; text-align: center">Legend</p>';
 
                 if (layer.legend) {
                     legendAdditions += "<img style=\" max-width: 100%; max-height: 200px \" src=\"" + layer.legend + "\" /><br/><br/>";
                 }
                 else {
-                    legendAdditions += "No legend was provided for this layer by the data source.<br/><br/>";
+                    legendAdditions += "No legend was provided for this layer by the data source.<br/>";
                 }
 
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
+                    legendAdditions += '<hr><p style="font-weight: bold; font-size: small; text-align: center">Date and Time</p>';
+                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div><br/>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
-                    legendAdditions += '<div style="font-weight: bold" id="datetime_slider_' + layer.uniqueID + '"></div><br/><br/>';
+
                 }
                 else {
-                    legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small><br/>';
+                    legendAdditions += '<small style="font-weight: bold" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
                 }
 
                 legendAdditions += '</div></div><footer class="card-footer">';
