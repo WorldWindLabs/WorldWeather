@@ -241,62 +241,6 @@ function showHideLegends(evt, t, selectedItem, layerID) {
     }
 }
 
-function getWmsDataForCombobox(data_url, jquery_combobox, jquery_layer_options, replace_in_title, stop_from_title) {
-    try {
-        var data_wms_capabilities = null;
-        $.get(data_url, function (data_response) {
-            data_wms_capabilities = new WorldWind.WmsCapabilities(data_response);
-        }).done(function () {
-            var wms_data = [];
-
-            function data_recursive(section) {
-                if (section) {
-                    if (section.layers && section.layers.length > 0) {
-                        for (var i = 0; i < section.layers.length; i++) data_recursive(section.layers[i]);
-                    } else {
-                        if (section.title && section.title != "") {
-                            if (stop_from_title) {
-                                if (section.title.indexOf(stop_from_title) === -1) {
-                                    return null;
-                                }
-                            }
-
-                            if (replace_in_title) {
-                                section.title = section.title.replaceAll(replace_in_title, " ");
-                                section.title = $.trim(section.title);
-                            }
-
-                            var data_layer = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(section));
-                            data_layer.enabled = false;
-                            document.wwd.addLayer(data_layer);
-                            wms_data.push(data_layer.displayName);
-                        }
-                    }
-                }
-            }
-
-            data_recursive(data_wms_capabilities.capability);
-
-            var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-            for (var r = 0; r < wms_data.length; r++) html_layers += "<option><a>" + wms_data[r] + "</a></option>";
-            html_layers += "</select></label>";
-
-            var data_layers_options = $("#" + jquery_layer_options);
-            data_layers_options.html(html_layers);
-            $('.' + jquery_combobox).combobox();
-
-            data_layers_options.find("select").on("change", function (e) {
-                document.layerManager.onDataLayerClick(e, jquery_layer_options);
-            });
-        });
-    }
-    catch (error) {
-        console.log(error);
-        $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
-    }
-}
-
-
 function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options, date_stamp, replace_in_title, stop_from_title) {
     try {
         var data_wmts_capabilities = null;
@@ -306,16 +250,26 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
         }).done(function () {
             var wmts_data = [];
 
+            console.log(jquery_combobox);
+            console.log(data_wmts_capabilities);
+
             function data_recursive(section) {
-                if (section.layer && section.layer.length > 0) {
-                    for (var i = 0; i < section.layer.length; i++) data_recursive(section.layer[i]);
-                }
-                else {
-                    if (section.title && section.title != "") {
-                        var wmts_layer = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
-                        wmts_layer.enabled = false;
-                        document.wwd.addLayer(wmts_layer);
-                        wmts_data.push(wmts_layer.displayName);
+                if (section) {
+                    if (section.layer && section.layer.length > 0) {
+                        for (var i = 0; i < section.layer.length; i++) data_recursive(section.layer[i]);
+                    }
+                    else {
+                        if (stop_from_title) if (section.title.indexOf(stop_from_title) === -1) return null;
+
+                        if (replace_in_title) section.title = $.trim(section.title.replaceAll(replace_in_title, " "));
+
+                        if (section.title && section.title != "") {
+                            var wmts_layer
+                                = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
+                            wmts_layer.enabled = false;
+                            document.wwd.addLayer(wmts_layer);
+                            wmts_data.push(wmts_layer.displayName);
+                        }
                     }
                 }
             }
@@ -382,6 +336,9 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
             data_wms_capabilities = new WorldWind.WmsCapabilities(data_response);
         }).done(function () {
             var wms_data = [];
+
+            console.log(jquery_combobox);
+            console.log(data_wms_capabilities);
 
             function data_recursive(section) {
                 if (section) {

@@ -62,6 +62,8 @@ define([
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
 
+            this.layerAbstract = config.layerAbstract;
+
             this.uniqueID = Math.round(Math.random()*1e9).toString();
 
             this.currentTimeString = this.time;
