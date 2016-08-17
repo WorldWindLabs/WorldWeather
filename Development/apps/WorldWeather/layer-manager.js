@@ -363,7 +363,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</button>');
             }
             else {
-                layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-circle-arrow-down pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-circle-arrow-up pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</button>');
+                layerItem = $('<button class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</button>');
             }
             layerListItem.append(layerItem);
 
