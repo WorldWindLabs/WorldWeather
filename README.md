@@ -7,6 +7,12 @@
 
 Gathering information about our climate is one of the most pressing issues of our time, which is why international organizations have been setting up satellites and capturing real-time images of the atmospheric conditions on Earth. However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate, it has become necessary to have one platform on which the information from all those different data sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user to interactively view past, present, and future weather information. Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad range of weather and other global spatial data viewed together in 3D. This gives the user a great customizable experience that can be utilized by weather forecasters, research scientists studying climate change, and even intrigued enthusiasts.
 
+##Features of WorldWeather
+
+* Load in any kind of spatiotemporal geographically accurate data from any source, including WMTS, WMS, KML.
+* Preview the legend of any layer, adjust the time of that layer, and see how the layer changes with time, etc.
+* Input data sources of different sizes and projections, then change the output projection to 3D, Mercator, Equirectangular.
+
 ##Data Sources
 
 **NASA Global Imagery Browse Services (GIBS):** global, full-resolution satellite imagery from different NASA data providers. GIBS provides quick access to almost 200 satellite imagery products, covering every part of the world. Most imagery is available with a few hours after satellite overpass and some products span over 15 years. In total, there are over 240 trillion pixels' worth of imagery available to be rendered in your own web client or GIS application.
