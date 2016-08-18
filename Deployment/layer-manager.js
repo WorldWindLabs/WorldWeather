@@ -215,7 +215,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
-                console.log(this.wwd.layers[i]);
+                //console.log(this.wwd.layers[i]);
                 this.wwd.redraw();
                 this.synchronizeLayerList();
                 break;
@@ -230,10 +230,10 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
 
-    console.log(layer);
+    //console.log(layer);
     var layersTitle = $("#" + layer.sourceLayersOptions + "_title");
     var layerNumber = parseInt(layersTitle.html());
-    console.log(layer.sourceLayersOptions);
+    //console.log(layer.sourceLayersOptions);
     layerNumber --;
     layersTitle.html(layerNumber);
 

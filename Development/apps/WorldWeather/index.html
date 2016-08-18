@@ -280,10 +280,12 @@
                 Geospatial Data Sources
             </p>
             <p class="panel-tabs">
-                <a class="is-active data_sources_page" onclick="changeDataSourcesTab(event, 'space')">Space</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'university')">University</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'military')">Military</a>
+                <a class="is-active data_sources_page" id="space_data_tab"
+                   onclick="changeDataSourcesTab(event, 'space')">Space</a>
+                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
+                <a class="data_sources_page" id="university_data_tab"
+                   onclick="changeDataSourcesTab(event, 'university')">University</a>
+                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')">Military</a>
             </p>
             <div id="space_data_sources" class="data_sources_tab" style="display: block;">
 
@@ -304,9 +306,9 @@
                     <h5>ESA Sentinel Data Hub (<span id="esa_layers_options_title">0</span>)</h5><br/>
                     <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
-                
+
             </div>
-            
+
             <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
 
                 <div class="panel-block is-active">
@@ -323,7 +325,8 @@
 
                 <div class="panel-block is-active">
                     <span class="panel-icon"><i class="fa fa-book"></i></span>
-                    <h5>European Centre for Medium‑Range Weather Forecasting (<span id="ecmwf_layers_options_title">0</span>)</h5><br/>
+                    <h5>European Centre for Medium‑Range Weather Forecasting (<span
+                            id="ecmwf_layers_options_title">0</span>)</h5><br/>
                     <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
@@ -333,7 +336,8 @@
 
                 <div class="panel-block is-active">
                     <span class="panel-icon"><i class="fa fa-book"></i></span>
-                    <h5>Climate Change Institute at the University of Maine (<span id="cci_layers_options_title">0</span>)</h5><br/>
+                    <h5>Climate Change Institute at the University of Maine (<span
+                            id="cci_layers_options_title">0</span>)</h5><br/>
                     <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
