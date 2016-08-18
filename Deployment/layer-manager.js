@@ -215,6 +215,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
+                console.log(this.wwd.layers[i]);
                 this.wwd.redraw();
                 this.synchronizeLayerList();
                 break;
@@ -228,6 +229,13 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
 
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
+
+    console.log(layer);
+    var layersTitle = $("#" + layer.sourceLayersOptions + "_title");
+    var layerNumber = parseInt(layersTitle.html());
+    console.log(layer.sourceLayersOptions);
+    layerNumber --;
+    layersTitle.html(layerNumber);
 
     var uniqueSelector = $("#" + layer.uniqueID);
     if (uniqueSelector.length) uniqueSelector.remove();
@@ -260,6 +268,28 @@ LayerManager.prototype.onLayerMoveDown = function (e) {
 
     var identifier = parseInt(e.attr("identifier"));
     for (var i = identifier + 1; i < this.wwd.layers.length; i++) {
+        if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
+            this.wwd.layers.move(identifier, i);
+            break;
+        }
+    }
+
+    this.wwd.redraw();
+    this.synchronizeLayerList();
+};
+
+LayerManager.prototype.onLayerMoveUp = function (e) {
+
+    //make sure none of the "view"s on the legends are selected
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var a = 0; a < footer_content.length; a++) {
+        footer_content[a].childNodes[0].innerHTML = "View";
+    }
+    document.global_view_layers = [];
+    //end of section
+
+    var identifier = parseInt(e.attr("identifier"));
+    for (var i = identifier -1 ; i > 0; i--) {
         if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
             this.wwd.layers.move(identifier, i);
             break;
@@ -341,7 +371,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
             }
             else {
-                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-circle-arrow-down pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
             }
             layerListItem.append(layerItem);
 
@@ -351,6 +381,10 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             $('#down_icon_' + i).on("click", function (e) {
                 self.onLayerMoveDown($(this));
+            });
+
+            $('#up_icon_' + i).on("click", function (e) {
+                self.onLayerMoveUp($(this));
             });
 
             layerItem.on("click", function (e) {
