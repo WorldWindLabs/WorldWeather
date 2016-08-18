@@ -184,13 +184,13 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                         day: "numeric", hour: "2-digit", minute: "2-digit"
                     };
                     datetime_selector.on("slide", function (event, ui) {
-                        amount_selector.html(new Date(ui.value).toLocaleTimeString("en-us", options));
+                        amount_selector.html(new Date(ui.value).toUTCString());
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
                         var new_datetime = new Date(ui.value);
                         alterWmsLayerTime(event, layer.uniqueID, new_datetime);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toLocaleTimeString("en-us", options));
+                    amount_selector.html(new Date(datetime_selector.slider("value")).toUTCString());
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);

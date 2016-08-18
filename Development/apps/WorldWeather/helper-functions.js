@@ -226,7 +226,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             card_content.css('display', 'none');
         }
         else {
-            card_content.css('display', 'unset');
+            card_content.css('display', 'block');
         }
     }
     else if (selectedItem == "no_legends_toggle_hide") {
@@ -236,7 +236,7 @@ function showHideLegends(evt, t, selectedItem, layerID) {
             no_legend_content.css('display', 'none');
         }
         else {
-            no_legend_content.css('display', 'unset');
+            no_legend_content.css('display', 'block');
         }
     }
 }
