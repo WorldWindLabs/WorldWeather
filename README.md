@@ -1,7 +1,7 @@
 #NASA World Weather
 ### The largest 3-dimentional collection of weather, climate, and other geospatial data on the web, built upon NASA WorldWind.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" width="190px" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="10px" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/240px-NOAA_logo.svg.png" width="160px" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="30px" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ESA_logo_simple.svg/200px-ESA_logo_simple.svg.png" width="160px" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" width="190px" />
 
 ##Introduction
 
@@ -19,26 +19,23 @@ Gathering information about our climate is one of the most pressing issues of ou
 * Use the search bar to navigate the globe to any desired position
 
 ##Data Sources
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/240px-NOAA_logo.svg.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ESA_logo_simple.svg/200px-ESA_logo_simple.svg.png" width="48" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Canada_(leaf).svg" height="48"/><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://www.helix-nebula.eu/sites/default/files/ecmwf.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://climatechange.umaine.edu/images/branding/logo.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://www.navy.mil/navydata/questions/NavyEmblem.gif" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" />
 
 **NASA Global Imagery Browse Services (GIBS):** global, full-resolution satellite imagery from different NASA data providers. GIBS provides quick access to almost 200 satellite imagery products, covering every part of the world. Most imagery is available with a few hours after satellite overpass and some products span over 15 years. In total, there are over 240 trillion pixels' worth of imagery available to be rendered in your own web client or GIS application.
 
 **ESA SENTINEL:** data from the European Space Agency with focus on Earth observation in three aspects; Atmospheric, Oceanic, and Land monitoring. The goal of the SENTINEL program is to replace the current older Earth observation missions which have reached retirement, such as the ERS mission, or are currently nearing the end of their operational life span. This will ensure a continuity of data so that there are no gaps in ongoing studies.
 
-**NASA Earth Observations (NEO):** a source of satellite imagery as well as different scientific information that is related to the climate and the environment. NEO's mission is to help users picture climate and environmental changes as they occur on our home planet. Over 50 different global datasets are represented with daily, weekly, and monthly snapshots, and images are available in a variety of formats.
-
-**NOAA Global Forecast System (GFS):** a weather forecast model created by the National Centers for Environmental Prediction (NCEP). It makes available multiple atmospheric and land-soil variables, from temperatures, winds, and precipitation to soil moisture and atmospheric ozone concentration.
-
-**European Centre for Medium-Range Weather Forecasts (ESMWF):** the world's largest archive of numerical weather prediction data provided by most of the nations of Europe through this independent intergovernmental organisation. ECMWF, through its partnerships with EUMETSAT, ESA, the EU and the European Science community has established a leading position for Europe in the exploitation of satellite data for operational numerical weather prediction, and for operational seasonal forecasting with coupled atmosphere-ocean-land models.
+**NOAA Global Forecast System (NOAA GFS):** a weather forecast model created by the National Centers for Environmental Prediction (NCEP). It makes available multiple atmospheric and land-soil variables, from temperatures, winds, and precipitation to soil moisture and atmospheric ozone concentration.
 
 **Environment Canada's Meteorological Service of Canada (MSC) GeoMet:** raw numerical weather prediction (NWP) model data layers and the weather radar mosaic. GeoMet provides access to the Environment Canada's Meteorological Service of Canada (MSC) raw numerical weather prediction (NWP) model data layers and the weather radar mosaic. The GeoMet service is aimed at specialized users with good meteorological and information technology knowledge that want to visualize raw NWP models and the weather radar mosaic layers
 
-**ECMWF:**
+**European Centre for Medium-Range Weather Forecasts (ECMWF):** the world's largest archive of numerical weather prediction data provided by most of the nations of Europe through this independent intergovernmental organisation. ECMWF, through its partnerships with EUMETSAT, ESA, the EU and the European Science community has established a leading position for Europe in the exploitation of satellite data for operational numerical weather prediction, and for operational seasonal forecasting with coupled atmosphere-ocean-land models.
 
-**NEO:**
+**NASA Earth Observations (NEO):** a source of satellite imagery as well as different scientific information that is related to the climate and the environment. NEO's mission is to help users picture climate and environmental changes as they occur on our home planet. Over 50 different global datasets are represented with daily, weekly, and monthly snapshots, and images are available in a variety of formats.
 
-**Climate Change Institute (CCI):**
+**Climate Change Institute (CCI):** Source of climate change information from the University of Maine.
 
-**US Navy:**
+**US Navy:** The Geospatial Computing Section at the United States Naval Research Laboratory, which conducts research and development on significant problems involving the collection, processing and distribution of geospatial data.
 
 ##Walk Through:
 
