@@ -3,6 +3,13 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function changeDataSourcesTab (evt, tabClicked) {
+    $(".data_sources_tab").css('display','none');
+    $("#"+tabClicked+"_data_sources").css('display','block');
+    
+}
+
+
 function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
     for (var i = 0; i < section[0].children.length; i++) {
