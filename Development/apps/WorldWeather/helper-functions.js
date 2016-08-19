@@ -6,9 +6,9 @@
 function changeDataSourcesTab (evt, tabClicked) {
     $(".data_sources_tab").css('display','none');
     $("#"+tabClicked+"_data_sources").css('display','block');
-    
+    $(".data_sources_page").removeClass('is-active');
+    $("#"+tabClicked+"_data_tab").addClass('is-active');
 }
-
 
 function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};

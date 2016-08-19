@@ -292,10 +292,10 @@
         <article class="message" style="border: hidden; background-color: transparent;">
             <div class="message-header"  style="background-color: rgba(97, 97, 97, 0.67)">
             <div class="panel-tabs" style="color: white !important; width: 100%; margin-left: 5px; margin-right: 5px;">
-                <a class="is-active data_sources_page" onclick="changeDataSourcesTab(event, 'space')" style="color: white; ; font-size: small">Space</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'weather')" style="color: white; font-size: small">Weather</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'university')" style="color: white; font-size: small">Academia</a>
-                <a class="data_sources_page" onclick="changeDataSourcesTab(event, 'military')" style="color: white; font-size: small">Gov.</a>
+                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')" style="color: white; ; font-size: small">Space</a>
+                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')" style="color: white; font-size: small">Weather</a>
+                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')" style="color: white; font-size: small">Academia</a>
+                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')" style="color: white; font-size: small">Gov.</a>
             </div>
             </div>
             <div class="message-body">
@@ -316,9 +316,9 @@
                     <h5 style="color: white">ESA Sentinel Data Hub (<span id="esa_layers_options_title">0</span>)</h5><br/>
                     <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
-                
+
             </div>
-            
+
             <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
 
                 <div class="panel-block is-active">
