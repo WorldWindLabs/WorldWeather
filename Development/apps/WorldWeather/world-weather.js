@@ -18,8 +18,8 @@ $(document).ready(function () {
             get: function () {
                 return WorldWind.Location.greatCircleLocation(
                     this._wwd.navigator.lookAtLocation,
-                    -40,
-                    1.2,
+                    -70,
+                    1.1,
                     new WorldWind.Location()
                 ).latitude;
             }
@@ -29,8 +29,8 @@ $(document).ready(function () {
             get: function () {
                 return WorldWind.Location.greatCircleLocation(
                     this._wwd.navigator.lookAtLocation,
-                    -40,
-                    1.2,
+                    -70,
+                    1.1,
                     new WorldWind.Location()
                 ).longitude;
             }
