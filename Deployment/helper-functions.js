@@ -3,11 +3,20 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-function changeDataSourcesTab (evt, tabClicked) {
-    $(".data_sources_tab").css('display','none');
-    $("#"+tabClicked+"_data_sources").css('display','block');
+function moveLayerBack() {
+    // TODO: get this time-series functionality built in and working for the WMTS layers
+    var layer_config = document.wwd.layers[document.wwd.layers.length - 1].copyConstructorConfig;
+    var yesterday = new Date(new Date(document.wwd.layers[document.wwd.layers.length - 1].currentTimeString.getTime() - (24 * 60 * 60)));
+    document.wwd.layers[document.wwd.layers.length - 1] = new WorldWind.WmtsLayer(layer_config, yesterday.toISOString().split('T')[0]);
+    console.log(document.wwd.layers[document.wwd.layers.length - 1].currentTimeString);
+    document.wwd.redraw();
+}
+
+function changeDataSourcesTab(evt, tabClicked) {
+    $(".data_sources_tab").css('display', 'none');
+    $("#" + tabClicked + "_data_sources").css('display', 'block');
     $(".data_sources_page").removeClass('is-active');
-    $("#"+tabClicked+"_data_tab").addClass('is-active');
+    $("#" + tabClicked + "_data_tab").addClass('is-active');
 }
 
 function parsingKMLLayer(section) {

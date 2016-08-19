@@ -150,10 +150,12 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
                 }
-                else {
-                    legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString + '</small>';
+                else if (layer.currentTimeString) {
+                    legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
-
+                else {
+                    legendAdditions += '<small style="font-size: small">This layer has no time-dimension.</small>';
+                }
                 legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Opacity</div>';
                 legendAdditions += '<div class="ui-slider" id="opacity_slider_' + layer.uniqueID + '"></div>';
                 legendAdditions += '<div type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</div>';
@@ -215,7 +217,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
                 this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
-                //console.log(this.wwd.layers[i]);
+
                 this.wwd.redraw();
                 this.synchronizeLayerList();
                 break;
@@ -234,7 +236,7 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     var layersTitle = $("#" + layer.sourceLayersOptions + "_title");
     var layerNumber = parseInt(layersTitle.html());
     //console.log(layer.sourceLayersOptions);
-    layerNumber --;
+    layerNumber--;
     layersTitle.html(layerNumber);
 
     var uniqueSelector = $("#" + layer.uniqueID);
@@ -289,7 +291,7 @@ LayerManager.prototype.onLayerMoveUp = function (e) {
     //end of section
 
     var identifier = parseInt(e.attr("identifier"));
-    for (var i = identifier -1 ; i > 0; i--) {
+    for (var i = identifier - 1; i > 0; i--) {
         if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
             this.wwd.layers.move(identifier, i);
             break;

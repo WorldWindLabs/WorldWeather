@@ -95,11 +95,13 @@ define([
 
             this.uniqueID = Math.round(Math.random()*1e9).toString();
 
-            if (timeString) {
-                this.currentTimeString = new Date(timeString);
-            } else {
-                this.currentTimeString = config.currentTimeString;
+            this.currentTimeString = config.currentTimeString;
+            if (timeString)
+            {
+                var date = this.timeString.split('-');
+                this.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
             }
+
         };
 
         WmsLayer.prototype = Object.create(TiledImageLayer.prototype);
@@ -132,7 +134,8 @@ define([
                     {
                         if (wmsLayerCapabilities.extents[i].default && wmsLayerCapabilities.extents[i].default != "")
                         {
-                            config.currentTimeString = new Date(wmsLayerCapabilities.extents[i].default);
+                            var date = wmsLayerCapabilities.extents[i].default.split('-');
+                            config.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
                         }
                         break;
                     }

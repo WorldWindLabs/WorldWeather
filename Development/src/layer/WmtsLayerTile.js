@@ -25,11 +25,8 @@ define([
             this.row = row;
             this.column = column;
             this.imagePath = imagePath;
-
             this.texelSize = (sector.deltaLatitude() * Angle.DEGREES_TO_RADIANS) / tileMatrix.tileHeight;
-
             this.tileKey = tileMatrix.levelNumber.toString() + "." + row.toString() + "." + column.toString();
-
             this.gpuCacheKey = imagePath;
         };
 
@@ -101,47 +98,6 @@ define([
 
             return children;
         };
-
-        /*WmtsLayerTile.prototype.subdivide = function (tileMatrix, tileFactory) {
-            if (!tileMatrix) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmtsLayerTile", "subdivide",
-                        "The specified tile matrix is null or undefined."));
-            }
-
-            if (!tileFactory) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmtsLayerTile", "subdivide",
-                        "The specified tile factory is null or undefined."));
-            }
-
-            var subFactorLat,
-                subFactorLon,
-                subRow,
-                subCol,
-                children = [];
-
-            subFactorLat = tileMatrix.matrixHeight / this.tileMatrix.matrixHeight;
-            subFactorLon = tileMatrix.matrixWidth / this.tileMatrix.matrixWidth;
-
-            subRow = subFactorLat * this.row;
-            subCol = subFactorLon * this.column;
-            children.push(tileFactory.createTile(tileMatrix, subRow, subCol));
-
-            subRow = subFactorLat * this.row;
-            subCol = subFactorLon * this.column + 1;
-            children.push(tileFactory.createTile(tileMatrix, subRow, subCol));
-
-            subRow = subFactorLat * this.row + 1;
-            subCol = subFactorLon * this.column;
-            children.push(tileFactory.createTile(tileMatrix, subRow, subCol));
-
-            subRow = subFactorLat * this.row + 1;
-            subCol = subFactorLon * this.column + 1;
-            children.push(tileFactory.createTile(tileMatrix, subRow, subCol));
-
-            return children;
-        };*/
 
         WmtsLayerTile.prototype.subdivideToCache = function (tileMatrix, tileFactory, cache) {
             if (!tileMatrix) {

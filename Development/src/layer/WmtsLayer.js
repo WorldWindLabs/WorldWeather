@@ -64,6 +64,8 @@ define([
                         "No layer configuration specified."));
             }
 
+            this.copyConstructorConfig = config;
+
             Layer.call(this, "WorldWeather Layer");
 
             /**
@@ -117,7 +119,8 @@ define([
 	        this.currentTimeString = config.currentTimeString;
 	        if (timeString)
 	        {
-		        this.currentTimeString = new Date(this.timeString);
+                var date = this.timeString.split('-');
+		        this.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
 	        }
 
             // Determine the layer's sector if possible. Mandatory for EPSG:4326 tile matrix sets. (Others compute
@@ -362,7 +365,8 @@ define([
 			        {
 				        if (wmtsLayerCapabilities.dimension[a].default && wmtsLayerCapabilities.dimension[a].default != "")
 				        {
-					        config.currentTimeString = new Date(wmtsLayerCapabilities.dimension[a].default);
+                            var date = wmtsLayerCapabilities.dimension[a].default.split('-');
+					        config.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
 				        }
 				        break;
 			        }
@@ -529,8 +533,7 @@ define([
             
             return config;
         };
-
-
+        
         WmtsLayer.prototype = Object.create(Layer.prototype);
 
         WmtsLayer.prototype.doRender = function (dc) {

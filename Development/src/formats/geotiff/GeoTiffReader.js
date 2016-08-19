@@ -31,7 +31,6 @@ define([
               Proj4,
               TiffConstants,
               TiffIFDEntry) {
-        
 
         /**
          * Constructs a geotiff reader object for a specified geotiff URL.
@@ -201,12 +200,7 @@ define([
          */
         GeoTiffReader.prototype.isTiffFileType = function () {
             var fileTypeValue = GeoTiffUtil.getBytes(this.geoTiffData, 2, 2, this.isLittleEndian);
-            if (fileTypeValue === 42) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return fileTypeValue === 42;
         };
 
         /**
@@ -215,12 +209,7 @@ define([
          * @return {Boolean} True if this geotiff file is a geotiff file type.
          */
         GeoTiffReader.prototype.isGeoTiff = function () {
-            if (this.getIFDByTag(GeoTiffConstants.Tag.GEO_KEY_DIRECTORY)) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return !!this.getIFDByTag(GeoTiffConstants.Tag.GEO_KEY_DIRECTORY);
         };
 
         /**
@@ -249,10 +238,11 @@ define([
 
                 if (this.metadata.stripOffsets) {
                     var strips = this.parseStrips(false);
+                    var rowsPerStrip = null;
                     if (this.metadata.rowsPerStrip) {
-                        var rowsPerStrip = this.metadata.rowsPerStrip;
+                        rowsPerStrip = this.metadata.rowsPerStrip;
                     } else {
-                        var rowsPerStrip = imageLength;
+                        rowsPerStrip = imageLength;
                     }
                     var numOfStrips = strips.length;
                     var numRowsInPreviousStrip = 0;
@@ -336,6 +326,7 @@ define([
                 case TiffConstants.PhotometricInterpretation.WHITE_IS_ZERO:
                     var invertValue = Math.pow(2, bitsPerSample) - 1;
                     pixelSamples[0] = invertValue - pixelSamples[0];
+                    break;
                 case TiffConstants.PhotometricInterpretation.BLACK_IS_ZERO:
                     red = green = blue = GeoTiffUtil.clampColorSample(
                         pixelSamples[0],
@@ -390,7 +381,7 @@ define([
             }
 
             return GeoTiffUtil.getRGBAFillValue(red, green, blue, opacity);
-        }
+        };
 
         GeoTiffReader.prototype.createTypedElevationArray = function (bitsPerSample, sampleFormat, untypedElevationArray) {
             var typedElevationArray;
@@ -403,7 +394,7 @@ define([
                     else {
                         typedElevationArray = new Uint8Array(untypedElevationArray);
                     }
-                    break
+                    break;
                 case 16:
                     if (sampleFormat === TiffConstants.SampleFormat.SIGNED) {
                         typedElevationArray = new Int16Array(untypedElevationArray);
@@ -431,7 +422,7 @@ define([
             }
 
             return typedElevationArray;
-        }
+        };
 
         /**
          * Retrieves the GeoTiff file, parses it and creates a typed array of its content. The array is passed
@@ -512,15 +503,15 @@ define([
                 var stripByteCount = stripByteCounts[i];
 
                 strips[i] = this.parseBlock(returnElevation, compression, bytesPerPixel, stripByteCount, stripOffset,
-                    samplesPerPixel, bitsPerSample, sampleFormat);
+                    bitsPerSample, sampleFormat);
             }
 
             return strips;
-        }
+        };
 
         // Parse geotiff block. A block may be a strip or a tile. Internal use only.
         GeoTiffReader.prototype.parseBlock = function (returnElevation, compression, bytesPerPixel, blockByteCount,
-                                                       blockOffset, samplesPerPixel, bitsPerSample, sampleFormat) {
+                                                       blockOffset, bitsPerSample, sampleFormat) {
             var block = [];
             switch (compression) {
                 case TiffConstants.Compression.UNCOMPRESSED:
@@ -528,7 +519,7 @@ define([
                     for (var byteOffset = 0, increment = bytesPerPixel;
                          byteOffset < blockByteCount; byteOffset += increment) {
                         // Loop through samples (sub-pixels).
-                        for (var m = 0, pixel = []; m < samplesPerPixel; m++) {
+                        for (var m = 0, pixel = []; m < bitsPerSample.length; m++) {
                             var bytesPerSample = bitsPerSample[m] / 8;
                             var sampleOffset = m * bytesPerSample;
 
@@ -631,7 +622,7 @@ define([
                     for (var byteOffset = 0, increment = bytesPerPixel;
                          byteOffset < arrayBuffer.byteLength; byteOffset += increment) {
                         // Loop through samples (sub-pixels).
-                        for (var m = 0, pixel = []; m < samplesPerPixel; m++) {
+                        for (var m = 0, pixel = []; m < bitsPerSample.length; m++) {
                             var bytesPerSample = bitsPerSample[m] / 8;
                             var sampleOffset = m * bytesPerSample;
 
@@ -653,18 +644,19 @@ define([
             }
 
             return block;
-        }
+        };
 
         // Parse geotiff tiles. Internal use only
         GeoTiffReader.prototype.parseTiles = function (returnElevation) {
             var samplesPerPixel = this.metadata.samplesPerPixel;
             var bitsPerSample = this.metadata.bitsPerSample;
             var compression = this.metadata.compression;
+            var sampleFormat = null;
             if (this.metadata.sampleFormat) {
-                var sampleFormat = this.metadata.sampleFormat;
+                sampleFormat = this.metadata.sampleFormat;
             }
             else {
-                var sampleFormat = Array(samplesPerPixel).fill(TiffConstants.SampleFormat.UNSIGNED);
+                sampleFormat = new Array(samplesPerPixel).fill(TiffConstants.SampleFormat.UNSIGNED);
             }
             var bitsPerPixel = samplesPerPixel * bitsPerSample[0];
             var bytesPerPixel = bitsPerPixel / 8;
@@ -686,12 +678,12 @@ define([
                     var tileOffset = tileOffsets[index];
                     var tileByteCount = tileByteCounts[index];
                     tiles[index] = this.parseBlock(returnElevation, compression, bytesPerPixel, tileByteCount,
-                        tileOffset, samplesPerPixel, bitsPerSample, sampleFormat);
+                        tileOffset, bitsPerSample, sampleFormat);
                 }
             }
 
             return tiles;
-        }
+        };
 
         // Translate a pixel/line coordinates to projection coordinate. Internal use only.
         GeoTiffReader.prototype.geoTiffImageToPCS = function (xValue, yValue) {
@@ -773,13 +765,15 @@ define([
                 upperLeft.longitude,
                 upperRight.longitude
             );
-        }
+        };
 
         // Get metadata from image file directory. Internal use only.
         GeoTiffReader.prototype.getMetadataFromImageFileDirectory = function () {
             for (var i = 0; i < this.imageFileDirectories[0].length; i++) {
 
                 switch (this.imageFileDirectories[0][i].tag) {
+
+                    // Tiff Constants
                     case TiffConstants.Tag.BITS_PER_SAMPLE:
                         this.metadata.bitsPerSample = this.imageFileDirectories[0][i].getIFDEntryValue();
                         break;
@@ -844,7 +838,7 @@ define([
                         this.metadata.tileWidth = this.imageFileDirectories[0][i].getIFDEntryValue();
                         break;
 
-                    //geotiff
+                    // GeoTiff Constants
                     case GeoTiffConstants.Tag.GEO_ASCII_PARAMS:
                         this.metadata.geoAsciiParams = this.imageFileDirectories[0][i].getIFDEntryValue();
                         break;
@@ -867,7 +861,7 @@ define([
                         Logger.log(Logger.LEVEL_WARNING, "Ignored GeoTiff tag: " + this.imageFileDirectories[0][i].tag);
                 }
             }
-        }
+        };
 
         // Get metadata from GeoKeys. Internal use only.
         GeoTiffReader.prototype.getMetadataFromGeoKeys = function () {
@@ -883,7 +877,7 @@ define([
                     Logger.log(Logger.LEVEL_WARNING, "Unknown GeoTiff key: " + this.geoKeys[i].keyId);
                 }
             }
-        }
+        };
 
         // Parse GeoKeys. Internal use only.
         GeoTiffReader.prototype.parseGeoKeys = function () {
@@ -988,12 +982,7 @@ define([
 
             var nextIFDOffset = GeoTiffUtil.getBytes(this.geoTiffData, i, 4, this.isLittleEndian);
 
-            if (nextIFDOffset === 0) {
-                return;
-            }
-            else {
-                this.parseImageFileDirectory(nextIFDOffset);
-            }
+            if (nextIFDOffset !== 0) this.parseImageFileDirectory(nextIFDOffset);
         };
 
         // Get image file directory by tag value. Internal use only.
@@ -1010,7 +999,7 @@ define([
             }
 
             return null;
-        }
+        };
 
         return GeoTiffReader;
     }

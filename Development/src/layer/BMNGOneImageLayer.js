@@ -31,7 +31,9 @@ define([
 
                 this.pickEnabled = false;
                 this.minActiveAltitude = 3e6;
-                this.currentTimeString = time_string;
+
+                var date = time_string.split('-');
+                this.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
                 this.uniqueID = Math.round(Math.random()*1e9).toString();
                 this.legend = null;
             }
