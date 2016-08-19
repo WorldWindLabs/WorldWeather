@@ -1,5 +1,5 @@
 #NASA World Weather
-### The largest 3-dimentional collection of weather, climate, and other geospatial data on the web, built upon NASA WorldWind.
+### The largest three-dimensional web-based interactive browser of satellite, weather, climate, and other time-aware geospatial data on the web, built upon NASA's revolutionary WorldWind technology.
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" width="190px" />
 
@@ -37,7 +37,7 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 **US Navy:** The Geospatial Computing Section at the United States Naval Research Laboratory, which conducts research and development on significant problems involving the collection, processing and distribution of geospatial data.
 
-##Walk Through:
+##Application Walkthrough
 
 ###The different tabs that can be seen on top of the screen are:
 
@@ -51,11 +51,11 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 **Help:** Information about how to use the site
 
-##Available layers:
+##Available Layers
 
 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe. Navigate through the pages in order to view more data sources. 
 
-###Selected Layers:
+###Selected Layers
 
 Here, you can view the layers that you have just selected. You can click on each layer in order to hide or display it. Any button that is blue is a layer that is displayed, and any that is white represents a layer that is hidden from view. You can even delete any layer using the (x) icon. You can also click on the downward and upward arrows in order to re-arrange the layers. Remember that the downmost layer in the list is the uppermost layer on the globe.
 
@@ -69,13 +69,13 @@ The 4 topmost layers in the Selected Layers tab cannot be deleted, but can be hi
 
 *Atmosphere*, which gives an atmosphere effect to the globe, with simulates the effect of the sun by adding light and shadow. It is recommended to hide this layer if the darkness is influencing your view of the selected layers.
 
-###Layer Controls:
+###Layer Controls
 View a legend for each of your selected layers, with information including the date and time of the particular layer. Using the "Date and Time" slider, the layer can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each of the layers. The "View" button can be clicked on each legend in order to view that layer alone on the globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to seeing all the previously selected layers. The "Info" button will display some additional information about that layer, and the "Delete" button will delete the entire layer. (Remember that you can navigate to the "Selected Layers" tab at any point to keep track of which layers you have and which you are viewing.)
 
-###View Options:
+###View Options
 This is where you can change the projection from the default 3D by clicking on the button under "Change Projection", or select any location to navigate the globe to. You can also disable and enable the additional controls that are on the bottom of the screen from this tab (for example, you can disable them to take a clear screenshot of your globe). Those controls can help you move the globe around, zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
 
-###Help:
+###Help
 This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
 
 Note that you can move the globe around by dragging the screen. You can also zoom in and out using your mouse or touchpad, or by using the controls at the bottom.
