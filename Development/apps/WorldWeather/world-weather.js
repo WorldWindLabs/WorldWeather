@@ -4,6 +4,40 @@
  */
 
 $(document).ready(function () {
+  //Fixed location to be used as lightsource for the atmosphere layer
+    var FixedLocation = function(wwd) {
+      this._wwd = wwd;
+    };
+
+    FixedLocation.prototype = Object.create(WorldWind.Location.prototype);
+
+    //Generate fixed location in space for the "Sun"
+    Object.defineProperties(FixedLocation.prototype, {
+
+        latitude: {
+            get: function () {
+                return WorldWind.Location.greatCircleLocation(
+                    this._wwd.navigator.lookAtLocation,
+                    -40,
+                    1.2,
+                    new WorldWind.Location()
+                ).latitude;
+            }
+        },
+
+        longitude: {
+            get: function () {
+                return WorldWind.Location.greatCircleLocation(
+                    this._wwd.navigator.lookAtLocation,
+                    -40,
+                    1.2,
+                    new WorldWind.Location()
+                ).longitude;
+            }
+        }
+
+    });
+
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     var wwd = new WorldWind.WorldWindow("canvasOne");
@@ -87,7 +121,7 @@ $(document).ready(function () {
                 {layer: document.viewControlsLayer, enabled: true},
                 {layer: digital_elevation_layer, enabled: true},
                 {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true},
-                {layer: new WorldWind.BMNGLandsatLayer(), enabled: true}
+                {layer: new WorldWind.BMNGLayer(), enabled: true}
             );
 
             for (var l = 0; l < layers.length; l++) {
@@ -96,9 +130,8 @@ $(document).ready(function () {
             }
 
             // The code below creates the AtmosphereLayer
-            var lightLocation = new WorldWind.Position(25, 190, 0);
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
-            atmosphereLayer.lightLocation = lightLocation;
+            atmosphereLayer.lightLocation = new FixedLocation(wwd);
             wwd.addLayer(atmosphereLayer);
             // end of AtmosphereLayer
 
