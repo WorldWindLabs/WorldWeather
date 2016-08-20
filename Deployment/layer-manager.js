@@ -360,7 +360,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
         else if (layer.enabled || layer.layerSelected) {
             var toDisplay = layer.displayName;
 
-            var baseLayers = ["Digital Elevation Model", "Blue Marble & Landsat", "Atmosphere", "Bing Aerial with Labels"];
+            var baseLayers = ["Digital Elevation Model", "Blue Marble", "Atmosphere", "Bing Aerial with Labels"];
 
             if (baseLayers.indexOf(toDisplay) == -1) {
                 if (toDisplay.length > 25) {
