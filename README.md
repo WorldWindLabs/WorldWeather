@@ -7,6 +7,8 @@
 
 Gathering information about our climate is one of the most pressing issues of our time, which is why international organizations have been setting up satellites and capturing real-time images of the atmospheric conditions on Earth. However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate, it has become necessary to have one platform on which the information from all those different data sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user to interactively view past, present, and future weather information. Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad range of weather and other global spatial data viewed together in 3D. This gives the user a great customizable experience that can be utilized by weather forecasters, research scientists studying climate change, and even intrigued enthusiasts.
 
+<img width="900" alt="application 1" src="https://cloud.githubusercontent.com/assets/19692086/17829775/4b74f010-666e-11e6-8464-0346e03904c1.PNG">
+
 ##Features of WorldWeather
 
 * Load in any number of spatiotemporal geographically accurate data from mutiple sources, in different formats including WMTS, WMS, KML, and view them together.
@@ -55,6 +57,14 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe. Navigate through the pages in order to view more data sources. 
 
+<img width="402" alt="available 2" src="https://cloud.githubusercontent.com/assets/19692086/17829787/60913788-666e-11e6-8991-32fee4ac8984.png">
+
+_Available Layers_
+
+<img width="689" alt="available_air" src="https://cloud.githubusercontent.com/assets/19692086/17829783/607d94bc-666e-11e6-88c1-7f36ce0aea76.png">
+
+_"Weather" tab in Available Layers_
+
 ###Selected Layers
 
 Here, you can view the layers that you have just selected. You can click on each layer in order to hide or display it. Any button that is blue is a layer that is displayed, and any that is white represents a layer that is hidden from view. You can even delete any layer using the (x) icon. You can also click on the downward and upward arrows in order to re-arrange the layers. Remember that the downmost layer in the list is the uppermost layer on the globe.
@@ -69,14 +79,46 @@ The 4 topmost layers in the Selected Layers tab cannot be deleted, but can be hi
 
 *Atmosphere*, which gives an atmosphere effect to the globe, with simulates the effect of the sun by adding light and shadow. It is recommended to hide this layer if the darkness is influencing your view of the selected layers.
 
+<img width="896" alt="selected" src="https://cloud.githubusercontent.com/assets/19692086/17829785/607ef8de-666e-11e6-8fe6-edfea55a5494.PNG">
+
+_Selected Layers showing active fires during a month on blue marble with the atmosphere effect on_
+
+<img width="896" alt="selected3" src="https://cloud.githubusercontent.com/assets/19692086/17829781/607cf3f4-666e-11e6-9aa2-88145aea8775.PNG">
+
+_Selected Layers showing the same active fires, but on Bing aerial with labels_
+
+<img width="881" alt="airtempwithprecepitation" src="https://cloud.githubusercontent.com/assets/19692086/17829784/607df68c-666e-11e6-95fc-9872251c663e.PNG">
+
+_Showing two selected layers on top of each other for the purpose of simultaneous study, here air temperature with total precipitation_
+
 ###Layer Controls
 View a legend for each of your selected layers, with information including the date and time of the particular layer. Using the "Date and Time" slider, the layer can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each of the layers. The "View" button can be clicked on each legend in order to view that layer alone on the globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to seeing all the previously selected layers. The "Info" button will display some additional information about that layer, and the "Delete" button will delete the entire layer. (Remember that you can navigate to the "Selected Layers" tab at any point to keep track of which layers you have and which you are viewing.)
+
+<img width="893" alt="legends" src="https://cloud.githubusercontent.com/assets/19692086/17829868/d5a0b9a2-6670-11e6-8465-e495dee62283.PNG">
+
+_Layer controls showing the legend, date and time slider and opacity slider for the Air Temperature layer_
+
+<img width="748" alt="legendview" src="https://cloud.githubusercontent.com/assets/19692086/17829869/d5a0e968-6670-11e6-9cf8-18c73c5e111f.PNG">
+
+_Demonstrating how clicking "View" on a legend shows that layer alone_
 
 ###View Options
 This is where you can change the projection from the default 3D by clicking on the button under "Change Projection", or select any location to navigate the globe to. You can also disable and enable the additional controls that are on the bottom of the screen from this tab (for example, you can disable them to take a clear screenshot of your globe). Those controls can help you move the globe around, zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
 
+<img width="892" alt="destination" src="https://cloud.githubusercontent.com/assets/19692086/17829870/d5a12b3a-6670-11e6-9c2a-9665f3a7a554.PNG">
+
+_Demonstrating how the globe can center around the inputed destination, here NASA Ames Research Center_
+
+<img width="897" alt="equirectangular" src="https://cloud.githubusercontent.com/assets/19692086/17829788/6092a230-666e-11e6-98cb-96a291e2a858.PNG">
+
+_Demonstrating how the projection can be changed, here to Equirectangular_
+
 ###Help
 This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
+
+<img width="897" alt="help" src="https://cloud.githubusercontent.com/assets/19692086/17829872/d5a4c420-6670-11e6-82ec-594034d25bcb.PNG">
+
+_The Help tab_
 
 ###Info
 Provides some general information about the app
