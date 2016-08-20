@@ -37,7 +37,7 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 **US Navy:** The Geospatial Computing Section at the United States Naval Research Laboratory, which conducts research and development on significant problems involving the collection, processing and distribution of geospatial data.
 
-##Application Walkthrough
+##Application Walk-through
 
 ###The different tabs that can be seen on top of the screen are:
 
@@ -51,7 +51,7 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 **Help:** Information about how to use the site
 
-##Available Layers
+###Available Layers
 
 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe. Navigate through the pages in order to view more data sources. 
 
@@ -78,5 +78,5 @@ This is where you can change the projection from the default 3D by clicking on t
 ###Help
 This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
 
-Note that you can move the globe around by dragging the screen. You can also zoom in and out using your mouse or touchpad, or by using the controls at the bottom.
-
+###Info
+Provides some general information about the app
