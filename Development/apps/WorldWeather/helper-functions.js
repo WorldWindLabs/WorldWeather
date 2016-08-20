@@ -3,12 +3,16 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-function moveLayerBack() {
-    // TODO: get this time-series functionality built in and working for the WMTS layers
-    var layer_config = document.wwd.layers[document.wwd.layers.length - 1].copyConstructorConfig;
-    var yesterday = new Date(new Date(document.wwd.layers[document.wwd.layers.length - 1].currentTimeString.getTime() - (24 * 60 * 60)));
-    document.wwd.layers[document.wwd.layers.length - 1] = new WorldWind.WmtsLayer(layer_config, yesterday.toISOString().split('T')[0]);
-    console.log(document.wwd.layers[document.wwd.layers.length - 1].currentTimeString);
+function moveWmtsLayerBack(layerUniqueID, direction) {
+    var layer = findLayerByID(layerUniqueID);
+    var layer_config = layer.copyConstructorConfig;
+    var movement = null;
+    if (direction == "previous")
+        movement = new Date(layer.currentTimeString.getTime() - (24 * 60 * 60 * 1000));
+    else if (direction == "next")
+        movement = new Date(layer.currentTimeString.getTime() + (24 * 60 * 60 * 1000));
+
+    replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
     document.wwd.redraw();
 }
 
@@ -125,12 +129,12 @@ function openTab(evt, tabName) {
             tabcontent[i].style.display = "none";
     }
 
-    if(tabName.toString() == "help_div"){
-        $('#info_div').css('display','none')
+    if (tabName.toString() == "help_div") {
+        $('#info_div').css('display', 'none')
     }
 
-    if(tabName.toString() == "info_div"){
-        $('#help_div').css('display','none')
+    if (tabName.toString() == "info_div") {
+        $('#help_div').css('display', 'none')
     }
 
 
@@ -186,6 +190,14 @@ function findLayerByID(layerID) {
         }
     }
     return null;
+}
+
+function replaceLayerByID(layerID, replacementLayer) {
+    for (var i = 0; i < document.wwd.layers.length; i++) {
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
+            document.wwd.layers[i] = replacementLayer;
+        }
+    }
 }
 
 function showHideLegends(evt, t, selectedItem, layerID) {

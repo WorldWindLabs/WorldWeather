@@ -150,6 +150,12 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
                 }
+                else if (layer.layerType == "WMTS")
+                {
+                    legendAdditions += '<a onclick="moveWmtsLayerBack('+ layer.uniqueID +', \'previous\')">Previous</a> ---';
+                    legendAdditions += '<a onclick="moveWmtsLayerBack('+ layer.uniqueID +', \'next\')">Next</a><br/>';
+
+                }
                 else if (layer.currentTimeString) {
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }

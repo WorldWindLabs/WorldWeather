@@ -99,7 +99,7 @@ define([
             if (timeString)
             {
                 var date = this.timeString.split('-');
-                this.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
+                this.currentTimeString = new Date(Date.UTC(date[0],date[1]-1,date[2]));
             }
 
         };
@@ -135,7 +135,7 @@ define([
                         if (wmsLayerCapabilities.extents[i].default && wmsLayerCapabilities.extents[i].default != "")
                         {
                             var date = wmsLayerCapabilities.extents[i].default.split('-');
-                            config.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
+                            config.currentTimeString = new Date(Date.UTC(date[0],date[1]-1,date[2]));
                         }
                         break;
                     }

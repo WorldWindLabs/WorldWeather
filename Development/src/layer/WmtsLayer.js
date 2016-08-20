@@ -68,6 +68,8 @@ define([
 
             Layer.call(this, "WorldWeather Layer");
 
+            this.layerType = "WMTS";
+
             /**
              * The WorldWeather layer identifier of this layer.
              * @type {String}
@@ -112,7 +114,11 @@ define([
             this.tileMatrixSet = config.tileMatrixSet;
 
             this.legend = config.legend;
-	        this.uniqueID = Math.round(Math.random()*1e9).toString();
+            if (config.uniqueID) this.uniqueID = config.uniqueID;
+	        else {
+                this.uniqueID = Math.round(Math.random()*1e9).toString();
+                this.copyConstructorConfig.uniqueID = this.uniqueID;
+            }
 
             this.sourceLayersOptions = null;
 
@@ -120,7 +126,7 @@ define([
 	        if (timeString)
 	        {
                 var date = this.timeString.split('-');
-		        this.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
+		        this.currentTimeString = new Date(Date.UTC(date[0],date[1]-1,date[2]));
 	        }
 
             // Determine the layer's sector if possible. Mandatory for EPSG:4326 tile matrix sets. (Others compute
@@ -366,7 +372,7 @@ define([
 				        if (wmtsLayerCapabilities.dimension[a].default && wmtsLayerCapabilities.dimension[a].default != "")
 				        {
                             var date = wmtsLayerCapabilities.dimension[a].default.split('-');
-					        config.currentTimeString = new Date(Date.UTC(date[0],date[1],date[2]));
+					        config.currentTimeString = new Date(Date.UTC(date[0],date[1]-1,date[2]));
 				        }
 				        break;
 			        }
