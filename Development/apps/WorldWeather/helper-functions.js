@@ -104,16 +104,16 @@ function openTab(evt, tabName) {
     if (document.getElementById(tabName).style.display == "none") {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.setAttribute("target", "active");
-        if (tabName.toString() != "help_div")
-            document.viewControlsLayer.enabled = false;
+        //if (tabName.toString() != "help_div")
+        //    document.viewControlsLayer.enabled = false;
 
     }
     else {
         document.getElementById(tabName).style.display = "none";
         document.getElementById(tabName).className.replace("active", "");
         evt.currentTarget.removeAttribute("target", "active");
-        if (tabName.toString() != "help_div")
-            document.viewControlsLayer.enabled = true;
+        //if (tabName.toString() != "help_div")
+        //    document.viewControlsLayer.enabled = true;
     }
 
     // remove all other tabs except for the one that was clicked, but do not let this apply to the help tab

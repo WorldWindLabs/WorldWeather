@@ -208,7 +208,7 @@ define([
              * @type {Number}
              * @default 1.75
              */
-            this.detailControl = 1.75;
+            this.detailControl = 1.0;
         };
 
 

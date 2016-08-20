@@ -4,16 +4,15 @@
  */
 
 $(document).ready(function () {
-  //Fixed location to be used as lightsource for the atmosphere layer
-    var FixedLocation = function(wwd) {
-      this._wwd = wwd;
+    // Fixed location to be used as light-source for the atmosphere layer
+    var FixedLocation = function (wwd) {
+        this._wwd = wwd;
     };
 
     FixedLocation.prototype = Object.create(WorldWind.Location.prototype);
 
-    //Generate fixed location in space for the "Sun"
+    // Generate fixed location in space for the "Sun"
     Object.defineProperties(FixedLocation.prototype, {
-
         latitude: {
             get: function () {
                 return WorldWind.Location.greatCircleLocation(
@@ -24,7 +23,6 @@ $(document).ready(function () {
                 ).latitude;
             }
         },
-
         longitude: {
             get: function () {
                 return WorldWind.Location.greatCircleLocation(
@@ -35,7 +33,6 @@ $(document).ready(function () {
                 ).longitude;
             }
         }
-
     });
 
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
@@ -44,8 +41,17 @@ $(document).ready(function () {
     document.wwd = wwd;
 
     // Initialize the WWW window to a certain altitude, and to the current location of the user
+
+    var screenAvailWidth = window.screen.availWidth, screenAvailHeight = window.screen.availHeight;
+
     wwd.navigator.lookAtLocation.altitude = 0;
-    wwd.navigator.range = 2.5e7;
+    if (screenAvailWidth > screenAvailHeight)
+    {
+        wwd.navigator.range = 2.5e7;
+    } else {
+        wwd.navigator.range = 3.5e7;
+    }
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (location) {
             wwd.navigator.lookAtLocation.latitude = location.coords.latitude;
