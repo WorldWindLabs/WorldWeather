@@ -97,6 +97,8 @@ $(document).ready(function () {
     $('#legend_division').perfectScrollbar();
     $('#categories_div').perfectScrollbar();
     $('#help_div').perfectScrollbar();
+    $('#info_div').perfectScrollbar();
+
     // end of perfect scrollbar implementation
 
     // getting digital elevation model from wms server

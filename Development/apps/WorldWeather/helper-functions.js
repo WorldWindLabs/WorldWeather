@@ -121,9 +121,19 @@ function openTab(evt, tabName) {
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
 
-        if (tabcontent[i].id != tabName.toString() && tabcontent[i].id != "help_div" && tabName.toString() != "help_div")
+        if (tabcontent[i].id != tabName.toString() && tabcontent[i].id != "help_div" && tabName.toString() != "help_div" && tabcontent[i].id != "info_div" && tabName.toString() != "info_div")
             tabcontent[i].style.display = "none";
     }
+
+    if(tabName.toString() == "help_div"){
+        $('#info_div').css('display','none')
+    }
+
+    if(tabName.toString() == "info_div"){
+        $('#help_div').css('display','none')
+    }
+
+
 }
 
 function openPage(evt, pageName) {

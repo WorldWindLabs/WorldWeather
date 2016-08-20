@@ -59,7 +59,8 @@
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Layer Controls</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">View Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 8%;">Help</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 11%;">Help</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 6%;">Info</a></li>
 
 </ul>
 
@@ -143,28 +144,6 @@
 
         <article class="message" style="background-color: transparent; color: white;">
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                NASA World Weather
-            </div>
-            <div class="message-body">
-                Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
-                range of weather and other global spatial data viewed together in 3D. Gathering information about our
-                climate is one of the most pressing issues of our time, which is why international organizations have
-                been setting up satellites and capturing real-time images of the atmospheric conditions on Earth.
-                However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate,
-                it has become necessary to have one platform on which the information from all those different data
-                sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user
-                to interactively view past, present, and future weather information.
-                <br/><br/>
-                Built upon NASA World Wind, NASA
-                World Weather is the first web application to ever display such a broad range of weather and other
-                global spatial data viewed together in 3D. This gives the user a great customizable experience that can
-                be utilized by weather forecasters, research scientists studying climate change, and even intrigued
-                enthusiasts.
-            </div>
-        </article>
-
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Getting Data from Different Sources
             </div>
             <div class="message-body">
@@ -211,6 +190,53 @@
         <br/>
 
     </div>
+
+
+    <div id="info_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #info_div {
+                width: 20%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                position: fixed;
+                top: 53px;
+                right: 0;
+                background: rgba(0, 0, 0, 0.5);
+                overflow: hidden !important;
+                text-align: justify;
+            }
+
+        </style>
+
+        <br/>
+        <img src="nasa-logo.png"/>
+        <br/>
+        <br/>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                NASA World Weather
+            </div>
+            <div class="message-body">
+                Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
+                range of weather and other global spatial data viewed together in 3D. Gathering information about our
+                climate is one of the most pressing issues of our time, which is why international organizations have
+                been setting up satellites and capturing real-time images of the atmospheric conditions on Earth.
+                However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate,
+                it has become necessary to have one platform on which the information from all those different data
+                sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user
+                to interactively view past, present, and future weather information.
+                <br/><br/>
+                Built upon NASA World Wind, NASA
+                World Weather is the first web application to ever display such a broad range of weather and other
+                global spatial data viewed together in 3D. This gives the user a great customizable experience that can
+                be utilized by weather forecasters, research scientists studying climate change, and even intrigued
+                enthusiasts.
+
+            </div>
+        </article>
+        </div>
 
     <div id="selectedlayers" class="col-sm-2 tabcontent">
         <style scoped>
