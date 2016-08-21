@@ -47,7 +47,7 @@ $(document).ready(function () {
     wwd.navigator.lookAtLocation.altitude = 0;
     if (screenAvailWidth > screenAvailHeight)
     {
-        wwd.navigator.range = 2.5e7;
+        wwd.navigator.range = 2.94e7;
     } else {
         wwd.navigator.range = 0.95e7;
     }

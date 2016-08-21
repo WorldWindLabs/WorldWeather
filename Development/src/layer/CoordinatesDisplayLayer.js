@@ -95,11 +95,6 @@ define([
             this.eyeText.attributes = new TextAttributes(null);
             this.eyeText.attributes.color = Color.YELLOW;
 
-            // Intentionally not documented.
-            var imageOffset = new Offset(WorldWind.OFFSET_FRACTION, 0.5, WorldWind.OFFSET_FRACTION, 0.5),
-                imagePath = WorldWind.configuration.baseUrl + "images/crosshair.png";
-            this.crosshairImage = new ScreenImage(imageOffset, imagePath);
-
             // Register user input event listeners on the World Window.
             var thisLayer = this;
 
