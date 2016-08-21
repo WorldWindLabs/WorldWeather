@@ -49,7 +49,7 @@ $(document).ready(function () {
     {
         wwd.navigator.range = 2.5e7;
     } else {
-        wwd.navigator.range = 3.5e7;
+        wwd.navigator.range = 0.95e7;
     }
 
     if (navigator.geolocation) {
@@ -116,24 +116,23 @@ $(document).ready(function () {
             var digital_elevation_layer =
                 new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
             digital_elevation_layer.displayName = "Digital Elevation Model";
-
             document.viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
             document.viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
             document.viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
-
             document.viewCoordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
 
             var layers = [];
             layers.push(
                 {layer: document.viewCoordinatesLayer, enabled: true},
                 {layer: document.viewControlsLayer, enabled: true},
-                {layer: digital_elevation_layer, enabled: true},
-                {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true},
+                {layer: digital_elevation_layer, enabled: false, layerSelected: true},
+                {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: false, layerSelected: true},
                 {layer: new WorldWind.BMNGLayer(), enabled: true}
             );
 
             for (var l = 0; l < layers.length; l++) {
                 layers[l].layer.enabled = layers[l].enabled;
+                if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
                 wwd.addLayer(layers[l].layer);
             }
 

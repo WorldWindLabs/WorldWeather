@@ -110,10 +110,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
 
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
-        var title_selector = $("#" + jquery_layer_options + "_title");
-        var layerNum = parseInt(title_selector.html());
-        layerNum += 1;
-        title_selector.html(layerNum);
 
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
@@ -237,13 +233,6 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
 
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
-
-    //console.log(layer);
-    var layersTitle = $("#" + layer.sourceLayersOptions + "_title");
-    var layerNumber = parseInt(layersTitle.html());
-    //console.log(layer.sourceLayersOptions);
-    layerNumber--;
-    layersTitle.html(layerNumber);
 
     var uniqueSelector = $("#" + layer.uniqueID);
     if (uniqueSelector.length) uniqueSelector.remove();

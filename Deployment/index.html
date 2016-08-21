@@ -24,7 +24,7 @@
 <body>
 <style media="screen" type="text/css" scoped>
     body {
-        background: url('stars.jpg') no-repeat center center fixed;
+        background: url('stars-darker.jpg') no-repeat center center fixed;
         -moz-background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
@@ -48,6 +48,12 @@
     .message-body
     {
         line-height: 100%;
+    }
+
+    .data_sources_page
+    {
+        color: white !important;
+        font-size: 11px !important;
     }
 
 </style>
@@ -146,7 +152,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Getting Data from Different Sources
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe.
                 The same layers can be selected from either the "Available Layers" tab, in which data is organised according
                 to its source, or from the "Layer Categories" tab, in which data is organised according to the type of
@@ -164,7 +170,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Modifying the Data Layers
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on
                 each layer in order to hide or display it, and even delete it by clicking the (x) icon.
                 You can also click on the downward and upward arrows in order to re-arrange the layers.
@@ -218,7 +224,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 NASA World Weather
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
                 range of weather and other global spatial data viewed together in 3D. Gathering information about our
                 climate is one of the most pressing issues of our time, which is why international organizations have
@@ -233,8 +239,8 @@
                 global spatial data viewed together in 3D. This gives the user a great customizable experience that can
                 be utilized by weather forecasters, research scientists studying climate change, and even intrigued
                 enthusiasts.
-
             </div>
+            <br/><br/>
         </article>
         </div>
 
@@ -318,10 +324,10 @@
         <article class="message" style="border: hidden; background-color: transparent;">
             <div class="message-header"  style="background-color: rgba(97, 97, 97, 0.67)">
             <div class="panel-tabs" style="color: white !important; width: 100%; margin-left: 5px; margin-right: 5px;">
-                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')" style="color: white; ; font-size: small">Space</a>
-                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')" style="color: white; font-size: small">Weather</a>
-                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')" style="color: white; font-size: small">Academia</a>
-                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')" style="color: white; font-size: small">Gov.</a>
+                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')">Space</a>
+                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
+                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')">Academia</a>
+                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')">Government</a>
             </div>
             </div>
             <div class="message-body">
@@ -329,17 +335,17 @@
             <div id="space_data_sources" class="data_sources_tab" style="display: block;">
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">NASA Global Information Browse Services (<span id="layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">NASA Global Information Browse Services</h5><br/>
                     <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">NASA Earth Observatory (<span id="neo_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">NASA Earth Observatory</h5><br/>
                     <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">ESA Sentinel Data Hub (<span id="esa_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">ESA Sentinel Data Hub</h5><br/>
                     <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
@@ -348,17 +354,17 @@
             <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">NOAA Global Forecasting System (<span id="noaa_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">NOAA Global Forecasting System</h5><br/>
                     <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">Meteorological Service of Canada (<span id="geomet_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">Meteorological Service of Canada</h5><br/>
                     <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">European Centre for Medium‑Range Weather Forecasting (<span id="ecmwf_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">European Centre for Medium‑Range Weather Forecasting</h5><br/>
                     <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
@@ -367,7 +373,7 @@
             <div id="university_data_sources" class="data_sources_tab" style="display: none;">
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">Climate Change Institute at the University of Maine (<span id="cci_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">Climate Change Institute at the University of Maine</h5><br/>
                     <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 
@@ -376,7 +382,7 @@
             <div id="military_data_sources" class="data_sources_tab" style="display: none;">
 
                 <div class="panel-block is-active">
-                    <h5 style="color: white">United States Navy Research Laboratory (<span id="navy_layers_options_title">0</span>)</h5><br/>
+                    <h5 style="color: white">United States Navy Research Laboratory</h5><br/>
                     <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                 </div>
 

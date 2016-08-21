@@ -24,7 +24,7 @@
 <body>
 <style media="screen" type="text/css" scoped>
     body {
-        background: url('stars.jpg') no-repeat center center fixed;
+        background: url('stars-darker.jpg') no-repeat center center fixed;
         -moz-background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
@@ -48,6 +48,12 @@
     .message-body
     {
         line-height: 100%;
+    }
+
+    .data_sources_page
+    {
+        color: white !important;
+        font-size: 11px !important;
     }
 
 </style>
@@ -146,7 +152,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Getting Data from Different Sources
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe.
                 The same layers can be selected from either the "Available Layers" tab, in which data is organised according
                 to its source, or from the "Layer Categories" tab, in which data is organised according to the type of
@@ -164,7 +170,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Modifying the Data Layers
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on
                 each layer in order to hide or display it, and even delete it by clicking the (x) icon.
                 You can also click on the downward and upward arrows in order to re-arrange the layers.
@@ -218,7 +224,7 @@
             <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 NASA World Weather
             </div>
-            <div class="message-body">
+            <div class="message-body" style="background-color: #0b0b0b">
                 Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
                 range of weather and other global spatial data viewed together in 3D. Gathering information about our
                 climate is one of the most pressing issues of our time, which is why international organizations have
@@ -233,8 +239,8 @@
                 global spatial data viewed together in 3D. This gives the user a great customizable experience that can
                 be utilized by weather forecasters, research scientists studying climate change, and even intrigued
                 enthusiasts.
-
             </div>
+            <br/><br/>
         </article>
         </div>
 
@@ -318,10 +324,10 @@
         <article class="message" style="border: hidden; background-color: transparent;">
             <div class="message-header"  style="background-color: rgba(97, 97, 97, 0.67)">
             <div class="panel-tabs" style="color: white !important; width: 100%; margin-left: 5px; margin-right: 5px;">
-                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')" style="color: white; ; font-size: small">Space</a>
-                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')" style="color: white; font-size: small">Weather</a>
-                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')" style="color: white; font-size: small">Academia</a>
-                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')" style="color: white; font-size: small">Gov.</a>
+                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')">Space</a>
+                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
+                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')">Academia</a>
+                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')">Government</a>
             </div>
             </div>
             <div class="message-body">
