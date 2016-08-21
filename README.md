@@ -1,7 +1,7 @@
 #NASA World Weather
 ### The largest three-dimensional web-based interactive browser of satellite, weather, climate, and other time-aware geospatial data on the web, built upon NASA's revolutionary WorldWind technology.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" width="190px" />
+<img src="http://i.imgur.com/GNI73wr.jpg" />
 
 ##Introduction
 
