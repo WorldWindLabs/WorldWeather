@@ -9,6 +9,8 @@ Gathering information about our climate is one of the most pressing issues of ou
 
 <img width="900" alt="application 1" src="https://cloud.githubusercontent.com/assets/19692086/17829775/4b74f010-666e-11e6-8464-0346e03904c1.PNG">
 
+<img src="http://i.imgur.com/2HnOm8V.jpg">
+
 ##Features of WorldWeather
 
 * Load in any number of spatiotemporal geographically accurate data from mutiple sources, in different formats including WMTS, WMS, KML, and view them together.
