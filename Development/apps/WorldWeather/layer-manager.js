@@ -148,9 +148,12 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
                 else if (layer.layerType == "WMTS")
                 {
-                    legendAdditions += '<a onclick="moveWmtsLayerBack('+ layer.uniqueID +', \'previous\')">Previous</a> ---';
-                    legendAdditions += '<a onclick="moveWmtsLayerBack('+ layer.uniqueID +', \'next\')">Next</a><br/>';
-
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
                 else if (layer.currentTimeString) {
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';

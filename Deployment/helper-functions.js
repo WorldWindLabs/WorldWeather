@@ -3,17 +3,24 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-function moveWmtsLayerBack(layerUniqueID, direction) {
+function moveWmtsLayer(layerUniqueID, direction) {
     var layer = findLayerByID(layerUniqueID);
     var layer_config = layer.copyConstructorConfig;
     var movement = null;
     if (direction == "previous")
         movement = new Date(layer.currentTimeString.getTime() - (24 * 60 * 60 * 1000));
+    else if (direction == "big-previous")
+        movement = new Date(layer.currentTimeString.getTime() - (7 * 24 * 60 * 60 * 1000));
     else if (direction == "next")
         movement = new Date(layer.currentTimeString.getTime() + (24 * 60 * 60 * 1000));
+    else if (direction == "big-next")
+        movement = new Date(layer.currentTimeString.getTime() + (7 * 24 * 60 * 60 * 1000));
+    else
+        return null;
 
     replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
     document.wwd.redraw();
+    $("#legend_time_"+layerUniqueID).html(movement.toUTCString());
 }
 
 function changeDataSourcesTab(evt, tabClicked) {
