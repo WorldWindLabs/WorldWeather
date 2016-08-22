@@ -3,6 +3,11 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function onLayerTagDelete(evt, layerUniqueID)
+{
+    document.layerManager.onLayerDelete(null, layerUniqueID);
+}
+
 function moveWmtsLayer(layerUniqueID, direction) {
     var layer = findLayerByID(layerUniqueID);
     var layer_config = layer.copyConstructorConfig;

@@ -124,7 +124,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 if (toDisplay.length > 7) {
                     toDisplay = toDisplay.substr(0, 7) + "...";
                 }
-                layerTagsSelector.append('<i class="layer-tag tag is-info">'+toDisplay+'<button class="delete"></button></i>');
+                layerTagsSelector.append('<i class="layer-tag tag is-info" id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
@@ -242,6 +242,9 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
 
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
+
+    var layerTagSelector = $("#layer_tag_"+layer.uniqueID);
+    if (layerTagSelector.length) layerTagSelector.remove();
 
     var uniqueSelector = $("#" + layer.uniqueID);
     if (uniqueSelector.length) uniqueSelector.remove();
