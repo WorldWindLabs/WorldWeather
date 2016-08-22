@@ -314,12 +314,15 @@ function titleCase(str) {
 
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
+    var layerListItemText= $("#layer_text");
+    var BaseLayersListItem= $("#base_layers");
 
     if (!document.isInitialized) {
         document.isInitialized = 0;
     }
 
     layerListItem.find("div").remove();
+    BaseLayersListItem.find("div").remove();
 
     var self = this;
     var count = 0;
@@ -370,12 +373,14 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             var layerItem = null;
             if (baseLayers.indexOf(toDisplay) > -1) {
-                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
+                BaseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerListItem.append(layerItem);
             }
-            layerListItem.append(layerItem);
+
 
             $('#delete_icon_' + i).on("click", function (e) {
                 self.onLayerDelete($(this));
@@ -399,7 +404,16 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
-    $("#count").text("Selected layers (" + count + ")");
+    $("#count").text("Selected layers (" + (count - 4) + ")");
+
+
+    if(count == 4)
+    {
+        layerListItemText.html("Please add a layer from the Available Layers tab");
+    }
+    else {
+        layerListItemText.html("");
+    }
 };
 
 LayerManager.prototype.createProjectionList = function () {

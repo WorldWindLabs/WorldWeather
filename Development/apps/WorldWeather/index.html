@@ -249,7 +249,8 @@
         </article>
         </div>
 
-    <div id="selectedlayers" class="col-sm-2 tabcontent">
+
+    <div id="selectedlayers" class="col-sm-2 tabcontent message" style="background-color: transparent;">
         <style scoped>
             #selectedlayers {
                 width: 20%;
@@ -264,10 +265,14 @@
             }
         </style>
         <br/>
-        <div style="color: white; text-align: center !important; font-size: 125% !important;">
+        <div class="message-header" style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
+            <span>Base Layers</span></div>
+        <div class="list-group message-body" id="base_layers">
+        </div>
+        <div class="message-header" style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
             <span id="count">Selected layers</span></div>
-        <br/>
-        <div class="list-group" id="layerList">
+        <div class="list-group message-body" id="layerList" style="color: white; text-align: center !important;">
+            <span id="layer_text"></span>
         </div>
         <br/>
     </div>
