@@ -4,6 +4,9 @@
  */
 
 $(document).ready(function () {
+    //enable all tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     // Fixed location to be used as light-source for the atmosphere layer
     var FixedLocation = function (wwd) {
         this._wwd = wwd;
