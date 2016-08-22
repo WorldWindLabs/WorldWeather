@@ -32,15 +32,17 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "OwsOperationsMetadata", "constructor", "missingDomElement"));
             }
 
-            var children = element.children;
-            for (var c = 0; c < children.length; c++) {
-                var child = children[c];
+            var children = element.children || element.childNodes;
+            if (children && children.length > 0) {
+                for (var c = 0; c < children.length; c++) {
+                    var child = children[c];
 
-                if (child.localName === "Operation") {
-                    this.operation = this.operation || [];
-                    this.operation.push(OwsOperationsMetadata.assembleOperation(child));
+                    if (child.localName === "Operation") {
+                        this.operation = this.operation || [];
+                        this.operation.push(OwsOperationsMetadata.assembleOperation(child));
+                    }
+                    // TODO: Parameter, Constraint, ExtendedCapabilities
                 }
-                // TODO: Parameter, Constraint, ExtendedCapabilities
             }
         };
 
@@ -49,7 +51,7 @@ define([
 
             operation.name = element.getAttribute("name");
 
-            var children = element.children;
+            var children = element.children || element.childNodes;
             for (var c = 0; c < children.length; c++) {
                 var child = children[c];
 
@@ -66,7 +68,7 @@ define([
         OwsOperationsMetadata.assembleDcp = function (element) {
             var dcp = {};
 
-            var children = element.children;
+            var children = element.children || element.childNodes;
             for (var c = 0; c < children.length; c++) {
                 var child = children[c];
 
@@ -81,7 +83,7 @@ define([
         OwsOperationsMetadata.assembleHttp = function (element) {
             var result = {};
 
-            var children = element.children;
+            var children = element.children  || element.childNodes;
             for (var c = 0; c < children.length; c++) {
                 var child = children[c];
 
@@ -101,7 +103,7 @@ define([
 
             result.href = element.getAttribute("xlink:href");
 
-            var children = element.children;
+            var children = element.children  || element.childNodes;
             for (var c = 0; c < children.length; c++) {
                 var child = children[c];
 

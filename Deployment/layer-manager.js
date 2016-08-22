@@ -107,18 +107,24 @@ Array.prototype.move = function (from, to) {
 };
 
 LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options) {
-
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
 
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
-            if (layer.hide) {
+            if (layer.hide || layer.enabled) {
                 continue;
             }
 
             if (layer.displayName === layerName) {
                 layer.enabled = true;
+
+                var layerTagsSelector = $("#"+layer.sourceLayersOptions+"_added_tags");
+                var toDisplay = layer.displayName;
+                if (toDisplay.length > 7) {
+                    toDisplay = toDisplay.substr(0, 7) + "...";
+                }
+                layerTagsSelector.append('<i class="layer-tag tag is-info" id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
@@ -237,6 +243,9 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
 
+    var layerTagSelector = $("#layer_tag_"+layer.uniqueID);
+    if (layerTagSelector.length) layerTagSelector.remove();
+
     var uniqueSelector = $("#" + layer.uniqueID);
     if (uniqueSelector.length) uniqueSelector.remove();
 
@@ -314,12 +323,15 @@ function titleCase(str) {
 
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
+    var layerListItemText= $("#layer_text");
+    var BaseLayersListItem= $("#base_layers");
 
     if (!document.isInitialized) {
         document.isInitialized = 0;
     }
 
     layerListItem.find("div").remove();
+    BaseLayersListItem.find("div").remove();
 
     var self = this;
     var count = 0;
@@ -370,12 +382,14 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
             var layerItem = null;
             if (baseLayers.indexOf(toDisplay) > -1) {
-                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
+                BaseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerListItem.append(layerItem);
             }
-            layerListItem.append(layerItem);
+
 
             $('#delete_icon_' + i).on("click", function (e) {
                 self.onLayerDelete($(this));
@@ -399,7 +413,16 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
-    $("#count").text("Selected layers (" + count + ")");
+    $("#count").text("Selected layers (" + (count - 4) + ")");
+
+
+    if(count == 4)
+    {
+        layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab</p>');
+    }
+    else {
+        layerListItemText.html("");
+    }
 };
 
 LayerManager.prototype.createProjectionList = function () {

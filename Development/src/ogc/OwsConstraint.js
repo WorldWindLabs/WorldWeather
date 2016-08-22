@@ -32,16 +32,18 @@ define([
 
             this.name = element.getAttribute("name");
 
-            var children = element.children;
+            var children = element.children || element.childNodes;
             for (var c = 0; c < children.length; c++) {
                 var child = children[c];
 
                 if (child.localName === "AllowedValues") {
                     this.allowedValues = this.allowedValues || [];
 
-                    for (var cc = 0; cc < child.children.length; cc++) {
-                        if (child.children[cc].localName === "Value") {
-                            this.allowedValues.push(child.children[cc].textContent);
+                    var grandchildren = child.children || child.childNodes;
+
+                    for (var cc = 0; cc < grandchildren.length; cc++) {
+                        if (grandchildren[cc].localName === "Value") {
+                            this.allowedValues.push(grandchildren[cc].textContent);
                         }
                     }
                 } else if (child.localName === "AnyValue") {

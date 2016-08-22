@@ -197,11 +197,13 @@ define([
         };
 
         WmtsCapabilities.prototype.getGetTileKvpAddress = function () {
-            for (var i = 0; i < this.operationsMetadata.operation.length; i++) {
-                var operation = this.operationsMetadata.operation[i];
+            if (this.operationsMetadata.operation && this.operationsMetadata.operation.length > 0) {
+                for (var i = 0; i < this.operationsMetadata.operation.length; i++) {
+                    var operation = this.operationsMetadata.operation[i];
 
-                if (operation.name === "GetTile") {
-                    return operation.dcp[0].http.get[0].href;
+                    if (operation.name === "GetTile") {
+                        return operation.dcp[0].http.get[0].href;
+                    }
                 }
             }
 

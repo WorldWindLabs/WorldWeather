@@ -3,6 +3,10 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function onLayerTagDelete(evt, layerUniqueID) {
+    document.layerManager.onLayerDelete(null, layerUniqueID);
+}
+
 function moveWmtsLayer(layerUniqueID, direction) {
     var layer = findLayerByID(layerUniqueID);
     var layer_config = layer.copyConstructorConfig;
@@ -20,7 +24,7 @@ function moveWmtsLayer(layerUniqueID, direction) {
 
     replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
     document.wwd.redraw();
-    $("#legend_time_"+layerUniqueID).html(movement.toUTCString());
+    $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
 function changeDataSourcesTab(evt, tabClicked) {
@@ -32,33 +36,51 @@ function changeDataSourcesTab(evt, tabClicked) {
 
 function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
-    for (var i = 0; i < section[0].children.length; i++) {
-        switch (section[0].children[i].nodeName.toLowerCase()) {
-            case "name":
-                kml_layer.name = section[0].children[i].textContent;
-                break;
-            case "timespan":
-                kml_layer.time_span = {
-                    begin: section[0].children[i].children[0].textContent,
-                    end: section[0].children[i].children[1].textContent
-                };
-                break;
-            case "latlonbox":
-                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
-                for (var j = 0; j < section[0].children[i].children.length; j++) {
-                    kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
-                }
-                break;
-            case "icon":
-                kml_layer.icon = {
-                    href: section[0].children[i].children[0].textContent,
-                    view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
-                };
-                break;
-            default:
-                break;
-        }
-    }
+
+    // TODO: I will fix this stuff later when I feel like it
+
+    /*if (section[0].childNodes && section[0].childNodes.length > 0) {
+     for (var i = 0; i < section[0].childNodes.length; i++) {
+     switch (section[0].childNodes[i].nodeName.toLowerCase()) {
+     case "name":
+     kml_layer.name = section[0].childNodes[i].textContent;
+     break;
+     case "timespan":
+     kml_layer.time_span = {begin: null, end: null};
+     var timespan_child = section[0].childNodes[i];
+     for (var k = 0; k < timespan_child.childNodes.length; k++)
+     {
+     var ts_key_name = timespan_child.childNodes[k].nodeName;
+     if (ts_key_name in kml_layer.time_span)
+     kml_layer.time_span[ts_key_name] = timespan_child.childNodes[k].textContent;
+     }
+     break;
+     case "latlonbox":
+     kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+     for (var j = 0; j < section[0].childNodes[i].childNodes.length; j++) {
+     var key_name = section[0].childNodes[i].childNodes[j].nodeName;
+     if (key_name in kml_layer.lat_lon_box)
+     kml_layer.lat_lon_box[key_name] = parseFloat(section[0].childNodes[i].childNodes[j].textContent);
+     }
+     break;
+     case "icon":
+     kml_layer.icon = {href: null, view_bound_scale: null};
+     var icon_child = section[0].childNodes[i];
+     for (var p = 0; p < icon_child.childNodes.length; j++) {
+     var icon_key_name = icon_child.childNodes[p].nodeName;
+     if (icon_key_name in kml_layer.icon)
+     kml_layer.icon[icon_key_name] = icon_child.childNodes[p].textContent;
+     }
+     if (kml_layer.icon.view_bound_scale)
+     kml_layer.icon.view_bound_scale = parseFloat(kml_layer.icon.view_bound_scale);
+     break;
+     default:
+     break;
+     }
+     }
+     }
+     */
+
     return kml_layer;
 }
 
@@ -115,16 +137,11 @@ function openTab(evt, tabName) {
     if (document.getElementById(tabName).style.display == "none") {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.setAttribute("target", "active");
-        //if (tabName.toString() != "help_div")
-        //    document.viewControlsLayer.enabled = false;
-
     }
     else {
         document.getElementById(tabName).style.display = "none";
         document.getElementById(tabName).className.replace("active", "");
         evt.currentTarget.removeAttribute("target", "active");
-        //if (tabName.toString() != "help_div")
-        //    document.viewControlsLayer.enabled = true;
     }
 
     // remove all other tabs except for the one that was clicked, but do not let this apply to the help tab
@@ -143,8 +160,6 @@ function openTab(evt, tabName) {
     if (tabName.toString() == "info_div") {
         $('#help_div').css('display', 'none')
     }
-
-
 }
 
 function openPage(evt, pageName) {
@@ -309,6 +324,7 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                             var wmts_layer
                                 = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
                             wmts_layer.enabled = false;
+                            wmts_layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(wmts_layer);
                             wmts_data.push(wmts_layer.displayName);
                         }
@@ -347,10 +363,13 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
             });
 
             for (var i = 0; i < cci_kml_layers.length; i++) {
-                var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
-                    cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
-                kmlLayer.enabled = false;
-                document.wwd.addLayer(kmlLayer);
+                if (cci_kml_layers[i].name && cci_kml_layers[i].icon) {
+                    var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
+                        cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
+                    kmlLayer.enabled = false;
+                    kmlLayer.sourceLayersOptions = jquery_layer_options;
+                    document.wwd.addLayer(kmlLayer);
+                }
             }
 
             var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
@@ -437,6 +456,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             }
 
                             layer.enabled = false;
+                            layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
                             wms_data.push(layer.displayName);
                         }

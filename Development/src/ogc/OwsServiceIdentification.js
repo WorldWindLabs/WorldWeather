@@ -11,7 +11,7 @@ define([
     ],
     function (ArgumentError,
               Logger) {
-        
+
 
         /**
          * Constructs an OWS Service Identification instance from an XML DOM.
@@ -31,30 +31,33 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "OwsServiceIdentification", "constructor", "missingDomElement"));
             }
 
-            var children = element.children;
-            for (var c = 0; c < children.length; c++) {
-                var child = children[c];
+            var children = element.children || element.childNodes;
 
-                if (child.localName === "ServiceType") {
-                    this.serviceType = child.textContent;
-                } else if (child.localName === "ServiceTypeVersion") {
-                    this.serviceTypeVersion = child.textContent;
-                } else if (child.localName === "Profile") {
-                    this.profile = this.profiles || [];
-                    this.profile.push(child.textContent);
-                } else if (child.localName === "Title") {
-                    this.title = this.title|| [];
-                    this.title.push(child.textContent);
-                } else if (child.localName === "Abstract") {
-                    this.abstract = this.title|| [];
-                    this.abstract.push(child.textContent);
-                } else if (child.localName === "Fees") {
-                    this.fees = child.textContent;
-                } else if (child.localName === "AccessConstraints") {
-                    this.accessConstraints = this.accessConstraints || [];
-                    this.accessConstraints.push(child.textContent);
+            if (children && children.length > 0) {
+                for (var c = 0; c < children.length; c++) {
+                    var child = children[c];
+
+                    if (child.localName === "ServiceType") {
+                        this.serviceType = child.textContent;
+                    } else if (child.localName === "ServiceTypeVersion") {
+                        this.serviceTypeVersion = child.textContent;
+                    } else if (child.localName === "Profile") {
+                        this.profile = this.profiles || [];
+                        this.profile.push(child.textContent);
+                    } else if (child.localName === "Title") {
+                        this.title = this.title || [];
+                        this.title.push(child.textContent);
+                    } else if (child.localName === "Abstract") {
+                        this.abstract = this.title || [];
+                        this.abstract.push(child.textContent);
+                    } else if (child.localName === "Fees") {
+                        this.fees = child.textContent;
+                    } else if (child.localName === "AccessConstraints") {
+                        this.accessConstraints = this.accessConstraints || [];
+                        this.accessConstraints.push(child.textContent);
+                    }
+                    // TODO: Keywords
                 }
-                // TODO: Keywords
             }
         };
 

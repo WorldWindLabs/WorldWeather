@@ -30,16 +30,17 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "OwsServiceProvider", "constructor", "missingDomElement"));
             }
 
-            var children = element.children;
-            for (var c = 0; c < children.length; c++) {
-                var child = children[c];
-
-                if (child.localName === "ProviderName") {
-                    this.providerName = child.textContent;
-                } else if (child.localName === "ProviderSite") {
-                    this.providerSite = child.getAttribute("xlink:href");
+            var children = element.children || element.childNodes;
+            if (children && children.length > 0) {
+                for (var c = 0; c < children.length; c++) {
+                    var child = children[c];
+                    if (child.localName === "ProviderName") {
+                        this.providerName = child.textContent;
+                    } else if (child.localName === "ProviderSite") {
+                        this.providerSite = child.getAttribute("xlink:href");
+                    }
+                    // TODO: Service Contact
                 }
-                // TODO: Service Contact
             }
         };
 

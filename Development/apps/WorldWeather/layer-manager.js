@@ -418,7 +418,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
 
     if(count == 4)
     {
-        layerListItemText.html("Please add a layer from the Available Layers tab");
+        layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab</p>');
     }
     else {
         layerListItemText.html("");
