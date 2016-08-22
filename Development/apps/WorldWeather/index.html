@@ -45,20 +45,23 @@
         margin-top: 2px !important;
     }
 
-    .message-body
-    {
+    .message-body {
         line-height: 100%;
     }
 
-    .data_sources_page
-    {
+    .data_sources_page {
         color: white !important;
         font-size: 11px !important;
     }
 
-    .play-buttons
-    {
+    .play-buttons {
         font-size: 20px !important;
+    }
+
+    .layer-tag {
+        margin-bottom: 6px !important;
+        margin-right: 4px !important;
+        font-size: 10px !important;
     }
 
 </style>
@@ -70,9 +73,13 @@
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Layer Controls</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'options_div')">View Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 11%;"><i class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 6.5%;"><i class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" style="position: fixed; right: 2%;"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 11%;"><i
+            class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 6.5%;"><i
+            class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather"
+           style="position: fixed; right: 2%;"><i class="fa fa-github" style="font-size: 25px"
+                                                  aria-hidden="true"></i></a></li>
 </ul>
 
 <div class="container">
@@ -154,12 +161,15 @@
         <br/>
 
         <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Getting Data from Different Sources
             </div>
             <div class="message-body" style="background-color: #0b0b0b">
-                Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked on top of each other on the globe.
-                The same layers can be selected from either the "Available Layers" tab, in which data is organised according
+                Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked
+                on top of each other on the globe.
+                The same layers can be selected from either the "Available Layers" tab, in which data is organised
+                according
                 to its source, or from the "Layer Categories" tab, in which data is organised according to the type of
                 information it displays.
 
@@ -172,21 +182,28 @@
         </article>
 
         <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 Modifying the Data Layers
             </div>
             <div class="message-body" style="background-color: #0b0b0b">
-                Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can click on
+                Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can
+                click on
                 each layer in order to hide or display it, and even delete it by clicking the (x) icon.
                 You can also click on the downward and upward arrows in order to re-arrange the layers.
                 Remember that the downmost layer in the list is the uppermost layer on the globe.
                 <br/><br/>
-                Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers, with
-                information including the date and time of the particular layer. Using the "Date and Time" slider, the layer
-                can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each of
+                Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers,
+                with
+                information including the date and time of the particular layer. Using the "Date and Time" slider, the
+                layer
+                can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each
+                of
                 the layers. The "View" button can be clicked on each legend in order to view that layer alone on the
-                globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to seeing
-                all the previously selected layers. The "Info" button will display some additional information about that layer,
+                globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to
+                seeing
+                all the previously selected layers. The "Info" button will display some additional information about
+                that layer,
                 and the "Delete" button will delete the entire layer.
 
                 <br/><br/>
@@ -226,7 +243,8 @@
         <br/>
 
         <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header" style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
                 NASA World Weather
             </div>
             <div class="message-body" style="background-color: #0b0b0b">
@@ -247,7 +265,7 @@
             </div>
             <br/><br/>
         </article>
-        </div>
+    </div>
 
     <div id="selectedlayers" class="col-sm-2 tabcontent">
         <style scoped>
@@ -327,140 +345,79 @@
         <br/>
 
         <article class="message" style="border: hidden; background-color: transparent;">
-            <div class="message-header"  style="background-color: rgba(97, 97, 97, 0.67)">
-            <div class="panel-tabs" style="color: white !important; width: 100%; margin-left: 5px; margin-right: 5px;">
-                <a class="is-active data_sources_page" id="space_data_tab" onclick="changeDataSourcesTab(event, 'space')">Space</a>
-                <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
-                <a class="data_sources_page" id="university_data_tab" onclick="changeDataSourcesTab(event, 'university')">Academia</a>
-                <a class="data_sources_page" id="military_data_tab" onclick="changeDataSourcesTab(event, 'military')">Government</a>
-            </div>
+            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67)">
+                <div class="panel-tabs"
+                     style="color: white !important; width: 100%; margin-left: 5px; margin-right: 5px;">
+                    <a class="is-active data_sources_page" id="space_data_tab"
+                       onclick="changeDataSourcesTab(event, 'space')">Space</a>
+                    <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
+                    <a class="data_sources_page" id="university_data_tab"
+                       onclick="changeDataSourcesTab(event, 'university')">Academia</a>
+                    <a class="data_sources_page" id="military_data_tab"
+                       onclick="changeDataSourcesTab(event, 'military')">Government</a>
+                </div>
             </div>
             <div class="message-body">
-            <br/>
-            <div id="space_data_sources" class="data_sources_tab" style="display: block;">
+                <div id="space_data_sources" class="data_sources_tab" style="display: block;">
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">NASA Global Information Browse Services</h5><br/>
+                        <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="layers_options_added_tags"></div>
+                    </div>
 
-                <div class="panel-block is-active">
-                    <h5 style="color: white">NASA Global Information Browse Services</h5><br/>
-                    <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">NASA Earth Observatory</h5><br/>
+                        <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="neo_layers_options_added_tags"></div>
+                    </div>
+
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">ESA Sentinel Data Hub</h5><br/>
+                        <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="esa_layers_options_added_tags"></div>
+                    </div>
                 </div>
 
-                <div class="panel-block is-active">
-                    <h5 style="color: white">NASA Earth Observatory</h5><br/>
-                    <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">NOAA Global Forecasting System</h5><br/>
+                        <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="noaa_layers_options_added_tags"></div>
+                    </div>
+
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">Meteorological Service of Canada</h5><br/>
+                        <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="geomet_layers_options_added_tags"></div>
+                    </div>
+
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">European Centre for Medium‑Range Weather Forecasting</h5><br/>
+                        <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="ecmwf_layers_options_added_tags"></div>
+                    </div>
                 </div>
 
-                <div class="panel-block is-active">
-                    <h5 style="color: white">ESA Sentinel Data Hub</h5><br/>
-                    <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                <div id="university_data_sources" class="data_sources_tab" style="display: none;">
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">Climate Change Institute at the University of Maine</h5><br/>
+                        <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="cci_layers_options_added_tags"></div>
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
-
-                <div class="panel-block is-active">
-                    <h5 style="color: white">NOAA Global Forecasting System</h5><br/>
-                    <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                <div id="military_data_sources" class="data_sources_tab" style="display: none;">
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">United States Navy Research Laboratory</h5><br/>
+                        <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="navy_layers_options_added_tags"></div>
+                    </div>
                 </div>
-
-                <div class="panel-block is-active">
-                    <h5 style="color: white">Meteorological Service of Canada</h5><br/>
-                    <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
-                </div>
-
-                <div class="panel-block is-active">
-                    <h5 style="color: white">European Centre for Medium‑Range Weather Forecasting</h5><br/>
-                    <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
-                </div>
-
-            </div>
-
-            <div id="university_data_sources" class="data_sources_tab" style="display: none;">
-
-                <div class="panel-block is-active">
-                    <h5 style="color: white">Climate Change Institute at the University of Maine</h5><br/>
-                    <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
-                </div>
-
-            </div>
-
-            <div id="military_data_sources" class="data_sources_tab" style="display: none;">
-
-                <div class="panel-block is-active">
-                    <h5 style="color: white">United States Navy Research Laboratory</h5><br/>
-                    <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
-                </div>
-
-            </div>
             </div>
         </article>
 
     </div>
-
-
-    <div id="categories_div" class="col-sm-2 tabcontent">
-        <style scoped>
-            #categories_div {
-                position: fixed;
-                width: 20%;
-                min-width: 270px;
-                max-width: 300px;
-                height: 100%;
-                top: 53px;
-                left: 0;
-                background: rgba(0, 0, 0, 0.75);
-                overflow: hidden;
-            }
-        </style>
-        <br/>
-        <h5><span style="color: white; ">Air Quality</span></h5>
-        <label><select class="AirQualityCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select></label><br/>
-        <h5><span style="color: white; ">Ash Plumes</span></h5>
-        <select class="AshPlumesCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Drought</span></h5>
-        <select class="DroughtCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Dust Storms</span></h5>
-        <select class="DustStormsCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Fires</span></h5>
-        <select class="FiresCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Floods</span></h5>
-        <select class="FloodsCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Severe Storms</span></h5>
-        <select class="SevereStormsCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Shipping</span></h5>
-        <select class="ShippingCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Smoke Plumes</span></h5>
-        <select class="SmokePlumesCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Vegetation</span></h5>
-        <select class="VegetationCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-        <h5><span style="color: white; ">Others</span></h5>
-        <select class="OtherCategoriesCombobox explorer_combobox categories_combobox">
-            <option></option>
-        </select><br/>
-
-    </div>
-
-
 </div>
 
 
