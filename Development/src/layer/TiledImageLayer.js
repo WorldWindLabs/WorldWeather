@@ -112,7 +112,7 @@ define([
              * @type {Number}
              * @default 1.75
              */
-            this.detailControl = 1.75;
+            this.detailControl = 1.0;
 
             /* Intentionally not documented.
              * Indicates the time at which this layer's imagery expire. Expired images are re-retrieved

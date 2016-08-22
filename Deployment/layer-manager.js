@@ -319,6 +319,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
     layerListItem.find("div").remove();
 
     var self = this;
+    var count = 0;
 
     // Synchronize the displayed layer list with the World Window's layer list.
     for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
@@ -353,6 +354,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
 
         else if (layer.enabled || layer.layerSelected) {
+            count += 1;
             var toDisplay = layer.displayName;
 
             var baseLayers = ["Digital Elevation Model", "Blue Marble", "Atmosphere", "Bing Aerial with Labels"];
@@ -394,7 +396,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
-    $("#count").text("Selected layers (" + layerListItem.find("button").length + ")");
+    $("#count").text("Selected layers (" + count + ")");
 };
 
 LayerManager.prototype.createProjectionList = function () {
