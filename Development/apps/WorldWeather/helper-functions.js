@@ -32,31 +32,33 @@ function changeDataSourcesTab(evt, tabClicked) {
 
 function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
-    for (var i = 0; i < section[0].children.length; i++) {
-        switch (section[0].children[i].nodeName.toLowerCase()) {
-            case "name":
-                kml_layer.name = section[0].children[i].textContent;
-                break;
-            case "timespan":
-                kml_layer.time_span = {
-                    begin: section[0].children[i].children[0].textContent,
-                    end: section[0].children[i].children[1].textContent
-                };
-                break;
-            case "latlonbox":
-                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
-                for (var j = 0; j < section[0].children[i].children.length; j++) {
-                    kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
-                }
-                break;
-            case "icon":
-                kml_layer.icon = {
-                    href: section[0].children[i].children[0].textContent,
-                    view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
-                };
-                break;
-            default:
-                break;
+    if (section[0].children && section[0].children.length > 0) {
+        for (var i = 0; i < section[0].children.length; i++) {
+            switch (section[0].children[i].nodeName.toLowerCase()) {
+                case "name":
+                    kml_layer.name = section[0].children[i].textContent;
+                    break;
+                case "timespan":
+                    kml_layer.time_span = {
+                        begin: section[0].children[i].children[0].textContent,
+                        end: section[0].children[i].children[1].textContent
+                    };
+                    break;
+                case "latlonbox":
+                    kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+                    for (var j = 0; j < section[0].children[i].children.length; j++) {
+                        kml_layer.lat_lon_box[section[0].children[i].children[j].nodeName] = parseFloat(section[0].children[i].children[j].textContent);
+                    }
+                    break;
+                case "icon":
+                    kml_layer.icon = {
+                        href: section[0].children[i].children[0].textContent,
+                        view_bound_scale: parseFloat(section[0].children[i].children[1].textContent)
+                    };
+                    break;
+                default:
+                    break;
+            }
         }
     }
     return kml_layer;
@@ -309,6 +311,7 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                             var wmts_layer
                                 = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
                             wmts_layer.enabled = false;
+                            wmts_layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(wmts_layer);
                             wmts_data.push(wmts_layer.displayName);
                         }
@@ -347,10 +350,13 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
             });
 
             for (var i = 0; i < cci_kml_layers.length; i++) {
-                var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
-                    cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
-                kmlLayer.enabled = false;
-                document.wwd.addLayer(kmlLayer);
+                if (cci_kml_layers[i].name && cci_kml_layers[i].icon) {
+                    var kmlLayer = new WorldWind.BMNGOneImageLayer(cci_kml_layers[i].name,
+                        cci_kml_layers[i].icon.href, cci_kml_layers[i].lat_lon_box, cci_kml_layers[i].time_span.begin);
+                    kmlLayer.enabled = false;
+                    kmlLayer.sourceLayersOptions = jquery_layer_options;
+                    document.wwd.addLayer(kmlLayer);
+                }
             }
 
             var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
@@ -437,6 +443,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             }
 
                             layer.enabled = false;
+                            layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
                             wms_data.push(layer.displayName);
                         }

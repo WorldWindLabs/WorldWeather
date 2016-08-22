@@ -107,18 +107,24 @@ Array.prototype.move = function (from, to) {
 };
 
 LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options) {
-
     var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
     if (layerName != "") {
 
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
             var layer = this.wwd.layers[i];
-            if (layer.hide) {
+            if (layer.hide || layer.enabled) {
                 continue;
             }
 
             if (layer.displayName === layerName) {
                 layer.enabled = true;
+
+                var layerTagsSelector = $("#"+layer.sourceLayersOptions+"_added_tags");
+                var toDisplay = layer.displayName;
+                if (toDisplay.length > 7) {
+                    toDisplay = toDisplay.substr(0, 7) + "...";
+                }
+                layerTagsSelector.append('<i class="layer-tag tag is-info">'+toDisplay+'<button class="delete"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
