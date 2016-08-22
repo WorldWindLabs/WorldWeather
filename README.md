@@ -9,6 +9,8 @@ Understanding our climate is one of the most pressing issues of our time, which 
 
 <img width="900" alt="application 1" src="https://cloud.githubusercontent.com/assets/19692086/17829775/4b74f010-666e-11e6-8464-0346e03904c1.PNG">
 
+_Image showing the Dead Sea in Jordan, as shown from ESA Sentinel - True Color layer_ 
+
 <img src="http://i.imgur.com/2HnOm8V.jpg">
 
 ##Features of WorldWeather
@@ -24,7 +26,7 @@ Understanding our climate is one of the most pressing issues of our time, which 
 
 
 ##Data Sources
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/240px-NOAA_logo.svg.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ESA_logo_simple.svg/200px-ESA_logo_simple.svg.png" width="48" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Canada_(leaf).svg" height="48"/><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://www.helix-nebula.eu/sites/default/files/ecmwf.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://climatechange.umaine.edu/images/branding/logo.png" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" /><img src="http://www.navy.mil/navydata/questions/NavyEmblem.gif" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="48" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/240px-NOAA_logo.svg.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ESA_logo_simple.svg/200px-ESA_logo_simple.svg.png" width="70" height="48" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Canada_(leaf).svg" height="70"/><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://www.helix-nebula.eu/sites/default/files/ecmwf.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://climatechange.umaine.edu/images/branding/logo.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://www.navy.mil/navydata/questions/NavyEmblem.gif" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" />
 
 **NASA Global Imagery Browse Services (GIBS):** global, full-resolution satellite imagery from different NASA data providers. GIBS provides quick access to almost 200 satellite imagery products, covering every part of the world. Most imagery is available within a few hours after satellite overpass and some products span over 15 years.
 
