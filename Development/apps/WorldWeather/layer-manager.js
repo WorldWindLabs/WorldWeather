@@ -383,7 +383,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 BaseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
                 layerListItem.append(layerItem);
             }
 
