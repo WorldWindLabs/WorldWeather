@@ -188,9 +188,7 @@ function updateLayerCategories(newContent) {
             var selector = $('.' + key + 'Combobox');
             if (selector.length > 0) {
                 var additionalHTML = "";
-                for (var i = 0; i < newContent[key].length; i++) {
-                    additionalHTML += '<option><a>' + newContent[key][i] + '</a></option>';
-                }
+                for (var i = 0; i < newContent[key].length; i++) additionalHTML += '<option><a>' + newContent[key][i] + '</a></option>';
                 selector.html(selector.html() + additionalHTML);
             }
         }
@@ -206,20 +204,14 @@ function updateLayerCategories(newContent) {
 }
 
 function findLayerByID(layerID) {
-    for (var i = 0; i < document.wwd.layers.length; i++) {
-        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
-            return document.wwd.layers[i];
-        }
-    }
+    for (var i = 0; i < document.wwd.layers.length; i++)
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) return document.wwd.layers[i];
     return null;
 }
 
 function replaceLayerByID(layerID, replacementLayer) {
-    for (var i = 0; i < document.wwd.layers.length; i++) {
-        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
-            document.wwd.layers[i] = replacementLayer;
-        }
-    }
+    for (var i = 0; i < document.wwd.layers.length; i++)
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) document.wwd.layers[i] = replacementLayer;
 }
 
 function showHideLegends(evt, t, selectedItem, layerID) {
@@ -352,7 +344,6 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
         $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 }
-
 
 function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) {
     try {
@@ -597,7 +588,6 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
         $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 }
-
 
 function alterWmsLayerTime(evt, layerID, direction) {
     var layer = findLayerByID(layerID);
