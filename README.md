@@ -76,7 +76,7 @@ _"Weather" tab in Available Layers_
 
 With Selected Layers, you can manage the layers that you have selected. You can toggle each layer to hide or display it, on or off. Blue signifies a layer is displayed (on), and white signifies a layer is hidden from view (off). You can delete any layer by clicking on the (‘x’) icon for that layer. You can also click on the down and up arrows in order to re-arrange the order of layers. Remember that the uppermost layer in the list is the uppermost layer on the globe.
 
-The 4 topmost layers in the Selected Layers tab cannot be deleted, but can be hidden (again by clicking on them). Those include:
+The Base layers, which are the 4 topmost layers in the Selected Layers tab cannot be deleted, but can be hidden (again by clicking on them). You can select one of the first three as your base, and you can choose whether or not the atmosphere effect should be applied. Those layers are:
 
 *Digital Elevation Model*, provides the Earth's terrain, the surface elevation data.
 
@@ -110,7 +110,9 @@ _Demonstrating how clicking "View" on a legend shows that layer alone_
 <img width="748" alt="legendview" src="https://cloud.githubusercontent.com/assets/19692086/17829869/d5a0e968-6670-11e6-9cf8-18c73c5e111f.PNG">
 
 ###View Options
-This is where you can change the projection from the default 3D by clicking on the button under "Change Projection", or select any location to navigate the globe to. You can also disable and enable the additional controls that are on the bottom of the screen from this tab (for example, you can disable them to take a clear screenshot of your globe). Those controls can help you move the globe around, zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
+This is where you can change the projection from the default 3D by clicking on the button under "Change Projection", or select any location to navigate the globe to. Any location you search for will have a pin placed on it, so that you can keep track of it when you add your layers. If you do not wish to view the pinned locations, you can disable the "Placemarks" layer from the Selected Layers tab.
+
+Also from View Options, you can disable and enable the additional controls that are on the bottom of the screen from this tab (for example, you can disable them to take a clear screenshot of your globe). Those controls can help you move the globe around, zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
 
 _Demonstrating how the globe can center at the input destination, here NASA Ames Research Center_
 
