@@ -68,11 +68,11 @@
 
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
-    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none">Layer Categories</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')">Selected Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')">Layer Controls</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'options_div')">View Options</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip" title="Choose layers from any data source">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none"data-toggle="tooltip" title="">Layer Categories</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')"data-toggle="tooltip" title="Change layer order, turn layers On/Off or discard">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip" title="View legends, adjust opacity and manage time series data">Layer Controls</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')"data-toggle="tooltip" title="Change projection, change the destination, and toggle screen controls" >View Options</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 11.5%;" data-toggle="tooltip" title="Help"><i class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
     <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 7%;" data-toggle="tooltip" title="Info"><i class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
     <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank" style="position: fixed; right: 2.5%; background-color: transparent"data-toggle="tooltip" title="Our Github"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
