@@ -68,14 +68,14 @@
 
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
-    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip" title="Choose layers from any data source">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none"data-toggle="tooltip" title="">Layer Categories</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')"data-toggle="tooltip" title="Change layer order, turn layers On/Off or discard">Selected Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip" title="View legends, adjust opacity and manage time series data">Layer Controls</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'options_div')"data-toggle="tooltip" title="Change projection, change the destination, and toggle screen controls" >View Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;" data-toggle="tooltip" title="Help"><i class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 60px;" data-toggle="tooltip" title="Info"><i class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank" style="position: fixed; right: 10px; background-color: transparent"data-toggle="tooltip" title="Our Github"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip" title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none"data-toggle="tooltip" title="" trigger="hover">Layer Categories</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')"data-toggle="tooltip" title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip" title="View legends, adjust opacity and manage time series data" trigger="hover">Layer Controls</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')"data-toggle="tooltip" title="Change projection, change the destination, and toggle screen controls" trigger="hover">View Options</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;" data-toggle="tooltip" title="Help" trigger="hover"><i class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 60px;" data-toggle="tooltip" title="Info" trigger="hover"><i class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank" style="position: fixed; right: 10px; background-color: transparent"data-toggle="tooltip" title="Our Github" trigger="hover"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
 </ul>
 
 <div class="container">
@@ -377,6 +377,8 @@
                         <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
                         <div id="esa_layers_options_added_tags"></div>
                     </div>
+
+
                 </div>
 
                 <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
@@ -404,6 +406,12 @@
                         <h5 style="color: white">Climate Change Institute at the University of Maine</h5><br/>
                         <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
                         <div id="cci_layers_options_added_tags"></div>
+                    </div>
+
+                    <div class="panel-block is-active">
+                        <h5 style="color: white">German Aerospace Center (DLR)</h5><br/>
+                        <div id="dlr_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="dlr_layers_options_added_tags"></div>
                     </div>
 
                 </div>
