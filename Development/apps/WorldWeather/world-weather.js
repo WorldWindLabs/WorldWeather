@@ -48,11 +48,14 @@ $(document).ready(function () {
     var screenAvailWidth = window.screen.availWidth, screenAvailHeight = window.screen.availHeight;
 
     wwd.navigator.lookAtLocation.altitude = 0;
-    if (screenAvailWidth > screenAvailHeight)
-    {
+    if (screenAvailWidth > screenAvailHeight) {
         wwd.navigator.range = 2.94e7;
     } else {
         wwd.navigator.range = 0.95e7;
+    }
+
+    if (screenAvailWidth < 760) {
+        // TODO: change the tab buttons + hide the view controls automatically
     }
 
     if (navigator.geolocation) {

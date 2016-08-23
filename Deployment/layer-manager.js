@@ -79,7 +79,6 @@ LayerManager.prototype.onProjectionClick = function (event) {
 };
 
 LayerManager.prototype.onLayerClick = function (layerButton) {
-
     //make sure none of the "view"s on the legends are selected
     var footer_content = document.getElementsByClassName("card-footer-item");
     for (var i = 0; i < footer_content.length; i++) footer_content[i].childNodes[0].innerHTML = "View";
@@ -90,6 +89,22 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
     var layer = this.wwd.layers[identifier];
     layer.layerSelected = true;
     layer.enabled = !layer.enabled;
+
+    var baseLayers = ["Digital Elevation Model", "Blue Marble", "Bing Aerial with Labels"];
+    if (baseLayers.indexOf(layer.displayName) > -1)
+    {
+        for (var k = 0; k < baseLayers.length; k++) {
+            if (baseLayers[k] == layer.displayName) continue;
+            for (var j = 0; j < this.wwd.layers.length; j++) {
+                if (this.wwd.layers[j].displayName == baseLayers[k])
+                {
+                    this.wwd.layers[j].layerSelected = true;
+                    this.wwd.layers[j].enabled = false;
+                    break;
+                }
+            }
+        }
+    }
 
     if (layer.enabled) layerButton.addClass("active");
     else layerButton.removeClass("active");
@@ -124,7 +139,8 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 if (toDisplay.length > 7) {
                     toDisplay = toDisplay.substr(0, 7) + "...";
                 }
-                layerTagsSelector.append('<i class="layer-tag tag is-info" id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
+
+                layerTagsSelector.append('<i class="layer-tag tag is-info" data-toggle="tooltip" title=\''+ layer.displayName+'\' id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
