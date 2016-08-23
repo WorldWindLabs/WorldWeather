@@ -232,15 +232,18 @@ function addPlacemark(lat, long, dest) {
         WorldWind.OFFSET_FRACTION, 0.5,
         WorldWind.OFFSET_FRACTION, 1.0);
     placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+    placemarkAttributes.labelAttributes.scale = 10;
     placemarkAttributes.drawLeaderLine = true;
     placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
 
     // For each placemark image, create a placemark with a label.
 
     // Create the placemark and its label.
-    placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 1e2), true, null);
+    placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 1e3), true, null);
     placemark.label = titleCase(destination) + "\n";
     placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+    placemark.eyeDistanceScalingLabelThreshold = 4e7;
+    placemark.eyeDistanceScalingThreshold = 2e6;
 
     // Create the placemark attributes for this placemark. Note that the attributes differ only by their
     // image URL.
