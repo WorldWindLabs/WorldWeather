@@ -93,14 +93,25 @@ $(document).ready(function () {
 
     var digital_elevation_model_capabilities;
 
+    // Single layer from NOAA to become a base layer
     var dem_url = 'http://gis.ngdc.noaa.gov/arcgis/services/dem_hillshades/ImageServer/WMSServer?request=GetCapabilities&service=WMS';
+
+    // WMTS Servers
     var gibs_url = 'http://map1.vis.earthdata.nasa.gov/wmts-webmerc/wmts.cgi?SERVICE=WorldWeather&request=GetCapabilities';
     var esa_url = 'http://services.sentinel-hub.com/v1/wmts/56748ba2-4a88-4854-beea-86f9afc63e35?REQUEST=GetCapabilities&SERVICE=WorldWeather';
+
+    // WMS Servers
     var noaa_url = 'http://oos.soest.hawaii.edu/thredds/wms/hioos/model/atm/ncep_global/NCEP_Global_Atmospheric_Model_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities';
     var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
+
+    var dlr_urls = ['https://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
+        'https://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities',
+        'https://geoservice.dlr.de/eoc/imagery/wms?SERVICE=WMS&REQUEST=GetCapabilities'];
+
+    // KML files locally saved
     var maine_url = 'university-of-maine.kml';
 
     // Implementing the perfect scrollbar
@@ -110,7 +121,6 @@ $(document).ready(function () {
     $('#categories_div').perfectScrollbar();
     $('#help_div').perfectScrollbar();
     $('#info_div').perfectScrollbar();
-
     // end of perfect scrollbar implementation
 
     // getting digital elevation model from wms server
@@ -179,4 +189,6 @@ $(document).ready(function () {
 
     // getting US Navy WMS Server
     getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options");
+
+    getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options");
 });
