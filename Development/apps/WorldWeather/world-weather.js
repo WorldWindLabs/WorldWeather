@@ -107,9 +107,9 @@ $(document).ready(function () {
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
 
-    var dlr_urls = ['https://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
-        'https://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities',
-        'https://geoservice.dlr.de/eoc/imagery/wms?SERVICE=WMS&REQUEST=GetCapabilities'];
+    var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://geoservice.dlr.de/eoc/imagery/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/land/wms?SERVICE=WMS&REQUEST=GetCapabilities'];
 
     // KML files locally saved
     var maine_url = 'university-of-maine.kml';
