@@ -129,6 +129,7 @@ $(document).ready(function () {
     $('#info_div').perfectScrollbar();
     // end of perfect scrollbar implementation
 
+
     // getting digital elevation model from wms server
     try {
         $.get(dem_url,
