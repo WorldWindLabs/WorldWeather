@@ -206,12 +206,9 @@ function replaceLayerByID(layerID, replacementLayer) {
         if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) document.wwd.layers[i] = replacementLayer;
 }
 
-function addPlacemark(lat,long,dest){
-
+function addPlacemark(lat, long, dest) {
     //define the image
     var pin_image = "plain-red.png";
-
-    console.log(document.placemarkLayer);
 
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
@@ -221,7 +218,7 @@ function addPlacemark(lat,long,dest){
         placemark,
         placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
         highlightAttributes,
-        destination = dest;
+        destination = dest,
         latitude = lat,
         longitude = long;
 
@@ -237,7 +234,6 @@ function addPlacemark(lat,long,dest){
     placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
     placemarkAttributes.drawLeaderLine = true;
     placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
-
 
     // For each placemark image, create a placemark with a label.
 
@@ -263,12 +259,9 @@ function addPlacemark(lat,long,dest){
     document.placemarkLayer.addRenderable(placemark);
 
     // Add the placemarks layer to the World Window's layer list.
-
-
-
     document.layerManager.synchronizeLayerList();
-
 }
+
 function showHideLegends(evt, t, selectedItem, layerID) {
     if (selectedItem == "info") {
         var legends_modal_selector = $("#legends_modal");

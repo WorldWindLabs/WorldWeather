@@ -278,6 +278,11 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     document.global_view_layers = [];
     //end of section
 
+    if (layer.displayName == "Placemarks")
+    {
+        document.placemarkLayer = null;
+    }
+
     this.wwd.redraw();
 };
 
