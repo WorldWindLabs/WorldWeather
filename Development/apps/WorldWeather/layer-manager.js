@@ -278,6 +278,11 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     document.global_view_layers = [];
     //end of section
 
+    if (layer.displayName == "Placemarks")
+    {
+        document.placemarkLayer = null;
+    }
+
     this.wwd.redraw();
 };
 
@@ -324,18 +329,6 @@ LayerManager.prototype.onLayerMoveUp = function (e) {
     this.wwd.redraw();
     this.synchronizeLayerList();
 };
-
-
-function titleCase(str) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-        // You do not need to check if i is larger than splitStr length, as your for does that for you
-        // Assign it back to the array
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    // Directly return the joined string
-    return splitStr.join(' ');
-}
 
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
