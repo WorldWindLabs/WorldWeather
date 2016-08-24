@@ -22,7 +22,10 @@ $(document).ready(function () {
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     var wwd = new WorldWind.WorldWindow("canvasOne");
+    wwd.isLeftGlobe = true;
     var wwd_duplicate = new WorldWind.WorldWindow("canvasTwo");
+    wwd_duplicate.isLeftGlobe = false;
+
     document.wwd = wwd;
     document.wwd_duplicate = wwd_duplicate;
 
@@ -108,12 +111,14 @@ $(document).ready(function () {
             for (var l = 0; l < layers.length; l++) {
                 layers[l].layer.enabled = layers[l].enabled;
                 if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
+                layers[l].layer.isBaseLayer = true;
                 wwd.addLayer(layers[l].layer);
                 wwd_duplicate.addLayer(layers[l].layer);
             }
 
             // The code below creates the AtmosphereLayer
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
+            atmosphereLayer.isBaseLayer = true;
             wwd.addLayer(atmosphereLayer);
             wwd_duplicate.addLayer(atmosphereLayer);
             // end of AtmosphereLayer

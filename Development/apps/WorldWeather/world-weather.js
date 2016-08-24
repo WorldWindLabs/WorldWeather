@@ -160,11 +160,13 @@ $(document).ready(function () {
             for (var l = 0; l < layers.length; l++) {
                 layers[l].layer.enabled = layers[l].enabled;
                 if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
+                layers[l].isBaseLayer = true;
                 wwd.addLayer(layers[l].layer);
             }
 
             // The code below creates the AtmosphereLayer
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
+            atmosphereLayer.isBaseLayer = true;
             atmosphereLayer.lightLocation = new FixedLocation(wwd);
             wwd.addLayer(atmosphereLayer);
             // end of AtmosphereLayer

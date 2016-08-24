@@ -952,24 +952,22 @@ define([
         // Internal function. Intentionally not documented.
         WorldWindow.prototype.drawLayers = function (accumulateOrderedRenderables) {
             // Draw all the layers attached to this WorldWindow.
-
-            var beginTime = Date.now(),
-                dc = this.drawContext,
-                layers = dc.layers,
-                layer;
-
+            var beginTime = Date.now(), dc = this.drawContext, layers = dc.layers, layer;
             dc.accumulateOrderedRenderables = accumulateOrderedRenderables;
 
             for (var i = 0, len = layers.length; i < len; i++) {
                 layer = layers[i];
                 if (layer) {
-                    dc.currentLayer = layer;
-                    try {
+                    if (document.wwd_duplicate) {
+                        if (layer.isBaseLayer || (this.isLeftGlobe && layer.isOnLeftGlobe) || (!this.isLeftGlobe && !layer.isOnLeftGlobe))
+                        {
+                            dc.currentLayer = layer;
+                            layer.render(dc);
+                        }
+                    }
+                    else {
+                        dc.currentLayer = layer;
                         layer.render(dc);
-                    } catch (e) {
-                        Logger.log(Logger.LEVEL_SEVERE, "Error while rendering layer " + layer.displayName + ".\n"
-                            + e.toString());
-                        // Keep going. Render the rest of the layers.
                     }
                 }
             }

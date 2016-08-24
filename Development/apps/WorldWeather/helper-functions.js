@@ -42,8 +42,6 @@ function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
     var section_children = section[0].childNodes;
 
-    console.log(section_children);
-
     for (var i = 0; i < section_children.length; i++) {
         switch (section_children[i].nodeName.toLowerCase()) {
             case "name":
@@ -193,7 +191,7 @@ function updateLayerCategories(newContent) {
     }
 
     if (!document.layerCategoriesInitialized) {
-        $('.categories_combobox').combobox();
+        //$('.categories_combobox').combobox();
         $('#categories_div').find(" select").on("change", function (e) {
             layerCategoriesOnClick(e);
         });
