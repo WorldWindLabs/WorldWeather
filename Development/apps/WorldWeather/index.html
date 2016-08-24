@@ -70,8 +70,8 @@
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip"
            title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none" data-toggle="tooltip"
-           title="" trigger="hover">Layer Categories</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')"  data-toggle="tooltip"
+           title="Layers organised into categories" trigger="hover">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')" data-toggle="tooltip"
            title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip"
@@ -113,258 +113,7 @@
         </div>
     </div>
 
-    <div id="options_div" class="col-sm-2 tabcontent">
-        <style scoped>
-            #options_div {
-                width: 50%;
-                min-width: 270px;
-                max-width: 300px;
-                height: 100%;
-                left: 0;
-                top: 53px;
-                position: fixed;
-                background: rgba(0, 0, 0, 0.75);
-                overflow: hidden !important;
-            }
-
-        </style>
-
-        <br/>
-        <h5><span style="color: white; ">Change Projection</span></h5>
-        <div class="dropdown" id="projectionDropdown">
-        </div>
-        <br/>
-        <h5><span style="color: white; ">GoTo + Place Pin</span></h5>
-        <div class="input-group" id="searchBox">
-            <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
-            <span class="input-group-btn">
-                    <button id="searchButton" class="btn btn-primary" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-        </div>
-        <br/>
-        <h5><span style="color: white; ">On/Off Screen Controls</span></h5>
-        <div id="controlbuttons">
-        </div>
-    </div>
-
-    <div id="help_div" class="col-sm-2 tabcontent">
-        <style scoped>
-            #help_div {
-                width: 50%;
-                min-width: 270px;
-                max-width: 300px;
-                height: 100%;
-                position: fixed;
-                top: 53px;
-                right: 0;
-                background: rgba(0, 0, 0, 0.75);
-                overflow: hidden !important;
-                text-align: justify;
-            }
-
-        </style>
-
-        <br/>
-        <img src="nasa-logo.png"/>
-        <br/>
-        <br/>
-        <!--TODO: Document Categories here-->
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header"
-                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                Available Layers
-            </div>
-            <div class="message-body" style="background-color: #0b0b0b">
-                Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked
-                on top of each other on the globe. The data sources are organised into the tabs Space, Weather, Academia
-                and Government.
-
-                <!--The same layers can be selected from either the "Available Layers" tab, in which data is organised-->
-                <!--according-->
-                <!--to its source, or from the "Layer Categories" tab, in which data is organised according to the type of-->
-                <!--information it displays.-->
-
-            </div>
-        </article>
-
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header"
-                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                Selected Layers
-            </div>
-            <div class="message-body" style="background-color: #0b0b0b">
-                Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can
-                click on
-                each layer in order to hide or display it, and even delete it by clicking the (x) icon.
-                You can also click on the downward and upward arrows in order to re-arrange the layers.
-                Remember that the uppermost layer in the list is the uppermost layer on the globe.
-            </div>
-        </article>
-
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header"
-                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                Layer Controls
-            </div>
-            <div class="message-body" style="background-color: #0b0b0b">
-                Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers,
-                with
-                information including the date and time of the particular layer. Using the "Date and Time" slider, the
-                layer
-                can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each
-                of
-                the layers. The "View" button can be clicked on each legend in order to view that layer alone on the
-                globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to
-                seeing
-                all the previously selected layers. The "Info" button will display some additional information about
-                that layer,
-                and the "Delete" button will delete the entire layer.
-
-
-            </div>
-        </article>
-
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header"
-                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                View Options
-            </div>
-            <div class="message-body" style="background-color: #0b0b0b">
-                Select the "View Options" tab in order to change the projection from the default 3D, or to select any
-                location to navigate the globe to, and place a pin there. (Note that the layer containing the pins can
-                be disabled from Selected Layers at any time).
-                You can also disable and enable the additional controls that are
-                on the bottom of the screen from this tab. Those controls can help you move the globe around,
-                zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
-
-                <br/><br/>
-                You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or
-                touchpad, or by using the controls on the bottom. Hover over the globe in order to see the exact
-                coordinates of that point displayed at the bottom of the
-                screen.
-                <br/><br/><br/>
-
-            </div>
-        </article>
-        <br/>
-    </div>
-
-
-    <div id="info_div" class="col-sm-2 tabcontent">
-        <style scoped>
-            #info_div {
-                width: 50%;
-                min-width: 270px;
-                max-width: 300px;
-                height: 100%;
-                position: fixed;
-                top: 53px;
-                right: 0;
-                background: rgba(0, 0, 0, 0.75);
-                overflow: hidden !important;
-                text-align: justify;
-            }
-
-        </style>
-
-        <br/>
-        <img src="nasa-logo.png"/>
-        <br/>
-        <br/>
-
-        <article class="message" style="background-color: transparent; color: white;">
-            <div class="message-header"
-                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                NASA World Weather
-            </div>
-            <div class="message-body" style="background-color: #0b0b0b">
-                Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
-                range of weather and other global spatial data viewed together in 3D. Gathering information about our
-                climate is one of the most pressing issues of our time, which is why international organizations have
-                been setting up satellites and capturing real-time images of the atmospheric conditions on Earth.
-                However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate,
-                it has become necessary to have one platform on which the information from all those different data
-                sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user
-                to interactively view past, present, and future weather information.
-                <br/><br/>
-                Built upon NASA World Wind, NASA
-                World Weather is the first web application to ever display such a broad range of weather and other
-                global spatial data viewed together in 3D. This gives the user a great customizable experience that can
-                be utilized by weather forecasters, research scientists studying climate change, and even intrigued
-                enthusiasts.
-            </div>
-            <br/><br/>
-        </article>
-    </div>
-
-
-    <div id="selectedlayers" class="col-sm-2 tabcontent message">
-        <style scoped>
-            #selectedlayers {
-                width: 50%;
-                min-width: 270px;
-                max-width: 300px;
-                height: 100%;
-                left: 0;
-                top: 53px;
-                position: fixed;
-                background: rgba(0, 0, 0, 0.75);
-                overflow: hidden;
-            }
-        </style>
-        <br/>
-        <div class="message-header"
-             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
-            <span>Base Layers</span></div>
-        <div class="list-group message-body" id="base_layers">
-        </div>
-        <div class="message-header"
-             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
-            <span id="count">Selected layers</span></div>
-        <div class="list-group message-body" id="layerList" style=" text-align: center !important;">
-            <span id="layer_text"></span>
-        </div>
-        <br/>
-    </div>
-
-    <div id="legend_division" class="col-sm-2 tabcontent">
-        <style scoped>
-            #legend_division {
-                height: 100%;
-                min-width: 270px;
-                max-width: 300px;
-                width: 50%;
-                left: 0;
-                top: 53px;
-                position: fixed !important;
-                overflow: hidden;
-                text-align: center;
-                background: rgba(0, 0, 0, 0.75);
-                display: none;
-                z-index: 900;
-            }
-        </style>
-        <div id="legend_placeholder">
-            <br/><br/>
-            <div class="card is-fullwidth" id="noLegends">
-                <header class="card-header" onclick="showHideLegends(event, '', 'no_legends_toggle_hide', '')">
-                    <p class="card-header-title">
-                        No Legends
-                    </p>
-                    <div class="card-header-icon">
-                        <i class="fa fa-angle-down"></i>
-                    </div>
-                </header>
-                <div class="card-content" id="no_legends_content">
-                    <div class="content">
-                        Please add a layer from the Available Layers tab in order to see the legends.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--Available Layers Tab-->
 
     <div id="layersdiv" class="col-sm-2 tabcontent">
         <style scoped>
@@ -481,6 +230,306 @@
         </article>
 
     </div>
+
+    <!--Categories Tab-->
+    <div id="categories_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #categories_div
+            {
+                position: fixed;
+                width: 20%;
+                height: 92%;
+                top: 8%;
+                left: 0;
+                background: rgba(0,0,0,0.5);
+                overflow-x: visible !important;
+                overflow-y: scroll;
+            }
+        </style>
+        <br/>
+        <h5><span style="color: white; ">Air Quality</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Ash Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Drought</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Dust Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Fires</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Floods</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Severe Storms</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Shipping</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Smoke Plumes</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Vegetation</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <h5><span style="color: white; ">Others</span></h5>
+        <select class="gibs_combobox explorer_combobox"><option></option></select>
+
+    </div>
+
+    <!--Selected Layers Div-->
+    <div id="selectedlayers" class="col-sm-2 tabcontent message">
+        <style scoped>
+            #selectedlayers {
+                width: 50%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                left: 0;
+                top: 53px;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.75);
+                overflow: hidden;
+            }
+        </style>
+        <br/>
+        <div class="message-header"
+             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
+            <span>Base Layers</span></div>
+        <div class="list-group message-body" id="base_layers">
+        </div>
+        <div class="message-header"
+             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
+            <span id="count">Selected layers</span></div>
+        <div class="list-group message-body" id="layerList" style=" text-align: center !important;">
+            <span id="layer_text"></span>
+        </div>
+        <br/>
+    </div>
+
+    <!--Layer Controls Div-->
+    <div id="legend_division" class="col-sm-2 tabcontent">
+        <style scoped>
+            #legend_division {
+                height: 100%;
+                min-width: 270px;
+                max-width: 300px;
+                width: 50%;
+                left: 0;
+                top: 53px;
+                position: fixed !important;
+                overflow: hidden;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.75);
+                display: none;
+                z-index: 900;
+            }
+        </style>
+        <div id="legend_placeholder">
+            <br/><br/>
+            <div class="card is-fullwidth" id="noLegends">
+                <header class="card-header" onclick="showHideLegends(event, '', 'no_legends_toggle_hide', '')">
+                    <p class="card-header-title">
+                        No Legends
+                    </p>
+                    <div class="card-header-icon">
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </header>
+                <div class="card-content" id="no_legends_content">
+                    <div class="content">
+                        Please add a layer from the Available Layers tab in order to see the legends.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Globe Options Tab-->
+    <div id="options_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #options_div {
+                width: 50%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                left: 0;
+                top: 53px;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.75);
+                overflow: hidden !important;
+            }
+
+        </style>
+
+        <br/>
+        <h5><span style="color: white; ">Change Projection</span></h5>
+        <div class="dropdown" id="projectionDropdown">
+        </div>
+        <br/>
+        <h5><span style="color: white; ">GoTo + Place Pin</span></h5>
+        <div class="input-group" id="searchBox">
+            <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
+            <span class="input-group-btn">
+                    <button id="searchButton" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+        </div>
+        <br/>
+        <h5><span style="color: white; ">On/Off Screen Controls</span></h5>
+        <div id="controlbuttons">
+        </div>
+    </div>
+
+    <!--Help Tab-->
+    <div id="help_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #help_div {
+                width: 50%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                position: fixed;
+                top: 53px;
+                right: 0;
+                background: rgba(0, 0, 0, 0.75);
+                overflow: hidden !important;
+                text-align: justify;
+            }
+
+        </style>
+
+        <br/>
+        <img src="nasa-logo.png"/>
+        <br/>
+        <br/>
+        <!--TODO: Document Categories here-->
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                Available Layers
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked
+                on top of each other on the globe. The data sources are organised into the tabs Space, Weather, Academia
+                and Government.
+
+                <!--The same layers can be selected from either the "Available Layers" tab, in which data is organised-->
+                <!--according-->
+                <!--to its source, or from the "Layer Categories" tab, in which data is organised according to the type of-->
+                <!--information it displays.-->
+
+            </div>
+        </article>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                Selected Layers
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can
+                click on
+                each layer in order to hide or display it, and even delete it by clicking the (x) icon.
+                You can also click on the downward and upward arrows in order to re-arrange the layers.
+                Remember that the uppermost layer in the list is the uppermost layer on the globe.
+            </div>
+        </article>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                Layer Controls
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers,
+                with
+                information including the date and time of the particular layer. Using the "Date and Time" slider, the
+                layer
+                can be seen at a specific time. The "Opacity" slider can be used to alter the transparency level of each
+                of
+                the layers. The "View" button can be clicked on each legend in order to view that layer alone on the
+                globe. After clicking on any "View" button, it will turn to "Unview", which can be clicked to go back to
+                seeing
+                all the previously selected layers. The "Info" button will display some additional information about
+                that layer,
+                and the "Delete" button will delete the entire layer.
+
+
+            </div>
+        </article>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                View Options
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Select the "View Options" tab in order to change the projection from the default 3D, or to select any
+                location to navigate the globe to, and place a pin there. (Note that the layer containing the pins can
+                be disabled from Selected Layers at any time).
+                You can also disable and enable the additional controls that are
+                on the bottom of the screen from this tab. Those controls can help you move the globe around,
+                zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
+
+                <br/><br/>
+                You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or
+                touchpad, or by using the controls on the bottom. Hover over the globe in order to see the exact
+                coordinates of that point displayed at the bottom of the
+                screen.
+                <br/><br/><br/>
+
+            </div>
+        </article>
+        <br/>
+    </div>
+
+
+    <!--Info Tab-->
+    <div id="info_div" class="col-sm-2 tabcontent">
+        <style scoped>
+            #info_div {
+                width: 50%;
+                min-width: 270px;
+                max-width: 300px;
+                height: 100%;
+                position: fixed;
+                top: 53px;
+                right: 0;
+                background: rgba(0, 0, 0, 0.75);
+                overflow: hidden !important;
+                text-align: justify;
+            }
+
+        </style>
+
+        <br/>
+        <img src="nasa-logo.png"/>
+        <br/>
+        <br/>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                NASA World Weather
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Built upon NASA World Wind, NASA World Weather is the first web application to ever display such a broad
+                range of weather and other global spatial data viewed together in 3D. Gathering information about our
+                climate is one of the most pressing issues of our time, which is why international organizations have
+                been setting up satellites and capturing real-time images of the atmospheric conditions on Earth.
+                However, in order to give a truly comprehensive view of the changes occurring to the Earth’s climate,
+                it has become necessary to have one platform on which the information from all those different data
+                sources can be brought together, and displayed accurately in 3D. It is also desired to allow any user
+                to interactively view past, present, and future weather information.
+                <br/><br/>
+                Built upon NASA World Wind, NASA
+                World Weather is the first web application to ever display such a broad range of weather and other
+                global spatial data viewed together in 3D. This gives the user a great customizable experience that can
+                be utilized by weather forecasters, research scientists studying climate change, and even intrigued
+                enthusiasts.
+            </div>
+            <br/><br/>
+        </article>
+    </div>
+
+
 </div>
 
 
