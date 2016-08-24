@@ -4,12 +4,16 @@
  */
 
 $(document).ready(function () {
-    //enable all tooltips except on touchscreens
-    function isTouchDevice(){
+    // this global variable decides the amount of resolution each tile gets
+    // the higher the number is, the less resolution each tile has
+    // the default number for this tile is 1.75 (this is what WWW originally had)
+    document.globalDetailControl = 1.5;
+
+    // enable all tooltips except on touchscreens
+    function isTouchDevice() {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
     }
-
-    if(isTouchDevice()===false) {
+    if (isTouchDevice() === false) {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
@@ -44,15 +48,15 @@ $(document).ready(function () {
         }
     });
 
+    // This line turns off all warnings that come out of WWW. Turn this back on if
+    // you want to do some debugging, but please always keep it off when deploying.
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     var wwd = new WorldWind.WorldWindow("canvasOne");
     document.wwd = wwd;
 
     // Initialize the WWW window to a certain altitude, and to the current location of the user
-
     var screenAvailWidth = window.screen.availWidth, screenAvailHeight = window.screen.availHeight;
-
     wwd.navigator.lookAtLocation.altitude = 0;
     if (screenAvailWidth > screenAvailHeight) {
         wwd.navigator.range = 2.94e7;
@@ -173,7 +177,7 @@ $(document).ready(function () {
     }
     // end of digital elevation model from wms server code
 
-    // kml file from cci -- university of maine
+    // getting data within kml file from CCI -- university of maine
     getKmlDataForCombobox(maine_url, "cci_combobox", "cci_layers_options");
 
     // getting GIBS data from NASA WMTS server
@@ -200,5 +204,6 @@ $(document).ready(function () {
     // getting US Navy WMS Server
     getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options");
 
+    // getting a bunch of DLR WMS servers all at once
     getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options");
 });

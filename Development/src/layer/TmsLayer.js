@@ -91,7 +91,7 @@ define([
                 }
             };
 
-            this.detailControl = 0.5;
+            this.detailControl = document.globalDetailControl;
 
             this.imageSize = config.size;
             this.origin = config.origin;

@@ -218,7 +218,7 @@ function addPlacemark(lat, long, dest) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
     }
-    var pinLibrary = "../../images/pushpins/", // location of the image files
+    var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
         placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
         highlightAttributes,
