@@ -484,13 +484,14 @@ LayerManager.prototype.onSearchTextKeyPress = function (searchInput, event) {
 LayerManager.prototype.performSearch = function (queryString) {
     if (queryString) {
         var thisLayerManager = this,
-            latitude, longitude;
+            latitude = 1, longitude = 1;
 
         if (queryString.match(WorldWind.WWUtil.latLonRegex)) {
             var tokens = queryString.split(",");
             latitude = parseFloat(tokens[0]);
             longitude = parseFloat(tokens[1]);
             thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
+            addPlacemark(latitude,longitude);
         }
         else {
             this.geocoder.lookup(queryString, function (geocoder, result) {
@@ -503,7 +504,9 @@ LayerManager.prototype.performSearch = function (queryString) {
 
                     thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
                 }
+                addPlacemark(latitude,longitude, queryString);
             });
         }
+
     }
 };

@@ -214,6 +214,69 @@ function replaceLayerByID(layerID, replacementLayer) {
         if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) document.wwd.layers[i] = replacementLayer;
 }
 
+function addPlacemark(lat,long,dest){
+
+    //define the image
+    var pin_image = "plain-red.png";
+
+    console.log(document.placemarkLayer);
+
+    if (!document.placemarkLayer) {
+        document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
+        document.wwd.addLayer(document.placemarkLayer);
+    }
+    var pinLibrary = "../../images/pushpins/", // location of the image files
+        placemark,
+        placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
+        highlightAttributes,
+        destination = dest;
+        latitude = lat,
+        longitude = long;
+
+    // Set up the common placemark attributes.
+    placemarkAttributes.imageScale = 10;
+    placemarkAttributes.imageOffset = new WorldWind.Offset(
+        WorldWind.OFFSET_FRACTION, 0.3,
+        WorldWind.OFFSET_FRACTION, 0.0);
+    placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+    placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+        WorldWind.OFFSET_FRACTION, 0.5,
+        WorldWind.OFFSET_FRACTION, 1.0);
+    placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+    placemarkAttributes.drawLeaderLine = true;
+    placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
+
+
+    // For each placemark image, create a placemark with a label.
+
+    // Create the placemark and its label.
+    placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 1e2), true, null);
+    placemark.label = titleCase(destination) + "\n";
+    placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+
+    // Create the placemark attributes for this placemark. Note that the attributes differ only by their
+    // image URL.
+    placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+    placemarkAttributes.imageSource = pinLibrary + pin_image;
+    placemark.attributes = placemarkAttributes;
+
+    // Create the highlight attributes for this placemark. Note that the normal attributes are specified as
+    // the default highlight attributes so that all properties are identical except the image scale. You could
+    // instead vary the color, image, or other property to control the highlight representation.
+    highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+    highlightAttributes.imageScale = 1.2;
+    placemark.highlightAttributes = highlightAttributes;
+
+    // Add the placemark to the layer.
+    document.placemarkLayer.addRenderable(placemark);
+
+    // Add the placemarks layer to the World Window's layer list.
+
+
+
+    document.layerManager.synchronizeLayerList();
+
+}
 function showHideLegends(evt, t, selectedItem, layerID) {
     if (selectedItem == "info") {
         var legends_modal_selector = $("#legends_modal");
