@@ -28,6 +28,8 @@ function moveWmtsLayer(layerUniqueID, direction) {
 
     replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
     document.wwd.redraw();
+    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
+        document.wwd_duplicate.redraw();
     $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
@@ -115,7 +117,6 @@ function openTab(evt, tabName) {
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
-        document.viewControlsLayer.enabled = true;
     }
 
     // Get all elements with class="tablinks" and remove the attribute "active"
@@ -191,7 +192,7 @@ function updateLayerCategories(newContent) {
     }
 
     if (!document.layerCategoriesInitialized) {
-        //$('.categories_combobox').combobox();
+        $('.categories_combobox').combobox();
         $('#categories_div').find(" select").on("change", function (e) {
             layerCategoriesOnClick(e);
         });
@@ -217,6 +218,10 @@ function addPlacemark(lat, long, dest) {
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
+        if (document.wwd_duplicate)
+        {
+            document.wwd_duplicate.addLayer(document.placemarkLayer);
+        }
     }
     var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
@@ -374,8 +379,16 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                                 = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
                             wmts_layer.enabled = false;
                             wmts_layer.sourceLayersOptions = jquery_layer_options;
+
                             document.wwd.addLayer(wmts_layer);
+                            if (document.wwd_duplicate)
+                            {
+                                document.wwd_duplicate.addLayer(wmts_layer);
+                                wmts_layer.isOnLeftGlobe = true;
+                            }
+
                             wmts_data.push(wmts_layer.displayName);
+
                         }
                     }
                 }
@@ -417,6 +430,11 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
                     kmlLayer.enabled = false;
                     kmlLayer.sourceLayersOptions = jquery_layer_options;
                     document.wwd.addLayer(kmlLayer);
+                    if (document.wwd_duplicate)
+                    {
+                        document.wwd_duplicate.addLayer(kmlLayer);
+                        kmlLayer.isOnLeftGlobe = true;
+                    }
                 }
             }
 
@@ -509,6 +527,11 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
                             wms_data.push(layer.displayName);
+                            if (document.wwd_duplicate)
+                            {
+                                document.wwd_duplicate.addLayer(layer);
+                                layer.isOnLeftGlobe = true;
+                            }
                         }
                     }
                 }
@@ -634,6 +657,11 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                 layer.sourceLayersOptions = jquery_layer_options;
                                 document.wwd.addLayer(layer);
                                 wms_data.push(layer.displayName);
+                                if (document.wwd_duplicate)
+                                {
+                                    document.wwd_duplicate.addLayer(layer);
+                                    layer.isOnLeftGlobe = true;
+                                }
                             }
                         }
                     }
@@ -671,4 +699,6 @@ function alterWmsLayerTime(evt, layerID, direction) {
     }
 
     document.wwd.redraw();
+    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
+        document.wwd_duplicate.redraw();
 }

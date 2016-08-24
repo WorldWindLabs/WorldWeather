@@ -17,65 +17,21 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    // Fixed location to be used as light-source for the atmosphere layer
-    var FixedLocation = function (wwd) {
-        this._wwd = wwd;
-    };
-
-    FixedLocation.prototype = Object.create(WorldWind.Location.prototype);
-
-    // Generate fixed location in space for the "Sun"
-    Object.defineProperties(FixedLocation.prototype, {
-        latitude: {
-            get: function () {
-                return WorldWind.Location.greatCircleLocation(
-                    this._wwd.navigator.lookAtLocation,
-                    -70,
-                    1.1,
-                    new WorldWind.Location()
-                ).latitude;
-            }
-        },
-        longitude: {
-            get: function () {
-                return WorldWind.Location.greatCircleLocation(
-                    this._wwd.navigator.lookAtLocation,
-                    -70,
-                    1.1,
-                    new WorldWind.Location()
-                ).longitude;
-            }
-        }
-    });
-
     // This line turns off all warnings that come out of WWW. Turn this back on if
     // you want to do some debugging, but please always keep it off when deploying.
     WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_NONE);
 
     var wwd = new WorldWind.WorldWindow("canvasOne");
+    wwd.isLeftGlobe = true;
+    var wwd_duplicate = new WorldWind.WorldWindow("canvasTwo");
+    wwd_duplicate.isLeftGlobe = false;
+
     document.wwd = wwd;
+    document.wwd_duplicate = wwd_duplicate;
 
-    // Initialize the WWW window to a certain altitude, and to the current location of the user
-    var screenAvailWidth = window.screen.availWidth, screenAvailHeight = window.screen.availHeight;
-    wwd.navigator.lookAtLocation.altitude = 0;
-    if (screenAvailWidth > screenAvailHeight) {
-        wwd.navigator.range = 2.94e7;
-    } else {
-        wwd.navigator.range = 0.95e7;
-    }
-
-    if (screenAvailWidth < 760) {
-        // TODO: change the tab buttons + hide the view controls automatically
-    }
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (location) {
-            wwd.navigator.lookAtLocation.latitude = location.coords.latitude;
-            wwd.navigator.lookAtLocation.longitude = location.coords.longitude;
-        });
-    }
-    wwd.redraw();
-    // End of initialization
+    document.wwd_original_navigator = wwd.navigator;
+    document.wwd_duplicated_navigator = wwd_duplicate.navigator;
+    document.wwd_duplicated_navigator.isForDuplicateGlobe = true;
 
     // Getting timestamps for today, yesterday, and tomorrow
     var current_time = new Date().toISOString();
@@ -90,8 +46,10 @@ $(document).ready(function () {
     });
     // End of Legends Modal code
 
-    var layerManager = new LayerManager(wwd);
+    var layerManager = new LayerManager(wwd, wwd_duplicate);
+    //var layerManager_duplicated = new LayerManager(wwd_duplicate);
     document.layerManager = layerManager;
+    //document.layerManager_duplicated = layerManager_duplicated;
     layerManager.createProjectionList();
 
     var projectionLinker = $("#projectionDropdown");
@@ -140,18 +98,11 @@ $(document).ready(function () {
             function (dem_response) {
                 digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
             }).done(function () {
-            var digital_elevation_layer =
-                new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
+            var digital_elevation_layer = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
             digital_elevation_layer.displayName = "Digital Elevation Model";
-            document.viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
-            document.viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
-            document.viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
-            document.viewCoordinatesLayer = new WorldWind.CoordinatesDisplayLayer(wwd);
 
             var layers = [];
             layers.push(
-                {layer: document.viewCoordinatesLayer, enabled: true},
-                {layer: document.viewControlsLayer, enabled: true},
                 {layer: digital_elevation_layer, enabled: false, layerSelected: true},
                 {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: false, layerSelected: true},
                 {layer: new WorldWind.BMNGLayer(), enabled: true}
@@ -160,15 +111,16 @@ $(document).ready(function () {
             for (var l = 0; l < layers.length; l++) {
                 layers[l].layer.enabled = layers[l].enabled;
                 if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
-                layers[l].isBaseLayer = true;
+                layers[l].layer.isBaseLayer = true;
                 wwd.addLayer(layers[l].layer);
+                wwd_duplicate.addLayer(layers[l].layer);
             }
 
             // The code below creates the AtmosphereLayer
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
             atmosphereLayer.isBaseLayer = true;
-            atmosphereLayer.lightLocation = new FixedLocation(wwd);
             wwd.addLayer(atmosphereLayer);
+            wwd_duplicate.addLayer(atmosphereLayer);
             // end of AtmosphereLayer
 
             layerManager.synchronizeLayerList();
