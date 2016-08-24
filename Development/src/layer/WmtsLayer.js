@@ -169,9 +169,7 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "WmtsLayer", "constructor",
                         "No EPSG:4326 bounding box was specified in the layer or tile matrix set capabilities."));
             }
-
-
-
+            
             // Form a unique string to identify cache entries.
             this.cachePath = (this.resourceUrl || this.serviceUrl) +
                 this.layerIdentifier + this.styleIdentifier + this.tileMatrixSet.identifier;
@@ -196,15 +194,11 @@ define([
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
 
-            //console.log(this.shortDisplayName);
-
-
             this.currentTiles = [];
             this.currentTilesInvalid = true;
             this.tileCache = new MemoryCache(500, 400);
             this.currentRetrievals = [];
             this.absentResourceList = new AbsentResourceList(3, 50e3);
-
             this.pickEnabled = false;
 
             /**
@@ -214,7 +208,7 @@ define([
              * @type {Number}
              * @default 1.75
              */
-            this.detailControl = 1.0;
+            this.detailControl = document.globalDetailControl;
         };
 
 

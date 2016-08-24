@@ -68,14 +68,26 @@
 
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
-    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip" title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none"data-toggle="tooltip" title="" trigger="hover">Layer Categories</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')"data-toggle="tooltip" title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip" title="View legends, adjust opacity and manage time series data" trigger="hover">Layer Controls</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'options_div')"data-toggle="tooltip" title="Change projection, change the destination, and toggle screen controls" trigger="hover">View Options</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;" data-toggle="tooltip" title="Help" trigger="hover"><i class="fa fa-question-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 60px;" data-toggle="tooltip" title="Info" trigger="hover"><i class="fa fa-info-circle" style="font-size: 25px" aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank" style="position: fixed; right: 10px; background-color: transparent"data-toggle="tooltip" title="Our Github" trigger="hover"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip"
+           title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none" data-toggle="tooltip"
+           title="" trigger="hover">Layer Categories</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')" data-toggle="tooltip"
+           title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip"
+           title="View legends, adjust opacity and manage time series data" trigger="hover">Layer Controls</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')" data-toggle="tooltip"
+           title="Change projection, change the destination, and toggle screen controls" trigger="hover">View
+        Options</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;"
+           data-toggle="tooltip" title="Help" trigger="hover"><i class="fa fa-question-circle" style="font-size: 25px"
+                                                                 aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 60px;"
+           data-toggle="tooltip" title="Info" trigger="hover"><i class="fa fa-info-circle" style="font-size: 25px"
+                                                                 aria-hidden="true"></i></a></li>
+    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank"
+           style="position: fixed; right: 10px; background-color: transparent" data-toggle="tooltip" title="Our Github"
+           trigger="hover"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
 </ul>
 
 <div class="container">
@@ -119,7 +131,7 @@
         <div class="dropdown" id="projectionDropdown">
         </div>
         <br/>
-        <h5><span style="color: white; ">Destination</span></h5>
+        <h5><span style="color: white; ">GoTo + Place Pin</span></h5>
         <div class="input-group" id="searchBox">
             <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
             <span class="input-group-btn">
@@ -155,40 +167,45 @@
         <img src="nasa-logo.png"/>
         <br/>
         <br/>
-
+        <!--TODO: Document Categories here-->
         <article class="message" style="background-color: transparent; color: white;">
             <div class="message-header"
                  style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                Getting Data from Different Sources
+                Available Layers
             </div>
             <div class="message-body" style="background-color: #0b0b0b">
                 Start by selecting the layers that you wish to view, in the order that you wish for them to be stacked
-                on top of each other on the globe.
-                The same layers can be selected from either the "Available Layers" tab, in which data is organised
-                according
-                to its source, or from the "Layer Categories" tab, in which data is organised according to the type of
-                information it displays.
+                on top of each other on the globe. The data sources are organised into the tabs Space, Weather, Academia
+                and Government.
 
-                <br/><br/>
-                Select the "View Options" tab in order to change the projection from the default 3D, or to select any
-                location to navigate the globe to. You can also disable and enable the additional controls that are
-                on the bottom of the screen from this tab. Those controls can help you move the globe around,
-                zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
+                <!--The same layers can be selected from either the "Available Layers" tab, in which data is organised-->
+                <!--according-->
+                <!--to its source, or from the "Layer Categories" tab, in which data is organised according to the type of-->
+                <!--information it displays.-->
+
             </div>
         </article>
 
         <article class="message" style="background-color: transparent; color: white;">
             <div class="message-header"
                  style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
-                Modifying the Data Layers
+                Selected Layers
             </div>
             <div class="message-body" style="background-color: #0b0b0b">
                 Select the "Selected Layers" tab in order to view the layers that you have selected. There, you can
                 click on
                 each layer in order to hide or display it, and even delete it by clicking the (x) icon.
                 You can also click on the downward and upward arrows in order to re-arrange the layers.
-                Remember that the downmost layer in the list is the uppermost layer on the globe.
-                <br/><br/>
+                Remember that the uppermost layer in the list is the uppermost layer on the globe.
+            </div>
+        </article>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                Layer Controls
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
                 Select the "Legends & Layer Controls" tab in order to view a legend for each of your selected layers,
                 with
                 information including the date and time of the particular layer. Using the "Date and Time" slider, the
@@ -202,17 +219,33 @@
                 that layer,
                 and the "Delete" button will delete the entire layer.
 
+
+            </div>
+        </article>
+
+        <article class="message" style="background-color: transparent; color: white;">
+            <div class="message-header"
+                 style="font-size: medium; text-align: left; background-color: rgba(97, 97, 97, 0.67)">
+                View Options
+            </div>
+            <div class="message-body" style="background-color: #0b0b0b">
+                Select the "View Options" tab in order to change the projection from the default 3D, or to select any
+                location to navigate the globe to, and place a pin there. (Note that the layer containing the pins can
+                be disabled from Selected Layers at any time).
+                You can also disable and enable the additional controls that are
+                on the bottom of the screen from this tab. Those controls can help you move the globe around,
+                zoom in and out, and obtain the coordinates of any point that you hover over on the globe.
+
                 <br/><br/>
                 You can move the globe around by dragging the screen. You can also zoom in and out using your mouse or
                 touchpad, or by using the controls on the bottom. Hover over the globe in order to see the exact
                 coordinates of that point displayed at the bottom of the
                 screen.
+                <br/><br/><br/>
+
             </div>
         </article>
-
         <br/>
-        <br/>
-
     </div>
 
 
@@ -279,11 +312,13 @@
             }
         </style>
         <br/>
-        <div class="message-header" style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
+        <div class="message-header"
+             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
             <span>Base Layers</span></div>
         <div class="list-group message-body" id="base_layers">
         </div>
-        <div class="message-header" style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
+        <div class="message-header"
+             style="color: white; text-align: center !important; font-size: 100% !important;background-color: rgba(97, 97, 97, 0.67)">
             <span id="count">Selected layers</span></div>
         <div class="list-group message-body" id="layerList" style=" text-align: center !important;">
             <span id="layer_text"></span>
@@ -351,7 +386,7 @@
                      style="color: white !important; width: 100%; margin-left: 2px !important; margin-right: 2px !important;">
                     <a class="is-active data_sources_page" id="space_data_tab"
                        onclick="changeDataSourcesTab(event, 'space')">Space</a>
-                    <a class="data_sources_page" id="weather_data_tab"  onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
+                    <a class="data_sources_page" id="weather_data_tab" onclick="changeDataSourcesTab(event, 'weather')">Weather</a>
                     <a class="data_sources_page" id="university_data_tab"
                        onclick="changeDataSourcesTab(event, 'university')">Academia</a>
                     <a class="data_sources_page" id="military_data_tab"
@@ -362,19 +397,22 @@
                 <div id="space_data_sources" class="data_sources_tab" style="display: block;">
                     <div class="panel-block is-active">
                         <h5 style="color: white">NASA Global Information Browse Services</h5><br/>
-                        <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">NASA Earth Observatory</h5><br/>
-                        <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="neo_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="neo_layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">ESA Sentinel Data Hub</h5><br/>
-                        <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="esa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="esa_layers_options_added_tags"></div>
                     </div>
 
@@ -384,19 +422,22 @@
                 <div id="weather_data_sources" class="data_sources_tab" style="display: none;">
                     <div class="panel-block is-active">
                         <h5 style="color: white">NOAA Global Forecasting System</h5><br/>
-                        <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="noaa_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="noaa_layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">Meteorological Service of Canada</h5><br/>
-                        <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="geomet_layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">European Centre for Medium‑Range Weather Forecasting</h5><br/>
-                        <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="ecmwf_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="ecmwf_layers_options_added_tags"></div>
                     </div>
                 </div>
@@ -404,19 +445,22 @@
                 <div id="university_data_sources" class="data_sources_tab" style="display: none;">
                     <div class="panel-block is-active">
                         <h5 style="color: white">Climate Change Institute at the University of Maine</h5><br/>
-                        <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="cci_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="cci_layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">German Aerospace Center (DLR)</h5><br/>
-                        <div id="dlr_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="dlr_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="dlr_layers_options_added_tags"></div>
                     </div>
 
                     <div class="panel-block is-active">
                         <h5 style="color: white">Geoservice of the Earth Observation Center (DLR Tilecache)</h5><br/>
-                        <div id="dlr_wmts_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="dlr_wmts_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="dlr_wmts_layers_options_added_tags"></div>
                     </div>
 
@@ -425,7 +469,8 @@
                 <div id="military_data_sources" class="data_sources_tab" style="display: none;">
                     <div class="panel-block is-active">
                         <h5 style="color: white">United States Navy Research Laboratory</h5><br/>
-                        <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div><br/>
+                        <div id="navy_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
                         <div id="navy_layers_options_added_tags"></div>
                     </div>
                 </div>
