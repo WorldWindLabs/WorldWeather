@@ -54,6 +54,8 @@ define([
          * @param {WorldWindow} worldWindow The world window to associate with this navigator.
          */
         var LookAtNavigator = function (worldWindow) {
+            this.isForDuplicateGlobe = false;
+
             Navigator.call(this, worldWindow);
 
             // Prevent the browser's default actions in response to mouse and touch events, which interfere with
@@ -93,37 +95,72 @@ define([
             // Intentionally not documented.
             this.primaryDragRecognizer = new DragRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handlePanOrDrag(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
+                    else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                }
             });
 
             // Intentionally not documented.
             this.secondaryDragRecognizer = new DragRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handleSecondaryDrag(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleSecondaryDrag(recognizer);
+                    else document.wwd_duplicated_navigator.handleSecondaryDrag(recognizer);
+                }
             });
             this.secondaryDragRecognizer.button = 2; // secondary mouse button
 
             // Intentionally not documented.
             this.panRecognizer = new PanRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handlePanOrDrag(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
+                    else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                }
             });
 
             // Intentionally not documented.
             this.pinchRecognizer = new PinchRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handlePinch(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePinch(recognizer);
+                    else document.wwd_duplicated_navigator.handlePinch(recognizer);
+                }
             });
 
             // Intentionally not documented.
             this.rotationRecognizer = new RotationRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handleRotation(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleRotation(recognizer);
+                    else document.wwd_duplicated_navigator.handleRotation(recognizer);
+                }
             });
 
             // Intentionally not documented.
             this.tiltRecognizer = new TiltRecognizer(worldWindow, function (recognizer) {
                 thisNavigator.handleTilt(recognizer);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleTilt(recognizer);
+                    else document.wwd_duplicated_navigator.handleTilt(recognizer);
+                }
             });
 
             // Register wheel event listeners on the WorldWindow's canvas.
             worldWindow.addEventListener("wheel", function (event) {
                 thisNavigator.handleWheelEvent(event);
+                if (document.wwd_duplicate)
+                {
+                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleWheelEvent(event);
+                    else document.wwd_duplicated_navigator.handleWheelEvent(event);
+                }
             });
 
             // Establish the dependencies between gesture recognizers. The pan, pinch and rotate gesture may recognize

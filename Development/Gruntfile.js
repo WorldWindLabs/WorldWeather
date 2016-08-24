@@ -7,30 +7,6 @@
  */
 module.exports = function (grunt) {
     grunt.initConfig({
-        jsdoc: {
-            dist: {
-                src: ['src'],
-                options: {
-                    destination: 'api-doc',
-                    configure: 'config.json',
-                    readme: 'README.md',
-                    recurse: true
-                }
-            }
-        },
-
-        remove_usestrict: {
-            dist: {
-                files: [
-                    {
-                        expand: true,
-                        dest: 'src-modified/',
-                        src: ['src/**/*.js']
-                    }
-                ]
-            }
-        },
-
         requirejs: {
             compile: {
                 options: {
@@ -45,11 +21,8 @@ module.exports = function (grunt) {
                 }
             }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-remove-usestrict');
-
     grunt.registerTask('default', ['requirejs']);
 };

@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+from shutil import copyfile
+from os import system
+system("grunt")
+copyfile('apps/WorldWeather/worldwindlib.js', 'apps/WorldWeatherTwoGlobes/worldwindlib.js')

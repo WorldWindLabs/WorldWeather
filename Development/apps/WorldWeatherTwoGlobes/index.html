@@ -79,8 +79,8 @@
     <li><a class="tablinks" onclick="openTab(event, 'options_div')" data-toggle="tooltip"
            title="Change projection, change the destination, and toggle screen controls" trigger="hover">View
         Options</a></li>
-    <li><a class="tablinks" href="../WorldWeatherTwoGlobes"
-           style="position: fixed; right: 170px; background-color: transparent" data-toggle="tooltip" title="Switch to Two Globes Mode"
+    <li><a class="tablinks" href="../WorldWeather"
+           style="position: fixed; right: 170px; background-color: transparent" data-toggle="tooltip" title="Switch to One Globe Mode"
            trigger="hover"><i class="fa fa-globe" style="font-size: 25px" aria-hidden="true"></i></a></li>
     <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;"
            data-toggle="tooltip" title="Help" trigger="hover"><i class="fa fa-question-circle" style="font-size: 25px"
@@ -88,14 +88,19 @@
     <li><a class="tablinks" onclick="openTab(event, 'info_div')" style="position: fixed; right: 60px;"
            data-toggle="tooltip" title="Info" trigger="hover"><i class="fa fa-info-circle" style="font-size: 25px"
                                                                  aria-hidden="true"></i></a></li>
-    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather" target="_blank"
+    <li><a class="tablinks" href="https://github.com/NASAWorldWindResearch/WorldWeather"
            style="position: fixed; right: 10px; background-color: transparent" data-toggle="tooltip" title="Our Github"
            trigger="hover"><i class="fa fa-github" style="font-size: 25px" aria-hidden="true"></i></a></li>
 </ul>
 
 <div class="container">
-    <canvas id="canvasOne" width="1920" height="1080"
-            style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
+    <canvas id="canvasOne" width="960" height="1080"
+            style="position: fixed; left: 0; top: 0; width: 50%; height: 100%">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+
+    <canvas id="canvasTwo" width="960" height="1080"
+            style="position: fixed; right: 0; top: 0; width: 50%; height: 100%">
         Your browser does not support HTML5 Canvas.
     </canvas>
 
