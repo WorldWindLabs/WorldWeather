@@ -19,6 +19,10 @@ function moveWmtsLayer(layerUniqueID, direction) {
         movement = new Date(layer.currentTimeString.getTime() + (24 * 60 * 60 * 1000));
     else if (direction == "big-next")
         movement = new Date(layer.currentTimeString.getTime() + (7 * 24 * 60 * 60 * 1000));
+    else if (direction == "huge-next")
+        movement = new Date(layer.currentTimeString.getTime() + (365 * 24 * 60 * 60 * 1000));
+    else if (direction == "huge-previous")
+        movement = new Date(layer.currentTimeString.getTime() - (365 * 24 * 60 * 60 * 1000));
     else
         return null;
 

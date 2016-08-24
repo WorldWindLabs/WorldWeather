@@ -170,11 +170,13 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
                 else if (layer.layerType == "WMTS")
                 {
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
                     legendAdditions += '<br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
                 else if (layer.currentTimeString) {
@@ -287,7 +289,6 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
 };
 
 LayerManager.prototype.onLayerMoveDown = function (e) {
-
     //make sure none of the "view"s on the legends are selected
     var footer_content = document.getElementsByClassName("card-footer-item");
     for (var a = 0; a < footer_content.length; a++) {
@@ -297,10 +298,12 @@ LayerManager.prototype.onLayerMoveDown = function (e) {
     //end of section
 
     var identifier = parseInt(e.attr("identifier"));
-    for (var i = identifier + 1; i < this.wwd.layers.length; i++) {
-        if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
-            this.wwd.layers.move(identifier, i);
-            break;
+    if (identifier != (this.wwd.layers.length - 1)) {
+        for (var i = identifier + 1; i < this.wwd.layers.length; i++) {
+            if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
+                this.wwd.layers.move(identifier, i);
+                break;
+            }
         }
     }
 
@@ -309,7 +312,6 @@ LayerManager.prototype.onLayerMoveDown = function (e) {
 };
 
 LayerManager.prototype.onLayerMoveUp = function (e) {
-
     //make sure none of the "view"s on the legends are selected
     var footer_content = document.getElementsByClassName("card-footer-item");
     for (var a = 0; a < footer_content.length; a++) {
@@ -318,8 +320,12 @@ LayerManager.prototype.onLayerMoveUp = function (e) {
     document.global_view_layers = [];
     //end of section
 
+    var baseLayers = ["Digital Elevation Model", "Blue Marble", "Atmosphere", "Bing Aerial with Labels"];
+
     var identifier = parseInt(e.attr("identifier"));
     for (var i = identifier - 1; i > 0; i--) {
+        if (baseLayers.indexOf(this.wwd.layers[i].displayName) > -1) break;
+
         if (this.wwd.layers[i].enabled || this.wwd.layers[i].layerSelected) {
             this.wwd.layers.move(identifier, i);
             break;
@@ -346,7 +352,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
     var count = 0;
 
     // Synchronize the displayed layer list with the World Window's layer list.
-    for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
+    for (var i = this.wwd.layers.length-1; i >= 0; i--) {
         var layer = this.wwd.layers[i];
 
         if (layer.hide) {
@@ -395,7 +401,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 BaseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
                 layerListItem.append(layerItem);
             }
 

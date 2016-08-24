@@ -105,6 +105,7 @@ $(document).ready(function () {
     // WMTS Servers
     var gibs_url = 'http://map1.vis.earthdata.nasa.gov/wmts-webmerc/wmts.cgi?SERVICE=WorldWeather&request=GetCapabilities';
     var esa_url = 'http://services.sentinel-hub.com/v1/wmts/56748ba2-4a88-4854-beea-86f9afc63e35?REQUEST=GetCapabilities&SERVICE=WorldWeather';
+    var dlr_wmts_url = 'http://tiles.geoservice.dlr.de/service/wmts?SERVICE=WMTS&REQUEST=GetCapabilities';
 
     // WMS Servers
     var noaa_url = 'http://oos.soest.hawaii.edu/thredds/wms/hioos/model/atm/ncep_global/NCEP_Global_Atmospheric_Model_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities';
@@ -128,7 +129,6 @@ $(document).ready(function () {
     $('#help_div').perfectScrollbar();
     $('#info_div').perfectScrollbar();
     // end of perfect scrollbar implementation
-
 
     // getting digital elevation model from wms server
     try {
@@ -176,11 +176,14 @@ $(document).ready(function () {
     // kml file from cci -- university of maine
     getKmlDataForCombobox(maine_url, "cci_combobox", "cci_layers_options");
 
-    // getting GIBS data from NASA WMTS server code
+    // getting GIBS data from NASA WMTS server
     getWmtsDataForCombobox(gibs_url, "gibs_combobox", "layers_options", date_stamp);
 
-    // getting ESA (Sentinel) data from WMTS server code
+    // getting ESA (Sentinel) data from WMTS server
     getWmtsDataForCombobox(esa_url, "esa_combobox", "esa_layers_options", date_stamp);
+
+    // getting DLR (WMTS) geoservice WMTS server
+    getWmtsDataForCombobox(dlr_wmts_url, "dlr_wmts_combobox", "dlr_wmts_layers_options", date_stamp);
 
     // getting data from Geomet WMS Server
     getWmsTimeSeriesForCombobox(geomet_url, "geomet_combobox", "geomet_layers_options", "GDPS.", "GDPS");
@@ -188,7 +191,7 @@ $(document).ready(function () {
     // getting NOAA GFS data from University of Hawaii WMS Server
     getWmsTimeSeriesForCombobox(noaa_url, "noaa_combobox", "noaa_layers_options", "_");
 
-    // retreiving data from ECMWF WMS server
+    // getting data from ECMWF WMS server
     getWmsTimeSeriesForCombobox(ecmwf_url, "ecmwf_combobox", "ecmwf_layers_options");
 
     // getting NASA Earth Oberservatory data (NEO) WMS Server

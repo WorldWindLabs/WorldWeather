@@ -19,6 +19,10 @@ function moveWmtsLayer(layerUniqueID, direction) {
         movement = new Date(layer.currentTimeString.getTime() + (24 * 60 * 60 * 1000));
     else if (direction == "big-next")
         movement = new Date(layer.currentTimeString.getTime() + (7 * 24 * 60 * 60 * 1000));
+    else if (direction == "huge-next")
+        movement = new Date(layer.currentTimeString.getTime() + (365 * 24 * 60 * 60 * 1000));
+    else if (direction == "huge-previous")
+        movement = new Date(layer.currentTimeString.getTime() - (365 * 24 * 60 * 60 * 1000));
     else
         return null;
 
@@ -36,51 +40,43 @@ function changeDataSourcesTab(evt, tabClicked) {
 
 function parsingKMLLayer(section) {
     var kml_layer = {name: null, time_span: null, lat_lon_box: null, icon: null};
+    var section_children = section[0].childNodes;
 
-    // TODO: I will fix this stuff later when I feel like it
-
-    /*if (section[0].childNodes && section[0].childNodes.length > 0) {
-     for (var i = 0; i < section[0].childNodes.length; i++) {
-     switch (section[0].childNodes[i].nodeName.toLowerCase()) {
-     case "name":
-     kml_layer.name = section[0].childNodes[i].textContent;
-     break;
-     case "timespan":
-     kml_layer.time_span = {begin: null, end: null};
-     var timespan_child = section[0].childNodes[i];
-     for (var k = 0; k < timespan_child.childNodes.length; k++)
-     {
-     var ts_key_name = timespan_child.childNodes[k].nodeName;
-     if (ts_key_name in kml_layer.time_span)
-     kml_layer.time_span[ts_key_name] = timespan_child.childNodes[k].textContent;
-     }
-     break;
-     case "latlonbox":
-     kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
-     for (var j = 0; j < section[0].childNodes[i].childNodes.length; j++) {
-     var key_name = section[0].childNodes[i].childNodes[j].nodeName;
-     if (key_name in kml_layer.lat_lon_box)
-     kml_layer.lat_lon_box[key_name] = parseFloat(section[0].childNodes[i].childNodes[j].textContent);
-     }
-     break;
-     case "icon":
-     kml_layer.icon = {href: null, view_bound_scale: null};
-     var icon_child = section[0].childNodes[i];
-     for (var p = 0; p < icon_child.childNodes.length; j++) {
-     var icon_key_name = icon_child.childNodes[p].nodeName;
-     if (icon_key_name in kml_layer.icon)
-     kml_layer.icon[icon_key_name] = icon_child.childNodes[p].textContent;
-     }
-     if (kml_layer.icon.view_bound_scale)
-     kml_layer.icon.view_bound_scale = parseFloat(kml_layer.icon.view_bound_scale);
-     break;
-     default:
-     break;
-     }
-     }
-     }
-     */
-
+    for (var i = 0; i < section_children.length; i++) {
+        switch (section_children[i].nodeName.toLowerCase()) {
+            case "name":
+                kml_layer.name = section_children[i].textContent;
+                break;
+            case "timespan":
+                kml_layer.time_span = {begin: null, end: null};
+                var timespan_child = section_children[i];
+                for (var k = 0; k < timespan_child.childNodes.length; k++) {
+                    var ts_key_name = timespan_child.childNodes[k].nodeName;
+                    if (ts_key_name in kml_layer.time_span)
+                        kml_layer.time_span[ts_key_name] = timespan_child.childNodes[k].textContent;
+                }
+                break;
+            case "latlonbox":
+                kml_layer.lat_lon_box = {north: null, south: null, west: null, east: null};
+                for (var j = 0; j < section_children[i].childNodes.length; j++) {
+                    var key_name = section_children[i].childNodes[j].nodeName;
+                    if (key_name in kml_layer.lat_lon_box)
+                        kml_layer.lat_lon_box[key_name] = parseInt(section_children[i].childNodes[j].textContent);
+                }
+                break;
+            case "icon":
+                kml_layer.icon = {href: null, view_bound_scale: null};
+                var icon_child = section_children[i];
+                for (var p = 0; p < icon_child.childNodes.length; p++) {
+                    var icon_key_name = icon_child.childNodes[p].nodeName;
+                    if (icon_key_name in kml_layer.icon)
+                        kml_layer.icon[icon_key_name] = icon_child.childNodes[p].textContent;
+                }
+                break;
+            default:
+                break;
+        }
+    }
     return kml_layer;
 }
 
@@ -97,14 +93,14 @@ String.prototype.replaceAll = function (search, replacement) {
 };
 
 function titleCase(str) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-        // You do not need to check if i is larger than splitStr length, as your for does that for you
-        // Assign it back to the array
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    if (typeof str === 'string') {
+        var splitStr = str.split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        }
+        return splitStr.join(' ');
     }
-    // Directly return the joined string
-    return splitStr.join(' ');
+    return str;
 }
 
 // Managing the tabs
@@ -188,9 +184,7 @@ function updateLayerCategories(newContent) {
             var selector = $('.' + key + 'Combobox');
             if (selector.length > 0) {
                 var additionalHTML = "";
-                for (var i = 0; i < newContent[key].length; i++) {
-                    additionalHTML += '<option><a>' + newContent[key][i] + '</a></option>';
-                }
+                for (var i = 0; i < newContent[key].length; i++) additionalHTML += '<option><a>' + newContent[key][i] + '</a></option>';
                 selector.html(selector.html() + additionalHTML);
             }
         }
@@ -206,20 +200,73 @@ function updateLayerCategories(newContent) {
 }
 
 function findLayerByID(layerID) {
-    for (var i = 0; i < document.wwd.layers.length; i++) {
-        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
-            return document.wwd.layers[i];
-        }
-    }
+    for (var i = 0; i < document.wwd.layers.length; i++)
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) return document.wwd.layers[i];
     return null;
 }
 
 function replaceLayerByID(layerID, replacementLayer) {
-    for (var i = 0; i < document.wwd.layers.length; i++) {
-        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) {
-            document.wwd.layers[i] = replacementLayer;
-        }
+    for (var i = 0; i < document.wwd.layers.length; i++)
+        if (document.wwd.layers[i].uniqueID && document.wwd.layers[i].uniqueID == layerID) document.wwd.layers[i] = replacementLayer;
+}
+
+function addPlacemark(lat, long, dest) {
+    //define the image
+    var pin_image = "plain-red.png";
+
+    if (!document.placemarkLayer) {
+        document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
+        document.wwd.addLayer(document.placemarkLayer);
     }
+    var pinLibrary = "../../images/pushpins/", // location of the image files
+        placemark,
+        placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
+        highlightAttributes,
+        destination = dest,
+        latitude = lat,
+        longitude = long;
+
+    // Set up the common placemark attributes.
+    placemarkAttributes.imageScale = 10;
+    placemarkAttributes.imageOffset = new WorldWind.Offset(
+        WorldWind.OFFSET_FRACTION, 0.3,
+        WorldWind.OFFSET_FRACTION, 0.0);
+    placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+    placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+        WorldWind.OFFSET_FRACTION, 0.5,
+        WorldWind.OFFSET_FRACTION, 1.0);
+    placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+    placemarkAttributes.labelAttributes.scale = 10;
+    placemarkAttributes.drawLeaderLine = true;
+    placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
+
+    // For each placemark image, create a placemark with a label.
+
+    // Create the placemark and its label.
+    placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 1e3), true, null);
+    placemark.label = titleCase(destination) + "\n";
+    placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+    placemark.eyeDistanceScalingLabelThreshold = 4e7;
+    placemark.eyeDistanceScalingThreshold = 2e6;
+
+    // Create the placemark attributes for this placemark. Note that the attributes differ only by their
+    // image URL.
+    placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+    placemarkAttributes.imageSource = pinLibrary + pin_image;
+    placemark.attributes = placemarkAttributes;
+
+    // Create the highlight attributes for this placemark. Note that the normal attributes are specified as
+    // the default highlight attributes so that all properties are identical except the image scale. You could
+    // instead vary the color, image, or other property to control the highlight representation.
+    highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+    highlightAttributes.imageScale = 1.2;
+    placemark.highlightAttributes = highlightAttributes;
+
+    // Add the placemark to the layer.
+    document.placemarkLayer.addRenderable(placemark);
+
+    // Add the placemarks layer to the World Window's layer list.
+    document.layerManager.synchronizeLayerList();
 }
 
 function showHideLegends(evt, t, selectedItem, layerID) {
@@ -320,6 +367,8 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
 
                         if (replace_in_title) section.title = $.trim(section.title.replaceAll(replace_in_title, " "));
 
+                        section.title = titleCase(section.title);
+
                         if (section.title && section.title != "") {
                             var wmts_layer
                                 = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
@@ -352,7 +401,6 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
         $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 }
-
 
 function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) {
     try {
@@ -414,6 +462,8 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 section.title = section.title.replaceAll(replace_in_title, " ");
                                 section.title = $.trim(section.title);
                             }
+
+                            section.title = titleCase(section.title);
 
                             var config = WorldWind.WmsLayer.formLayerConfiguration(section);
                             var layer = null, timeSequence = null;
@@ -538,6 +588,8 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                     section.title = $.trim(section.title);
                                 }
 
+                                section.title = titleCase(section.title);
+
                                 var config = WorldWind.WmsLayer.formLayerConfiguration(section);
                                 var layer = null, timeSequence = null;
 
@@ -567,7 +619,7 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                         }
                                         else {
                                             layer = new WorldWind.WmsLayer(config);
-                                            layer.currentTimeString = config.timeSequences[config.timeSequences.length - 1].toISOString();
+                                            layer.currentTimeString = new Date(config.timeSequences[config.timeSequences.length - 1]);
                                         }
                                     }
                                     else {
@@ -597,7 +649,6 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
         $("#" + jquery_layer_options).html("<img src=\"notification-error.png\" style=\"width: 25%\"/>");
     }
 }
-
 
 function alterWmsLayerTime(evt, layerID, direction) {
     var layer = findLayerByID(layerID);
