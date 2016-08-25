@@ -75,10 +75,18 @@ $(document).ready(function () {
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
+    var eumetsat_url = 'http://eumetview.eumetsat.int/geoserver/wms?service=wms&version=1.3.0&request=GetCapabilities';
 
     var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/imagery/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/land/wms?SERVICE=WMS&REQUEST=GetCapabilities'];
+
+    var us_nws_urls = ['http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/NOHRSC_Snow_Analysis/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/NHC_E_Pac_trop_cyclones/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/radar_base_reflectivity/MapServer/WMSServer?request=GetCapabilities&service=WMS'
+    ];
 
     // KML files locally saved
     var maine_url = 'university-of-maine-new.kml';
@@ -158,6 +166,12 @@ $(document).ready(function () {
     // getting US Navy WMS Server
     getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options");
 
+    // getting EUMETSAT data from WMS server
+    getWmsTimeSeriesForCombobox(eumetsat_url, "eumetsat_combobox", "eumetsat_layers_options");
+
     // getting a bunch of DLR WMS servers all at once
     getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options");
+
+    // getting a bunch of WMS servers from US NWS all at once
+    getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options");
 });
