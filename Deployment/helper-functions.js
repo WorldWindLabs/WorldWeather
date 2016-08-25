@@ -9,7 +9,9 @@ function onLayerTagDelete(evt, layerUniqueID) {
 
 function tutorialCloseButton()
 {
-    $("#tutorial_modal").css('display','none');
+    var selector = $("#tutorial_modal");
+    selector.css('display','none');
+    selector.remove();
 }
 
 function moveWmtsLayer(layerUniqueID, direction) {
