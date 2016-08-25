@@ -122,6 +122,13 @@ $(document).ready(function () {
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/imagery/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/land/wms?SERVICE=WMS&REQUEST=GetCapabilities'];
 
+    var us_nws_urls = ['http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/NOHRSC_Snow_Analysis/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/NHC_E_Pac_trop_cyclones/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+        'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/radar_base_reflectivity/MapServer/WMSServer?request=GetCapabilities&service=WMS'
+    ];
+
     // KML files locally saved
     var maine_url = 'university-of-maine-new.kml';
 
@@ -208,4 +215,6 @@ $(document).ready(function () {
 
     // getting a bunch of DLR WMS servers all at once
     getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options");
+
+    getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options");
 });

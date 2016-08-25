@@ -7,6 +7,11 @@ function onLayerTagDelete(evt, layerUniqueID) {
     document.layerManager.onLayerDelete(null, layerUniqueID);
 }
 
+function tutorialCloseButton()
+{
+    $("#tutorial_modal").css('display','none');
+}
+
 function moveWmtsLayer(layerUniqueID, direction) {
     var layer = findLayerByID(layerUniqueID);
     var layer_config = layer.copyConstructorConfig;

@@ -66,11 +66,32 @@
 
 </style>
 
+<div class="modal" id="tutorial_modal" style="display: block">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="top: 50px; width: 800px; height: 520px">
+        <section class="modal-card-body" style="overflow: hidden !important">
+            <div style="background-color: rgba(0,0,0,0.75); position: absolute;  margin-left: -20px; margin-top: -55px;  height: 100%; width: 100%; z-index: 999"></div>
+            <video id="video1" loop autoplay style="width: 800px; height: 520px; margin-left: -20px; margin-top: -55px">
+                <source src="worldweather-background-video.mp4" type="video/mp4">
+            </video>
+            <img src="nasa-logo.png" style="z-index: 1000;     position: absolute;  top: 120px;    left: 105px;    height: 32%;"/>
+            <p style="z-index: 1000;     position: absolute;  top: 150px;    left: 305px; color: white; font-size: 40px">NASA World Weather</p>
+            <p style="z-index: 1000;     position: absolute;  top: 200px;    left: 305px; margin-right: 100px; color: white; font-size: 15px; line-height: 18px"> The largest three-dimensional web-based interactive browser of satellite,
+                weather, climate, and other time-aware geospatial data on the web,
+                built upon NASA's revolutionary WorldWind technology.</p>
+        </section>
+        <footer class="modal-card-foot" style="z-index: 1001">
+            <a class="button">Show Tutorial</a>
+            <a class="button" onclick="tutorialCloseButton()">Continue to Application</a>
+        </footer>
+    </div>
+</div>
+
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
     <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip"
            title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')"  data-toggle="tooltip" style="display: none"
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" data-toggle="tooltip" style="display: none"
            title="Layers organised into categories" trigger="hover">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')" data-toggle="tooltip"
            title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
@@ -80,7 +101,8 @@
            title="Change projection, change the destination, and toggle screen controls" trigger="hover">View
         Options</a></li>
     <li><a class="tablinks" href="./two-globes"
-           style="position: fixed; right: 170px; background-color: transparent" data-toggle="tooltip" title="Switch to Two Globes Mode"
+           style="position: fixed; right: 170px; background-color: transparent" data-toggle="tooltip"
+           title="Switch to Two Globes Mode"
            trigger="hover"><i class="fa fa-globe" style="font-size: 25px" aria-hidden="true"></i></a></li>
     <li><a class="tablinks" onclick="openTab(event, 'help_div')" style="position: fixed; right: 115px;"
            data-toggle="tooltip" title="Help" trigger="hover"><i class="fa fa-question-circle" style="font-size: 25px"
@@ -180,6 +202,13 @@
                     </div>
 
                     <div class="panel-block is-active">
+                        <h5 style="color: white">United States National Weather Service Data</h5><br/>
+                        <div id="us_nws_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
+                        <br/>
+                        <div id="us_nws_layers_options_added_tags"></div>
+                    </div>
+
+                    <div class="panel-block is-active">
                         <h5 style="color: white">Meteorological Service of Canada</h5><br/>
                         <div id="geomet_layers_options"><img src="loading-icon.gif" style="width: 25%"/></div>
                         <br/>
@@ -234,41 +263,62 @@
     <!--Categories Tab-->
     <div id="categories_div" class="col-sm-2 tabcontent">
         <style scoped>
-            #categories_div
-            {
+            #categories_div {
                 position: fixed;
                 width: 20%;
                 height: 92%;
                 top: 8%;
                 left: 0;
-                background: rgba(0,0,0,0.5);
+                background: rgba(0, 0, 0, 0.5);
                 overflow-x: visible !important;
                 overflow-y: scroll;
             }
         </style>
         <br/>
         <h5><span style="color: white; ">Air Quality</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Ash Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Drought</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Dust Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Fires</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Floods</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Severe Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Shipping</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Smoke Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Vegetation</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
         <h5><span style="color: white; ">Others</span></h5>
-        <select class="gibs_combobox explorer_combobox"><option></option></select>
+        <select class="gibs_combobox explorer_combobox">
+            <option></option>
+        </select>
 
     </div>
 

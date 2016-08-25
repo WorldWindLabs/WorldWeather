@@ -1,6 +1,8 @@
 api-doc/
 WebWorldWind.zip
 
+Development/apps/worldweather-background-video.mp4
+
 # Created by https://www.gitignore.io/api/windows,linux,webstorm,node,grunt,bower
 
 *.iml
