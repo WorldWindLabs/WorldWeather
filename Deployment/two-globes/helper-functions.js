@@ -32,8 +32,16 @@ function moveWmtsLayer(layerUniqueID, direction) {
     else
         return null;
 
-    replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
+    var new_layer = new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]);
+    if (document.wwd_duplicate)
+    {
+        new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
+    }
+    replaceLayerByID(layerUniqueID, new_layer);
+
     document.wwd.redraw();
+    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
+        document.wwd_duplicate.redraw();
     $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
@@ -121,7 +129,6 @@ function openTab(evt, tabName) {
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
-        document.viewControlsLayer.enabled = true;
     }
 
     // Get all elements with class="tablinks" and remove the attribute "active"
@@ -223,6 +230,9 @@ function addPlacemark(lat, long, dest) {
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
+        if (document.wwd_duplicate) {
+            document.wwd_duplicate.addLayer(document.placemarkLayer);
+        }
     }
     var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
@@ -381,6 +391,10 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                             wmts_layer.enabled = false;
                             wmts_layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(wmts_layer);
+                            if (document.wwd_duplicate) {
+                                document.wwd_duplicate.addLayer(wmts_layer);
+                                wmts_layer.isOnLeftGlobe = true;
+                            }
                             wmts_data.push(wmts_layer.displayName);
                         }
                     }
@@ -423,6 +437,10 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
                     kmlLayer.enabled = false;
                     kmlLayer.sourceLayersOptions = jquery_layer_options;
                     document.wwd.addLayer(kmlLayer);
+                    if (document.wwd_duplicate) {
+                        document.wwd_duplicate.addLayer(kmlLayer);
+                        kmlLayer.isOnLeftGlobe = true;
+                    }
                 }
             }
 
@@ -484,8 +502,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                         if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
                                         if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
-                                        if (isNaN(start_datetime.getTime()))
-                                        {
+                                        if (isNaN(start_datetime.getTime())) {
                                             start_datetime = config.timeSequences[1];
                                             if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
                                         }
@@ -516,6 +533,10 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             layer.enabled = false;
                             layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
+                            if (document.wwd_duplicate) {
+                                document.wwd_duplicate.addLayer(layer);
+                                layer.isOnLeftGlobe = true;
+                            }
                             wms_data.push(layer.displayName);
                         }
                     }
@@ -641,6 +662,10 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                 layer.enabled = false;
                                 layer.sourceLayersOptions = jquery_layer_options;
                                 document.wwd.addLayer(layer);
+                                if (document.wwd_duplicate) {
+                                    document.wwd_duplicate.addLayer(layer);
+                                    layer.isOnLeftGlobe = true;
+                                }
                                 wms_data.push(layer.displayName);
                             }
                         }
@@ -679,4 +704,6 @@ function alterWmsLayerTime(evt, layerID, direction) {
     }
 
     document.wwd.redraw();
+    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
+        document.wwd_duplicate.redraw();
 }

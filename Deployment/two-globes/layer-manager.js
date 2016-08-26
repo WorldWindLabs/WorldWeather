@@ -349,10 +349,10 @@ LayerManager.prototype.onLayerMoveGlobe = function (e) {
     //end of section
 
     var identifier = parseInt(e.attr("identifier"));
-    this.wwd.layers[identifier].isOnLeftGlobe = !this.wwd.layers[identifier].isOnLeftGlobe;
+    document.wwd.layers[identifier].isOnLeftGlobe = !document.wwd.layers[identifier].isOnLeftGlobe;
 
-    this.wwd.redraw();
-    this.wwd_duplicate.redraw();
+    document.wwd.redraw();
+    document.wwd_duplicate.redraw();
     this.synchronizeLayerList();
 };
 

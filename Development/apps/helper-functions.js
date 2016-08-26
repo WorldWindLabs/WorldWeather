@@ -121,7 +121,6 @@ function openTab(evt, tabName) {
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
-        document.viewControlsLayer.enabled = true;
     }
 
     // Get all elements with class="tablinks" and remove the attribute "active"
