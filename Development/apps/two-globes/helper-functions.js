@@ -7,6 +7,12 @@ function onLayerTagDelete(evt, layerUniqueID) {
     document.layerManager.onLayerDelete(null, layerUniqueID);
 }
 
+function tutorialCloseButton() {
+    var selector = $("#tutorial_modal");
+    selector.css('display', 'none');
+    selector.remove();
+}
+
 function moveWmtsLayer(layerUniqueID, direction) {
     var layer = findLayerByID(layerUniqueID);
     var layer_config = layer.copyConstructorConfig;
@@ -28,8 +34,6 @@ function moveWmtsLayer(layerUniqueID, direction) {
 
     replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
     document.wwd.redraw();
-    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
-        document.wwd_duplicate.redraw();
     $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
@@ -117,6 +121,7 @@ function openTab(evt, tabName) {
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+        document.viewControlsLayer.enabled = true;
     }
 
     // Get all elements with class="tablinks" and remove the attribute "active"
@@ -192,7 +197,7 @@ function updateLayerCategories(newContent) {
     }
 
     if (!document.layerCategoriesInitialized) {
-        $('.categories_combobox').combobox();
+        //$('.categories_combobox').combobox();
         $('#categories_div').find(" select").on("change", function (e) {
             layerCategoriesOnClick(e);
         });
@@ -218,10 +223,6 @@ function addPlacemark(lat, long, dest) {
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
-        if (document.wwd_duplicate)
-        {
-            document.wwd_duplicate.addLayer(document.placemarkLayer);
-        }
     }
     var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
@@ -379,16 +380,8 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                                 = new WorldWind.WmtsLayer(WorldWind.WmtsLayer.formLayerConfiguration(section), date_stamp);
                             wmts_layer.enabled = false;
                             wmts_layer.sourceLayersOptions = jquery_layer_options;
-
                             document.wwd.addLayer(wmts_layer);
-                            if (document.wwd_duplicate)
-                            {
-                                document.wwd_duplicate.addLayer(wmts_layer);
-                                wmts_layer.isOnLeftGlobe = true;
-                            }
-
                             wmts_data.push(wmts_layer.displayName);
-
                         }
                     }
                 }
@@ -430,11 +423,6 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
                     kmlLayer.enabled = false;
                     kmlLayer.sourceLayersOptions = jquery_layer_options;
                     document.wwd.addLayer(kmlLayer);
-                    if (document.wwd_duplicate)
-                    {
-                        document.wwd_duplicate.addLayer(kmlLayer);
-                        kmlLayer.isOnLeftGlobe = true;
-                    }
                 }
             }
 
@@ -470,17 +458,8 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                         for (var i = 0; i < section.layers.length; i++) data_recursive(section.layers[i]);
                     } else {
                         if (section.title && section.title != "") {
-                            if (stop_from_title) {
-                                if (section.title.indexOf(stop_from_title) === -1) {
-                                    return null;
-                                }
-                            }
-
-                            if (replace_in_title) {
-                                section.title = section.title.replaceAll(replace_in_title, " ");
-                                section.title = $.trim(section.title);
-                            }
-
+                            if (stop_from_title) if (section.title.indexOf(stop_from_title) === -1) return null;
+                            if (replace_in_title) section.title = $.trim(section.title.replaceAll(replace_in_title, " "));
                             section.title = titleCase(section.title);
 
                             var config = WorldWind.WmsLayer.formLayerConfiguration(section);
@@ -498,10 +477,21 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
-                                        var start_datetime = config.timeSequences[1];
-                                        var period = parseInt(Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60)));
-                                        var period_string = "PT" + period + "M";
-                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + period_string;
+                                        var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
+                                        var start_datetime = config.timeSequences[0];
+
+                                        if (!(end_datetime instanceof Date)) end_datetime = end_datetime.endTime;
+                                        if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
+                                        if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
+
+                                        if (isNaN(start_datetime.getTime()))
+                                        {
+                                            start_datetime = config.timeSequences[1];
+                                            if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
+                                        }
+
+                                        var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
+                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
 
                                         timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
 
@@ -527,11 +517,6 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
                             wms_data.push(layer.displayName);
-                            if (document.wwd_duplicate)
-                            {
-                                document.wwd_duplicate.addLayer(layer);
-                                layer.isOnLeftGlobe = true;
-                            }
                         }
                     }
                 }
@@ -657,11 +642,6 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                 layer.sourceLayersOptions = jquery_layer_options;
                                 document.wwd.addLayer(layer);
                                 wms_data.push(layer.displayName);
-                                if (document.wwd_duplicate)
-                                {
-                                    document.wwd_duplicate.addLayer(layer);
-                                    layer.isOnLeftGlobe = true;
-                                }
                             }
                         }
                     }
@@ -699,6 +679,4 @@ function alterWmsLayerTime(evt, layerID, direction) {
     }
 
     document.wwd.redraw();
-    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
-        document.wwd_duplicate.redraw();
 }

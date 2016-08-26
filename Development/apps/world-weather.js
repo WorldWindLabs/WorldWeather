@@ -14,7 +14,7 @@ $(document).ready(function () {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
     }
     if (isTouchDevice() === false) {
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({delay: {"show": 1000, "hide": 100}});
     }
 
     // Fixed location to be used as light-source for the atmosphere layer

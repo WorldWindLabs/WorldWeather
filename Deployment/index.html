@@ -23,12 +23,53 @@
 </head>
 <body>
 <style media="screen" type="text/css" scoped>
-    body {
-        background: url('stars-darker.jpg') no-repeat center center fixed;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    @keyframes move-twink-back {
+        from {background-position:0 0;}
+        to {background-position:-10000px 5000px;}
+    }
+    @-webkit-keyframes move-twink-back {
+        from {background-position:0 0;}
+        to {background-position:-10000px 5000px;}
+    }
+    @-moz-keyframes move-twink-back {
+        from {background-position:0 0;}
+        to {background-position:-10000px 5000px;}
+    }
+    @-ms-keyframes move-twink-back {
+        from {background-position:0 0;}
+        to {background-position:-10000px 5000px;}
+    }
+
+    .stars, .twinkling, .clouds {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height:100%;
+        display:block;
+        z-index: 0;
+    }
+
+    .stars {
+        background:#000 url(stars.png) repeat top center;
+        z-index:0;
+    }
+
+    .twinkling{
+        background:transparent url(twinkling.png) repeat top center;
+        z-index:1;
+
+        -moz-animation:move-twink-back 200s linear infinite;
+        -ms-animation:move-twink-back 200s linear infinite;
+        -o-animation:move-twink-back 200s linear infinite;
+        -webkit-animation:move-twink-back 200s linear infinite;
+        animation:move-twink-back 200s linear infinite;
+    }
+
+    .tabcontent {
+        z-index: 999
     }
 
     .explorer_combobox {
@@ -39,6 +80,11 @@
     hr {
         margin-top: 0.1em;
         margin-bottom: 0.1em;
+    }
+
+    h5
+    {
+        line-height: 12px;
     }
 
     .ui-slider {
@@ -66,6 +112,10 @@
 
 </style>
 
+<div class="stars"></div>
+<div class="twinkling"></div>
+
+
 <div class="modal" id="tutorial_modal" style="display: block">
     <div class="modal-background"></div>
     <div class="modal-card" style="top: 50px; width: 800px; height: 520px">
@@ -92,8 +142,8 @@
 
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
-    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip"
-           title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip" data-delay="1000"
+           title="Choose layers from any data source">Available Layers</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'categories_div')" data-toggle="tooltip" style="display: none"
            title="Layers organised into categories" trigger="hover">Layer Categories</a></li>
     <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')" data-toggle="tooltip"
@@ -120,7 +170,7 @@
 
 <div class="container">
     <canvas id="canvasOne" width="1920" height="1080"
-            style="position: fixed; left: 0; top: 0; width: 100%; height: 100%">
+            style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100">
         Your browser does not support HTML5 Canvas.
     </canvas>
 
@@ -158,7 +208,7 @@
         <br/>
 
         <article class="message" style="border: hidden; background-color: transparent;">
-            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67)">
+            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67); margin-top: -17px;">
                 <div class="panel-tabs"
                      style="color: white !important; width: 100%; margin-left: 2px !important; margin-right: 2px !important;">
                     <a class="is-active data_sources_page" id="space_data_tab"

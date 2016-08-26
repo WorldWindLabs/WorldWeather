@@ -7,10 +7,9 @@ function onLayerTagDelete(evt, layerUniqueID) {
     document.layerManager.onLayerDelete(null, layerUniqueID);
 }
 
-function tutorialCloseButton()
-{
+function tutorialCloseButton() {
     var selector = $("#tutorial_modal");
-    selector.css('display','none');
+    selector.css('display', 'none');
     selector.remove();
 }
 
@@ -459,17 +458,8 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                         for (var i = 0; i < section.layers.length; i++) data_recursive(section.layers[i]);
                     } else {
                         if (section.title && section.title != "") {
-                            if (stop_from_title) {
-                                if (section.title.indexOf(stop_from_title) === -1) {
-                                    return null;
-                                }
-                            }
-
-                            if (replace_in_title) {
-                                section.title = section.title.replaceAll(replace_in_title, " ");
-                                section.title = $.trim(section.title);
-                            }
-
+                            if (stop_from_title) if (section.title.indexOf(stop_from_title) === -1) return null;
+                            if (replace_in_title) section.title = $.trim(section.title.replaceAll(replace_in_title, " "));
                             section.title = titleCase(section.title);
 
                             var config = WorldWind.WmsLayer.formLayerConfiguration(section);
@@ -487,10 +477,21 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
-                                        var start_datetime = config.timeSequences[1];
-                                        var period = parseInt(Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60)));
-                                        var period_string = "PT" + period + "M";
-                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + period_string;
+                                        var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
+                                        var start_datetime = config.timeSequences[0];
+
+                                        if (!(end_datetime instanceof Date)) end_datetime = end_datetime.endTime;
+                                        if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
+                                        if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
+
+                                        if (isNaN(start_datetime.getTime()))
+                                        {
+                                            start_datetime = config.timeSequences[1];
+                                            if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
+                                        }
+
+                                        var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
+                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
 
                                         timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
 
