@@ -9,9 +9,6 @@ $(document).ready(function () {
     // the default number for this tile is 1.75 (this is what WWW originally had)
     document.globalDetailControl = 1.5;
 
-    $('.large-tab-text').css('display','block');
-    $('.small-tab-icon').css('display','none');
-
     // enable all tooltips except on touchscreens
     function isTouchDevice() {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
@@ -68,13 +65,18 @@ $(document).ready(function () {
         wwd.navigator.range = 0.95e7;
     }
 
+    document.smallScreenSize = false;
     if (screenAvailWidth < 840) {
-        // TODO: change the tab buttons + hide the view controls automatically
+        document.smallScreenSize = true;
+        $('.large-tab-text').css('display','none');
+        $('.small-tab-icon').css('display','block');
+    }
+    else {
+        $('.large-tab-text').css('display','block');
+        $('.small-tab-icon').css('display','none');
     }
 
-    document.smallScreenSize = false;
     $(window).resize(function () {
-
          if (!document.smallScreenSize && window.innerWidth < 840)
          {
              document.smallScreenSize = true;
@@ -87,7 +89,6 @@ $(document).ready(function () {
              $('.large-tab-text').css('display','block');
              $('.small-tab-icon').css('display','none');
          }
-
     });
 
     if (navigator.geolocation) {
