@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     baseUrl: 'src',
                     name: '../tools/almond',
                     include: ['WorldWind'],
-                    out: './apps/WorldWeather/worldwindlib.js',
+                    out: './apps/worldwindlib.js',
                     wrap: {
                         startFile: 'tools/wrap.start',
                         endFile: 'tools/wrap.end'

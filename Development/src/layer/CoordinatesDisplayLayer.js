@@ -132,20 +132,23 @@ define([
                 x, y, yUnitsScreen, yUnitsText, hideEyeAlt;
 
             if (canvasWidth > 650) { // large canvas, align the text with bottom center
-                x = (canvasWidth / 2) - 50;
-                y = 5;
+                if (!(document.wwd_duplicate)) {
+                    x = (canvasWidth / 2) - 50;
+                    y = 5;
+                }
+                else {
+                    x = 80;
+                    y = 15;
+                    hideEyeAlt = true;
+                }
+
                 yUnitsScreen = WorldWind.OFFSET_PIXELS;
                 yUnitsText = 0;
-            } else if (canvasWidth > 400) { // medium canvas, align the text in the top left
-                x = 60;
-                y = 5;
-                yUnitsScreen = WorldWind.OFFSET_INSET_PIXELS;
-                yUnitsText = 1;
             } else { // small canvas, suppress the eye altitude, align the text in the top left and suppress eye alt
-                x = 60;
+                x = 5;
                 y = 5;
                 yUnitsScreen = WorldWind.OFFSET_INSET_PIXELS;
-                yUnitsText = 1;
+                yUnitsText = 0;
                 hideEyeAlt = true;
             }
 

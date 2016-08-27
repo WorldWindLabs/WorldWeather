@@ -9,10 +9,14 @@ $(document).ready(function () {
     // the default number for this tile is 1.75 (this is what WWW originally had)
     document.globalDetailControl = 1.5;
 
+    $('.large-tab-text').css('display','block');
+    $('.small-tab-icon').css('display','none');
+
     // enable all tooltips except on touchscreens
     function isTouchDevice() {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
     }
+
     if (isTouchDevice() === false) {
         $('[data-toggle="tooltip"]').tooltip();
     }
@@ -28,6 +32,38 @@ $(document).ready(function () {
 
     document.wwd = wwd;
     document.wwd_duplicate = wwd_duplicate;
+
+    // Initialize the WWW window to a certain altitude, and to the current location of the user
+    var screenAvailWidth = window.innerWidth, screenAvailHeight = window.innerHeight;
+    wwd.navigator.lookAtLocation.altitude = 0;
+    if (screenAvailWidth > screenAvailHeight)
+        wwd.navigator.range = 1.25e7;
+    else
+        wwd.navigator.range = 0.95e7;
+
+    wwd_duplicate.navigator.range = wwd.navigator.range;
+
+    if (screenAvailWidth < 840) {
+        // TODO: change the tab buttons + hide the view controls automatically
+    }
+
+    document.smallScreenSize = false;
+    $(window).resize(function () {
+
+        if (!document.smallScreenSize && window.innerWidth < 840)
+        {
+            document.smallScreenSize = true;
+            $('.large-tab-text').css('display','none');
+            $('.small-tab-icon').css('display','block');
+        }
+        else if (document.smallScreenSize && window.innerWidth >= 840)
+        {
+            document.smallScreenSize = false;
+            $('.large-tab-text').css('display','block');
+            $('.small-tab-icon').css('display','none');
+        }
+
+    });
 
     document.wwd_original_navigator = wwd.navigator;
     document.wwd_duplicated_navigator = wwd_duplicate.navigator;
@@ -123,6 +159,11 @@ $(document).ready(function () {
                 wwd.addLayer(layers[l].layer);
                 wwd_duplicate.addLayer(layers[l].layer);
             }
+
+            var coordinates_layer = new WorldWind.CoordinatesDisplayLayer(wwd);
+            coordinates_layer.enabled = true;
+            coordinates_layer.isBaseLayer = true;
+            wwd.addLayer(coordinates_layer);
 
             // The code below creates the AtmosphereLayer
             var atmosphereLayer = new WorldWind.AtmosphereLayer();

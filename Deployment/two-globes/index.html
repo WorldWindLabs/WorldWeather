@@ -117,17 +117,13 @@
 
 <ul class="tab"
     style="z-index: 999; position: fixed; left: 0; height: 53px; max-height: 53px; min-height: 53px; width: 100%; background: rgba(0,0,0,0.5); overflow: visible">
-    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')" data-toggle="tooltip"
-           title="Choose layers from any data source" trigger="hover">Available Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'categories_div')" style="display: none" data-toggle="tooltip"
-           title="" trigger="hover">Layer Categories</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')" data-toggle="tooltip"
-           title="Change layer order, turn layers On/Off or discard" trigger="hover">Selected Layers</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip"
-           title="View legends, adjust opacity and manage time series data" trigger="hover">Layer Controls</a></li>
-    <li><a class="tablinks" onclick="openTab(event, 'options_div')" data-toggle="tooltip"
-           title="Change projection, change the destination, and toggle screen controls" trigger="hover">View
-        Options</a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'layersdiv')"       data-toggle="tooltip" title="Choose layers from any data source"><p class="large-tab-text">Available Layers</p><p class="small-tab-icon"><i class="fa fa-plus-circle" style="font-size: 25px" aria-hidden="true"></i></p></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'categories_div')"  data-toggle="tooltip" style="display: none" title="Layers organised into categories" trigger="hover"><p class="large-tab-text">Layer Categories</p><p class="small-tab-icon"><i class="fa fa-sort-amount-desc" style="font-size: 25px" aria-hidden="true"></i></p></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'selectedlayers')"  data-toggle="tooltip" title="Change layer order, turn layers On/Off or discard" trigger="hover"><p class="large-tab-text">Selected Layers</p><p class="small-tab-icon"><i class="fa fa-chevron-circle-down" style="font-size: 25px" aria-hidden="true"></i></p></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'legend_division')" data-toggle="tooltip" title="View legends, adjust opacity and manage time series data" trigger="hover"><p class="large-tab-text">Layer Controls</p><p class="small-tab-icon"><i class="fa fa-stumbleupon-circle" style="font-size: 25px" aria-hidden="true"></i></p></a></li>
+    <li><a class="tablinks" onclick="openTab(event, 'options_div')"     data-toggle="tooltip" title="Change projection, change the destination, and toggle screen controls" trigger="hover"><p class="large-tab-text">View Options</p><p class="small-tab-icon"><i class="fa fa-times-circle-o" style="font-size: 25px" aria-hidden="true"></i></p></a></li>
+
+
     <li><a class="tablinks" href=".."
            style="position: fixed; right: 170px; background-color: transparent" data-toggle="tooltip" title="Switch to One Globe Mode"
            trigger="hover"><i class="fa fa-globe" style="font-size: 25px" aria-hidden="true"></i></a></li>
@@ -184,11 +180,11 @@
         </style>
 
         <br/>
-        <h5><span style="color: white; ">Change Projection</span></h5>
+        <h5><span style="color: white; ">Change Projection</span></h5><br/>
         <div class="dropdown" id="projectionDropdown">
         </div>
         <br/>
-        <h5><span style="color: white; ">GoTo + Place Pin</span></h5>
+        <h5><span style="color: white; ">GoTo + Place Pin</span></h5><br/>
         <div class="input-group" id="searchBox">
             <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
             <span class="input-group-btn">
@@ -351,7 +347,7 @@
     </div>
 
 
-    <div id="selectedlayers" class="col-sm-2 tabcontent message">
+    <div id="selectedlayers" class="col-sm-2 tabcontent">
         <style scoped>
             #selectedlayers {
                 width: 50%;

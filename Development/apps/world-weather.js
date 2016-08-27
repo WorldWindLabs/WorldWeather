@@ -9,10 +9,14 @@ $(document).ready(function () {
     // the default number for this tile is 1.75 (this is what WWW originally had)
     document.globalDetailControl = 1.5;
 
+    $('.large-tab-text').css('display','block');
+    $('.small-tab-icon').css('display','none');
+
     // enable all tooltips except on touchscreens
     function isTouchDevice() {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
     }
+
     if (isTouchDevice() === false) {
         $('[data-toggle="tooltip"]').tooltip({delay: {"show": 1000, "hide": 100}});
     }
@@ -56,7 +60,7 @@ $(document).ready(function () {
     document.wwd = wwd;
 
     // Initialize the WWW window to a certain altitude, and to the current location of the user
-    var screenAvailWidth = window.screen.availWidth, screenAvailHeight = window.screen.availHeight;
+    var screenAvailWidth = window.innerWidth, screenAvailHeight = window.innerHeight;
     wwd.navigator.lookAtLocation.altitude = 0;
     if (screenAvailWidth > screenAvailHeight) {
         wwd.navigator.range = 2.94e7;
@@ -64,9 +68,27 @@ $(document).ready(function () {
         wwd.navigator.range = 0.95e7;
     }
 
-    if (screenAvailWidth < 760) {
+    if (screenAvailWidth < 840) {
         // TODO: change the tab buttons + hide the view controls automatically
     }
+
+    document.smallScreenSize = false;
+    $(window).resize(function () {
+
+         if (!document.smallScreenSize && window.innerWidth < 840)
+         {
+             document.smallScreenSize = true;
+             $('.large-tab-text').css('display','none');
+             $('.small-tab-icon').css('display','block');
+         }
+         else if (document.smallScreenSize && window.innerWidth >= 840)
+         {
+             document.smallScreenSize = false;
+             $('.large-tab-text').css('display','block');
+             $('.small-tab-icon').css('display','none');
+         }
+
+    });
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (location) {
