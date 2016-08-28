@@ -3,11 +3,34 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function createCookie(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else expires = "";
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 function onLayerTagDelete(evt, layerUniqueID) {
     document.layerManager.onLayerDelete(null, layerUniqueID);
 }
 
 function tutorialCloseButton() {
+    createCookie('world-weather-tutorial-completed', 'true', '30');
     var selector = $("#tutorial_modal");
     selector.css('display', 'none');
     selector.remove();
@@ -483,8 +506,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                         if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
                                         if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
-                                        if (isNaN(start_datetime.getTime()))
-                                        {
+                                        if (isNaN(start_datetime.getTime())) {
                                             start_datetime = config.timeSequences[1];
                                             if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
                                         }

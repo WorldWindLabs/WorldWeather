@@ -9,6 +9,9 @@ $(document).ready(function () {
     // the default number for this tile is 1.75 (this is what WWW originally had)
     document.globalDetailControl = 1.5;
 
+    var tutorial_completed = readCookie('world-weather-tutorial-completed');
+    if (tutorial_completed) tutorialCloseButton();
+
     // enable all tooltips except on touchscreens
     function isTouchDevice() {
         return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
@@ -68,27 +71,25 @@ $(document).ready(function () {
     document.smallScreenSize = false;
     if (screenAvailWidth < 840) {
         document.smallScreenSize = true;
-        $('.large-tab-text').css('display','none');
-        $('.small-tab-icon').css('display','block');
+        $('.large-tab-text').css('display', 'none');
+        $('.small-tab-icon').css('display', 'block');
     }
     else {
-        $('.large-tab-text').css('display','block');
-        $('.small-tab-icon').css('display','none');
+        $('.large-tab-text').css('display', 'block');
+        $('.small-tab-icon').css('display', 'none');
     }
 
     $(window).resize(function () {
-         if (!document.smallScreenSize && window.innerWidth < 840)
-         {
-             document.smallScreenSize = true;
-             $('.large-tab-text').css('display','none');
-             $('.small-tab-icon').css('display','block');
-         }
-         else if (document.smallScreenSize && window.innerWidth >= 840)
-         {
-             document.smallScreenSize = false;
-             $('.large-tab-text').css('display','block');
-             $('.small-tab-icon').css('display','none');
-         }
+        if (!document.smallScreenSize && window.innerWidth < 840) {
+            document.smallScreenSize = true;
+            $('.large-tab-text').css('display', 'none');
+            $('.small-tab-icon').css('display', 'block');
+        }
+        else if (document.smallScreenSize && window.innerWidth >= 840) {
+            document.smallScreenSize = false;
+            $('.large-tab-text').css('display', 'block');
+            $('.small-tab-icon').css('display', 'none');
+        }
     });
 
     if (navigator.geolocation) {
