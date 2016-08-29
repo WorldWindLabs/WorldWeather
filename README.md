@@ -1,7 +1,9 @@
 #NASA World Weather
 ### World Weather is a 3D/4D web app for interactive display of spatial data, typically satellite data, oriented to deliver weather and climate data.
 
-<img src="http://i.imgur.com/GNI73wr.jpg" />
+##Link to video tutorial:
+
+<https://www.youtube.com/watch?v=WMYI1UcgFr4>
 
 ##Introduction
 
@@ -55,6 +57,8 @@ _Image showing the Dead Sea in Jordan, as shown from ESA Sentinel - True Color l
 **Layer Controls:** View legends, adjust opacity and manage time series data
 
 **View Options:** Change projection (3D and multiple 2D choices), use the ‘go-to’ Destination, and toggle Screen Controls
+
+**2 Globes Mode:** Display 2 globes on the screen, and add layers to each seperately 
 
 **Help:** Guidance regarding how to use the application
 
@@ -121,6 +125,9 @@ _Demonstrating how the globe can center at the input destination, here NASA Ames
 _Demonstrating how the projection can be changed, here to Equirectangular_
 
 <img width="897" alt="equirectangular" src="https://cloud.githubusercontent.com/assets/19692086/17829788/6092a230-666e-11e6-98cb-96a291e2a858.PNG">
+
+###2 Globes Mode
+When the globe icon on the top right of the screen is clicked, 2 globes are displayed on the screen. Add layers as usual, then navigate to the Selected Layers tab where a globe icon will be displayed next to each layer. Clicking on that icon will move layers across globes.
 
 ###Help
 This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
