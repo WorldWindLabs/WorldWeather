@@ -129,6 +129,10 @@ _Demonstrating how the projection can be changed, here to Equirectangular_
 ###2 Globes Mode
 When the globe icon on the top right of the screen is clicked, 2 globes are displayed on the screen. Add layers as usual, then navigate to the Selected Layers tab where a globe icon will be displayed next to each layer. Clicking on that icon will move layers across globes.
 
+_The 2 Globes mode with different layers on each_
+
+<img width="892" alt="capture" src="https://cloud.githubusercontent.com/assets/19692086/18040662/3d4a9fc8-6d65-11e6-84eb-ad29167137f6.PNG">
+
 ###Help
 This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
 
