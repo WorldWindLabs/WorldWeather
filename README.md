@@ -3,7 +3,21 @@
 
 ##Link to video tutorial:
 
-<https://www.youtube.com/watch?v=WMYI1UcgFr4>
+[World Weather Tutorial Video](https://www.youtube.com/watch?v=WMYI1UcgFr4)
+
+##Sections
+
+1. [Introduction](#introduction)
+2. [Features of World Weather](#features-of-worldweather)
+3. [Data Sources](#data-sources)
+4. [Application Walkthrough](#application-walk-through)
+    * [Available Layers](#available-layers)
+    * [Selected Layers](#selected-layers)
+    * [Layer Controls](#layer-controls)
+    * [View Options](#view-options)
+    * [2 Globes Mode](#2-globes-mode)
+    * [Help Tab](#help)
+    * [Info Tab](#info)
 
 ##Introduction
 
