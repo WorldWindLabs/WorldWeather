@@ -159,3 +159,11 @@ _The Help tab_
 
 ###Info
 Provides some general information about the app
+
+
+***
+
+**Organization:** NASA Ames Research Center (PX)  
+**Manager:** Patrick Hogan
+**Authors:** Farah Salah, Khaled AlSharif
+**Acknowledgements:** Miguel Del Castillo, Bert Stewart, Gabriel Militão, Benjamin Chang 
