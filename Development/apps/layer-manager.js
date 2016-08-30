@@ -3,10 +3,11 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
-var LayerManager = function (worldWindow) {
+var LayerManager = function (worldWindow, worldWindowDuplicated) {
     var thisExplorer = this;
 
     this.wwd = worldWindow;
+    if (document.wwd_duplicate) this.wwd_duplicate = worldWindowDuplicated;
 
     document.numberOfLegends = 0;
 
@@ -22,6 +23,7 @@ var LayerManager = function (worldWindow) {
 
     this.geocoder = new WorldWind.NominatimGeocoder();
     this.goToAnimator = new WorldWind.GoToAnimator(this.wwd);
+    if (document.wwd_duplicate) this.goToAnimator_duplicated = new WorldWind.GoToAnimator(this.wwd_duplicate);
     $("#searchText").on("keypress", function (e) {
         thisExplorer.onSearchTextKeyPress($(this), e);
     });
@@ -38,6 +40,7 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.roundGlobe) {
             this.wwd.globe = this.roundGlobe;
+            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.wwd.globe;
         }
     }
     else {
@@ -72,10 +75,12 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.flatGlobe) {
             this.wwd.globe = this.flatGlobe;
+            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.flatGlobe;
         }
     }
 
     this.wwd.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.onLayerClick = function (layerButton) {
@@ -91,13 +96,11 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
     layer.enabled = !layer.enabled;
 
     var baseLayers = ["Digital Elevation Model", "Blue Marble", "Bing Aerial with Labels"];
-    if (baseLayers.indexOf(layer.displayName) > -1)
-    {
+    if (baseLayers.indexOf(layer.displayName) > -1) {
         for (var k = 0; k < baseLayers.length; k++) {
             if (baseLayers[k] == layer.displayName) continue;
             for (var j = 0; j < this.wwd.layers.length; j++) {
-                if (this.wwd.layers[j].displayName == baseLayers[k])
-                {
+                if (this.wwd.layers[j].displayName == baseLayers[k]) {
                     this.wwd.layers[j].layerSelected = true;
                     this.wwd.layers[j].enabled = false;
                     break;
@@ -111,6 +114,7 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
 
     this.synchronizeLayerList();
     this.wwd.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.createLayerList = function () {
@@ -161,15 +165,25 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += "No legend was provided for this layer by the data source.";
                 }
 
-                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Date and Time</div>';
+                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Date and Time</div><br/>';
+
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
-                    legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
+                    legendAdditions += '<div style="text-align: center; width: 100%">';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'start\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'end\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '</div><div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
                 }
                 else if (layer.layerType == "WMTS")
                 {
+                    legendAdditions += '<div style="text-align: center; width: 100%">';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
@@ -177,7 +191,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
                     legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
+                    legendAdditions += '</div><br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
                 else if (layer.currentTimeString) {
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
@@ -189,7 +203,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 legendAdditions += '<div class="ui-slider" id="opacity_slider_' + layer.uniqueID + '"></div>';
                 legendAdditions += '<div type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</div>';
 
-
                 legendAdditions += '</div></div><footer class="card-footer">';
                 legendAdditions += '<div class="card-footer-item" id= \'' + layer.uniqueID + '\' onclick="showHideLegends(event, this,  \'view\', \'' + layer.uniqueID + '\')"><a href="#" >View</a></div>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \'' + layer.uniqueID + '\')">Info</a>';
@@ -199,29 +212,28 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 placeholder.append(legendAdditions);
 
                 var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
-                var amount_selector = $("#amount" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
+                    var time_arrays = layer.timeSequence.produceArrayOfTimes();
 
-                    var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
-                        value: layer.timeSequence.endTime.getTime(),
-                        min: layer.timeSequence.startTime.getTime(),
-                        max: layer.timeSequence.endTime.getTime(),
-                        step: time_delta.getTime()
+                        value: time_arrays.length - 1,
+                        min: 0,
+                        max: time_arrays.length - 1,
+                        step: 1
                     });
-                    var options = {
-                        weekday: "short", year: "numeric", month: "short",
-                        day: "numeric", hour: "2-digit", minute: "2-digit"
-                    };
+
+                    var amount_selector = $("#amount" + layer.uniqueID);
                     datetime_selector.on("slide", function (event, ui) {
-                        amount_selector.html(new Date(ui.value).toUTCString());
+                        amount_selector.html(time_arrays[ui.value].toUTCString());
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
-                        var new_datetime = new Date(ui.value);
-                        alterWmsLayerTime(event, layer.uniqueID, new_datetime);
+                        alterWmsLayerTime(event, layer.uniqueID, ui.value);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toUTCString());
+                    datetime_selector.on("change", function (event, ui) {
+                        alterWmsLayerTime(event, layer.uniqueID, ui.value);
+                    });
+                    amount_selector.html(time_arrays[time_arrays.length - 1].toUTCString());
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
@@ -240,6 +252,10 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     opacity_selector.on("slidestop", function (event, ui) {
                         layer.opacity = ui.value;
                         document.wwd.redraw();
+                        if (document.wwd_duplicate)
+                        {
+                            document.wwd_duplicate.redraw();
+                        }
                     });
 
                 }
@@ -261,7 +277,9 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
 
-    var layerTagSelector = $("#layer_tag_"+layer.uniqueID);
+    layer.isOnLeftGlobe = true;
+
+    var layerTagSelector = $("#layer_tag_" + layer.uniqueID);
     if (layerTagSelector.length) layerTagSelector.remove();
 
     var uniqueSelector = $("#" + layer.uniqueID);
@@ -280,12 +298,10 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     document.global_view_layers = [];
     //end of section
 
-    if (layer.displayName == "Placemarks")
-    {
-        document.placemarkLayer = null;
-    }
+    if (layer.displayName == "Placemarks") document.placemarkLayer = null;
 
     this.wwd.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.onLayerMoveDown = function (e) {
@@ -336,23 +352,47 @@ LayerManager.prototype.onLayerMoveUp = function (e) {
     this.synchronizeLayerList();
 };
 
+LayerManager.prototype.onLayerMoveGlobe = function (e) {
+    //make sure none of the "view"s on the legends are selected
+    var footer_content = document.getElementsByClassName("card-footer-item");
+    for (var a = 0; a < footer_content.length; a++) {
+        footer_content[a].childNodes[0].innerHTML = "View";
+    }
+    document.global_view_layers = [];
+    //end of section
+
+    var identifier = parseInt(e.attr("identifier"));
+    document.wwd.layers[identifier].isOnLeftGlobe = !document.wwd.layers[identifier].isOnLeftGlobe;
+
+    if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
+
+    document.wwd.redraw();
+    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
+    this.synchronizeLayerList();
+};
+
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
-    var layerListItemText= $("#layer_text");
-    var BaseLayersListItem= $("#base_layers");
+    var baseLayersListItem = $("#base_layers");
+    var duplicateLayersListItem = $("#layerList_duplicate");
 
-    if (!document.isInitialized) {
-        document.isInitialized = 0;
-    }
+    var layerListItemText = $("#layer_text");
+    var duplicatelayerListItemText = $("#layer_text_duplicate");
+
+    if (!document.isInitialized) document.isInitialized = 0;
 
     layerListItem.find("div").remove();
-    BaseLayersListItem.find("div").remove();
+    baseLayersListItem.find("div").remove();
+
+    if (duplicateLayersListItem.length)
+        duplicateLayersListItem.find("div").remove();
 
     var self = this;
-    var count = 0;
+    var left_count = 0;
+    var right_count = 0;
 
     // Synchronize the displayed layer list with the World Window's layer list.
-    for (var i = this.wwd.layers.length-1; i >= 0; i--) {
+    for (var i = this.wwd.layers.length - 1; i >= 0; i--) {
         var layer = this.wwd.layers[i];
 
         if (layer.hide) {
@@ -360,26 +400,26 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
 
         if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
+            if (!(document.wwd_duplicate)) {
+                if (document.isInitialized < 2) {
+                    var controllayerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</div>');
+                    var controlItem = $("#controlbuttons");
+                    controlItem.append(controllayerItem);
 
-            if (document.isInitialized < 2) {
+                    controllayerItem.find("span").on("click", function (e) {
+                        self.onLayerDelete($(this));
+                    });
 
-                var controllayerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</div>');
-                var controlItem = $("#controlbuttons");
-                controlItem.append(controllayerItem);
+                    controllayerItem.on("click", function (e) {
+                        self.onLayerClick($(this));
+                    });
 
-                controllayerItem.find("span").on("click", function (e) {
-                    self.onLayerDelete($(this));
-                });
+                    if (layer.enabled) {
+                        controllayerItem.addClass("active");
+                    }
 
-                controllayerItem.on("click", function (e) {
-                    self.onLayerClick($(this));
-                });
-
-                if (layer.enabled) {
-                    controllayerItem.addClass("active");
+                    document.isInitialized += 1;
                 }
-
-                document.isInitialized += 1;
             }
         }
 
@@ -390,21 +430,41 @@ LayerManager.prototype.synchronizeLayerList = function () {
             var baseLayers = ["Digital Elevation Model", "Blue Marble", "Atmosphere", "Bing Aerial with Labels"];
 
             if (baseLayers.indexOf(toDisplay) == -1) {
-                if (toDisplay.length > 25) {
-                    toDisplay = toDisplay.substr(0, 25) + "...";
-                }
+                if (toDisplay.length > 20) toDisplay = toDisplay.substr(0, 20) + "...";
             }
 
             var layerItem = null;
             if (baseLayers.indexOf(toDisplay) > -1) {
                 layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" identifier="' + i + '">' + toDisplay + '</div>');
-                BaseLayersListItem.append(layerItem);
+                baseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
-                layerListItem.append(layerItem);
-            }
+                if (document.wwd_duplicate) {
+                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\'' + layer.displayName + '\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="margin-left: 5px" id="move_globe_' + i + '" class="fa fa-globe pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                }
+                else
+                {
+                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                }
 
+
+                if (document.wwd_duplicate)
+                {
+                    if (layer.isOnLeftGlobe)
+                    {
+                        layerListItem.append(layerItem);
+                        left_count += 1;
+                    }
+                    else
+                    {
+                        duplicateLayersListItem.append(layerItem);
+                        right_count += 1;
+                    }
+                } else {
+                    layerListItem.append(layerItem);
+                    left_count += 1;
+                }
+            }
 
             $('#delete_icon_' + i).on("click", function (e) {
                 self.onLayerDelete($(this));
@@ -418,6 +478,10 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 self.onLayerMoveUp($(this));
             });
 
+            $('#move_globe_' + i).on("click", function (e) {
+                self.onLayerMoveGlobe($(this));
+            });
+
             layerItem.on("click", function (e) {
                 self.onLayerClick($(this));
             });
@@ -428,16 +492,23 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
-    $("#count").text("Selected layers (" + (count - 4) + ")");
+    $("#count").text("Left Globe Layers (" + left_count + ")");
+    $("#count_duplicate").text("Right Globe Layers (" + right_count + ")");
 
-
-    if(count == 4)
-    {
-        layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab</p>');
+    if (left_count == 0) {
+        layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab. Layers that you add will initially show up here.</p>');
     }
     else {
         layerListItemText.html("");
     }
+
+    if (right_count == 0) {
+        duplicatelayerListItemText.html('<p style="color: white">To move a layer from the left globe to the right globe, click on the small globe icon and it will switch between globes.</p>');
+    }
+    else {
+        duplicatelayerListItemText.html("");
+    }
+
 };
 
 LayerManager.prototype.createProjectionList = function () {
@@ -490,20 +561,18 @@ LayerManager.prototype.performSearch = function (queryString) {
             latitude = parseFloat(tokens[0]);
             longitude = parseFloat(tokens[1]);
             thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
-            addPlacemark(latitude,longitude);
+            if (document.wwd_duplicate) thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
+            addPlacemark(latitude, longitude);
         }
         else {
             this.geocoder.lookup(queryString, function (geocoder, result) {
                 if (result.length > 0) {
                     latitude = parseFloat(result[0].lat);
                     longitude = parseFloat(result[0].lon);
-
-                    WorldWind.Logger.log(
-                        WorldWind.Logger.LEVEL_INFO, queryString + ": " + latitude + ", " + longitude);
-
                     thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
+                    if (document.wwd_duplicate) thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
                 }
-                addPlacemark(latitude,longitude, queryString);
+                addPlacemark(latitude, longitude, queryString);
             });
         }
 

@@ -3,11 +3,34 @@
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
 
+function createCookie(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else expires = "";
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 function onLayerTagDelete(evt, layerUniqueID) {
     document.layerManager.onLayerDelete(null, layerUniqueID);
 }
 
 function tutorialCloseButton() {
+    createCookie('world-weather-tutorial-completed', 'true', '30');
     var selector = $("#tutorial_modal");
     selector.css('display', 'none');
     selector.remove();
@@ -33,11 +56,10 @@ function moveWmtsLayer(layerUniqueID, direction) {
         return null;
 
     var new_layer = new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]);
-    if (document.wwd_duplicate)
-    {
-        new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
-    }
+    if (document.wwd_duplicate) new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
+
     replaceLayerByID(layerUniqueID, new_layer);
+    if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
 
     document.wwd.redraw();
     if (document.wwd_duplicate && !layer.isOnLeftGlobe)
@@ -230,9 +252,7 @@ function addPlacemark(lat, long, dest) {
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
-        if (document.wwd_duplicate) {
-            document.wwd_duplicate.addLayer(document.placemarkLayer);
-        }
+        if (document.wwd_duplicate) document.wwd_duplicate.addLayer(document.placemarkLayer);
     }
     var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
@@ -683,27 +703,52 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
     }
 }
 
+
 function alterWmsLayerTime(evt, layerID, direction) {
     var layer = findLayerByID(layerID);
+    var amount_selector = $("#amount" + layer.uniqueID);
+    var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
 
-    if (direction == "next")
-        layer.time = layer.timeSequence.next();
-    else if (direction == "previous")
-        layer.time = layer.timeSequence.previous();
+    if (direction == "next") {
+        if (layer.timeSequence.arrayOfTimesIndex < (layer.timeSequence.arrayOfTimes.length - 1)) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex + 1];
+            layer.timeSequence.arrayOfTimesIndex += 1;
+        }
+    }
+    else if (direction == "previous") {
+        if (layer.timeSequence.arrayOfTimesIndex > 0) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex - 1];
+            layer.timeSequence.arrayOfTimesIndex -= 1;
+        }
+    }
+    else if (direction == "big-previous") {
+        if (layer.timeSequence.arrayOfTimesIndex >= 10) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex - 10];
+            layer.timeSequence.arrayOfTimesIndex -= 10;
+        }
+    }
+    else if (direction == "big-next") {
+        if (layer.timeSequence.arrayOfTimesIndex < (layer.timeSequence.arrayOfTimes.length - 10)) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex + 10];
+            layer.timeSequence.arrayOfTimesIndex += 10;
+        }
+    }
     else if (direction == "start") {
-        layer.time = layer.timeSequence.startTime;
-        layer.timeSequence.currentTime = layer.time;
+        layer.timeSequence.arrayOfTimesIndex = 0;
+        layer.time = layer.timeSequence.arrayOfTimes[0];
     }
     else if (direction == "end") {
-        layer.time = layer.timeSequence.endTime;
-        layer.timeSequence.currentTime = layer.time;
+        layer.timeSequence.arrayOfTimesIndex = layer.timeSequence.arrayOfTimes.length - 1;
+        layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex];
     }
     else {
-        layer.time = direction;
-        layer.timeSequence.currentTime = layer.time;
+        layer.time = layer.timeSequence.arrayOfTimes[direction];
+        layer.timeSequence.arrayOfTimesIndex = direction;
     }
 
+    layer.timeSequence.currentTime = layer.time;
+    amount_selector.html(layer.time.toUTCString());
+    datetime_selector.slider('value',layer.timeSequence.arrayOfTimesIndex);
     document.wwd.redraw();
-    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
-        document.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
 }

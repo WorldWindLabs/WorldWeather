@@ -150,6 +150,19 @@ define([
             return this.currentTime;
         };
 
+        PeriodicTimeSequence.prototype.produceArrayOfTimes = function () {
+            var returnedArray = [];
+            var time = this.startTime;
+            while (time <= this.endTime)
+            {
+                returnedArray.push(time);
+                time = PeriodicTimeSequence.incrementTime(time, this.period);
+            }
+            this.arrayOfTimes = returnedArray;
+            this.arrayOfTimesIndex = returnedArray.length - 1;
+            return returnedArray;
+        };
+
         /**
          * Resets this sequence's current time to its start time.
          * Use [next]{@link PeriodicTimeSequence#next} to step forwards through this sequence.

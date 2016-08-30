@@ -7,7 +7,7 @@ var LayerManager = function (worldWindow, worldWindowDuplicated) {
     var thisExplorer = this;
 
     this.wwd = worldWindow;
-    this.wwd_duplicate = worldWindowDuplicated;
+    if (document.wwd_duplicate) this.wwd_duplicate = worldWindowDuplicated;
 
     document.numberOfLegends = 0;
 
@@ -23,7 +23,7 @@ var LayerManager = function (worldWindow, worldWindowDuplicated) {
 
     this.geocoder = new WorldWind.NominatimGeocoder();
     this.goToAnimator = new WorldWind.GoToAnimator(this.wwd);
-    this.goToAnimator_duplicated = new WorldWind.GoToAnimator(this.wwd_duplicate);
+    if (document.wwd_duplicate) this.goToAnimator_duplicated = new WorldWind.GoToAnimator(this.wwd_duplicate);
     $("#searchText").on("keypress", function (e) {
         thisExplorer.onSearchTextKeyPress($(this), e);
     });
@@ -40,7 +40,7 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.roundGlobe) {
             this.wwd.globe = this.roundGlobe;
-            this.wwd_duplicate.globe = this.wwd.globe;
+            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.wwd.globe;
         }
     }
     else {
@@ -75,12 +75,12 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.flatGlobe) {
             this.wwd.globe = this.flatGlobe;
-            this.wwd_duplicate.globe = this.flatGlobe;
+            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.flatGlobe;
         }
     }
 
     this.wwd.redraw();
-    this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.onLayerClick = function (layerButton) {
@@ -114,7 +114,7 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
 
     this.synchronizeLayerList();
     this.wwd.redraw();
-    this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.createLayerList = function () {
@@ -138,13 +138,13 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                var layerTagsSelector = $("#" + layer.sourceLayersOptions + "_added_tags");
+                var layerTagsSelector = $("#"+layer.sourceLayersOptions+"_added_tags");
                 var toDisplay = layer.displayName;
                 if (toDisplay.length > 7) {
                     toDisplay = toDisplay.substr(0, 7) + "...";
                 }
 
-                layerTagsSelector.append('<i class="layer-tag tag is-info" data-toggle="tooltip" title=\'' + layer.displayName + '\' id="layer_tag_' + layer.uniqueID + '">' + toDisplay + '<button class="delete" onclick="onLayerTagDelete(event, \'' + layer.uniqueID + '\')"></button></i>');
+                layerTagsSelector.append('<i class="layer-tag tag is-info" data-toggle="tooltip" title=\''+ layer.displayName+'\' id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
@@ -165,22 +165,33 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     legendAdditions += "No legend was provided for this layer by the data source.";
                 }
 
-                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Date and Time</div>';
+                legendAdditions += '<hr><div style="font-weight: bold; font-size: small; text-align: center">Date and Time</div><br/>';
+
                 if (layer.time && layer.timeSequence) {
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
-                    legendAdditions += '<div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
+                    legendAdditions += '<div style="text-align: center; width: 100%">';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'start\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'end\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '</div><div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
                 }
-                else if (layer.layerType == "WMTS") {
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
+                else if (layer.layerType == "WMTS")
+                {
+                    legendAdditions += '<div style="text-align: center; width: 100%">';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '</div><br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
                 else if (layer.currentTimeString) {
                     legendAdditions += '<small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
@@ -192,7 +203,6 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 legendAdditions += '<div class="ui-slider" id="opacity_slider_' + layer.uniqueID + '"></div>';
                 legendAdditions += '<div type="text" id="opacity_amount_' + layer.uniqueID + '" style="font-size: small">100%</div>';
 
-
                 legendAdditions += '</div></div><footer class="card-footer">';
                 legendAdditions += '<div class="card-footer-item" id= \'' + layer.uniqueID + '\' onclick="showHideLegends(event, this,  \'view\', \'' + layer.uniqueID + '\')"><a href="#" >View</a></div>';
                 legendAdditions += '<a class="card-footer-item" onclick="showHideLegends(event, this, \'info\', \'' + layer.uniqueID + '\')">Info</a>';
@@ -202,29 +212,28 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 placeholder.append(legendAdditions);
 
                 var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
-                var amount_selector = $("#amount" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
+                    var time_arrays = layer.timeSequence.produceArrayOfTimes();
 
-                    var time_delta = WorldWind.PeriodicTimeSequence.incrementTime(new Date(0), layer.timeSequence.period);
                     datetime_selector.slider({
-                        value: layer.timeSequence.endTime.getTime(),
-                        min: layer.timeSequence.startTime.getTime(),
-                        max: layer.timeSequence.endTime.getTime(),
-                        step: time_delta.getTime()
+                        value: time_arrays.length - 1,
+                        min: 0,
+                        max: time_arrays.length - 1,
+                        step: 1
                     });
-                    var options = {
-                        weekday: "short", year: "numeric", month: "short",
-                        day: "numeric", hour: "2-digit", minute: "2-digit"
-                    };
+
+                    var amount_selector = $("#amount" + layer.uniqueID);
                     datetime_selector.on("slide", function (event, ui) {
-                        amount_selector.html(new Date(ui.value).toUTCString());
+                        amount_selector.html(time_arrays[ui.value].toUTCString());
                     });
                     datetime_selector.on("slidestop", function (event, ui) {
-                        var new_datetime = new Date(ui.value);
-                        alterWmsLayerTime(event, layer.uniqueID, new_datetime);
+                        alterWmsLayerTime(event, layer.uniqueID, ui.value);
                     });
-                    amount_selector.html(new Date(datetime_selector.slider("value")).toUTCString());
+                    datetime_selector.on("change", function (event, ui) {
+                        alterWmsLayerTime(event, layer.uniqueID, ui.value);
+                    });
+                    amount_selector.html(time_arrays[time_arrays.length - 1].toUTCString());
                 }
 
                 var opacity_selector = $("#opacity_slider_" + layer.uniqueID);
@@ -243,6 +252,10 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                     opacity_selector.on("slidestop", function (event, ui) {
                         layer.opacity = ui.value;
                         document.wwd.redraw();
+                        if (document.wwd_duplicate)
+                        {
+                            document.wwd_duplicate.redraw();
+                        }
                     });
 
                 }
@@ -264,6 +277,8 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     if (e) layer = this.wwd.layers[e.attr("identifier")];
     else layer = findLayerByID(layerID);
 
+    layer.isOnLeftGlobe = true;
+
     var layerTagSelector = $("#layer_tag_" + layer.uniqueID);
     if (layerTagSelector.length) layerTagSelector.remove();
 
@@ -283,12 +298,10 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     document.global_view_layers = [];
     //end of section
 
-    if (layer.displayName == "Placemarks") {
-        document.placemarkLayer = null;
-    }
+    if (layer.displayName == "Placemarks") document.placemarkLayer = null;
 
     this.wwd.redraw();
-    this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
 };
 
 LayerManager.prototype.onLayerMoveDown = function (e) {
@@ -351,8 +364,10 @@ LayerManager.prototype.onLayerMoveGlobe = function (e) {
     var identifier = parseInt(e.attr("identifier"));
     document.wwd.layers[identifier].isOnLeftGlobe = !document.wwd.layers[identifier].isOnLeftGlobe;
 
+    if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
+
     document.wwd.redraw();
-    document.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
     this.synchronizeLayerList();
 };
 
@@ -364,13 +379,13 @@ LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItemText = $("#layer_text");
     var duplicatelayerListItemText = $("#layer_text_duplicate");
 
-    if (!document.isInitialized) {
-        document.isInitialized = 0;
-    }
+    if (!document.isInitialized) document.isInitialized = 0;
 
     layerListItem.find("div").remove();
     baseLayersListItem.find("div").remove();
-    duplicateLayersListItem.find("div").remove();
+
+    if (duplicateLayersListItem.length)
+        duplicateLayersListItem.find("div").remove();
 
     var self = this;
     var left_count = 0;
@@ -385,7 +400,27 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
 
         if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
-            // TODO: bring back the coordinates and view controls!
+            if (!(document.wwd_duplicate)) {
+                if (document.isInitialized < 2) {
+                    var controllayerItem = $('<div class="list-group-item btn btn-block" identifier="' + i + '">' + layer.displayName + '</div>');
+                    var controlItem = $("#controlbuttons");
+                    controlItem.append(controllayerItem);
+
+                    controllayerItem.find("span").on("click", function (e) {
+                        self.onLayerDelete($(this));
+                    });
+
+                    controllayerItem.on("click", function (e) {
+                        self.onLayerClick($(this));
+                    });
+
+                    if (layer.enabled) {
+                        controllayerItem.addClass("active");
+                    }
+
+                    document.isInitialized += 1;
+                }
+            }
         }
 
         else if (layer.enabled || layer.layerSelected) {
@@ -395,9 +430,7 @@ LayerManager.prototype.synchronizeLayerList = function () {
             var baseLayers = ["Digital Elevation Model", "Blue Marble", "Atmosphere", "Bing Aerial with Labels"];
 
             if (baseLayers.indexOf(toDisplay) == -1) {
-                if (toDisplay.length > 20) {
-                    toDisplay = toDisplay.substr(0, 20) + "...";
-                }
+                if (toDisplay.length > 20) toDisplay = toDisplay.substr(0, 20) + "...";
             }
 
             var layerItem = null;
@@ -406,16 +439,30 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 baseLayersListItem.append(layerItem);
             }
             else {
-                layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\'' + layer.displayName + '\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="margin-left: 5px" id="move_globe_' + i + '" class="fa fa-globe pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
-                if (layer.isOnLeftGlobe)
-                {
-                    layerListItem.append(layerItem);
-                    left_count += 1;
+                if (document.wwd_duplicate) {
+                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\'' + layer.displayName + '\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="margin-left: 5px" id="move_globe_' + i + '" class="fa fa-globe pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
                 }
                 else
                 {
-                    duplicateLayersListItem.append(layerItem);
-                    right_count += 1;
+                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                }
+
+
+                if (document.wwd_duplicate)
+                {
+                    if (layer.isOnLeftGlobe)
+                    {
+                        layerListItem.append(layerItem);
+                        left_count += 1;
+                    }
+                    else
+                    {
+                        duplicateLayersListItem.append(layerItem);
+                        right_count += 1;
+                    }
+                } else {
+                    layerListItem.append(layerItem);
+                    left_count += 1;
                 }
             }
 
@@ -514,7 +561,7 @@ LayerManager.prototype.performSearch = function (queryString) {
             latitude = parseFloat(tokens[0]);
             longitude = parseFloat(tokens[1]);
             thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
-            thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
+            if (document.wwd_duplicate) thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
             addPlacemark(latitude, longitude);
         }
         else {
@@ -522,12 +569,8 @@ LayerManager.prototype.performSearch = function (queryString) {
                 if (result.length > 0) {
                     latitude = parseFloat(result[0].lat);
                     longitude = parseFloat(result[0].lon);
-
-                    WorldWind.Logger.log(
-                        WorldWind.Logger.LEVEL_INFO, queryString + ": " + latitude + ", " + longitude);
-
                     thisLayerManager.goToAnimator.goTo(new WorldWind.Location(latitude, longitude), null);
-                    thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
+                    if (document.wwd_duplicate) thisLayerManager.goToAnimator_duplicated.goTo(new WorldWind.Location(latitude, longitude), null);
                 }
                 addPlacemark(latitude, longitude, queryString);
             });

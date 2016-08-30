@@ -55,8 +55,15 @@ function moveWmtsLayer(layerUniqueID, direction) {
     else
         return null;
 
-    replaceLayerByID(layerUniqueID, new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]));
+    var new_layer = new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]);
+    if (document.wwd_duplicate) new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
+
+    replaceLayerByID(layerUniqueID, new_layer);
+    if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
+
     document.wwd.redraw();
+    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
+        document.wwd_duplicate.redraw();
     $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
@@ -245,6 +252,7 @@ function addPlacemark(lat, long, dest) {
     if (!document.placemarkLayer) {
         document.placemarkLayer = new WorldWind.RenderableLayer("Placemarks");
         document.wwd.addLayer(document.placemarkLayer);
+        if (document.wwd_duplicate) document.wwd_duplicate.addLayer(document.placemarkLayer);
     }
     var pinLibrary = "images/pushpins/", // location of the image files
         placemark,
@@ -403,6 +411,10 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                             wmts_layer.enabled = false;
                             wmts_layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(wmts_layer);
+                            if (document.wwd_duplicate) {
+                                document.wwd_duplicate.addLayer(wmts_layer);
+                                wmts_layer.isOnLeftGlobe = true;
+                            }
                             wmts_data.push(wmts_layer.displayName);
                         }
                     }
@@ -445,6 +457,10 @@ function getKmlDataForCombobox(data_url, jquery_combobox, jquery_layer_options) 
                     kmlLayer.enabled = false;
                     kmlLayer.sourceLayersOptions = jquery_layer_options;
                     document.wwd.addLayer(kmlLayer);
+                    if (document.wwd_duplicate) {
+                        document.wwd_duplicate.addLayer(kmlLayer);
+                        kmlLayer.isOnLeftGlobe = true;
+                    }
                 }
             }
 
@@ -537,6 +553,10 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             layer.enabled = false;
                             layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
+                            if (document.wwd_duplicate) {
+                                document.wwd_duplicate.addLayer(layer);
+                                layer.isOnLeftGlobe = true;
+                            }
                             wms_data.push(layer.displayName);
                         }
                     }
@@ -662,6 +682,10 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                 layer.enabled = false;
                                 layer.sourceLayersOptions = jquery_layer_options;
                                 document.wwd.addLayer(layer);
+                                if (document.wwd_duplicate) {
+                                    document.wwd_duplicate.addLayer(layer);
+                                    layer.isOnLeftGlobe = true;
+                                }
                                 wms_data.push(layer.displayName);
                             }
                         }
@@ -679,25 +703,52 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
     }
 }
 
+
 function alterWmsLayerTime(evt, layerID, direction) {
     var layer = findLayerByID(layerID);
+    var amount_selector = $("#amount" + layer.uniqueID);
+    var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
 
-    if (direction == "next")
-        layer.time = layer.timeSequence.next();
-    else if (direction == "previous")
-        layer.time = layer.timeSequence.previous();
+    if (direction == "next") {
+        if (layer.timeSequence.arrayOfTimesIndex < (layer.timeSequence.arrayOfTimes.length - 1)) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex + 1];
+            layer.timeSequence.arrayOfTimesIndex += 1;
+        }
+    }
+    else if (direction == "previous") {
+        if (layer.timeSequence.arrayOfTimesIndex > 0) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex - 1];
+            layer.timeSequence.arrayOfTimesIndex -= 1;
+        }
+    }
+    else if (direction == "big-previous") {
+        if (layer.timeSequence.arrayOfTimesIndex >= 10) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex - 10];
+            layer.timeSequence.arrayOfTimesIndex -= 10;
+        }
+    }
+    else if (direction == "big-next") {
+        if (layer.timeSequence.arrayOfTimesIndex < (layer.timeSequence.arrayOfTimes.length - 10)) {
+            layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex + 10];
+            layer.timeSequence.arrayOfTimesIndex += 10;
+        }
+    }
     else if (direction == "start") {
-        layer.time = layer.timeSequence.startTime;
-        layer.timeSequence.currentTime = layer.time;
+        layer.timeSequence.arrayOfTimesIndex = 0;
+        layer.time = layer.timeSequence.arrayOfTimes[0];
     }
     else if (direction == "end") {
-        layer.time = layer.timeSequence.endTime;
-        layer.timeSequence.currentTime = layer.time;
+        layer.timeSequence.arrayOfTimesIndex = layer.timeSequence.arrayOfTimes.length - 1;
+        layer.time = layer.timeSequence.arrayOfTimes[layer.timeSequence.arrayOfTimesIndex];
     }
     else {
-        layer.time = direction;
-        layer.timeSequence.currentTime = layer.time;
+        layer.time = layer.timeSequence.arrayOfTimes[direction];
+        layer.timeSequence.arrayOfTimesIndex = direction;
     }
 
+    layer.timeSequence.currentTime = layer.time;
+    amount_selector.html(layer.time.toUTCString());
+    datetime_selector.slider('value',layer.timeSequence.arrayOfTimesIndex);
     document.wwd.redraw();
+    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
 }

@@ -957,7 +957,7 @@ define([
 
             for (var i = 0, len = layers.length; i < len; i++) {
                 layer = layers[i];
-                if (layer) {
+                if (layer && layer.enabled) {
                     if (document.wwd_duplicate) {
                         if (layer.isBaseLayer || (this.isLeftGlobe && layer.isOnLeftGlobe) || (!this.isLeftGlobe && !layer.isOnLeftGlobe))
                         {
