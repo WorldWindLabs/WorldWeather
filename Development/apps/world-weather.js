@@ -141,7 +141,7 @@ $(document).ready(function () {
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-    var eumetsat_url = 'http://eumetview.eumetsat.int/geoserver/wms?service=wms&version=1.3.0&request=GetCapabilities';
+    var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
 
     var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
@@ -211,6 +211,19 @@ $(document).ready(function () {
     }
     // end of digital elevation model from wms server code
 
+    document.comboboxes = [];
+
+    $('.global_combobox').combobox();
+    document.global_combobox_selector = document.comboboxes[0];
+
+    $('#global_layers_options').find("select").on("change", function (e) {
+        var layerName = $('#global_layers_options').find("input")[0].defaultValue;
+        if (layerName && layerName != "")
+        {
+            layerManager.onDataLayerClick(null,null,layerName);
+        }
+    });
+
     // getting data within kml file from CCI -- university of maine
     getKmlDataForCombobox(maine_url, "cci_combobox", "cci_layers_options");
 
@@ -246,4 +259,6 @@ $(document).ready(function () {
 
     // getting a bunch of WMS servers from US NWS all at once
     getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options");
+
+
 });

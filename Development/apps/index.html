@@ -131,6 +131,21 @@
         font-size: 10px !important;
     }
 
+    .search-icon-modifier
+    {
+        position: fixed;
+        font-size: 30px;
+        color: white;
+        margin-left: 6px;
+    }
+
+    .global-combobox-modifier
+    {
+        width: 80%;
+        height: 30px;
+        margin-left: 48px;
+    }
+
 </style>
 
 <div class="stars"></div>
@@ -241,8 +256,18 @@
 
         <br/>
 
+        <div id="global_layers_options">
+        <i class="fa fa-search search-icon-modifier" aria-hidden="true"></i>
+        <label><select class="global_combobox global-combobox-modifier">
+        <option></option>
+        </select></label>
+
+        </div>
+
+        <br/><br/>
+
         <article class="message" style="border: hidden; background-color: transparent;">
-            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67); margin-top: -17px;">
+            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67); margin-top: -30px;">
                 <div class="panel-tabs"
                      style="color: white !important; width: 100%; margin-left: 2px !important; margin-right: 2px !important;">
                     <a class="is-active data_sources_page" id="space_data_tab"
@@ -352,68 +377,6 @@
                 </div>
             </div>
         </article>
-
-    </div>
-
-    <!--Categories Tab-->
-    <div id="categories_div" class="col-sm-2 tabcontent">
-        <style scoped>
-            #categories_div {
-                position: fixed;
-                width: 300px;
-                height: 92%;
-                top: 8%;
-                left: 0;
-                background: rgba(0, 0, 0, 0.5);
-                overflow-x: visible !important;
-                overflow-y: scroll;
-            }
-        </style>
-        <br/>
-        <h5><span style="color: white; ">Air Quality</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Ash Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Drought</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Dust Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Fires</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Floods</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Severe Storms</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Shipping</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Smoke Plumes</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Vegetation</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
-        <h5><span style="color: white; ">Others</span></h5>
-        <select class="gibs_combobox explorer_combobox">
-            <option></option>
-        </select>
 
     </div>
 

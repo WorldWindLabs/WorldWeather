@@ -424,8 +424,13 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
             data_recursive(data_wmts_capabilities.contents);
 
             var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-            for (var r = 0; r < wmts_data.length; r++) html_layers += "<option><a>" + wmts_data[r] + "</a></option>";
+            for (var r = 0; r < wmts_data.length; r++) {
+                html_layers += "<option><a>" + wmts_data[r] + "</a></option>";
+                document.global_combobox_selector.additions.push(wmts_data[r]);
+            }
             html_layers += "</select></label>";
+
+            document.global_combobox_selector.refresh();
 
             var data_layers_options = $("#" + jquery_layer_options);
             data_layers_options.html(html_layers);
@@ -566,12 +571,17 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
             data_recursive(data_wms_capabilities.capability);
 
             var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-            for (var r = 0; r < wms_data.length; r++) html_layers += "<option><a>" + wms_data[r] + "</a></option>";
+            for (var r = 0; r < wms_data.length; r++) {
+                html_layers += "<option><a>" + wms_data[r] + "</a></option>";
+                document.global_combobox_selector.additions.push(wms_data[r]);
+            }
             html_layers += "</select></label>";
 
             var data_layers_options = $("#" + jquery_layer_options);
             data_layers_options.html(html_layers);
             $('.' + jquery_combobox).combobox();
+
+            document.global_combobox_selector.refresh();
 
             data_layers_options.find("select").on("change", function (e) {
                 document.layerManager.onDataLayerClick(e, jquery_layer_options);
@@ -586,8 +596,14 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
 
 function addDataToCombobox(wms_data, jquery_combobox, jquery_layer_options) {
     var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-    for (var r = 0; r < wms_data.length; r++) html_layers += "<option><a>" + wms_data[r] + "</a></option>";
+    for (var r = 0; r < wms_data.length; r++)
+    {
+        html_layers += "<option><a>" + wms_data[r] + "</a></option>";
+        document.global_combobox_selector.additions.push(wms_data[r]);
+    }
     html_layers += "</select></label>";
+
+    document.global_combobox_selector.refresh();
 
     var data_layers_options = $("#" + jquery_layer_options);
     data_layers_options.html(html_layers);
@@ -748,7 +764,7 @@ function alterWmsLayerTime(evt, layerID, direction) {
 
     layer.timeSequence.currentTime = layer.time;
     amount_selector.html(layer.time.toUTCString());
-    datetime_selector.slider('value',layer.timeSequence.arrayOfTimesIndex);
+    datetime_selector.slider('value', layer.timeSequence.arrayOfTimesIndex);
     document.wwd.redraw();
     if (document.wwd_duplicate) document.wwd_duplicate.redraw();
 }

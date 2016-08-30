@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="styles/perfect-scrollbar.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src='perfect-scrollbar.jquery.min.js'></script>
-    <link rel="stylesheet" href="bootstrap-combobox.css">
-    <script src="bootstrap-combobox.js"></script>
+    <script src='../perfect-scrollbar.jquery.min.js'></script>
+    <link rel="stylesheet" href="../bootstrap-combobox.css">
+    <script src="../bootstrap-combobox.js"></script>
 </head>
 <body>
 <style media="screen" type="text/css" scoped>
@@ -111,6 +111,21 @@
         margin-bottom: 6px !important;
         margin-right: 4px !important;
         font-size: 10px !important;
+    }
+
+    .search-icon-modifier
+    {
+        position: fixed;
+        font-size: 30px;
+        color: white;
+        margin-left: 6px;
+    }
+
+    .global-combobox-modifier
+    {
+        width: 80%;
+        height: 30px;
+        margin-left: 48px;
     }
 
 </style>
@@ -439,8 +454,18 @@
 
         <br/>
 
+        <div id="global_layers_options">
+            <i class="fa fa-search search-icon-modifier" aria-hidden="true"></i>
+            <label><select class="global_combobox global-combobox-modifier">
+                <option></option>
+            </select></label>
+
+        </div>
+
+        <br/><br/>
+
         <article class="message" style="border: hidden; background-color: transparent;">
-            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67); margin-top: -17px;">
+            <div class="message-header" style="background-color: rgba(97, 97, 97, 0.67); margin-top: -30px;">
                 <div class="panel-tabs"
                      style="color: white !important; width: 100%; margin-left: 2px !important; margin-right: 2px !important;">
                     <a class="is-active data_sources_page" id="space_data_tab"

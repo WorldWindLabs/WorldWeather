@@ -125,8 +125,11 @@ Array.prototype.move = function (from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
 };
 
-LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options) {
-    var layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
+LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options, passed_layer_name) {
+    var layerName;
+    if (passed_layer_name) layerName = passed_layer_name;
+    else layerName = $("#" + jquery_layer_options).find("input")[0].defaultValue;
+
     if (layerName != "") {
 
         for (var i = 0, len = this.wwd.layers.length; i < len; i++) {
@@ -261,7 +264,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options)
                 }
 
                 this.wwd.layers.move(i, this.wwd.layers.length - 1);
-                this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
+                if (jquery_layer_options) this.wwd.layers[i].sourceLayersOptions = jquery_layer_options;
 
                 this.wwd.redraw();
                 this.synchronizeLayerList();

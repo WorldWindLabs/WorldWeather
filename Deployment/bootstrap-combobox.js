@@ -24,8 +24,10 @@
      * ================================ */
 
     var Combobox = function ( element, options ) {
+        document.comboboxes.push(this);
         this.options = $.extend({}, $.fn.combobox.defaults, options);
         this.template = this.options.template || this.template;
+        this.additions = [];
         this.$source = $(element);
         this.$container = this.setup();
         this.$element = this.$container.find('input[type=text]');
@@ -85,6 +87,15 @@
                     selectedValue = option.val();
                 }
             });
+
+            source = source.concat(this.additions);
+            for (var i = 0; i < this.additions.length; i++)
+            {
+                map[this.additions[i]] = this.additions[i];
+            }
+
+            source = source.sort();
+
             this.map = map;
             if (selected) {
                 this.$element.val(selected);
@@ -165,7 +176,7 @@
 
             items = $.grep(items, function (item) {
                 return that.matcher(item);
-            })
+            });
 
             items = this.sorter(items);
 
@@ -450,6 +461,8 @@
                 , options = typeof option == 'object' && option;
             if(!data) {$this.data('combobox', (data = new Combobox(this, options)));}
             if (typeof option == 'string') {data[option]();}
+
+            //console.log(document.comboboxes);
         });
     };
 
