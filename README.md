@@ -1,12 +1,10 @@
 #NASA World Weather
 ### World Weather is a 3D/4D web app for interactive display of spatial data, typically satellite data, oriented to deliver weather and climate data.
 
-##Link to video tutorial:
-
-[World Weather Tutorial Video](https://www.youtube.com/watch?v=WMYI1UcgFr4)
+##Video Tutorial
 
 <a href="https://www.youtube.com/watch?v=WMYI1UcgFr4">
-<img width="479" alt="youtube" src="https://cloud.githubusercontent.com/assets/19692086/18058989/b4faa534-6dcb-11e6-88a8-57536d2a4564.PNG">
+<img src="http://i.imgur.com/GTxfgk7.png" />
 </a>
 
 ##Sections
@@ -27,11 +25,17 @@
 
 Understanding our climate is one of the most pressing issues of our time, which is why international organizations have been setting up satellites and capturing real-time data of Earth’s atmospheric conditions. Accessing the broad range of weather and climate data with one platform would greatly increase our ability to comprehend the vast stores of ‘big data.’  With one platform on which the information from the myriad of different data sources can be brought together, and displayed accurately in 3D, we would have the opportunity for a truly comprehensive view of the changes occurring to the Earth’s climate. It is also desired to allow any user to interactively view historical, current, and forecast weather information. World Weather is the first web application to display this broad range of weather and other global spatial data in 3D/4D. This gives the world community  a customizable experience that can be utilized by weather forecasters, research scientists studying climate change, and intrigued planetary data enthusiasts.
 
-<img width="900" alt="application 1" src="https://cloud.githubusercontent.com/assets/19692086/17829775/4b74f010-666e-11e6-8464-0346e03904c1.PNG">
+_Screenshot showing how the Earth looks like through World Weather in its starting position. This image shows the Blue Marble layer as a base; World Weather also supports Bing Maps and a Digital Elevation Layer too._
 
-_Image showing the Dead Sea in Jordan, as shown from ESA Sentinel - True Color layer_ 
+<img src="https://cloud.githubusercontent.com/assets/19692086/17829775/4b74f010-666e-11e6-8464-0346e03904c1.PNG" />
 
-<img src="http://i.imgur.com/2HnOm8V.jpg">
+_Image showing the Dead Sea in Jordan, as shown from ESA Sentinel - True Color layer. World Weather has full three dimensional capabilities, including elevation data for all locations on Earth._ 
+
+<img src="http://i.imgur.com/2HnOm8V.jpg" />
+
+_Screenshot showing World Weather being used to track a storm to the west of Florida (late August of 2016). Using World Weather, you can overlay weather forecasts with real-time satellite images._ 
+
+<img src="http://i.imgur.com/nqK4kV0.png" />
 
 ##Features of WorldWeather
 
@@ -144,26 +148,24 @@ _Demonstrating how the projection can be changed, here to Equirectangular_
 
 <img width="897" alt="equirectangular" src="https://cloud.githubusercontent.com/assets/19692086/17829788/6092a230-666e-11e6-98cb-96a291e2a858.PNG">
 
-###2 Globes Mode
-When the globe icon on the top right of the screen is clicked, 2 globes are displayed on the screen. Add layers as usual, then navigate to the Selected Layers tab where a globe icon will be displayed next to each layer. Clicking on that icon will move layers across globes.
+###Two Globes Mode
+When the globe icon on the top right of the screen is clicked, two globes are displayed on the screen. Add layers as usual, then navigate to the Selected Layers tab where a globe icon will be displayed next to each layer. Clicking on that icon will move layers across globes.
 
-_The 2 Globes mode with different layers on each_
+_The Two Globes mode with different layers on each._
 
-<img width="892" alt="capture" src="https://cloud.githubusercontent.com/assets/19692086/18040662/3d4a9fc8-6d65-11e6-84eb-ad29167137f6.PNG">
+<img src="https://cloud.githubusercontent.com/assets/19692086/18040662/3d4a9fc8-6d65-11e6-84eb-ad29167137f6.PNG" />
 
-###Help
-This tab provides information to the user regarding how to use the site. This can be refered to at any point for additional help.
+_Using the two globes mode to track a storm west of Florida (late August, 2016)._
 
-_The Help tab_
-<img width="897" alt="help" src="https://cloud.githubusercontent.com/assets/19692086/17829872/d5a4c420-6670-11e6-82ec-594034d25bcb.PNG">
-
-###Info
-Provides some general information about the app
+<img src="http://i.imgur.com/zdHlaBh.jpg" />
 
 
 ***
 
-**Organization:** NASA Ames Research Center (PX)  
-**Manager:** Patrick Hogan
-**Authors:** Farah Salah, Khaled AlSharif
+**Organization:** NASA Ames Research Center
+
+**Manager:** <a href="https://www.linkedin.com/in/phogan">Patrick Hogan</a>
+
+**Authors:** <a href="https://github.com/KhaledSharif">Khaled Sharif</a>, <a href="https://github.com/farahsalah">Farah Salah</a>
+
 **Acknowledgements:** Miguel Del Castillo, Bert Stewart, Gabriel Militão, Benjamin Chang 
