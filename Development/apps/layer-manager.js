@@ -495,18 +495,26 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
-    $("#count").text("Left Globe Layers (" + left_count + ")");
-    $("#count_duplicate").text("Right Globe Layers (" + right_count + ")");
+    if (document.wwd_duplicate) {
+        $("#count").text("Left Globe Layers (" + left_count + ")");
+        $("#count_duplicate").text("Right Globe Layers (" + right_count + ")");
+    } else {
+        $("#count").text("Selected Layers (" + left_count + ")");
+    }
 
     if (left_count == 0) {
-        layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab. Layers that you add will initially show up here.</p>');
+        if (document.wwd_duplicate) {
+            layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab. Layers that you add will initially show up here and you can transfer them between globes later.</p>');
+        } else {
+            layerListItemText.html('<p style="color: white">Please add a layer from the Available Layers tab. Layers that you add will be show up here in a descending order (highest to lowest).</p>');
+        }
     }
     else {
         layerListItemText.html("");
     }
 
     if (right_count == 0) {
-        duplicatelayerListItemText.html('<p style="color: white">To move a layer from the left globe to the right globe, click on the small globe icon and it will switch between globes.</p>');
+        duplicatelayerListItemText.html('<p style="color: white">To move a layer from the left globe to the right globe, click on the small globe icon and that layer will switch between globes.</p>');
     }
     else {
         duplicatelayerListItemText.html("");

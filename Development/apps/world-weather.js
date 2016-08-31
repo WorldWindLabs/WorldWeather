@@ -141,7 +141,7 @@ $(document).ready(function () {
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-    var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
+    var eumetsat_url = 'http://eumetsat.com/';
 
     var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
