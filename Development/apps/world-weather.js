@@ -4,6 +4,10 @@
  */
 
 $(document).ready(function () {
+    setTimeout(function () {
+        $("#loading_modal").fadeOut();
+    }, 2000);
+
     // this global variable decides the amount of resolution each tile gets
     // the higher the number is, the less resolution each tile has
     // the default number for this tile is 1.75 (this is what WWW originally had)
