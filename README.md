@@ -11,15 +11,14 @@
 
 1. [Introduction](#introduction)
 2. [Features of World Weather](#features-of-worldweather)
-3. [Data Sources](#data-sources)
-4. [Application Walkthrough](#application-walk-through)
+3. [How to Run and Develop World Weather locally](#how-to-run-and-develop-world-weather-locally)
+4. [Data Sources](#data-sources)
+5. [Application Walkthrough](#application-walk-through)
     * [Available Layers](#available-layers)
     * [Selected Layers](#selected-layers)
     * [Layer Controls](#layer-controls)
     * [View Options](#view-options)
-    * [2 Globes Mode](#2-globes-mode)
-    * [Help Tab](#help)
-    * [Info Tab](#info)
+    * [Two Globes Mode](#two-globes-mode)
 
 ##Introduction
 
@@ -37,7 +36,7 @@ _Screenshot showing World Weather being used to track a storm to the west of Flo
 
 <img src="http://i.imgur.com/nqK4kV0.png" />
 
-##Features of WorldWeather
+##Features of World Weather
 
 * Load in any number of spatiotemporal geographically accurate data from multiple sources, using a variety of formats including WMTS, WMS, KML, and view them all together.
 * Input data sources of different sizes and projections, then see that data in any preferred projection including 3D, Mercator, Equirectangular, Polar and more.
@@ -48,6 +47,35 @@ _Screenshot showing World Weather being used to track a storm to the west of Flo
 * Read available information about each layer.
 * Use the Destination tool to immediately visit any desired location.
 
+
+##How to Run and Develop World Weather locally
+
+Start by cloning the repository to your local system. You can do this through the terminal by using the ```git``` command, as outlined below.
+
+```
+git clone https://github.com/NASAWorldWindResearch/WorldWeather.git
+```
+
+The above code should clone the repository to a folder called WorldWeather. Inside this folder is two main folders: Development and Deployment. The former is used for testing and development purposes, and the latter is kept as a seperate copy, to be used as production. To navigate to the Development folder specific to World Weather, you can use the command outlined below.
+
+```
+cd WorldWeather/Development/apps
+```
+
+The main heart of the Javascript functions associated with World Weather are contained within the ```world-weather.js``` file in the apps folder. One example of editing this file is through the program vim, which can be used through the following command.
+
+```
+vim world-weather.js
+```
+
+If you modify the source of NASA World Wind during development, you will need to recompile the source to a minified Javascript file. To do this, navigate to the Developmet folder (one folder back from the apps folder), then run the command ```grunt```. 
+
+```
+cd ..
+grunt
+```
+
+The above command should run succesfully and copy the compiled Javascript file to the apps folder automatically.
 
 ##Data Sources
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/240px-NOAA_logo.svg.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ESA_logo_simple.svg/200px-ESA_logo_simple.svg.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Canada_(leaf).svg" height="70"/><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://www.helix-nebula.eu/sites/default/files/ecmwf.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://climatechange.umaine.edu/images/branding/logo.png" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" /><img src="http://www.navy.mil/navydata/questions/NavyEmblem.gif" height="70" /><img src="http://oykun.com/images/journal-header-whitespace.png" width="28" height="70" />
