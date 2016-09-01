@@ -26,8 +26,9 @@ $(document).ready(function () {
 
     var wwd = new WorldWind.WorldWindow("canvasOne");
     wwd.isLeftGlobe = true;
-    var wwd_duplicate = new WorldWind.WorldWindow("canvasTwo");
-    wwd_duplicate.isLeftGlobe = false;
+    var wwd_duplicate = [new WorldWind.WorldWindow("canvasTwo"), new WorldWind.WorldWindow("canvasThree")];
+    wwd_duplicate[0].isLeftGlobe = false;
+    wwd_duplicate[1].isLeftGlobe = false;
 
     document.wwd = wwd;
     document.wwd_duplicate = wwd_duplicate;
@@ -40,7 +41,10 @@ $(document).ready(function () {
     else
         wwd.navigator.range = 0.95e7;
 
-    wwd_duplicate.navigator.range = wwd.navigator.range;
+    wwd_duplicate.forEach(function(element, index, array)
+    {
+        element.navigator.range = wwd.navigator.range;
+    });
 
     if (screenAvailWidth < 840) {
         // TODO: change the tab buttons + hide the view controls automatically
@@ -73,8 +77,11 @@ $(document).ready(function () {
     });
 
     document.wwd_original_navigator = wwd.navigator;
-    document.wwd_duplicated_navigator = wwd_duplicate.navigator;
-    document.wwd_duplicated_navigator.isForDuplicateGlobe = true;
+    document.wwd_duplicated_navigator = [wwd_duplicate[0].navigator, wwd_duplicate[1].navigator];
+
+    document.wwd_duplicated_navigator.forEach(function (element, index, array){
+        element.isForDuplicateGlobe = true;
+    });
 
     // Getting timestamps for today, yesterday, and tomorrow
     var current_time = new Date().toISOString();
@@ -90,9 +97,7 @@ $(document).ready(function () {
     // End of Legends Modal code
 
     var layerManager = new LayerManager(wwd, wwd_duplicate);
-    //var layerManager_duplicated = new LayerManager(wwd_duplicate);
     document.layerManager = layerManager;
-    //document.layerManager_duplicated = layerManager_duplicated;
     layerManager.createProjectionList();
 
     var projectionLinker = $("#projectionDropdown");
@@ -118,7 +123,7 @@ $(document).ready(function () {
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-    var eumetsat_url = 'http://eumetsat.com/';
+    var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
 
     var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
@@ -164,7 +169,16 @@ $(document).ready(function () {
                 if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
                 layers[l].layer.isBaseLayer = true;
                 wwd.addLayer(layers[l].layer);
-                wwd_duplicate.addLayer(layers[l].layer);
+                if (document.wwd_duplicate) {
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        document.wwd_duplicate.addLayer(layers[l].layer);
+                    }
+                    else {
+                        document.wwd_duplicate.forEach(function(element, index, array){
+                            element.addLayer(layers[l].layer);
+                        });
+                    }
+                }
             }
 
             var coordinates_layer = new WorldWind.CoordinatesDisplayLayer(wwd);
@@ -176,7 +190,16 @@ $(document).ready(function () {
             var atmosphereLayer = new WorldWind.AtmosphereLayer();
             atmosphereLayer.isBaseLayer = true;
             wwd.addLayer(atmosphereLayer);
-            wwd_duplicate.addLayer(atmosphereLayer);
+            if (document.wwd_duplicate) {
+                if (!(document.wwd_duplicate instanceof Array)) {
+                    document.wwd_duplicate.addLayer(atmosphereLayer);
+                }
+                else {
+                    document.wwd_duplicate.forEach(function(element, index, array){
+                        element.addLayer(atmosphereLayer);
+                    });
+                }
+            }
             // end of AtmosphereLayer
 
             layerManager.synchronizeLayerList();

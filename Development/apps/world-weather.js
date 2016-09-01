@@ -4,10 +4,6 @@
  */
 
 $(document).ready(function () {
-    setTimeout(function () {
-        $("#loading_modal").fadeOut();
-    }, 2000);
-
     // this global variable decides the amount of resolution each tile gets
     // the higher the number is, the less resolution each tile has
     // the default number for this tile is 1.75 (this is what WWW originally had)
@@ -264,5 +260,7 @@ $(document).ready(function () {
     // getting a bunch of WMS servers from US NWS all at once
     getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options");
 
-
+    setTimeout(function () {
+        $("#loading_modal").fadeOut();
+    }, 2000);
 });

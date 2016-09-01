@@ -75,7 +75,10 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.flatGlobe) {
             this.wwd.globe = this.flatGlobe;
-            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.flatGlobe;
+            if (document.wwd_duplicate)
+            {
+                this.wwd_duplicate.globe = this.flatGlobe;
+            }
         }
     }
 

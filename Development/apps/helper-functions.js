@@ -412,7 +412,14 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                             wmts_layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(wmts_layer);
                             if (document.wwd_duplicate) {
-                                document.wwd_duplicate.addLayer(wmts_layer);
+                                if (!(document.wwd_duplicate instanceof Array)) {
+                                    document.wwd_duplicate.addLayer(wmts_layer);
+                                }
+                                else {
+                                    document.wwd_duplicate.forEach(function(element, index, array){
+                                        element.addLayer(wmts_layer);
+                                    });
+                                }
                                 wmts_layer.isOnLeftGlobe = true;
                             }
                             wmts_data.push(wmts_layer.displayName);
@@ -559,7 +566,14 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                             layer.sourceLayersOptions = jquery_layer_options;
                             document.wwd.addLayer(layer);
                             if (document.wwd_duplicate) {
-                                document.wwd_duplicate.addLayer(layer);
+                                if (!(document.wwd_duplicate instanceof Array)) {
+                                    document.wwd_duplicate.addLayer(layer);
+                                }
+                                else {
+                                    document.wwd_duplicate.forEach(function(element, index, array){
+                                        element.addLayer(layer);
+                                    });
+                                }
                                 layer.isOnLeftGlobe = true;
                             }
                             wms_data.push(layer.displayName);
@@ -699,7 +713,14 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                 layer.sourceLayersOptions = jquery_layer_options;
                                 document.wwd.addLayer(layer);
                                 if (document.wwd_duplicate) {
-                                    document.wwd_duplicate.addLayer(layer);
+                                    if (!(document.wwd_duplicate instanceof Array)) {
+                                        document.wwd_duplicate.addLayer(layer);
+                                    }
+                                    else {
+                                        document.wwd_duplicate.forEach(function(element, index, array){
+                                            element.addLayer(layer);
+                                        });
+                                    }
                                     layer.isOnLeftGlobe = true;
                                 }
                                 wms_data.push(layer.displayName);
