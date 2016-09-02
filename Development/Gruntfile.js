@@ -7,6 +7,31 @@
  */
 module.exports = function (grunt) {
     grunt.initConfig({
+        connect:{
+            options: {
+            base: ['.'],
+
+            port: 9050,
+            hostname: 'localhost',
+            livereload: 35729
+          },
+          livereload: {
+            options: {
+              open: true,
+              base: ['.']
+            }
+          }
+        },
+
+        watch: {
+            options: {
+                livereload: 35729,
+            },
+            sources: {
+                files: ['*.js', '*.html', '*.css']
+            }
+        },
+
         requirejs: {
             compile: {
                 options: {
@@ -24,5 +49,13 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     grunt.registerTask('default', ['requirejs']);
+    grunt.registerTask('server', ['connect', 'watch']);
+
+
+
+
 };
