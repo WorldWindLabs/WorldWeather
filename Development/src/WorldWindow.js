@@ -43,7 +43,7 @@ define([
               SurfaceShapeTileBuilder,
               Terrain,
               Vec2) {
-        
+
 
         /**
          * Constructs a World Wind window for an HTML canvas.
@@ -900,8 +900,6 @@ define([
                 this.makeCurrent(-1);
                 this.doDraw();
             }
-            //
-            //console.log(drawing);
 
             if (this.subsurfaceMode && this.hasStencilBuffer) {
                 this.deferOrderedRendering = true;
@@ -951,6 +949,7 @@ define([
 
         // Internal function. Intentionally not documented.
         WorldWindow.prototype.drawLayers = function (accumulateOrderedRenderables) {
+
             // Draw all the layers attached to this WorldWindow.
             var beginTime = Date.now(), dc = this.drawContext, layers = dc.layers, layer;
             dc.accumulateOrderedRenderables = accumulateOrderedRenderables;
@@ -959,8 +958,20 @@ define([
                 layer = layers[i];
                 if (layer && layer.enabled) {
                     if (document.wwd_duplicate) {
-                        if (layer.isBaseLayer || (this.isLeftGlobe && layer.isOnLeftGlobe) || (!this.isLeftGlobe && !layer.isOnLeftGlobe))
-                        {
+                        if (layer.isCoordinatesLayer && !this.isLeftGlobe) {
+                            // do nothing
+                        }
+                        else if (!(document.wwd_duplicate instanceof Array)) {
+                            if (layer.isBaseLayer ||
+                                (this.isLeftGlobe && layer.isOnLeftGlobe) ||
+                                (!this.isLeftGlobe && !layer.isOnLeftGlobe)) {
+
+                                dc.currentLayer = layer;
+                                layer.render(dc);
+                            }
+                        } else if ((layer.isBaseLayer) ||
+                            (this.isLeftGlobe && (layer.isOnLeftGlobe || (layer.numberOfDuplicateGlobe == 0))) ||
+                            (!this.isLeftGlobe && (this.numberOfDuplicateGlobe == layer.onGlobeNumber))) {
                             dc.currentLayer = layer;
                             layer.render(dc);
                         }

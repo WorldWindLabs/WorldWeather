@@ -60,6 +60,8 @@ define([
              */
             this.wwd = worldWindow;
 
+            this.isCoordinatesLayer = true;
+
             // No picking of this layer's screen elements.
             this.pickEnabled = false;
 

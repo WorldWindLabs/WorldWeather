@@ -55,6 +55,7 @@ define([
          */
         var LookAtNavigator = function (worldWindow) {
             this.isForDuplicateGlobe = false;
+            this.numberOfDuplicateGlobe = null;
 
             Navigator.call(this, worldWindow);
 
@@ -97,8 +98,22 @@ define([
                 thisNavigator.handlePanOrDrag(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
-                    else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
+                        else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handlePanOrDrag(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handlePanOrDrag(recognizer);
+                            }
+                        });
+                    }
                 }
             });
 
@@ -107,8 +122,22 @@ define([
                 thisNavigator.handleSecondaryDrag(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleSecondaryDrag(recognizer);
-                    else document.wwd_duplicated_navigator.handleSecondaryDrag(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleSecondaryDrag(recognizer);
+                        else document.wwd_duplicated_navigator.handleSecondaryDrag(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handleSecondaryDrag(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handleSecondaryDrag(recognizer);
+                            }
+                        });
+                    }
                 }
             });
             this.secondaryDragRecognizer.button = 2; // secondary mouse button
@@ -118,8 +147,22 @@ define([
                 thisNavigator.handlePanOrDrag(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
-                    else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePanOrDrag(recognizer);
+                        else document.wwd_duplicated_navigator.handlePanOrDrag(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handlePanOrDrag(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handlePanOrDrag(recognizer);
+                            }
+                        });
+                    }
                 }
             });
 
@@ -128,8 +171,22 @@ define([
                 thisNavigator.handlePinch(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePinch(recognizer);
-                    else document.wwd_duplicated_navigator.handlePinch(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handlePinch(recognizer);
+                        else document.wwd_duplicated_navigator.handlePinch(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handlePinch(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handlePinch(recognizer);
+                            }
+                        });
+                    }
                 }
             });
 
@@ -138,8 +195,22 @@ define([
                 thisNavigator.handleRotation(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleRotation(recognizer);
-                    else document.wwd_duplicated_navigator.handleRotation(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleRotation(recognizer);
+                        else document.wwd_duplicated_navigator.handleRotation(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handleRotation(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handleRotation(recognizer);
+                            }
+                        });
+                    }
                 }
             });
 
@@ -148,8 +219,22 @@ define([
                 thisNavigator.handleTilt(recognizer);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleTilt(recognizer);
-                    else document.wwd_duplicated_navigator.handleTilt(recognizer);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleTilt(recognizer);
+                        else document.wwd_duplicated_navigator.handleTilt(recognizer);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handleTilt(recognizer);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handleTilt(recognizer);
+                            }
+                        });
+                    }
                 }
             });
 
@@ -158,8 +243,22 @@ define([
                 thisNavigator.handleWheelEvent(event);
                 if (document.wwd_duplicate)
                 {
-                    if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleWheelEvent(event);
-                    else document.wwd_duplicated_navigator.handleWheelEvent(event);
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (thisNavigator.isForDuplicateGlobe) document.wwd_original_navigator.handleWheelEvent(event);
+                        else document.wwd_duplicated_navigator.handleWheelEvent(event);
+                    } else {
+                        if (thisNavigator.numberOfDuplicateGlobe != document.wwd.navigator.numberOfDuplicateGlobe)
+                        {
+                            document.wwd.navigator.handleWheelEvent(event);
+                        }
+
+                        document.wwd_duplicate.forEach(function(element, index, array) {
+                            if (element.navigator.numberOfDuplicateGlobe != thisNavigator.numberOfDuplicateGlobe)
+                            {
+                                element.navigator.handleWheelEvent(event);
+                            }
+                        });
+                    }
                 }
             });
 

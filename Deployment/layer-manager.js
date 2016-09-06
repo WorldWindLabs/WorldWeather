@@ -40,7 +40,16 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.roundGlobe) {
             this.wwd.globe = this.roundGlobe;
-            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.wwd.globe;
+            if (document.wwd_duplicate) {
+                var wwd_globe = this.wwd.globe;
+                if (document.wwd_duplicate instanceof Array) {
+                    this.wwd_duplicate.forEach(function (element, index, array) {
+                        element.globe = wwd_globe;
+                    });
+                } else {
+                    this.wwd_duplicate.globe = wwd_globe;
+                }
+            }
         }
     }
     else {
@@ -75,12 +84,30 @@ LayerManager.prototype.onProjectionClick = function (event) {
 
         if (this.wwd.globe !== this.flatGlobe) {
             this.wwd.globe = this.flatGlobe;
-            if (document.wwd_duplicate) this.wwd_duplicate.globe = this.flatGlobe;
+            if (document.wwd_duplicate) {
+                this.wwd_duplicate.globe = this.flatGlobe;
+                var wwd_globe = this.wwd.globe;
+                if (document.wwd_duplicate instanceof Array) {
+                    this.wwd_duplicate.forEach(function (element, index, array) {
+                        element.globe = wwd_globe;
+                    });
+                } else {
+                    this.wwd_duplicate.globe = wwd_globe;
+                }
+            }
         }
     }
 
     this.wwd.redraw();
-    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            this.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        } else {
+            this.wwd_duplicate.redraw();
+        }
+    }
 };
 
 LayerManager.prototype.onLayerClick = function (layerButton) {
@@ -114,7 +141,15 @@ LayerManager.prototype.onLayerClick = function (layerButton) {
 
     this.synchronizeLayerList();
     this.wwd.redraw();
-    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (!(document.wwd_duplicate instanceof Array)) {
+            this.wwd_duplicate.redraw();
+        } else {
+            this.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        }
+    }
 };
 
 LayerManager.prototype.createLayerList = function () {
@@ -141,13 +176,13 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options,
             if (layer.displayName === layerName) {
                 layer.enabled = true;
 
-                var layerTagsSelector = $("#"+layer.sourceLayersOptions+"_added_tags");
+                var layerTagsSelector = $("#" + layer.sourceLayersOptions + "_added_tags");
                 var toDisplay = layer.displayName;
                 if (toDisplay.length > 7) {
                     toDisplay = toDisplay.substr(0, 7) + "...";
                 }
 
-                layerTagsSelector.append('<i class="layer-tag tag is-info" data-toggle="tooltip" title=\''+ layer.displayName+'\' id="layer_tag_'+layer.uniqueID+'">'+toDisplay+'<button class="delete" onclick="onLayerTagDelete(event, \''+layer.uniqueID+'\')"></button></i>');
+                layerTagsSelector.append('<i class="layer-tag tag is-info" data-toggle="tooltip" title=\'' + layer.displayName + '\' id="layer_tag_' + layer.uniqueID + '">' + toDisplay + '<button class="delete" onclick="onLayerTagDelete(event, \'' + layer.uniqueID + '\')"></button></i>');
 
                 $("#noLegends").css('display', 'none');
 
@@ -174,26 +209,25 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options,
                     layer.time = layer.timeSequence.endTime;
                     layer.timeSequence.currentTime = layer.time;
                     legendAdditions += '<div style="text-align: center; width: 100%">';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'start\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b>';
-                    legendAdditions += '<b onclick="alterWmsLayerTime(event, '+ layer.uniqueID +', \'end\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'start\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b>';
+                    legendAdditions += '<b onclick="alterWmsLayerTime(event, ' + layer.uniqueID + ', \'end\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b>';
                     legendAdditions += '</div><div style="font-weight: bold" class="ui-slider" id="datetime_slider_' + layer.uniqueID + '"></div>';
                     legendAdditions += '<p type="text" id="amount' + layer.uniqueID + '" style="font-size: small"></p>';
                 }
-                else if (layer.layerType == "WMTS")
-                {
+                else if (layer.layerType == "WMTS") {
                     legendAdditions += '<div style="text-align: center; width: 100%">';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
-                    legendAdditions += '<b onclick="moveWmtsLayer('+ layer.uniqueID +', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'huge-previous\')"><i class="play-buttons fa fa-arrow-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'big-previous\')"><i class="play-buttons fa fa-angle-double-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'previous\')"><i class="play-buttons fa fa-chevron-circle-left" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'play-pause\')"><i class="play-buttons fa fa-play-circle-o" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'next\')"><i class="play-buttons fa fa-chevron-circle-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'big-next\')"><i class="play-buttons fa fa-angle-double-right" aria-hidden="true"></i></b> ';
+                    legendAdditions += '<b onclick="moveWmtsLayer(' + layer.uniqueID + ', \'huge-next\')"><i class="play-buttons fa fa-arrow-right" aria-hidden="true"></i></b> ';
                     legendAdditions += '</div><br/><small style="font-size: small" id="legend_time_' + layer.uniqueID + '">' + layer.currentTimeString.toUTCString() + '</small>';
                 }
                 else if (layer.currentTimeString) {
@@ -255,8 +289,7 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options,
                     opacity_selector.on("slidestop", function (event, ui) {
                         layer.opacity = ui.value;
                         document.wwd.redraw();
-                        if (document.wwd_duplicate)
-                        {
+                        if (document.wwd_duplicate) {
                             document.wwd_duplicate.redraw();
                         }
                     });
@@ -304,7 +337,15 @@ LayerManager.prototype.onLayerDelete = function (e, layerID) {
     if (layer.displayName == "Placemarks") document.placemarkLayer = null;
 
     this.wwd.redraw();
-    if (document.wwd_duplicate) this.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            this.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        } else {
+            this.wwd_duplicate.redraw();
+        }
+    }
 };
 
 LayerManager.prototype.onLayerMoveDown = function (e) {
@@ -327,6 +368,15 @@ LayerManager.prototype.onLayerMoveDown = function (e) {
     }
 
     this.wwd.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            this.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        } else {
+            this.wwd_duplicate.redraw();
+        }
+    }
     this.synchronizeLayerList();
 };
 
@@ -352,6 +402,15 @@ LayerManager.prototype.onLayerMoveUp = function (e) {
     }
 
     this.wwd.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            this.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        } else {
+            this.wwd_duplicate.redraw();
+        }
+    }
     this.synchronizeLayerList();
 };
 
@@ -365,42 +424,97 @@ LayerManager.prototype.onLayerMoveGlobe = function (e) {
     //end of section
 
     var identifier = parseInt(e.attr("identifier"));
-    document.wwd.layers[identifier].isOnLeftGlobe = !document.wwd.layers[identifier].isOnLeftGlobe;
+
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            if (!document.wwd.layers[identifier].isOnLeftGlobe) {
+                if (document.wwd.layers[identifier].onGlobeNumber == document.wwd_duplicate.length) {
+                    document.wwd.layers[identifier].isOnLeftGlobe = true;
+                    document.wwd.layers[identifier].onGlobeNumber = 0;
+                }
+                else {
+                    document.wwd.layers[identifier].onGlobeNumber += 1;
+                }
+            }
+            else {
+                document.wwd.layers[identifier].onGlobeNumber = 1;
+                document.wwd.layers[identifier].isOnLeftGlobe = false;
+            }
+
+            document.wwd_duplicate.forEach(function (element, index, array) {
+                element.layers = document.wwd.layers;
+            });
+        } else {
+            document.wwd.layers[identifier].isOnLeftGlobe = !document.wwd.layers[identifier].isOnLeftGlobe;
+        }
+    }
 
     if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
 
     document.wwd.redraw();
-    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            document.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+            });
+        } else {
+            document.wwd_duplicate.redraw();
+        }
+    }
     this.synchronizeLayerList();
 };
 
 LayerManager.prototype.synchronizeLayerList = function () {
     var layerListItem = $("#layerList");
     var baseLayersListItem = $("#base_layers");
-    var duplicateLayersListItem = $("#layerList_duplicate");
-
     var layerListItemText = $("#layer_text");
-    var duplicatelayerListItemText = $("#layer_text_duplicate");
+
+    var duplicateLayersListItem, duplicatelayerListItemText;
+    if (document.wwd_duplicate) {
+        if (!(document.wwd_duplicate instanceof Array)) {
+            duplicateLayersListItem = $("#layerList_duplicate");
+            duplicatelayerListItemText = $("#layer_text_duplicate");
+            duplicateLayersListItem.find("div").remove();
+        }
+        else {
+            duplicateLayersListItem = [];
+            duplicatelayerListItemText = [];
+            document.wwd_duplicate.forEach(function (element, index, array) {
+                duplicateLayersListItem.push($("#layerList_duplicate_" + index));
+                duplicatelayerListItemText.push($("#layer_text_duplicate_" + index));
+            });
+            duplicateLayersListItem.forEach(function (element, index, array) {
+                element.find("div").remove();
+            });
+        }
+    }
 
     if (!document.isInitialized) document.isInitialized = 0;
 
     layerListItem.find("div").remove();
     baseLayersListItem.find("div").remove();
 
-    if (duplicateLayersListItem.length)
-        duplicateLayersListItem.find("div").remove();
-
     var self = this;
     var left_count = 0;
-    var right_count = 0;
+    var right_count;
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            right_count = [];
+            document.wwd_duplicate.forEach(function () {
+                right_count.push(0);
+            });
+        }
+        else {
+            right_count = 0;
+        }
+    } else {
+        right_count = 0;
+    }
 
     // Synchronize the displayed layer list with the World Window's layer list.
     for (var i = this.wwd.layers.length - 1; i >= 0; i--) {
         var layer = this.wwd.layers[i];
-
-        if (layer.hide) {
-            continue;
-        }
+        if (layer.hide) continue;
 
         if (layer.displayName == "Coordinates" || layer.displayName == "View Controls") {
             if (!(document.wwd_duplicate)) {
@@ -445,23 +559,30 @@ LayerManager.prototype.synchronizeLayerList = function () {
                 if (document.wwd_duplicate) {
                     layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\'' + layer.displayName + '\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="margin-left: 5px" id="move_globe_' + i + '" class="fa fa-globe pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
                 }
-                else
-                {
-                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\''+layer.displayName+'\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
+                else {
+                    layerItem = $('<div style="font-size: 90%" class="list-group-item btn btn-block" data-toggle="tooltip" title=\'' + layer.displayName + '\' identifier="' + i + '"><span id="delete_icon_' + i + '" class="glyphicon glyphicon-remove pull-right" identifier="' + i + '"></span><span id="down_icon_' + i + '" class="glyphicon glyphicon-triangle-top pull-left" identifier="' + i + '"></span><span id="up_icon_' + i + '" class="glyphicon glyphicon-triangle-bottom pull-left" identifier="' + i + '"></span><span style="display:inline-block; width: 2px;"></span>' + toDisplay + '</div>');
                 }
 
 
-                if (document.wwd_duplicate)
-                {
-                    if (layer.isOnLeftGlobe)
-                    {
-                        layerListItem.append(layerItem);
-                        left_count += 1;
-                    }
-                    else
-                    {
-                        duplicateLayersListItem.append(layerItem);
-                        right_count += 1;
+                if (document.wwd_duplicate) {
+                    if (!(document.wwd_duplicate instanceof Array)) {
+                        if (layer.isOnLeftGlobe) {
+                            layerListItem.append(layerItem);
+                            left_count += 1;
+                        }
+                        else {
+                            duplicateLayersListItem.append(layerItem);
+                            right_count += 1;
+                        }
+                    } else {
+                        if (layer.isOnLeftGlobe) {
+                            layerListItem.append(layerItem);
+                            left_count += 1;
+                        }
+                        else {
+                            duplicateLayersListItem[layer.onGlobeNumber - 1].append(layerItem);
+                            right_count[layer.onGlobeNumber - 1] += 1;
+                        }
                     }
                 } else {
                     layerListItem.append(layerItem);
@@ -495,11 +616,15 @@ LayerManager.prototype.synchronizeLayerList = function () {
         }
     }
 
+    $("#count").text("(" + left_count + ")");
     if (document.wwd_duplicate) {
-        $("#count").text("Left Globe Layers (" + left_count + ")");
-        $("#count_duplicate").text("Right Globe Layers (" + right_count + ")");
-    } else {
-        $("#count").text("Selected Layers (" + left_count + ")");
+        if (!(document.wwd_duplicate instanceof Array)) {
+            $("#count_duplicate").text("(" + right_count + ")");
+        } else {
+            document.wwd_duplicate.forEach(function (element, index, array) {
+                $("#count_duplicate_" + index).text("(" + right_count[index] + ")");
+            });
+        }
     }
 
     if (left_count == 0) {
@@ -513,11 +638,18 @@ LayerManager.prototype.synchronizeLayerList = function () {
         layerListItemText.html("");
     }
 
-    if (right_count == 0) {
-        duplicatelayerListItemText.html('<p style="color: white">To move a layer from the left globe to the right globe, click on the small globe icon and that layer will switch between globes.</p>');
-    }
-    else {
-        duplicatelayerListItemText.html("");
+    if (document.wwd_duplicate) {
+        if (!(document.wwd_duplicate instanceof Array)) {
+            if (right_count == 0) {
+                duplicatelayerListItemText.html('<p style="color: white">To move a layer from the left globe to the right globe, click on the small globe icon and that layer will switch between globes.</p>');
+            }
+            else {
+                duplicatelayerListItemText.html("");
+            }
+        }
+        else {
+            // TODO
+        }
     }
 
 };

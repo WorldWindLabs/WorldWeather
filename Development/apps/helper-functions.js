@@ -62,8 +62,16 @@ function moveWmtsLayer(layerUniqueID, direction) {
     if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
 
     document.wwd.redraw();
-    if (document.wwd_duplicate && !layer.isOnLeftGlobe)
-        document.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            document.wwd_duplicate.forEach(function(element, index, array){
+               element.redraw();
+            });
+        } else {
+            document.wwd_duplicate.redraw();
+        }
+    }
+
     $("#legend_time_" + layerUniqueID).html(movement.toUTCString());
 }
 
@@ -416,7 +424,7 @@ function getWmtsDataForCombobox(data_url, jquery_combobox, jquery_layer_options,
                                     document.wwd_duplicate.addLayer(wmts_layer);
                                 }
                                 else {
-                                    document.wwd_duplicate.forEach(function(element, index, array){
+                                    document.wwd_duplicate.forEach(function (element, index, array) {
                                         element.addLayer(wmts_layer);
                                     });
                                 }
@@ -570,7 +578,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                     document.wwd_duplicate.addLayer(layer);
                                 }
                                 else {
-                                    document.wwd_duplicate.forEach(function(element, index, array){
+                                    document.wwd_duplicate.forEach(function (element, index, array) {
                                         element.addLayer(layer);
                                     });
                                 }
@@ -610,8 +618,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
 
 function addDataToCombobox(wms_data, jquery_combobox, jquery_layer_options) {
     var html_layers = "<label><select class=\"" + jquery_combobox + " explorer_combobox\"><option></option>";
-    for (var r = 0; r < wms_data.length; r++)
-    {
+    for (var r = 0; r < wms_data.length; r++) {
         html_layers += "<option><a>" + wms_data[r] + "</a></option>";
         document.global_combobox_selector.additions.push(wms_data[r]);
     }
@@ -717,7 +724,7 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                         document.wwd_duplicate.addLayer(layer);
                                     }
                                     else {
-                                        document.wwd_duplicate.forEach(function(element, index, array){
+                                        document.wwd_duplicate.forEach(function (element, index, array) {
                                             element.addLayer(layer);
                                         });
                                     }
@@ -787,5 +794,13 @@ function alterWmsLayerTime(evt, layerID, direction) {
     amount_selector.html(layer.time.toUTCString());
     datetime_selector.slider('value', layer.timeSequence.arrayOfTimesIndex);
     document.wwd.redraw();
-    if (document.wwd_duplicate) document.wwd_duplicate.redraw();
+    if (document.wwd_duplicate) {
+        if (document.wwd_duplicate instanceof Array) {
+            document.wwd_duplicate.forEach(function(element, index, array){
+                element.redraw();
+            });
+        } else {
+            document.wwd_duplicate.redraw();
+        }
+    }
 }
