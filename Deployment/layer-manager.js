@@ -290,7 +290,13 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options,
                         layer.opacity = ui.value;
                         document.wwd.redraw();
                         if (document.wwd_duplicate) {
-                            document.wwd_duplicate.redraw();
+                            if (!(document.wwd_duplicate instanceof Array))
+                                document.wwd_duplicate.redraw();
+                            else {
+                                document.wwd_duplicate.forEach(function (element, index, array) {
+                                    element.redraw();
+                                });
+                            }
                         }
                     });
 

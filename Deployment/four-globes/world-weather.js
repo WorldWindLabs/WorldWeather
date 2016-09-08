@@ -172,7 +172,7 @@ $(document).ready(function () {
     iowa_urls.forEach(function (element, index, array) {
         array[index] += 'VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
     });
-    
+
     // KML files locally saved
     var maine_url = 'university-of-maine-new.kml';
 

@@ -539,9 +539,15 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 }
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
+                                        
+
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
                                         var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
                                         var start_datetime = config.timeSequences[0];
+
+                                        if (isNaN(start_datetime.getTime())) {
+                                            start_datetime = config.timeSequences[1];
+                                        }
 
                                         if (!(end_datetime instanceof Date)) end_datetime = end_datetime.endTime;
                                         if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
