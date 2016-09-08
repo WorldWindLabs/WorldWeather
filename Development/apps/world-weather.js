@@ -4,6 +4,30 @@
  */
 
 $(document).ready(function () {
+    window.setInterval(function () {
+        periods_in_minutes = [];
+        if (document.wwd && document.wwd.layers) {
+            for (var i = 0; i < document.wwd.layers.length; i++) {
+                var layer = document.wwd.layers[i];
+                if (layer.enabled && !layer.isBaseLayer) {
+                    if (layer.layerType == "WMS" && layer.timeSequence && layer.timeSequence.period) {
+                            var additional_minutes = 0;
+                            var p = layer.timeSequence.period;
+
+                            additional_minutes += p[6]/60 + p[5] + p[4]*60 + p[3]*60*24 +
+                                p[2]*60*24*30 + p[1]*60*24*30 + p[0]*60*24*30*12;
+
+                            periods_in_minutes.push(additional_minutes);
+
+                    } else if (layer.layerType == "WMTS") {
+                        periods_in_minutes.push(60*24);
+                    }
+                }
+            }
+            document.maximum_period = Math.max.apply(Math, periods_in_minutes);
+        }
+    }, 5000);
+
     // this global variable decides the amount of resolution each tile gets
     // the higher the number is, the less resolution each tile has
     // the default number for this tile is 1.75 (this is what WWW originally had)
@@ -141,7 +165,10 @@ $(document).ready(function () {
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-    var eumetsat_url = 'http://eumetsat.com/';
+    var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
+
+    var usgs_urls = ['http://isse.cr.usgs.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_1Foot/ImageServer/WMSServer?request=GetCapabilities&service=WMS',
+    'http://isse.cr.usgs.gov/arcgis/services/Scanned_Maps/USGS_EROS_DRG_SCALE/ImageServer/WMSServer?request=GetCapabilities&service=WMS'];
 
     var dlr_urls = ['http://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'http://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'http://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
@@ -153,6 +180,29 @@ $(document).ready(function () {
         'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/WMSServer?request=GetCapabilities&service=WMS',
         'http://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/radar_base_reflectivity/MapServer/WMSServer?request=GetCapabilities&service=WMS'
     ];
+
+    var goes_urls = [
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_ir.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_wv.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/east_ir.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/west_ir.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/east_vis.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/west_vis.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/east_wv.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/west_wv.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities'];
+
+    var iowa_urls = ['http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/rainfall.cgi?', 'http://mesonet.agron.iastate.edu/cgi-bin/wms/us/mrms.cgi?',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/us/mrms_nn.cgi?', 'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0q.cgi?',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0q-t.cgi?', 'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r-t.cgi?',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n1p.cgi?', 'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/ntp.cgi?',
+        'http://mesonet.agron.iastate.edu/cgi-bin/wms/us/wwa.cgi?', 'http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/roadcond.cgi? '];
+
+    iowa_urls.forEach(function (element, index, array) {
+        array[index] += 'VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
+    });
+
+    //console.log(goes_urls);
 
     // KML files locally saved
     var maine_url = 'university-of-maine-new.kml';
@@ -192,7 +242,7 @@ $(document).ready(function () {
             for (var l = 0; l < layers.length; l++) {
                 layers[l].layer.enabled = layers[l].enabled;
                 if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
-                layers[l].isBaseLayer = true;
+                layers[l].layer.isBaseLayer = true;
                 wwd.addLayer(layers[l].layer);
             }
 
@@ -218,9 +268,8 @@ $(document).ready(function () {
 
     $('#global_layers_options').find("select").on("change", function (e) {
         var layerName = $('#global_layers_options').find("input")[0].defaultValue;
-        if (layerName && layerName != "")
-        {
-            layerManager.onDataLayerClick(null,null,layerName);
+        if (layerName && layerName != "") {
+            layerManager.onDataLayerClick(null, null, layerName);
         }
     });
 
@@ -249,16 +298,24 @@ $(document).ready(function () {
     getWmsTimeSeriesForCombobox(neo_url, "neo_combobox", "neo_layers_options");
 
     // getting US Navy WMS Server
-    getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options");
+    getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options", "_");
 
     // getting EUMETSAT data from WMS server
     getWmsTimeSeriesForCombobox(eumetsat_url, "eumetsat_combobox", "eumetsat_layers_options");
 
     // getting a bunch of DLR WMS servers all at once
-    getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options");
+    getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options", "_");
 
     // getting a bunch of WMS servers from US NWS all at once
-    getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options");
+    getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options", "_");
+
+    // getting ==
+    getMultipleWmsTimeSeries(goes_urls, "goes_combobox", "goes_layers_options", "_");
+
+    // getting ==
+    getMultipleWmsTimeSeries(iowa_urls, "iowa_combobox", "iowa_layers_options", "_");
+
+    getMultipleWmsTimeSeries(usgs_urls, "usgs_combobox", "usgs_layers_options", "_");
 
     setTimeout(function () {
         $("#loading_modal").fadeOut();

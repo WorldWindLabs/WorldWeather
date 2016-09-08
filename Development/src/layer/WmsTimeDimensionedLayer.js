@@ -38,6 +38,7 @@ define([
             }
 
             Layer.call(this, "WMS Time Dimensioned Layer");
+            this.layerType = "WMS";
 
             /**
              * The configuration object specified at construction.

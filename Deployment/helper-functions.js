@@ -56,19 +56,24 @@ function moveWmtsLayer(layerUniqueID, direction) {
         return null;
 
     var new_layer = new WorldWind.WmtsLayer(layer_config, movement.toISOString().split('T')[0]);
-    if (document.wwd_duplicate) new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
-
+    if (document.wwd_duplicate) {
+        new_layer.isOnLeftGlobe = layer.isOnLeftGlobe;
+        if (document.wwd_duplicate instanceof Array) {
+            new_layer.onGlobeNumber = layer.onGlobeNumber;
+        }
+    }
     replaceLayerByID(layerUniqueID, new_layer);
-    if (document.wwd_duplicate) document.wwd_duplicate.layers = document.wwd.layers;
 
     document.wwd.redraw();
     if (document.wwd_duplicate) {
         if (document.wwd_duplicate instanceof Array) {
-            document.wwd_duplicate.forEach(function(element, index, array){
-               element.redraw();
+            document.wwd_duplicate.forEach(function (element, index, array) {
+                element.redraw();
+                element.layers = document.wwd.layers;
             });
         } else {
             document.wwd_duplicate.redraw();
+            document.wwd_duplicate.layers = document.wwd.layers;
         }
     }
 
@@ -543,23 +548,22 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                         if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
                                         if (isNaN(start_datetime.getTime())) {
-                                            start_datetime = config.timeSequences[1];
-                                            if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
+                                            layer = new WorldWind.WmsLayer(config);
+                                        } else {
+                                            var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
+                                            var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
+                                            timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                            config.levelZeroDelta = new WorldWind.Location(180, 180);
+                                            layer = new WorldWind.WmsTimeDimensionedLayer(config);
+                                            layer.timeSequence = timeSequence;
+                                            layer.time = timeSequence.endTime;
                                         }
-
-                                        var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
-                                        var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
-
-                                        timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
-
-                                        config.levelZeroDelta = new WorldWind.Location(180, 180);
-                                        layer = new WorldWind.WmsTimeDimensionedLayer(config);
-                                        layer.timeSequence = timeSequence;
-                                        layer.time = timeSequence.endTime;
                                     }
                                     else {
                                         layer = new WorldWind.WmsLayer(config);
-                                        layer.currentTimeString = config.timeSequences[config.timeSequences.length - 1].toISOString();
+                                        if (!(isNaN(config.timeSequences[config.timeSequences.length - 1].getTime()))) {
+                                            layer.currentTimeString = config.timeSequences[config.timeSequences.length - 1].toISOString();
+                                        }
                                     }
                                 }
                                 else {
@@ -646,7 +650,7 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                     return this.value;
                 },
                 set: function (val) {
-                    if (val == (multiple_data_urls.length - 1)) addDataToCombobox(wms_data, jquery_combobox, jquery_layer_options);
+                    if (val >= (multiple_data_urls.length)) addDataToCombobox(wms_data, jquery_combobox, jquery_layer_options);
                     this.value = val;
                 }
             }
@@ -691,21 +695,30 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                     else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                         if (config.timeSequences.length > 2) {
                                             var end_datetime = config.timeSequences[config.timeSequences.length - 1];
-                                            var start_datetime = config.timeSequences[1];
-                                            var period = parseInt(Math.round((config.timeSequences[2].getTime() - config.timeSequences[1].getTime()) / (1000 * 60)));
-                                            var period_string = "PT" + period + "M";
-                                            var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + period_string;
+                                            var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
+                                            var start_datetime = config.timeSequences[0];
 
-                                            timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                            if (!(end_datetime instanceof Date)) end_datetime = end_datetime.endTime;
+                                            if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
+                                            if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
-                                            config.levelZeroDelta = new WorldWind.Location(180, 180);
-                                            layer = new WorldWind.WmsTimeDimensionedLayer(config);
-                                            layer.timeSequence = timeSequence;
-                                            layer.time = timeSequence.endTime;
+                                            if (isNaN(start_datetime.getTime())) {
+                                                layer = new WorldWind.WmsLayer(config);
+                                            } else {
+                                                var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
+                                                var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
+                                                timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                                config.levelZeroDelta = new WorldWind.Location(180, 180);
+                                                layer = new WorldWind.WmsTimeDimensionedLayer(config);
+                                                layer.timeSequence = timeSequence;
+                                                layer.time = timeSequence.endTime;
+                                            }
                                         }
                                         else {
                                             layer = new WorldWind.WmsLayer(config);
-                                            layer.currentTimeString = new Date(config.timeSequences[config.timeSequences.length - 1]);
+                                            if (!(isNaN(config.timeSequences[config.timeSequences.length - 1].getTime()))) {
+                                                layer.currentTimeString = config.timeSequences[config.timeSequences.length - 1].toISOString();
+                                            }
                                         }
                                     }
                                     else {
@@ -718,6 +731,11 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
 
                                 layer.enabled = false;
                                 layer.sourceLayersOptions = jquery_layer_options;
+
+                                // temporary fix for GOES satellite images; speak with the host to fix their WMS server
+                                if (jquery_layer_options == "goes_layers_options")
+                                    layer.detailControl = 999;
+
                                 document.wwd.addLayer(layer);
                                 if (document.wwd_duplicate) {
                                     if (!(document.wwd_duplicate instanceof Array)) {
@@ -729,6 +747,19 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                         });
                                     }
                                     layer.isOnLeftGlobe = true;
+                                }
+
+                                if (wms_data.indexOf(layer.displayName) > -1) {
+                                    var added_number = 2;
+                                    while (true) {
+                                        if (wms_data.indexOf(layer.displayName + " (" + added_number + ")") == -1) {
+                                            layer.displayName += " (" + added_number + ")";
+                                            break;
+                                        }
+                                        else {
+                                            added_number += 1;
+                                        }
+                                    }
                                 }
                                 wms_data.push(layer.displayName);
                             }
@@ -796,7 +827,7 @@ function alterWmsLayerTime(evt, layerID, direction) {
     document.wwd.redraw();
     if (document.wwd_duplicate) {
         if (document.wwd_duplicate instanceof Array) {
-            document.wwd_duplicate.forEach(function(element, index, array){
+            document.wwd_duplicate.forEach(function (element, index, array) {
                 element.redraw();
             });
         } else {

@@ -168,7 +168,11 @@
 
         , lookup: function (event) {
             this.query = this.$element.val();
-            return this.process(this.source);
+            if (this.query.length > 2 || this.query.length == 0) {
+                return this.process(this.source);
+            } else {
+                return null;
+            }
         }
 
         , process: function (items) {

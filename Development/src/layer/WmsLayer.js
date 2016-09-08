@@ -55,6 +55,8 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "WmsLayer", "constructor", "No configuration specified."));
             }
 
+            this.layerType = "WMS";
+
             var cachePath = config.service + config.layerNames + config.styleNames;
             if (timeString) {
                 cachePath = cachePath + timeString;

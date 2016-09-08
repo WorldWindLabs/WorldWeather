@@ -648,7 +648,12 @@ LayerManager.prototype.synchronizeLayerList = function () {
             }
         }
         else {
-            // TODO
+            duplicatelayerListItemText.forEach(function(element, index, array) {
+                if (right_count[index] == 0)
+                    element.html('<p style="color: white">No layers have been selected for this globe.</p>');
+                else
+                    element.html('');
+            });
         }
     }
 
