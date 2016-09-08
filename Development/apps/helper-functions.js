@@ -539,13 +539,11 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 }
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
-                                        
-
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
                                         var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
                                         var start_datetime = config.timeSequences[0];
 
-                                        if (isNaN(start_datetime.getTime())) {
+                                        if (!start_datetime || (typeof start_datetime.getTime === "function" && isNaN(start_datetime.getTime()))) {
                                             start_datetime = config.timeSequences[1];
                                         }
 
@@ -553,7 +551,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                         if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
                                         if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
-                                        if (isNaN(start_datetime.getTime())) {
+                                        if (!start_datetime || (typeof start_datetime.getTime === "function" && isNaN(start_datetime.getTime()))) {
                                             layer = new WorldWind.WmsLayer(config);
                                         } else {
                                             var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
