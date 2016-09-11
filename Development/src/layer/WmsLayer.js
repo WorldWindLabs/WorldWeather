@@ -69,6 +69,8 @@ define([
             this.pickEnabled = false;
 
             this.shortDisplayName = this.displayName;
+
+            /*
             if (this.shortDisplayName.indexOf('(') > -1)
             {
                 this.shortDisplayName = this.shortDisplayName.split('(')[0];
@@ -77,6 +79,7 @@ define([
             {
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
+            */
 
             this.sourceLayersOptions = null;
 

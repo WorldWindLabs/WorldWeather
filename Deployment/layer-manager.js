@@ -251,7 +251,11 @@ LayerManager.prototype.onDataLayerClick = function (event, jquery_layer_options,
                 var datetime_selector = $("#datetime_slider_" + layer.uniqueID);
 
                 if (datetime_selector.length > 0) {
-                    var time_arrays = layer.timeSequence.produceArrayOfTimes();
+                    var time_arrays;
+                    if (!(layer.timeSequence.arrayOfTimes && layer.timeSequence.arrayOfTimes.length > 0))
+                        time_arrays = layer.timeSequence.produceArrayOfTimes();
+                    else
+                        time_arrays = layer.timeSequence.arrayOfTimes;
 
                     datetime_selector.slider({
                         value: time_arrays.length - 1,

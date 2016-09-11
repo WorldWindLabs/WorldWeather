@@ -539,6 +539,7 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                 }
                                 else if (config.timeSequences[config.timeSequences.length - 1] instanceof Date) {
                                     if (config.timeSequences.length > 2) {
+
                                         var end_datetime = config.timeSequences[config.timeSequences.length - 1];
                                         var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
                                         var start_datetime = config.timeSequences[0];
@@ -556,12 +557,21 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                         } else {
                                             var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
                                             var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
+
                                             timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                            timeSequence.arrayOfTimes = config.timeSequences;
+                                            while (!(typeof timeSequence.arrayOfTimes[0].getTime === "function") || isNaN(timeSequence.arrayOfTimes[0].getTime()))
+                                            {
+                                                timeSequence.arrayOfTimes.splice(0,1);
+                                            }
+
                                             config.levelZeroDelta = new WorldWind.Location(180, 180);
+
                                             layer = new WorldWind.WmsTimeDimensionedLayer(config);
                                             layer.timeSequence = timeSequence;
                                             layer.time = timeSequence.endTime;
                                         }
+
                                     }
                                     else {
                                         layer = new WorldWind.WmsLayer(config);
@@ -702,17 +712,29 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                             var penultimate_datetime = config.timeSequences[config.timeSequences.length - 2];
                                             var start_datetime = config.timeSequences[0];
 
+                                            if (!start_datetime || (typeof start_datetime.getTime === "function" && isNaN(start_datetime.getTime()))) {
+                                                start_datetime = config.timeSequences[1];
+                                            }
+
                                             if (!(end_datetime instanceof Date)) end_datetime = end_datetime.endTime;
                                             if (!(penultimate_datetime instanceof Date)) penultimate_datetime = penultimate_datetime.endTime;
                                             if (!(start_datetime instanceof Date)) start_datetime = start_datetime.startTime;
 
-                                            if (isNaN(start_datetime.getTime())) {
+                                            if (!start_datetime || (typeof start_datetime.getTime === "function" && isNaN(start_datetime.getTime()))) {
                                                 layer = new WorldWind.WmsLayer(config);
                                             } else {
                                                 var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
                                                 var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
+
                                                 timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                                timeSequence.arrayOfTimes = config.timeSequences;
+                                                while (!(typeof timeSequence.arrayOfTimes[0].getTime === "function") || isNaN(timeSequence.arrayOfTimes[0].getTime()))
+                                                {
+                                                    timeSequence.arrayOfTimes.splice(0,1);
+                                                }
+
                                                 config.levelZeroDelta = new WorldWind.Location(180, 180);
+
                                                 layer = new WorldWind.WmsTimeDimensionedLayer(config);
                                                 layer.timeSequence = timeSequence;
                                                 layer.time = timeSequence.endTime;
