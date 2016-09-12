@@ -1,0 +1,122 @@
+@keyframes move-twink-back {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -10000px 5000px;
+    }
+}
+
+@-webkit-keyframes move-twink-back {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -10000px 5000px;
+    }
+}
+
+@-moz-keyframes move-twink-back {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -10000px 5000px;
+    }
+}
+
+@-ms-keyframes move-twink-back {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -10000px 5000px;
+    }
+}
+
+.stars, .twinkling, .clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+}
+
+.stars {
+    background: #000 url(four-globes/stars.png) repeat top center;
+    z-index: 0;
+}
+
+.twinkling {
+    background: transparent url(four-globes/twinkling.png) repeat top center;
+    z-index: 1;
+
+    -moz-animation: move-twink-back 200s linear infinite;
+    -ms-animation: move-twink-back 200s linear infinite;
+    -o-animation: move-twink-back 200s linear infinite;
+    -webkit-animation: move-twink-back 200s linear infinite;
+    animation: move-twink-back 200s linear infinite;
+}
+
+.tabcontent {
+    z-index: 999
+}
+
+.explorer_combobox {
+    width: 100%;
+    height: 30px;
+}
+
+hr {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+h5 {
+    line-height: 12px;
+    font-size: 15px !important;
+}
+
+.ui-slider {
+    margin-top: 2px !important;
+}
+
+.message-body {
+    line-height: 100%;
+}
+
+.data_sources_page {
+    color: white !important;
+    font-size: 12px !important;
+}
+
+.play-buttons {
+    font-size: 20px !important;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.layer-tag {
+    margin-bottom: 6px !important;
+    margin-right: 4px !important;
+    font-size: 10px !important;
+}
+
+.search-icon-modifier
+{
+    position: fixed;
+    font-size: 30px;
+    color: white;
+    margin-left: 6px;
+}
+
+.global-combobox-modifier
+{
+    width: 80%;
+    height: 30px;
+    margin-left: 48px;
+}

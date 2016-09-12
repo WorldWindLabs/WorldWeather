@@ -55,6 +55,7 @@ define([
             this.sourceLayersOptions = null;
 
             this.shortDisplayName = this.displayName;
+            /*
             if (this.shortDisplayName.indexOf('(') > -1)
             {
                 this.shortDisplayName = this.shortDisplayName.split('(')[0];
@@ -63,6 +64,7 @@ define([
             {
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
+            */
 
             this.layerAbstract = config.layerAbstract;
 

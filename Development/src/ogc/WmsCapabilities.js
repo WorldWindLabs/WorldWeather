@@ -40,8 +40,13 @@ define([
         WmsCapabilities.prototype.assembleDocument = function (dom) {
             var root = dom.documentElement;
 
-            this.version = root.getAttribute("version");
-            this.updateSequence = root.getAttribute("updateSequence");
+            try {
+                this.version = root.getAttribute("version");
+                this.updateSequence = root.getAttribute("updateSequence");
+            } catch (error) {
+                console.log(error);
+                console.log(root);
+            }
 
             var children = root.children || root.childNodes;
             for (var c = 0; c < children.length; c++) {
@@ -87,6 +92,11 @@ define([
                 } else if (child.localName === "ContactInformation") {
                     service.contactInformation = this.assembleContactInformation(child);
                 }
+            }
+
+            if (!service.name || service.name == "" || service.title != "")
+            {
+                service.name = service.title;
             }
 
             return service;

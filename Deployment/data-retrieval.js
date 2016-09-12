@@ -12,7 +12,7 @@ function retrieval_of_data() {
     $('#global_layers_options').find("select").on("change", function (e) {
         var layerName = $('#global_layers_options').find("input")[0].defaultValue;
         if (layerName && layerName != "") {
-            layerManager.onDataLayerClick(null, null, layerName);
+            document.layerManager.onDataLayerClick(null, null, layerName);
         }
     });
 
@@ -24,6 +24,8 @@ function retrieval_of_data() {
 // WMS Servers
     var noaa_url = 'http://oos.soest.hawaii.edu/thredds/wms/hioos/model/atm/ncep_global/NCEP_Global_Atmospheric_Model_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities';
     var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
+
+    var nasa_gmao_url = 'http://wms.gsfc.nasa.gov/cgi-bin/wms.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
 
     var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
@@ -102,5 +104,7 @@ function retrieval_of_data() {
     getMultipleWmsTimeSeries(usgs_urls, "usgs_combobox", "usgs_layers_options", "_");
 
     getWmsTimeSeriesForCombobox(climate_research_url, "climate_research_combobox", "climate_research_layers_options", "_");
+
+    getWmsTimeSeriesForCombobox(nasa_gmao_url, "nasa_gmao_combobox", "nasa_gmao_layers_options", "_");
 
 }

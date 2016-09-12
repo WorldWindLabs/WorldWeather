@@ -30,54 +30,18 @@ define([
          */
         var PeriodicTimeSequence = function (sequenceString) {
             if (!sequenceString) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "PeriodicTimeSequence", "constructor", "missingString"));
+                // do nothing
             }
-
-            var intervalParts = sequenceString.split("/");
-            if (intervalParts.length !== 3) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "PeriodicTimeSequence", "constructor",
-                        "The interval string " + sequenceString + " does not contain 3 elements."));
+            else {
+                var intervalParts = sequenceString.split("/");
+                this.sequenceString = sequenceString;
+                this.startTime = new Date(intervalParts[0]);
+                this.endTime = new Date(intervalParts[1]);
+                this.intervalMilliseconds = this.endTime.getTime() - this.startTime.getTime();
+                this._currentTime = this.startTime;
+                this.infiniteInterval = this.startTime.getTime() == this.endTime.getTime();
+                this.period = PeriodicTimeSequence.parsePeriodString(intervalParts[2], false);
             }
-
-            /**
-             * This sequence's sequence string, as specified to the constructor.
-             * @type {String}
-             * @readonly
-             */
-            this.sequenceString = sequenceString;
-
-            /**
-             * This sequence's start time.
-             * @type {Date}
-             * @readonly
-             */
-            this.startTime = new Date(intervalParts[0]);
-
-            /**
-             * This sequence's end time.
-             * @type {Date}
-             * @readonly
-             */
-            this.endTime = new Date(intervalParts[1]);
-
-            // Intentionally not documented.
-            this.intervalMilliseconds = this.endTime.getTime() - this.startTime.getTime();
-
-            // Documented with property accessor below.
-            this._currentTime = this.startTime;
-
-            /**
-             * Indicates whether this sequence is an infinite sequence -- the start and end dates are the same.
-             * @type {Boolean}
-             * @readonly
-             */
-            this.infiniteInterval = this.startTime.getTime() == this.endTime.getTime();
-
-            // Intentionally not documented. The array of sequence increments:
-            // year, month, week, day, hours, minutes, seconds
-            this.period = PeriodicTimeSequence.parsePeriodString(intervalParts[2], false);
         };
 
         Object.defineProperties(PeriodicTimeSequence.prototype, {
@@ -151,16 +115,23 @@ define([
         };
 
         PeriodicTimeSequence.prototype.produceArrayOfTimes = function () {
-            var returnedArray = [];
-            var time = this.startTime;
-            while (time <= this.endTime)
+            if (this.arrayOfTimes && this.arrayOfTimes.length > 0)
             {
-                returnedArray.push(time);
-                time = PeriodicTimeSequence.incrementTime(time, this.period);
+                this.arrayOfTimesIndex = this.arrayOfTimes.length - 1;
+                return this.arrayOfTimes;
             }
-            this.arrayOfTimes = returnedArray;
-            this.arrayOfTimesIndex = returnedArray.length - 1;
-            return returnedArray;
+            else {
+                var returnedArray = [];
+                var time = this.startTime;
+                while (time <= this.endTime)
+                {
+                    returnedArray.push(time);
+                    time = PeriodicTimeSequence.incrementTime(time, this.period);
+                }
+                this.arrayOfTimes = returnedArray;
+                this.arrayOfTimesIndex = returnedArray.length - 1;
+                return returnedArray;
+            }
         };
 
         /**

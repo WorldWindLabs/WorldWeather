@@ -556,14 +556,18 @@ function getWmsTimeSeriesForCombobox(data_url, jquery_combobox, jquery_layer_opt
                                             layer = new WorldWind.WmsLayer(config);
                                         } else {
                                             var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
-                                            var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
 
-                                            timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                            timeSequence = new WorldWind.PeriodicTimeSequence();
                                             timeSequence.arrayOfTimes = config.timeSequences;
                                             while (!(typeof timeSequence.arrayOfTimes[0].getTime === "function") || isNaN(timeSequence.arrayOfTimes[0].getTime()))
                                             {
                                                 timeSequence.arrayOfTimes.splice(0,1);
                                             }
+
+                                            timeSequence.period = [0, 0, 0, 0, 0, period, 0];
+                                            timeSequence.startTime = timeSequence.arrayOfTimes[0];
+                                            timeSequence.endTime = timeSequence.arrayOfTimes[timeSequence.arrayOfTimes.length - 1];
+
 
                                             config.levelZeroDelta = new WorldWind.Location(180, 180);
 
@@ -724,14 +728,18 @@ function getMultipleWmsTimeSeries(multiple_data_urls, jquery_combobox, jquery_la
                                                 layer = new WorldWind.WmsLayer(config);
                                             } else {
                                                 var period = parseInt(Math.round((end_datetime.getTime() - penultimate_datetime.getTime()) / (1000 * 60)));
-                                                var sequence_string = start_datetime.toISOString() + "/" + end_datetime.toISOString() + "/" + "PT" + period + "M";
 
-                                                timeSequence = new WorldWind.PeriodicTimeSequence(sequence_string);
+                                                timeSequence = new WorldWind.PeriodicTimeSequence();
                                                 timeSequence.arrayOfTimes = config.timeSequences;
                                                 while (!(typeof timeSequence.arrayOfTimes[0].getTime === "function") || isNaN(timeSequence.arrayOfTimes[0].getTime()))
                                                 {
                                                     timeSequence.arrayOfTimes.splice(0,1);
                                                 }
+
+                                                timeSequence.period = [0, 0, 0, 0, 0, period, 0];
+                                                timeSequence.startTime = timeSequence.arrayOfTimes[0];
+                                                timeSequence.endTime = timeSequence.arrayOfTimes[timeSequence.arrayOfTimes.length - 1];
+
 
                                                 config.levelZeroDelta = new WorldWind.Location(180, 180);
 
