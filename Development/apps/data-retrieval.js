@@ -27,7 +27,7 @@ function retrieval_of_data() {
 
     var nasa_gmao_url = 'http://wms.gsfc.nasa.gov/cgi-bin/wms.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
 
-    var ecmwf_url = 'http://apps.ecmwf.int/wms/?token=MetOceanIE';
+    var ecmwf_url = 'https://apps.ecmwf.int/wms/?token=public';
     var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
     var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
     var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';

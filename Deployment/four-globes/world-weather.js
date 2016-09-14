@@ -193,19 +193,6 @@ $(document).ready(function () {
     }
     // end of digital elevation model from wms server code
 
-    document.comboboxes = [];
-
-    $('.global_combobox').combobox();
-    document.global_combobox_selector = document.comboboxes[0];
-
-    $('#global_layers_options').find("select").on("change", function (e) {
-        var layerName = $('#global_layers_options').find("input")[0].defaultValue;
-        if (layerName && layerName != "")
-        {
-            layerManager.onDataLayerClick(null,null,layerName);
-        }
-    });
-
     retrieval_of_data();
 
     setTimeout(function () {
