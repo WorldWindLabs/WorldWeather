@@ -55,6 +55,8 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "WmsLayer", "constructor", "No configuration specified."));
             }
 
+            this.layerType = "WMS";
+
             var cachePath = config.service + config.layerNames + config.styleNames;
             if (timeString) {
                 cachePath = cachePath + timeString;
@@ -67,6 +69,8 @@ define([
             this.pickEnabled = false;
 
             this.shortDisplayName = this.displayName;
+
+            /*
             if (this.shortDisplayName.indexOf('(') > -1)
             {
                 this.shortDisplayName = this.shortDisplayName.split('(')[0];
@@ -75,6 +79,7 @@ define([
             {
                 this.shortDisplayName = this.shortDisplayName.split('-')[1];
             }
+            */
 
             this.sourceLayersOptions = null;
 
@@ -167,7 +172,7 @@ define([
             config.size = 256;
 
             // Assign layer name.
-            config.layerNames = wmsLayerCapabilities.name;
+            config.layerNames = wmsLayerCapabilities.name || wmsLayerCapabilities.title;
 
             // Determine image format
             var getMapInfo = wmsLayerCapabilities.capability.request.getMap,
@@ -227,7 +232,11 @@ define([
                                 splitDimension = individualDimension.split("/");
 
                             if (splitDimension.length === 1) {
-                                parsedDimensions.push(new Date(individualDimension));
+                                var newDate = new Date(individualDimension.trim());
+                                if ((typeof newDate.getTime === "function") && !isNaN(newDate.getTime())) {
+                                    parsedDimensions.push(newDate);
+                                }
+
                             } else if (splitDimension.length === 3) {
                                 parsedDimensions.push(new PeriodicTimeSequence(individualDimension));
                             }
