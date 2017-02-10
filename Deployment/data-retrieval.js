@@ -68,23 +68,11 @@ function retrieval_of_data() {
 // getting DLR (WMTS) geoservice WMTS server
     getWmtsDataForCombobox(dlr_wmts_url, "dlr_wmts_combobox", "dlr_wmts_layers_options", date_stamp);
 
-// getting data from Geomet WMS Server
-    getWmsTimeSeriesForCombobox(geomet_url, "geomet_combobox", "geomet_layers_options", "GDPS.", "GDPS");
-
-// getting NOAA GFS data from University of Hawaii WMS Server
-    getWmsTimeSeriesForCombobox(noaa_url, "noaa_combobox", "noaa_layers_options", "_");
-
 // getting data from ECMWF WMS server
     getWmsTimeSeriesForCombobox(ecmwf_url, "ecmwf_combobox", "ecmwf_layers_options");
 
 // getting NASA Earth Oberservatory data (NEO) WMS Server
     getWmsTimeSeriesForCombobox(neo_url, "neo_combobox", "neo_layers_options");
-
-// getting US Navy WMS Server
-    getWmsTimeSeriesForCombobox(us_navy_url, "navy_combobox", "navy_layers_options", "_");
-
-// getting EUMETSAT data from WMS server
-    getWmsTimeSeriesForCombobox(eumetsat_url, "eumetsat_combobox", "eumetsat_layers_options");
 
 // getting a bunch of DLR WMS servers all at once
     getMultipleWmsTimeSeries(dlr_urls, "dlr_combobox", "dlr_layers_options", "_");
@@ -92,13 +80,8 @@ function retrieval_of_data() {
 // getting a bunch of WMS servers from US NWS all at once
     getMultipleWmsTimeSeries(us_nws_urls, "us_nws_combobox", "us_nws_layers_options", "_");
 
-// getting ==
+// getting GOES wms time series
     getMultipleWmsTimeSeries(goes_urls, "goes_combobox", "goes_layers_options", "_");
 
-    getMultipleWmsTimeSeries(usgs_urls, "usgs_combobox", "usgs_layers_options", "_");
-
-    getWmsTimeSeriesForCombobox(climate_research_url, "climate_research_combobox", "climate_research_layers_options", "_");
-
-    getWmsTimeSeriesForCombobox(nasa_gmao_url, "nasa_gmao_combobox", "nasa_gmao_layers_options", "_");
 
 }
