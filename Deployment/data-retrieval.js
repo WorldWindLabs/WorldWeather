@@ -18,24 +18,24 @@ function retrieval_of_data() {
 
 // WMTS Servers
     var gibs_url = 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/wmts.cgi?SERVICE=WorldWeather&request=GetCapabilities';
-    var esa_url = 'http://services.sentinel-hub.com/v1/wmts/56748ba2-4a88-4854-beea-86f9afc63e35?REQUEST=GetCapabilities&SERVICE=WorldWeather';
+    var esa_url = 'https://services.sentinel-hub.com/v1/wmts/56748ba2-4a88-4854-beea-86f9afc63e35?REQUEST=GetCapabilities&SERVICE=WorldWeather';
     var dlr_wmts_url = 'https://tiles.geoservice.dlr.de/service/wmts?SERVICE=WMTS&REQUEST=GetCapabilities';
 
 // WMS Servers
-    var noaa_url = 'http://oos.soest.hawaii.edu/thredds/wms/hioos/model/atm/ncep_global/NCEP_Global_Atmospheric_Model_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities';
-    var geomet_url = 'http://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
+    var noaa_url = 'https://oos.soest.hawaii.edu/thredds/wms/hioos/model/atm/ncep_global/NCEP_Global_Atmospheric_Model_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities';
+    var geomet_url = 'https://geo.weather.gc.ca/geomet/?lang=E&service=WMS&request=GetCapabilities';
 
-    var nasa_gmao_url = 'http://wms.gsfc.nasa.gov/cgi-bin/wms.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
+    var nasa_gmao_url = 'https://wms.gsfc.nasa.gov/cgi-bin/wms.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities';
 
     var ecmwf_url = 'https://apps.ecmwf.int/wms/?token=public';
-    var us_navy_url = 'http://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
-    var neo_url = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-    var eumetsat_url = 'http://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
+    var us_navy_url = 'https://geoint.nrlssc.navy.mil/nrltileserver/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS';
+    var neo_url = 'https://neowms.sci.gsfc.nasa.gov/wms/wms';
+    var eumetsat_url = 'https://185.104.180.39/eumetsat?service=wms&version=1.3.0&request=GetCapabilities';
 
-    var usgs_urls = ['http://isse.cr.usgs.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_1Foot/ImageServer/WMSServer?request=GetCapabilities&service=WMS',
-        'http://isse.cr.usgs.gov/arcgis/services/Scanned_Maps/USGS_EROS_DRG_SCALE/ImageServer/WMSServer?request=GetCapabilities&service=WMS'];
+    var usgs_urls = ['https://isse.cr.usgs.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_1Foot/ImageServer/WMSServer?request=GetCapabilities&service=WMS',
+        'https://isse.cr.usgs.gov/arcgis/services/Scanned_Maps/USGS_EROS_DRG_SCALE/ImageServer/WMSServer?request=GetCapabilities&service=WMS'];
 
-    var climate_research_url = 'http://regclim.coas.oregonstate.edu:8080/thredds/wms/regcmdata/EH5/merged/Decadal/RegCM3_Decadal_merged_EH5.ncml?service=WMS&version=1.3.0&request=GetCapabilities';
+    var climate_research_url = 'https://regclim.coas.oregonstate.edu:8080/thredds/wms/regcmdata/EH5/merged/Decadal/RegCM3_Decadal_merged_EH5.ncml?service=WMS&version=1.3.0&request=GetCapabilities';
 
     var dlr_urls = ['https://geoservice.dlr.de/eoc/atmosphere/wms?SERVICE=WMS&REQUEST=GetCapabilities',
         'https://geoservice.dlr.de/eoc/elevation/wms?SERVICE=WMS&REQUEST=GetCapabilities', 'https://geoservice.dlr.de/eoc/basemap/wms?SERVICE=WMS&REQUEST=GetCapabilities',
@@ -58,12 +58,6 @@ function retrieval_of_data() {
         'https://mesonet.agron.iastate.edu/cgi-bin/wms/goes/west_vis.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
         'https://mesonet.agron.iastate.edu/cgi-bin/wms/goes/east_wv.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities',
         'https://mesonet.agron.iastate.edu/cgi-bin/wms/goes/west_wv.cgi?VER=1.1.1&SERVICE=WMS&REQUEST=GetCapabilities'];
-
-// KML files locally saved
-    var maine_url = 'university-of-maine-new.kml';
-
-// getting data within kml file from CCI -- university of maine
-    getKmlDataForCombobox(maine_url, "cci_combobox", "cci_layers_options");
 
 // getting GIBS data from NASA WMTS server
     getWmtsDataForCombobox(gibs_url, "gibs_combobox", "layers_options", date_stamp);
