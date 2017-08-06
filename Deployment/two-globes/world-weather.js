@@ -154,9 +154,5 @@ $(document).ready(function () {
     // end of digital elevation model from wms server code
 
     retrieval_of_data();
-
-    setTimeout(function () {
-        $("#loading_modal").fadeOut();
-    }, 2000);
 });
 
