@@ -113,7 +113,7 @@ $(document).ready(function () {
     var digital_elevation_model_capabilities;
 
     // Single layer from NOAA to become a base layer
-    var dem_url = 'http://gis.ngdc.noaa.gov/arcgis/services/dem_hillshades/ImageServer/WMSServer?request=GetCapabilities&service=WMS';
+    var dem_url = 'https://gis.ngdc.noaa.gov/arcgis/services/dem_hillshades/ImageServer/WMSServer?request=GetCapabilities&service=WMS';
 
 
     // Implementing the perfect scrollbar
@@ -188,8 +188,4 @@ $(document).ready(function () {
     // end of digital elevation model from wms server code
 
     retrieval_of_data();
-
-    setTimeout(function () {
-        $("#loading_modal").fadeOut();
-    }, 2000);
 });
