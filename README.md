@@ -1,11 +1,18 @@
 # NASA World Weather
-### World Weather is the largest three-dimensional web-based interactive browser of satellite, weather, climate, and other publicly available time-aware geospatial data, built upon NASA's revolutionary World Wind technology.
+### World Weather is the largest three-dimensional web-based interactive browser of satellite, weather, climate, and other publicly available time-aware geospatial data, built upon NASA's revolutionary World Wind technology. The application can be accessed [by clicking here](http://worldwind.arc.nasa.gov/worldweather/).
 
 ## Video Tutorial
+
 
 <a href="https://www.youtube.com/watch?v=WMYI1UcgFr4">
 <img src="http://i.imgur.com/GTxfgk7.png" />
 </a>
+
+
+
+_The user may also want to check out the <a href="https://www.youtube.com/watch?v=WMYI1UcgFr4">World Weather Tutorial Video</a> before using the application. In this approximately 3 minute video, we walk through the application and demonstrate an example use._
+
+
 
 ## Introduction
 
