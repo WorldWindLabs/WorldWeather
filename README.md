@@ -9,7 +9,8 @@
 </a>
 
 
-The user may also want to check out the <a href="https://www.youtube.com/watch?v=WMYI1UcgFr4">World Weather Tutorial Video</a> before using the application. In this approximately 3 minute video, we walk through the application and demonstrate an example use.
+
+_The user may also want to check out the <a href="https://www.youtube.com/watch?v=WMYI1UcgFr4">World Weather Tutorial Video</a> before using the application. In this approximately 3 minute video, we walk through the application and demonstrate an example use._
 
 
 
