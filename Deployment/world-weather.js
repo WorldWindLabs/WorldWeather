@@ -166,9 +166,16 @@ $(document).ready(function () {
             function (dem_response) {
                 digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
             }).done(function () {
-            var digital_elevation_layer =
-                new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
-            digital_elevation_layer.displayName = "Digital Elevation Model";
+
+            try {
+                var digital_elevation_layer =
+                    new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
+                digital_elevation_layer.displayName = "Digital Elevation Model";
+            } catch (error) {
+                console.log("Digital elevation layer failed to load from target server.");
+                var digital_elevation_layer = null;
+            }
+
             document.viewControlsLayer = new WorldWind.ViewControlsLayer(wwd);
             document.viewControlsLayer.alignment = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
             document.viewControlsLayer.placement = new WorldWind.Offset(WorldWind.OFFSET_FRACTION, 0.02, WorldWind.OFFSET_FRACTION, 0);
