@@ -191,10 +191,14 @@ $(document).ready(function () {
             );
 
             for (var l = 0; l < layers.length; l++) {
-                layers[l].layer.enabled = layers[l].enabled;
-                if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
-                layers[l].layer.isBaseLayer = true;
-                wwd.addLayer(layers[l].layer);
+                try {
+                    layers[l].layer.enabled = layers[l].enabled;
+                    if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
+                    layers[l].layer.isBaseLayer = true;
+                    wwd.addLayer(layers[l].layer);
+                } catch (error) {
+                    console.log("Failed to display a certain layer.");
+                }
             }
 
             // The code below creates the AtmosphereLayer
