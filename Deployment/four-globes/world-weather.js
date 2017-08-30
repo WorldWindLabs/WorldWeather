@@ -137,8 +137,14 @@ $(document).ready(function () {
             function (dem_response) {
                 digital_elevation_model_capabilities = new WorldWind.WmsCapabilities(dem_response);
             }).done(function () {
-            var digital_elevation_layer = new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
-            digital_elevation_layer.displayName = "Digital Elevation Model";
+            try {
+                var digital_elevation_layer =
+                    new WorldWind.WmsLayer(WorldWind.WmsLayer.formLayerConfiguration(digital_elevation_model_capabilities.capability.layers[0]));
+                digital_elevation_layer.displayName = "Digital Elevation Model";
+            } catch (error) {
+                console.log("Digital elevation layer failed to load from target server.");
+                var digital_elevation_layer = null;
+            }
 
             var layers = [];
             layers.push(
@@ -148,19 +154,23 @@ $(document).ready(function () {
             );
 
             for (var l = 0; l < layers.length; l++) {
-                layers[l].layer.enabled = layers[l].enabled;
-                if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
-                layers[l].layer.isBaseLayer = true;
-                wwd.addLayer(layers[l].layer);
-                if (document.wwd_duplicate) {
-                    if (!(document.wwd_duplicate instanceof Array)) {
-                        document.wwd_duplicate.addLayer(layers[l].layer);
+                try {
+                    layers[l].layer.enabled = layers[l].enabled;
+                    if ('layerSelected' in layers[l]) layers[l].layer.layerSelected = layers[l].layerSelected;
+                    layers[l].layer.isBaseLayer = true;
+                    wwd.addLayer(layers[l].layer);
+                    if (document.wwd_duplicate) {
+                        if (!(document.wwd_duplicate instanceof Array)) {
+                            document.wwd_duplicate.addLayer(layers[l].layer);
+                        }
+                        else {
+                            document.wwd_duplicate.forEach(function(element, index, array){
+                                element.addLayer(layers[l].layer);
+                            });
+                        }
                     }
-                    else {
-                        document.wwd_duplicate.forEach(function(element, index, array){
-                            element.addLayer(layers[l].layer);
-                        });
-                    }
+                } catch (error) {
+
                 }
             }
 
